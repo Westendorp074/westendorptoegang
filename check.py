@@ -14,7 +14,8 @@ DIST = ROOT / "dist"
 WIP = "--wip" in sys.argv
 WHITELIST = ("https://www.googletagmanager.com/", "https://api.web3forms.com/", "https://bat.bing.com/")
 VERBODEN = ["dé specialist", "totaaloplossing", "ontzorgen", "state-of-the-art", "innovatief", "toekomstbestendig",
-            "naadloos", "uw partner in", "passie", "kwaliteit staat voorop", "wij zijn trots", "cutting-edge", "maatwerk", "24/7"]
+            "naadloos", "uw partner in", "passie", "kwaliteit staat voorop", "wij zijn trots", "cutting-edge", "maatwerk", "24/7",
+            "slotenmaker"]   # chat 20-09-2026: dat woord hoort bij de hoofdsite, niet bij deze
 MAX_HTML = 150 * 1024
 MAX_CSS, MAX_JS = 40 * 1024, 15 * 1024
 

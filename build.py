@@ -25,7 +25,9 @@ VESTIGINGSNR  = INV("12-cijferig vestigingsnummer")                 # INPUT §A1
 BTW           = ""                                                  # INPUT §A1 optioneel; leeg = niet tonen
 MOEDER        = "Westendorp Slotenspecialist"                       # merkouder
 MOEDER_URL    = "https://www.westendorpslotenspecialist.nl/"
-MOEDER_SINDS  = INV("jaartal slotenmaker, 1995 of 1985")            # INPUT §C3 (aanname 1995; Almelo-CONFIG zegt 1985 voor het bedrijf)
+MOEDER_SINDS  = INV("jaartal start Westendorp, 1995 of 1985")       # INPUT §C3 (aanname 1995; Almelo-CONFIG zegt 1985 voor het bedrijf)
+# Lars, chat 20-09-2026: het woord "slotenmaker" komt op deze site niet voor (check.py bewaakt dat); hoofdmerk is EVVA,
+# Salto plaatsen wij niet, maar onderhouden en breiden wij wel uit; klanten komen niet langs, wij komen op locatie.
 
 STRAAT        = INV("straat en huisnummer, BAG-spelling")           # INPUT §A2
 POSTCODE      = INV("postcode")                                     # INPUT §A2
@@ -35,11 +37,11 @@ LAT, LON      = None, None                                          # INPUT §A2
 TEL_TONEN     = INV("telefoonnummer B2B, 0xx-xxxxxxx")              # INPUT §A2
 TEL_LINK      = INV("telefoon in +31-notatie")                      # afgeleid van TEL_TONEN zodra bekend
 MAIL          = "info@westendorptoegang.nl"                         # INPUT §A2 (aanname)
-OPENING_TEKST = "maandag tot en met vrijdag 08:00–17:00, bezoek op afspraak " + INV("openingstijden bevestigen of corrigeren")
+OPENING_TEKST = "maandag tot en met vrijdag 08:00–17:00 " + INV("openingstijden bevestigen of corrigeren")
 OPENING_SCHEMA = [("Monday", "08:00", "17:00"), ("Tuesday", "08:00", "17:00"), ("Wednesday", "08:00", "17:00"),
                   ("Thursday", "08:00", "17:00"), ("Friday", "08:00", "17:00")]   # aanname INPUT §A2
 STORING_BUITEN_KANTOORTIJD = INV("storingen buiten kantoortijd: alleen met servicecontract / altijd / niet")
-BEZOEKADRES   = INV("bezoekadres: showroom met demo-deuren / alleen kantoor en werkplaats")
+BEZOEKADRES   = False                                               # chat 20-09-2026: geen bezoekadres, wij komen op locatie
 
 GOOGLE_PROFIEL = INV("Google Maps-URL Bedrijfsprofiel")              # INPUT §A3
 LINKEDIN       = INV("LinkedIn-URL")                                 # INPUT §A3
@@ -73,7 +75,7 @@ WERKGEBIED_REGEL = "tot 60 minuten rijden vanaf Enschede"
 
 # Merken (INPUT §B4)
 MERKEN = {
-    "salto": {"naam": "Salto", "lijnen": INV("Salto-lijnen, bijv. Space, KS, Homelok, XS4"), "partner": INV("Salto-partnerstatus, exacte benaming"), "logo_ok": INV("Salto-logo mag: ja/nee")},
+    "salto": {"naam": "Salto", "lijnen": "", "partner": "", "logo_ok": ""},   # chat 20-09-2026: niet plaatsen, wel onderhoud en uitbreiding van bestaande Salto-systemen
     "xesar": {"naam": "EVVA Xesar", "lijnen": INV("Xesar-lijnen: cilinders, beslag, wandlezers, versie"), "partner": INV("EVVA-partnerstatus, exacte benaming"), "logo_ok": INV("EVVA-logo mag: ja/nee")},
     "emzy":  {"naam": "EVVA EMZY", "lijnen": "motorcilinder", "partner": INV("EVVA-partnerstatus, exacte benaming"), "logo_ok": INV("EVVA-logo mag: ja/nee")},
     "mechanisch": {"naam": INV("merk en systeem mechanisch sluitsysteem, bijv. EVVA 4KS/ICS"), "lijnen": "", "partner": "", "logo_ok": ""},
@@ -82,7 +84,7 @@ AIRKEY = INV("EVVA AirKey: ja/nee")
 
 # Richtprijzen (INPUT §B5), excl. btw. Zonder ingevulde waarden gaat /kosten/ niet live.
 PRIJZEN = {
-    "beslag_salto":   (INV("vanaf"), INV("tot"), INV("wat zit erin")),
+    "beslag":         (INV("vanaf"), INV("tot"), INV("wat zit erin")),   # elektronisch beslag per deur, geplaatst
     "cilinder_xesar": (INV("vanaf"), INV("tot"), INV("wat zit erin")),
     "emzy":           (INV("vanaf"), INV("tot"), INV("wat zit erin")),
     "wandlezer":      (INV("vanaf"), INV("tot"), INV("wat zit erin")),
@@ -280,7 +282,7 @@ def bedrijf_ld():
         "areaServed": [{"@type": "City", "name": naam} for naam, _, _, _ in WERKGEBIED],
         "identifier": [{"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}],
         "parentOrganization": {"@type": "Organization", "@id": MOEDER_URL + "#organisatie", "name": MOEDER, "url": MOEDER_URL},
-        "knowsAbout": ["Toegangscontrole", "Salto", "EVVA Xesar", "Motorcilinders", "Sluitplannen", "Elektronische sloten"],
+        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "Salto onderhoud"],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Diensten", "itemListElement": [
             {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": SITE + u}} for n, u in DIENSTEN_NAV]},
     }
@@ -319,10 +321,10 @@ def ld_script(graph):
 # Gedeelde blokken: header, footer, formulier, adviseur, consent
 # ============================================================
 DIENSTEN_NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
-                ("Salto", "/salto/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"),
-                ("Sluitplan", "/sluitplan/"), ("Service en beheer", "/service-en-beheer/")]
-NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"), ("Salto", "/salto/"),
-       ("EVVA Xesar", "/evva-xesar/"), ("Sluitplan", "/sluitplan/"), ("Kosten", "/kosten/"), ("Service", "/service-en-beheer/"),
+                ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Sluitplan", "/sluitplan/"),
+                ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/")]
+NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"), ("EVVA Xesar", "/evva-xesar/"),
+       ("Motorcilinder", "/motorcilinder/"), ("Sluitplan", "/sluitplan/"), ("Kosten", "/kosten/"), ("Service", "/service-en-beheer/"),
        ("Over ons", "/over-ons/"), ("Contact", "/contact/")]
 
 _ICOON_BEL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
@@ -353,7 +355,7 @@ def footer():
 <div class="k4"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
 </div>
 <div class="onderdeel"><p>{esc(NAAM)} is onderdeel van <a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a>, sinds {esc(MOEDER_SINDS)} in Enschede en Hengelo. {esc(RECHTSPERSOON)}, KvK {esc(KVK)}.</p>{btw}
-<p>Particulieren, autosleutels en slotenmakerwerk: daarvoor bent u bij <a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a> aan het juiste adres.</p></div>
+<p>Particulieren en autosleutels: daarvoor bent u bij <a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a> aan het juiste adres.</p></div>
 </div></footer>'''
 
 def consent_html():
@@ -402,7 +404,7 @@ def adviseurblok():
     foto = beeld(a["foto"], f"{a['naam']}, {a['functie']} bij {NAAM}", sizes="120px") if a["foto"] else ""
     feiten = [f"Reactie binnen {esc(REACTIE_AANVRAAG)}",
               "Inventarisatie op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
-              f"Slotenmaker sinds {esc(MOEDER_SINDS)}, elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}"]
+              f"Deuren, sloten en beslag sinds {esc(MOEDER_SINDS)}, elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}"]
     return f'''<div class="adviseur">{foto}<p class="naam">{esc(a["naam"])}</p><p class="functie">{esc(a["functie"].capitalize())}</p>
 <p>Direct: <a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
 <ul class="feiten">{"".join(f"<li>{f}</li>" for f in feiten)}</ul></div>'''
@@ -483,9 +485,9 @@ def assets():
         "background_color": "#111111", "theme_color": "#111111", "icons": [{"src": "/static/img/logo/icoon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
 
 def vierhonderdvier():
-    links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("Salto", "/salto/"), ("EVVA Xesar", "/evva-xesar/"), ("Contact", "/contact/")])
+    links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Contact", "/contact/")])
     body = f'<section class="hero"><div class="wrap"><div class="rooster"><div class="k8"><h1>Deze pagina bestaat niet</h1><p>Het adres klopt niet meer of is verkeerd getypt. Dit zijn de pagina\'s waar de meeste bezoekers naar zoeken.</p><ul class="lijst-links">{links}</ul>{acties()}</div></div></div></section>'
-    schrijf("/404/", "Pagina niet gevonden", "De pagina die u zocht bestaat niet op westendorptoegang.nl. Ga verder naar toegangscontrole, wat het kost, Salto, EVVA Xesar of neem contact op.", body, noindex=True, met_formulier=False)
+    schrijf("/404/", "Pagina niet gevonden", "De pagina die u zocht bestaat niet op westendorptoegang.nl. Ga verder naar toegangscontrole, wat het kost, EVVA Xesar, motorcilinders of neem contact op.", body, noindex=True, met_formulier=False)
     shutil.move(DIST / "404" / "index.html", DIST / "404.html"); (DIST / "404").rmdir()
     _PAGINAS[:] = [p for p in _PAGINAS if p[0] != "/404/"]
 
@@ -500,7 +502,7 @@ def sitemap_robots_llms():
     plaatsen = ", ".join(n for n, _, _, _ in WERKGEBIED)
     llms = f"""# {NAAM}
 
-> {NAAM} levert en installeert elektronische toegangscontrole (Salto, EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, vanuit {STRAAT}, {PLAATS}. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {MOEDER} (slotenmaker sinds {MOEDER_SINDS}, Enschede en Hengelo). Juridische entiteit: {RECHTSPERSOON}, KvK {KVK}.
+> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {MOEDER} (sinds {MOEDER_SINDS} in Enschede en Hengelo). Juridische entiteit: {RECHTSPERSOON}, KvK {KVK}.
 
 ## Pagina's
 

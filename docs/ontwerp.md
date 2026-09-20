@@ -41,7 +41,7 @@ Links uitgelijnd. Eén kolom mobiel; desktop twaalf kolommen van 1200 px, tekst 
 │ Kantoren · Zorg · Onderwijs                                     │  (geen kaarten, geen lijn ertussen)
 ├─ 1px ──────────────────────────────────────────────────────────┤
 │ H2 Wat wij plaatsen                                             │  witte sectie (--vlak-2)
-│ Salto → | EVVA Xesar → | Motorcilinder → | Sluitplan →          │  vier alinea's met tekstlink
+│ EVVA Xesar → | Motorcilinder → | Sluitplan → | Salto onderhoud →│  vier alinea's met tekstlink
 ├────────────────────────────────────────────────────────────────┤
 │ H2 Hoe het werkt                                                │
 │ 1 Inventarisatie 2 Advies en offerte 3 Installatie 4 Beheer     │  <ol>, cijfers in --primair
@@ -60,16 +60,16 @@ Links uitgelijnd. Eén kolom mobiel; desktop twaalf kolommen van 1200 px, tekst 
 └────────────────────────────────────────────────────────────────┘
 ```
 
-## Wireframe merkpagina (`/salto/`)
+## Wireframe merkpagina (`/evva-xesar/`)
 
 ```
 │ kruimelpad                                                      │
-│ H1 Salto toegangscontrole                    │ fabrikantbeeld   │
+│ H1 EVVA Xesar toegangscontrole               │ fabrikantbeeld   │
 │ answer-first alinea (≤ 60 woorden)           │ (product)        │
 │ [CTA]  Bel …                                 │                  │
 ├────────────────────────────────────────────────────────────────┤
-│ H2 Voor wie is Salto geschikt                                   │
-│ H2 Welke Salto-lijnen wij leveren            (uit INPUT §B4)    │
+│ H2 Voor wie is Xesar geschikt                                   │
+│ H2 Welke Xesar-lijnen wij leveren            (uit INPUT §B4)    │
 │ H2 Sterke en zwakke punten                   (twee lijsten)     │
 │ H2 Specificaties                                                │
 │ ┌ <table> ────────────────────────────────┐                     │
@@ -78,7 +78,7 @@ Links uitgelijnd. Eén kolom mobiel; desktop twaalf kolommen van 1200 px, tekst 
 │ │ Offline/online| …                       │                     │
 │ │ …             | …                       │                     │
 │ └─────────────────────────────────────────┘                     │
-│ H2 Wat kost een Salto-traject → /kosten/                        │
+│ H2 Wat kost een Xesar-traject → /kosten/                        │
 │ H2 Partnerstatus (uit INPUT §B4)                                │
 │ H2 Veelgestelde vragen ×5                                       │
 │ formulier + adviseur                                            │

@@ -3,15 +3,15 @@ from build import *
 
 def bouw():
     titel = "Toegangscontrole voor bedrijven in Oost-Nederland"
-    omschrijving = ("Westendorp Toegangscontrole levert en installeert Salto, EVVA Xesar en motorcilinders voor "
-                    "bedrijven en instellingen in Twente en Oost-Nederland.")
+    omschrijving = ("Westendorp Toegangscontrole levert en installeert EVVA Xesar, motorcilinders en sluitplannen voor "
+                    "bedrijven en instellingen in Twente en Oost-Nederland, op locatie.")
 
     # ---- hero ----
     foto = beeld("hero-beslag.jpg", "Elektronisch beslag op een kantoordeur, geplaatst door Westendorp Toegangscontrole",
                  onderschrift=INV("onderschrift hero-foto: wat, waar, jaar"), lazy=False)
     hero = f'''<section class="hero"><div class="wrap"><div class="rooster">
 <div class="k7"><h1>Toegangscontrole voor bedrijven in Oost-Nederland</h1>
-<p class="intro">Wij leveren en installeren elektronische toegangscontrole van Salto en EVVA, motorcilinders en sluitplannen voor kantoren, zorg en onderwijs, {esc(WERKGEBIED_REGEL)}. Deuren en sloten zijn ons vak sinds {esc(MOEDER_SINDS)}; het elektronische deel komt uit dezelfde hand.</p>
+<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, motorcilinders en sluitplannen voor bedrijven en instellingen, op locatie, {esc(WERKGEBIED_REGEL)}. Deuren, sloten en beslag zijn ons vak sinds {esc(MOEDER_SINDS)}; het elektronische deel komt uit dezelfde hand.</p>
 {acties()}</div>
 <div class="k5">{foto}</div>
 </div></div></section>'''
@@ -33,13 +33,13 @@ def bouw():
 
     # ---- wat we plaatsen ----
     producten = [
-        ("Salto", "/salto/", "Elektronisch beslag en cilinders die op bestaande deuren passen. Rechten beheert u in de software; een kwijtgeraakte pas blokkeert u zelf. " + f"Lijnen: {esc(MERKEN['salto']['lijnen'])}."),
-        ("EVVA Xesar", "/evva-xesar/", "Elektronische cilinders, beslag en wandlezers van de Oostenrijkse slotenfabrikant EVVA. Sterk op deuren waar een mechanische cilinder al zit. " + f"Lijnen: {esc(MERKEN['xesar']['lijnen'])}."),
+        ("EVVA Xesar", "/evva-xesar/", "Elektronische cilinders, beslag en wandlezers van de Oostenrijkse slotenfabrikant EVVA, ons hoofdmerk. Past op bestaande deuren; rechten beheert u in de software en een kwijtgeraakte pas blokkeert u zelf. " + f"Lijnen: {esc(MERKEN['xesar']['lijnen'])}."),
         ("Motorcilinder", "/motorcilinder/", "De EVVA EMZY draait de nachtschoot zelf: op afstand of via een lezer de deur echt op slot en weer open, ook op een buitendeur of vluchtdeur."),
         ("Sluitplan", "/sluitplan/", "Mechanisch, elektronisch of de overstap. Wie mag waar in, vastgelegd in één plan, met gecertificeerde cilinders waar de verzekeraar dat vraagt."),
+        ("Salto onderhoud", "/salto/", "Heeft u al een Salto-systeem? Nieuwe systemen plaatsen wij niet, maar onderhoud, storingen en uitbreiding van bestaande Salto-onderdelen doen wij regelmatig."),
     ]
     wat = sectie("Wat wij plaatsen",
-        '<div class="kolommen kolommen--4">' + "".join(f'<div><h3>{k}</h3><p>{t}</p><p><a href="{u}">Meer over {k if k in ("Salto", "EVVA Xesar") else k.lower()}</a></p></div>' for k, u, t in producten) + "</div>",
+        '<div class="kolommen kolommen--4">' + "".join(f'<div><h3>{k}</h3><p>{t}</p><p><a href="{u}">Meer over {k if k[0].isupper() and k.split()[0] in ("EVVA", "Salto") else k.lower()}</a></p></div>' for k, u, t in producten) + "</div>",
         wit=True)
 
     # ---- hoe het werkt ----
@@ -52,7 +52,7 @@ def bouw():
 
     # ---- bewijs: drie feiten uit INPUT.md ----
     feiten = [
-        f"Slotenmaker in Enschede en Hengelo sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
+        f"Deuren, sloten en beslag in Enschede en Hengelo sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
         f"{esc(AANTAL_DEUREN)} deuren geplaatst, met {esc(AANTAL_MONTEURS)} eigen monteurs.",
         f"Eigen werkplaats ({esc(WERKPLAATS)}): houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
     ]
@@ -80,7 +80,7 @@ def bouw():
     # ---- FAQ ----
     faq = [
         ("Wat kost toegangscontrole per deur?",
-         f"Dat hangt af van het deurtype, het systeem en of de deur online moet zijn. Elektronisch beslag van Salto kost geplaatst {esc(PRIJZEN['beslag_salto'][0])} tot {esc(PRIJZEN['beslag_salto'][1])} per deur, excl. btw. {PRIJS_DISCLAIMER} Alle bandbreedtes en drie rekenvoorbeelden staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+         f"Dat hangt af van het deurtype, het systeem en of de deur online moet zijn. Elektronisch beslag van EVVA Xesar kost geplaatst {esc(PRIJZEN['beslag'][0])} tot {esc(PRIJZEN['beslag'][1])} per deur, excl. btw. {PRIJS_DISCLAIMER} Alle bandbreedtes en drie rekenvoorbeelden staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Werkt elektronische toegangscontrole op onze bestaande deuren?",
          "Meestal wel. Op de meeste binnendeuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur blijft. Houten deuren die een uitsparing nodig hebben, frezen wij in onze eigen werkplaats in. Stalen, aluminium en glazen deuren bekijken wij tijdens de inventarisatie."),
         ("Wat gebeurt er als een medewerker zijn pas kwijtraakt?",
@@ -93,4 +93,4 @@ def bouw():
 
     body = hero + voor_wie + wat + hoe + bewijs + werkgebied
     schrijf("/", titel, omschrijving, body, faq=faq,
-            llms="Wie wij zijn, wat wij plaatsen (Salto, EVVA Xesar, motorcilinder, sluitplan), werkwijze in vier stappen, werkgebied.")
+            llms="Wie wij zijn, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")
