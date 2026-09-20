@@ -11,7 +11,7 @@ def bouw():
                  onderschrift=INV("onderschrift hero-foto: wat, waar, jaar"), lazy=False)
     hero = f'''<section class="hero"><div class="wrap"><div class="rooster">
 <div class="k7"><h1>Toegangscontrole voor bedrijven in Oost-Nederland</h1>
-<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, motorcilinders en sluitplannen voor bedrijven en instellingen, op locatie, {esc(WERKGEBIED_REGEL)}. Deuren, sloten en beslag zijn ons vak sinds {esc(MOEDER_SINDS)}; het elektronische deel komt uit dezelfde hand.</p>
+<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, motorcilinders en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. Deuren, sloten en beslag zijn ons vak sinds {esc(MOEDER_SINDS)}; het elektronische deel komt uit dezelfde hand.</p>
 {acties()}</div>
 <div class="k5">{foto}</div>
 </div></div></section>'''
