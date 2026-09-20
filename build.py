@@ -208,6 +208,23 @@ def hero(h1, intro, foto_html="", cta=True, extra=""):
     return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}"><h1>{h1}</h1>'
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
 
+def video(bestand, poster, alt, kop="Bekijk de video", onderschrift=None):
+    """Video op klik, nooit autoplay, eigen bestand uit static/img/bron/. Poster is een eigen foto (3:2) die door de
+    beeldpipeline gaat. Ontbreekt de video of de poster, dan wordt het blok weggelaten en gemeld."""
+    bronpad = BRON / bestand
+    if not bronpad.exists() or not (BRON / poster).exists():
+        _ONTBREKEND.append(bestand if not bronpad.exists() else poster)
+        return ""
+    uit = DIST / "static" / "video"; uit.mkdir(parents=True, exist_ok=True)
+    shutil.copy(bronpad, uit / bestand)
+    mime = "video/webm" if bestand.endswith(".webm") else "video/mp4"
+    poster_html = beeld(poster, alt, sizes="(min-width: 900px) 66vw, 100vw")
+    bijschrift = f"<figcaption>{esc(onderschrift)}</figcaption>" if onderschrift else ""
+    return (f'<figure class="video" data-video>'
+            f'<button type="button" class="video__start" aria-label="{esc(kop)}">{poster_html}<span class="video__knop">{esc(kop)}</span></button>'
+            f'<video controls preload="none" playsinline hidden width="1600" height="1067"><source src="/static/video/{bestand}" type="{mime}"></video>'
+            f'{bijschrift}</figure>')
+
 def kaart_svg():
     """Schematische kaart van het werkgebied: Enschede in het midden, een cirkel voor 60 minuten rijden, de plaatsen
     als punten op hun ligging (lengte- en breedtegraad, benaderd). Geen kaartdienst, geen externe request."""

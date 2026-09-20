@@ -58,6 +58,17 @@
     }
   });
 
+  // ---------- Video op klik: nooit autoplay, pas laden na de klik ----------
+  d.querySelectorAll('[data-video]').forEach(function (fig) {
+    var start = fig.querySelector('.video__start'), vid = fig.querySelector('video');
+    if (!start || !vid) return;
+    start.addEventListener('click', function () {
+      start.hidden = true; vid.hidden = false; vid.load();
+      var p = vid.play(); if (p && p.catch) p.catch(function () {});
+      vid.focus();
+    });
+  });
+
   // ---------- Menu ----------
   var knop = d.getElementById('menu-knop'), nav = d.getElementById('nav');
   if (knop && nav) {

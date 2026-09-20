@@ -58,6 +58,11 @@ def bouw():
         f"Eigen werkplaats ({esc(WERKPLAATS)}): houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
         f"{PARTNER_TEKST.capitalize()}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
+    # ---- video op klik (verschijnt zodra static/img/bron/hero-video.mp4 en hero-video-poster.jpg bestaan) ----
+    film = video("hero-video.mp4", "hero-video-poster.jpg", "Monteur van Westendorp plaatst elektronisch beslag op een deur",
+                 onderschrift=INV("onderschrift video: wat, waar, jaar"))
+    video_blok = sectie("Zo werkt het bij ons", '<div class="rooster"><div class="k8">' + film + "</div></div>") if film else ""
+
     bewijs = sectie("Waarom Westendorp", '<div class="rooster"><div class="k8">' + lijst(feiten, klas="feiten") +
         p("Mechanisch en elektronisch uit één hand: de deur, het slot en het beslag kennen wij al dertig jaar, en daar komt de elektronica bovenop. "
           "Eén vaste adviseur van inventarisatie tot beheer.") + "</div></div>", lijn=True)
@@ -93,6 +98,6 @@ def bouw():
          f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a> met rijtijd per plaats."),
     ]
 
-    body = hero + voor_wie + wat + hoe + bewijs + werkgebied
+    body = hero + voor_wie + wat + hoe + video_blok + bewijs + werkgebied
     schrijf("/", titel, omschrijving, body, faq=faq,
             llms="Wie wij zijn, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")

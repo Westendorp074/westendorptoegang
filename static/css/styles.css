@@ -182,6 +182,15 @@ textarea{min-height:120px;resize:vertical}
 .consent .knop--tweede{background:transparent;color:var(--kop)}
 .consent .knop--tweede:hover{background:var(--vlak);color:var(--kop)}
 
+/* ---------- video op klik ---------- */
+.video{margin:0}
+.video__start{display:block;position:relative;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left}
+.video__start figure{margin:0}
+.video__knop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--signaal);color:var(--wit);font-weight:600;padding:14px 22px;border-radius:var(--straal);white-space:nowrap}
+.video__start:hover .video__knop{background:var(--signaal-donker)}
+.video__start:focus-visible{outline:var(--focus);outline-offset:2px}
+.video video{width:100%;height:auto;aspect-ratio:3/2;background:#000;display:block}
+
 /* ---------- bedankt, 404, meta ---------- */
 .bevestigd{border-left:4px solid var(--signaal);padding:8px 0 8px 20px}
 .laatst{color:var(--inkt-zacht);font-size:.92em}
