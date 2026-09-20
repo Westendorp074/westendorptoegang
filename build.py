@@ -362,7 +362,7 @@ def ld_script(graph):
 DIENSTEN_NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
                 ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Sluitplan", "/sluitplan/"),
                 ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/")]
-NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"), ("EVVA Xesar", "/evva-xesar/"),
+NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
        ("Sluitplan", "/sluitplan/"), ("Kosten", "/kosten/"), ("Service", "/service-en-beheer/"),
        ("Over ons", "/over-ons/"), ("Contact", "/contact/")]
 
