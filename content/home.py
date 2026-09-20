@@ -72,7 +72,7 @@ def bouw():
     plaatsen = '<ul class="plaatsen">' + "".join(
         f'<li><span class="regio">{esc(r)}</span><ul>' + "".join(f"<li>{plaats_html(*pl)}</li>" for pl in pls) + "</ul></li>"
         for r, pls in regios.items()) + "</ul>"
-    kaart = beeld("kaart-werkgebied.png", "Kaart van het werkgebied: Twente, Salland, Achterhoek, Veluwe en Vechtdal", sizes="(min-width: 900px) 33vw, 100vw")
+    kaart = kaart_svg()
     werkgebied = sectie("Werkgebied", f'''<div class="rooster"><div class="k8">
 {p(f"Wij werken vanuit {esc(PLAATS)}, {esc(WERKGEBIED_REGEL)}. Dat is heel Twente en het grootste deel van Salland, de Achterhoek, de Veluwe en het Vechtdal. Rijtijd vanaf onze vestiging:")}
 {plaatsen}

@@ -192,6 +192,34 @@ def tabel(rijen, kop=None, bijschrift=None, rijkop=True):
     uit.append("</tbody></table></div>")
     return "".join(uit)
 
+def hero(h1, intro, foto_html="", cta=True, extra=""):
+    """Kop van elke dienst- en merkpagina: H1, answer-first alinea, CTA, foto rechts als die er is."""
+    rechts = f'<div class="k5">{foto_html}</div>' if foto_html else ""
+    kol = "k7" if foto_html else "k8"
+    return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}"><h1>{h1}</h1>'
+            f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
+
+def kaart_svg():
+    """Schematische kaart van het werkgebied: Enschede in het midden, een cirkel voor 60 minuten rijden, de plaatsen
+    als punten op hun ligging (lengte- en breedtegraad, benaderd). Geen kaartdienst, geen externe request."""
+    ligging = {"Enschede": (6.89, 52.22), "Hengelo": (6.79, 52.27), "Almelo": (6.66, 52.36), "Oldenzaal": (6.93, 52.31),
+               "Haaksbergen": (6.74, 52.16), "Borne": (6.75, 52.30), "Deventer": (6.16, 52.25), "Zwolle": (6.09, 52.51),
+               "Zutphen": (6.20, 52.14), "Doetinchem": (6.29, 51.96), "Apeldoorn": (5.97, 52.21)}
+    cx, cy, schaal = 6.89, 52.22, 230          # px per graad lengte; breedtegraad gecorrigeerd met cos(52 graden), 0,62
+    def xy(lon, lat): return 300 + (lon - cx) * schaal, 220 - (lat - cy) * schaal / 0.62
+    punten = []
+    for naam, _, _, _ in WERKGEBIED:
+        if naam not in ligging: continue
+        x, y = xy(*ligging[naam])
+        anker = "end" if x < 300 else "start"; dx = -10 if x < 300 else 10
+        kleur = "#1B68C0" if naam == PLAATS else "#14232E"
+        punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="{6 if naam == PLAATS else 4}" fill="{kleur}"/>'
+                      f'<text x="{x + dx:.0f}" y="{y + 4:.0f}" text-anchor="{anker}" font-size="13" fill="#14232E">{esc(naam)}</text>')
+    return (f'<svg viewBox="0 0 600 440" width="600" height="440" role="img" aria-label="Schematische kaart van het werkgebied rond {esc(PLAATS)}" '
+            f'xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block;font-family:inherit">'
+            f'<circle cx="300" cy="220" r="205" fill="#F2F4F6" stroke="#C9CED0"/>{"".join(punten)}'
+            f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ongeveer 60 minuten rijden</text></svg>')
+
 def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra=""):
     kl = " ".join(k for k in ["sectie--wit" if wit else "", "sectie--lijn" if lijn else ""] if k)
     kl = f' class="{kl}"' if kl else ""
@@ -518,7 +546,8 @@ def sitemap_robots_llms():
     (DIST / "llms.txt").write_text(llms, encoding="utf-8")
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")
 
-CONTENT = ["home"]   # volgorde = volgorde in llms.txt; nieuwe pagina's hier toevoegen
+CONTENT = ["home", "toegangscontrole", "elektronische_sloten", "evva_xesar", "motorcilinder", "sluitplan", "service_en_beheer",
+           "salto", "kosten", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
 
 def main():
     assets()
