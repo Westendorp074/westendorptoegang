@@ -23,11 +23,13 @@ RECHTSPERSOON = "Westendorp Groep VOF"                              # alleen sch
 KVK           = "91885124"                                          # INPUT §A1 (aanname, controleren)
 VESTIGINGSNR  = INV("12-cijferig vestigingsnummer")                 # INPUT §A1, alleen in schema als ingevuld
 BTW           = ""                                                  # INPUT §A1 optioneel; leeg = niet tonen
-MOEDER        = "Westendorp Slotenspecialist"                       # merkouder
+MOEDER        = "Westendorp Slotenspecialist"                       # zusterbedrijf; alleen genoemd op /over-ons/ (Lars, 20-09-2026)
 MOEDER_URL    = "https://www.westendorpslotenspecialist.nl/"
 MOEDER_SINDS  = INV("jaartal start Westendorp, 1995 of 1985")       # INPUT §C3 (aanname 1995; Almelo-CONFIG zegt 1985 voor het bedrijf)
 # Lars, chat 20-09-2026: het woord "slotenmaker" komt op deze site niet voor (check.py bewaakt dat); hoofdmerk is EVVA,
 # Salto plaatsen wij niet, maar onderhouden en breiden wij wel uit; klanten komen niet langs, wij komen op locatie.
+# Westendorp Toegangscontrole is onderdeel van Westendorp Groep VOF (niet van Slotenspecialist). Particulieren en
+# autosleutels worden nergens genoemd, behalve één zin op /over-ons/ over de verhouding tot het zusterbedrijf.
 
 STRAAT        = INV("straat en huisnummer, BAG-spelling")           # INPUT §A2
 POSTCODE      = INV("postcode")                                     # INPUT §A2
@@ -271,7 +273,7 @@ ORG_ID = SITE + "/#organisatie"
 WEBSITE_ID = SITE + "/#website"
 
 def bedrijf_ld():
-    same_as = [u for u in [LINKEDIN, GOOGLE_PROFIEL, MOEDER_URL] + ANDERE_PROFIELEN if u and not placeholder(u)]
+    same_as = [u for u in [LINKEDIN, GOOGLE_PROFIEL] + ANDERE_PROFIELEN if u and not placeholder(u)]
     org = {
         "@type": "LocalBusiness", "@id": ORG_ID, "name": NAAM, "legalName": RECHTSPERSOON,
         "url": SITE + "/", "logo": SITE + "/static/img/logo/logo.svg", "image": SITE + "/static/img/og-standaard.png",
@@ -281,7 +283,7 @@ def bedrijf_ld():
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": d, "opens": o, "closes": c} for d, o, c in OPENING_SCHEMA],
         "areaServed": [{"@type": "City", "name": naam} for naam, _, _, _ in WERKGEBIED],
         "identifier": [{"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}],
-        "parentOrganization": {"@type": "Organization", "@id": MOEDER_URL + "#organisatie", "name": MOEDER, "url": MOEDER_URL},
+        "parentOrganization": {"@type": "Organization", "@id": SITE + "/#groep", "name": RECHTSPERSOON, "identifier": {"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}},
         "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "Salto onderhoud"],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Diensten", "itemListElement": [
             {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": SITE + u}} for n, u in DIENSTEN_NAV]},
@@ -354,8 +356,7 @@ def footer():
 <p>Bereikbaar {esc(OPENING_TEKST)}.</p></address></div>
 <div class="k4"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
 </div>
-<div class="onderdeel"><p>{esc(NAAM)} is onderdeel van <a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a>, sinds {esc(MOEDER_SINDS)} in Enschede en Hengelo. {esc(RECHTSPERSOON)}, KvK {esc(KVK)}.</p>{btw}
-<p>Particulieren en autosleutels: daarvoor bent u bij <a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a> aan het juiste adres.</p></div>
+<div class="onderdeel"><p>{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}, KvK {esc(KVK)}, {esc(PLAATS)}.</p>{btw}</div>
 </div></footer>'''
 
 def consent_html():
@@ -502,7 +503,7 @@ def sitemap_robots_llms():
     plaatsen = ", ".join(n for n, _, _, _ in WERKGEBIED)
     llms = f"""# {NAAM}
 
-> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {MOEDER} (sinds {MOEDER_SINDS} in Enschede en Hengelo). Juridische entiteit: {RECHTSPERSOON}, KvK {KVK}.
+> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; actief in deuren, sloten en beslag sinds {MOEDER_SINDS}.
 
 ## Pagina's
 
@@ -513,7 +514,6 @@ def sitemap_robots_llms():
 - E-mail: {MAIL}
 - Adres: {STRAAT}, {POSTCODE} {PLAATS}
 - Bereikbaar: {OPENING_TEKST}
-- Hoofdsite: {MOEDER_URL}
 """
     (DIST / "llms.txt").write_text(llms, encoding="utf-8")
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")

@@ -28,8 +28,7 @@ def bouw():
     voor_wie = sectie("Voor wie wij werken",
         p("Voor alle bedrijven en instellingen die de toegang tot hun pand willen regelen zonder sleutelbos, van vijf deuren tot enkele honderden. Dit zijn de situaties die wij het meest tegenkomen.")
         + '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in sectoren) + "</div>"
-        + p("Particulieren en autosleutels helpen wij via "
-            f'<a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a>.'))
+)
 
     # ---- wat we plaatsen ----
     producten = [

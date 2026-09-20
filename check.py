@@ -16,6 +16,8 @@ WHITELIST = ("https://www.googletagmanager.com/", "https://api.web3forms.com/", 
 VERBODEN = ["dé specialist", "totaaloplossing", "ontzorgen", "state-of-the-art", "innovatief", "toekomstbestendig",
             "naadloos", "uw partner in", "passie", "kwaliteit staat voorop", "wij zijn trots", "cutting-edge", "maatwerk", "24/7",
             "slotenmaker"]   # chat 20-09-2026: dat woord hoort bij de hoofdsite, niet bij deze
+# Alleen /over-ons/ mag het zusterbedrijf en de particuliere markt noemen (Lars, 20-09-2026).
+ALLEEN_OVER_ONS = ["particulier", "autosleutel", "slotenspecialist", "westendorpslotenspecialist"]
 MAX_HTML = 150 * 1024
 MAX_CSS, MAX_JS = 40 * 1024, 15 * 1024
 
@@ -140,6 +142,9 @@ def controleer_pagina(pad, tekst_html):
     for w in VERBODEN:
         if w in laag: fout(rel, f"verboden woord: '{w}'")
     if "!" in platte: fout(rel, "uitroepteken in tekst")
+    if rel != "/over-ons/":
+        for w in ALLEEN_OVER_ONS:
+            if w in laag or w in tekst_html.lower(): fout(rel, f"'{w}' mag alleen op /over-ons/ voorkomen")
     for m in re.finditer(r"gratis", laag):
         omgeving = laag[max(0, m.start() - 80): m.end() + 80]
         if "inventarisatie" not in omgeving: fout(rel, "'gratis' buiten de context van de inventarisatie")
