@@ -14,7 +14,7 @@ def bouw():
     mech = sectie("Wanneer is een mechanisch sluitplan nog verstandig", p(
         "Bij weinig deuren, weinig wisselingen en geen behoefte aan logging blijft een mechanisch sluitplan de goedkoopste oplossing. "
         "Ook binnen een elektronisch systeem blijven mechanische cilinders nuttig voor deuren die zelden opengaan: meterkasten, techniekruimtes, "
-        "kasten en hekken. Wij werken met " + esc(MERKEN['mechanisch']['naam']) + ".",
+        "kasten en hekken. Wij werken met " + esc(MERKEN['mechanisch']['naam']) + " en zijn officieel partner van EVVA, ASSA ABLOY en ABUS.",
         "Een gecertificeerd sluitsysteem heeft een sleutelkaart: alleen wie die kaart toont, kan bij ons sleutels laten bijmaken. Dat is het verschil met losse sloten van de bouwmarkt."))
 
     elek = sectie("Wanneer elektronisch", p(

@@ -83,6 +83,8 @@ MERKEN = {
     "mechanisch": {"naam": INV("merk en systeem mechanisch sluitsysteem, bijv. EVVA 4KS/ICS"), "lijnen": "", "partner": "", "logo_ok": ""},
 }
 AIRKEY = INV("EVVA AirKey: ja/nee")
+PARTNERS = ["EVVA", "ASSA ABLOY", "ABUS"]                              # officieel partner van alle drie (Lars, 20-09-2026)
+PARTNER_TEKST = "officieel partner van EVVA, ASSA ABLOY en ABUS"
 
 # Richtprijzen (INPUT §B5), excl. btw. Zonder ingevulde waarden gaat /kosten/ niet live.
 PRIJZEN = {
@@ -110,7 +112,7 @@ REACTIE_STORING    = INV("reactietijd bij storing, met en zonder contract")
 CONTRACTVORMEN     = INV("contractvormen")
 
 SECTOREN = ["kantoren", "zorg", "onderwijs"]                          # INPUT §B7 aanname; pagina's pas in fase 2
-CERTIFICATEN = "EVVA Partner; getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20-09-2026)
+CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20-09-2026)
 DEURDRANGERS = "GU"                                                  # INPUT §B1: deurdrangers en deurautomaten van GU (Lars, 20-09-2026)
 
 # Feiten in het kort (INPUT §C3)
@@ -313,7 +315,7 @@ def bedrijf_ld():
         "areaServed": [{"@type": "City", "name": naam} for naam, _, _, _ in WERKGEBIED],
         "identifier": [{"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}],
         "parentOrganization": {"@type": "Organization", "@id": SITE + "/#groep", "name": RECHTSPERSOON, "identifier": {"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}},
-        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "Salto onderhoud", "Deurdrangers GU"],
+        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "ASSA ABLOY", "ABUS", "Salto onderhoud", "Deurdrangers GU"],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Diensten", "itemListElement": [
             {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": SITE + u}} for n, u in DIENSTEN_NAV]},
     }
@@ -434,7 +436,8 @@ def adviseurblok():
     foto = beeld(a["foto"], f"{a['naam']}, {a['functie']} bij {NAAM}", sizes="120px") if a["foto"] else ""
     feiten = [f"Reactie binnen {esc(REACTIE_AANVRAAG)}",
               "Inventarisatie op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
-              f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}"]
+              PARTNER_TEKST.capitalize(),
+              f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}"]
     return f'''<div class="adviseur">{foto}<p class="naam">{esc(a["naam"])}</p><p class="functie">{esc(a["functie"].capitalize())}</p>
 <p>Direct: <a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
 <ul class="feiten">{"".join(f"<li>{f}</li>" for f in feiten)}</ul></div>'''
@@ -532,7 +535,7 @@ def sitemap_robots_llms():
     plaatsen = ", ".join(n for n, _, _, _ in WERKGEBIED)
     llms = f"""# {NAAM}
 
-> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; Twents familiebedrijf, actief in deuren, sloten en beslag sinds {MOEDER_SINDS}. EVVA Partner; deurdrangers en deurautomaten van GU.
+> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; Twents familiebedrijf, actief in deuren, sloten en beslag sinds {MOEDER_SINDS}. Officieel partner van EVVA, ASSA ABLOY en ABUS; deurdrangers en deurautomaten van GU.
 
 ## Pagina's
 

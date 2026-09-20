@@ -56,6 +56,7 @@ def bouw():
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
         f"{esc(AANTAL_DEUREN)} deuren geplaatst, met {esc(AANTAL_MONTEURS)} eigen monteurs.",
         f"Eigen werkplaats ({esc(WERKPLAATS)}): houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
+        f"{PARTNER_TEKST.capitalize()}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
     bewijs = sectie("Waarom Westendorp", '<div class="rooster"><div class="k8">' + lijst(feiten, klas="feiten") +
         p("Mechanisch en elektronisch uit één hand: de deur, het slot en het beslag kennen wij al dertig jaar, en daar komt de elektronica bovenop. "
