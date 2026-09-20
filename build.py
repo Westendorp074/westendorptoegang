@@ -78,13 +78,19 @@ WERKGEBIED_REGEL = "tot 60 minuten rijden vanaf Enschede"
 # Merken (INPUT §B4)
 MERKEN = {
     "salto": {"naam": "Salto", "lijnen": "", "partner": "", "logo_ok": ""},   # chat 20-09-2026: niet plaatsen, wel onderhoud en uitbreiding van bestaande Salto-systemen
-    "xesar": {"naam": "EVVA Xesar", "lijnen": INV("Xesar-lijnen: cilinders, beslag, wandlezers, versie"), "partner": "EVVA Partner", "logo_ok": INV("EVVA-logo mag: ja/nee")},
-    "emzy":  {"naam": "EVVA EMZY", "lijnen": "motorcilinder", "partner": "EVVA Partner", "logo_ok": INV("EVVA-logo mag: ja/nee")},
-    "mechanisch": {"naam": INV("merk en systeem mechanisch sluitsysteem, bijv. EVVA 4KS/ICS"), "lijnen": "", "partner": "", "logo_ok": ""},
+    "xesar": {"naam": "EVVA Xesar", "lijnen": INV("Xesar-lijnen: cilinders, beslag, wandlezers, versie"), "partner": "EVVA Partner", "logo_ok": "ja"},
+    "emzy":  {"naam": "EVVA EMZY", "lijnen": "motorcilinder", "partner": "EVVA Partner", "logo_ok": "ja"},
+    "mechanisch": {"naam": "EVVA 4KS+ en EVVA EPS, ABUS S6+ en ABUS Magtec (eigen profiel), ASSA ABLOY", "lijnen": "", "partner": "", "logo_ok": "ja"},
+    "assa": {"naam": "ASSA ABLOY", "lijnen": "mechanisch en elektronisch", "partner": "officieel partner", "logo_ok": "ja"},
+    "abus": {"naam": "ABUS", "lijnen": "mechanisch: S6+ en Magtec, eigen profiel", "partner": "officieel partner", "logo_ok": "ja"},
 }
 AIRKEY = INV("EVVA AirKey: ja/nee")
 PARTNERS = ["EVVA", "ASSA ABLOY", "ABUS"]                              # officieel partner van alle drie (Lars, 20-09-2026)
 PARTNER_TEKST = "officieel partner van EVVA, ASSA ABLOY en ABUS"
+# Eigen sleutelprofielen (Lars, 20-09-2026): cilinders op naam, voorraad in huis, dus snel leveren in plaats van weken wachten.
+EIGEN_PROFIEL = "EVVA 4KS+, EVVA EPS, ABUS S6+ en ABUS Magtec"
+EVVA_PROFIEL = "EVVA 4KS+ en EVVA EPS"
+EVVA_PROJECTEN = True   # EVVA schakelt Westendorp in voor bepaalde projecten (Lars, 20-09-2026)
 
 # Richtprijzen (INPUT §B5), excl. btw. Zonder ingevulde waarden gaat /kosten/ niet live.
 PRIJZEN = {

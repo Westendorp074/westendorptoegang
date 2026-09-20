@@ -16,7 +16,7 @@ def bouw():
         ("Elektronische cilinder", "Vervangt de mechanische cilinder in het bestaande slot; de rest van de deur blijft. Op batterijen. Geschikt als het beslag moet blijven, bij smalle deuren of bij kasten en hekken met een cilinderslot."),
         ("Motorcilinder", "Een cilinder met een motor die de nachtschoot zelf uitdraait en intrekt. De deur gaat dus echt op slot, niet alleen in de dag. Voor buitendeuren, vluchtdeuren en deuren die op afstand moeten openen. Zie <a href=\"/motorcilinder/\">motorcilinder</a>."),
         ("Wandlezer met elektrische sluitplaat", "De lezer zit naast de deur, de sluitplaat in het kozijn. Bekabeld en online: de receptie kan de deur op afstand openen en elke passage is direct zichtbaar. Voor entrees, slagbomen van derden en deuren met deurautomaat."),
-    ]) + "</div>")
+    ]) + "</div>" + p("Ons hoofdmerk voor elektronisch is EVVA (<a href=\"/evva-xesar/\">Xesar</a> en <a href=\"/motorcilinder/\">EMZY</a>). Daarnaast plaatsen wij elektronische sloten van ASSA ABLOY, waarvan wij ook officieel partner zijn; welk merk past, hangt af van de deur en het bestaande slot."))
 
     deurtypes = sectie("Wat past op welke deur", tabel([
         ("Houten binnendeur", "Elektronisch beslag of elektronische cilinder", "Uitsparing voor beslag frezen wij zelf in."),

@@ -23,7 +23,8 @@ def bouw():
         "Wandlezers met elektrische sluitplaat voor entrees en deuren met deurautomaat",
         "Beheersoftware met tablet of programmeerstation voor het bijwerken van passen",
         "Passen, tags en telefoon-toegang",
-    ]) + p(f"Partnerstatus: {esc(m['partner'])}."), wit=True)
+    ]) + p(f"Partnerstatus: {esc(m['partner'])}." + (" EVVA schakelt ons zelf in voor bepaalde projecten in Oost-Nederland." if EVVA_PROJECTEN else "")
+           + f" Voor het mechanische deel hebben wij een eigen sleutelprofiel bij EVVA ({esc(EVVA_PROFIEL)}), met cilinders op voorraad."), wit=True)
 
     plusmin = sectie("Sterke en zwakke punten, eerlijk", '<div class="kolommen kolommen--2"><div><h3>Sterk</h3>' + lijst([
         "Cilinder en beslag van dezelfde fabrikant als het mechanische sluitplan; alles uit één systeem.",
