@@ -209,7 +209,7 @@ def kruimels(items):
     delen = []
     for i, (n, pad) in enumerate(items):
         delen.append(f'<li><a href="{pad}">{esc(n)}</a></li>' if i < len(items) - 1 else f'<li aria-current="page">{esc(n)}</li>')
-    return f'<nav class="kruimels kruimels--donker" aria-label="Kruimelpad"><ol>{"".join(delen)}</ol></nav>'
+    return f'<nav class="wrap kruimels" aria-label="Kruimelpad"><ol>{"".join(delen)}</ol></nav>'
 
 # ---------- Beeld: eigen foto's uit static/img/bron, alleen schalen en comprimeren ----------
 _ONTBREKEND = []
@@ -345,7 +345,6 @@ def footer():
     linkedin = f'<li><a href="{esc(LINKEDIN)}" rel="noopener">LinkedIn</a></li>' if not placeholder(LINKEDIN) else ""
     cookies = '<li><button type="button" data-consent-open>Cookie-instellingen</button></li>' if TAG_ACTIEF else ""
     return f'''<footer class="voet"><div class="wrap">
-<a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="/static/img/logo/logo.svg" alt="" width="2053" height="647" loading="lazy"></a>
 <div class="rooster">
 <div class="k4"><h2>Diensten</h2><ul>{diensten}</ul></div>
 <div class="k4"><h2>Contact</h2><address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
@@ -473,7 +472,7 @@ def assets():
     _ASSETS["css"], _ASSETS["js"] = f"/static/css/{css_naam}", f"/static/js/{js_naam}"
     shutil.copytree(STATIC / "font", DIST / "static" / "font")
     logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True)
-    # Header, hero en footer zijn zwart (#111111), dus overal de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
+    # Alleen de header is zwart (#111111); daar staat het logo, dus de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
     lb = STATIC / "img" / "logo"
     shutil.copy(lb / "logo-zwarte-achtergrond.svg", logo_uit / "logo.svg")
     shutil.copy(lb / "icoon-zwarte-achtergrond.svg", logo_uit / "icoon.svg")

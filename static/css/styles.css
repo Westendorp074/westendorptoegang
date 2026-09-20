@@ -64,7 +64,7 @@ section,.sectie{padding:var(--sectie) 0}
 .nav a{color:var(--op-donker);text-decoration:none;font-weight:500;padding:6px 0;display:inline-block;border-bottom:2px solid transparent}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--link-donker);border-bottom-color:var(--link-donker)}
 .bel:hover,.menu-knop:hover{border-color:var(--op-donker)}
-.kop a:focus-visible,.kop button:focus-visible,.hero a:focus-visible,.voet a:focus-visible,.voet button:focus-visible{outline-color:var(--link-donker)}
+.kop a:focus-visible,.kop button:focus-visible{outline-color:var(--link-donker)}
 @media (max-width:1099px){
   .nav.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--donker);border-bottom:var(--lijndikte) solid var(--donker-lijn);padding:12px var(--goot) 20px;z-index:50}
   .nav.open ul{flex-direction:column;gap:0}
@@ -81,23 +81,13 @@ section,.sectie{padding:var(--sectie) 0}
 .acties .tel{font-weight:500;color:var(--primair)}
 
 /* ---------- hero ---------- */
-.hero{background:var(--donker);color:var(--op-donker);padding:48px 0 var(--sectie)}
+.hero{background:var(--vlak-2);padding:48px 0 var(--sectie)}
 @media (min-width:900px){.hero{padding:80px 0 96px}}
-.hero h1{color:var(--op-donker)}
 .hero p{font-size:1.06em}
 .hero .intro{max-width:56ch}
-.hero a{color:var(--link-donker)}
-.hero .acties .tel{color:var(--link-donker)}
-.hero .knop{color:var(--wit)}
-.hero figcaption{color:var(--op-donker-zacht)}
 
 /* ---------- kruimelpad ---------- */
 .kruimels{font-size:.9em;padding:16px 0 0;color:var(--inkt-zacht)}
-.kruimels--donker{background:var(--donker);margin:0;max-width:none;padding:16px var(--goot) 0}
-@media (min-width:900px){.kruimels--donker{padding:16px 24px 0}}
-.kruimels--donker ol{max-width:var(--max);margin:0 auto}
-.kruimels--donker,.kruimels--donker a{color:var(--op-donker-zacht)}
-.kruimels--donker li+li::before{color:var(--donker-lijn)}
 .kruimels ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 8px}
 .kruimels li{margin:0;max-width:none}
 .kruimels li+li::before{content:"/";margin-right:8px;color:var(--lijn)}
@@ -171,17 +161,15 @@ textarea{min-height:120px;resize:vertical}
 .adviseur .feiten{margin-top:16px;font-size:.95em}
 
 /* ---------- footer ---------- */
-.voet{background:var(--donker);color:var(--op-donker);padding:48px 0 32px;font-size:.95em}
-.voet .logo{margin-bottom:32px}
-.voet h2{font-size:1em;margin-bottom:.6em;color:var(--link-donker)}
+.voet{background:var(--vlak-2);border-top:var(--lijndikte) solid var(--lijn);padding:48px 0 32px;font-size:.95em}
+.voet h2{font-size:1em;margin-bottom:.6em;color:var(--primair)}
 .voet ul{list-style:none;padding:0;margin:0}
 .voet li{margin:0 0 6px}
-.voet a{color:var(--op-donker)}
-.voet a:hover{color:var(--link-donker)}
+.voet a{color:var(--inkt)}
 .voet address{font-style:normal}
-.voet .onderdeel{margin-top:32px;padding-top:16px;border-top:var(--lijndikte) solid var(--donker-lijn);color:var(--op-donker-zacht);font-size:.92em}
+.voet .onderdeel{margin-top:32px;padding-top:16px;border-top:var(--lijndikte) solid var(--lijn);color:var(--inkt-zacht);font-size:.92em}
 .voet .onderdeel p{margin:0 0 6px}
-.voet button{background:none;border:0;padding:0;font:inherit;color:var(--op-donker);text-decoration:underline;cursor:pointer}
+.voet button{background:none;border:0;padding:0;font:inherit;color:var(--inkt);text-decoration:underline;cursor:pointer}
 
 /* ---------- consent ---------- */
 .consent{position:fixed;left:0;right:0;bottom:0;background:var(--vlak-2);border-top:var(--lijndikte) solid var(--primair);padding:16px 0;z-index:60}
