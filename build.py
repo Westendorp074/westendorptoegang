@@ -36,8 +36,8 @@ POSTCODE      = INV("postcode")                                     # INPUT §A2
 PLAATS        = "Enschede"
 REGIO         = "Overijssel"
 LAT, LON      = None, None                                          # INPUT §A2: [[INVULLEN: lat, lon]] — None = geo weglaten
-TEL_TONEN     = INV("telefoonnummer B2B, 0xx-xxxxxxx")              # INPUT §A2
-TEL_LINK      = INV("telefoon in +31-notatie")                      # afgeleid van TEL_TONEN zodra bekend
+TEL_TONEN     = "053 478 42 45"                                     # INPUT §A2, Lars chat 20-09-2026 (zelfde nummer als de hoofdsite)
+TEL_LINK      = "+31534784245"
 MAIL          = "info@westendorptoegang.nl"                         # INPUT §A2 (aanname)
 OPENING_TEKST = "maandag tot en met vrijdag 08:00–17:00 " + INV("openingstijden bevestigen of corrigeren")
 OPENING_SCHEMA = [("Monday", "08:00", "17:00"), ("Tuesday", "08:00", "17:00"), ("Wednesday", "08:00", "17:00"),
