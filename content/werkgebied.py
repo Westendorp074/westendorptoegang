@@ -6,7 +6,7 @@ PAD = "/werkgebied/"
 def bouw():
     titel = "Werkgebied: Twente en Oost-Nederland"
     omschrijving = ("Westendorp Toegangscontrole werkt vanuit Enschede tot 60 minuten rijden: Twente, Salland, Achterhoek, Veluwe en Vechtdal. Rijtijd per plaats.")
-    intro = (f"Wij werken vanuit {esc(PLAATS)}, {esc(WERKGEBIED_REGEL)}. Dat is heel Twente en het grootste deel van Salland, de Achterhoek, de Veluwe en het Vechtdal. "
+    intro = ("Wij werken vanuit Enschede en rijden tot 60 minuten. Dat is heel Twente en het grootste deel van Salland, de Achterhoek, de Veluwe en het Vechtdal. "
              "Inventarisatie, installatie en service gebeuren altijd op locatie bij u; u hoeft nergens heen.")
 
     regios = {}
