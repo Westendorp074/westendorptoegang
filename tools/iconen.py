@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 UIT = ROOT / "static" / "img"
 DONKER, MIDDEN, LICHT, WIT = (2, 41, 91), (27, 104, 192), (73, 191, 254), (255, 255, 255)
-ZWART = (17, 17, 17)
+ZWART = (28, 28, 28)
 
 def dichtstbij(px):
     r, g, b = px

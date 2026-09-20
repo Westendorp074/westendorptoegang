@@ -3,13 +3,15 @@
    en BRIEF.md §6. Wordt bij het bouwen vóór styles.css in één bestand gezet. */
 :root{
   /* kleur */
-  --primair:#02295B;        /* donkerblauw: koppen, logo, lijn in de header */
-  --primair-2:#1B68C0;      /* middenblauw: links, focus, actieve navigatie */
+  --kop:#14232E;            /* koppen: hetzelfde bijna-zwart als de tekst, zodat de pagina bij de donkere header past */
+  --primair:#1B68C0;        /* middenblauw uit het logo: links, lijn onder de header, cijfers, accenten */
+  --primair-2:#1B68C0;      /* alias, zelfde blauw */
+  --primair-donker:#02295B; /* donkerblauw uit het logopakket: hover op links */
   --inkt:#14232E;           /* lopende tekst */
   --inkt-zacht:#4A5760;     /* onderschriften en metatekst, AA op --vlak */
   --vlak:#FFFFFF;           /* pagina-achtergrond */
-  --vlak-2:#F3F5F7;         /* afwisselende secties, tabellen, formulier */
-  --donker:#111111;         /* header, hero, footer: de ondergrond van logo-zwarte-achtergrond (max #1E1E1E) */
+  --vlak-2:#F2F4F6;         /* hero, afwisselende secties, tabellen, formulier: koel lichtgrijs */
+  --donker:#1C1C1C;         /* header: bijna-zwart, donkergrijs; ondergrond van logo-zwarte-achtergrond (LEESMIJ: tot #1E1E1E) */
   --donker-2:#1A1A1A;       /* velden op donker */
   --donker-lijn:#2A2A2A;    /* lijnen op donker */
   --op-donker:#FFFFFF;      /* tekst op donker */
@@ -36,5 +38,5 @@
   --sectie:64px;            /* ruimte tussen secties; desktop 96px */
   --straal:4px;             /* alleen knoppen en invoervelden */
   --lijndikte:1px;
-  --focus:2px solid var(--primair-2);
+  --focus:2px solid var(--primair);
 }

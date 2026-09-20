@@ -6,11 +6,12 @@ Toets: "zou ik dit voor elke installateur maken?" Nee. Wat het eigen maakt: het 
 
 | Token | Waarde | Gebruik |
 |---|---|---|
-| `--primair` | `#02295B` donkerblauw | koppen, logo, lijn onder de header |
-| `--primair-2` | `#1B68C0` middenblauw | links, focusring, actieve nav |
+| `--kop` | `#14232E` bijna-zwart | koppen: dezelfde toon als de donkere header, zodat boven en onder één geheel zijn |
+| `--primair` | `#1B68C0` middenblauw (uit het logo) | links, 2px-lijn onder de header, stapcijfers, lijntjes boven kolomkoppen, adviseurblok |
+| `--primair-donker` | `#02295B` | hover op links |
 | `--inkt` | `#14232E` | lopende tekst |
 | `--inkt-zacht` | `#4A5760` | onderschriften, metatekst (AA op `--vlak`) |
-| `--donker` | `#111111` | alleen de header: de ondergrond van `logo-zwarte-achtergrond` (Lars, 20-09-2026: zwart achter het logo, hero en footer licht; wijkt af van BRIEF §6) |
+| `--donker` | `#1C1C1C` donkergrijs | alleen de header: de ondergrond van `logo-zwarte-achtergrond` (LEESMIJ: tot `#1E1E1E`; donkerblauw zou `logo-donkere-achtergrond` vragen, niet aangeleverd). Lars, 20-09-2026 |
 | `--link-donker` | `#49BFFE` | links en accent op zwart, het lichtblauw uit het logo |
 | `--vlak` | `#FFFFFF` | pagina-achtergrond van de inhoud |
 | `--vlak-2` | `#F3F5F7` | afwisselende secties, tabellen, formulier |

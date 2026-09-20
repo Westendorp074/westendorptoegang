@@ -24,10 +24,12 @@ def bouw():
         ("VvE en vastgoed", "Gemeenschappelijke entree, bergingen en sleutels die bij een verhuizing niet terugkomen: beheer op afstand, geen sleutelkopieën meer."),
         ("Verenigingen en kerken", "Vrijwilligers, wisselende gebruikers, avonden en weekenden: tijdsloten en een pas die u intrekt als iemand stopt."),
         ("Industrie en logistiek", "Ploegen, zonering en een verzekeraar of auditor die wil weten wie waar was: rapportage en uitbreiding per deur."),
+        ("Recreatieparken", "Gasten die elke week wisselen, huisjes, sanitairgebouwen en een receptie die niet altijd bezet is: toegang per boeking, zonder sleuteloverdracht."),
+        ("Overheid en semi-overheid", "Gemeentelijke gebouwen, werven en buurthuizen: zones per afdeling en per gebruiker, met logging voor controle."),
     ]
     voor_wie = sectie("Voor wie wij werken",
         p("Voor alle bedrijven en instellingen die de toegang tot hun pand willen regelen zonder sleutelbos, van vijf deuren tot enkele honderden. Dit zijn de situaties die wij het meest tegenkomen.")
-        + '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in sectoren) + "</div>"
+        + '<div class="kolommen kolommen--4">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in sectoren) + "</div>"
 )
 
     # ---- wat we plaatsen ----
