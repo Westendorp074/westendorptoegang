@@ -11,7 +11,7 @@
   --inkt-zacht:#4A5760;     /* onderschriften en metatekst, AA op --vlak */
   --vlak:#FFFFFF;           /* pagina-achtergrond */
   --vlak-2:#F2F4F6;         /* hero, afwisselende secties, tabellen, formulier: koel lichtgrijs */
-  --donker:#1C1C1C;         /* header: bijna-zwart, donkergrijs; ondergrond van logo-zwarte-achtergrond (LEESMIJ: tot #1E1E1E) */
+  --donker:#2B2E31;         /* header: antraciet (Lars, 20-09-2026); lichter dan de LEESMIJ-grens van #1E1E1E voor logo-zwarte-achtergrond */
   --donker-2:#1A1A1A;       /* velden op donker */
   --donker-lijn:#2A2A2A;    /* lijnen op donker */
   --op-donker:#FFFFFF;      /* tekst op donker */

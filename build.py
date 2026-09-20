@@ -521,7 +521,7 @@ def assets():
         b = STATIC / "img" / extra
         if b.exists(): shutil.copy(b, DIST / (extra if extra != "og-standaard.png" else "static/img/og-standaard.png"))
     (DIST / "manifest.webmanifest").write_text(json.dumps({"name": NAAM, "short_name": "Westendorp", "start_url": "/", "display": "browser",
-        "background_color": "#1C1C1C", "theme_color": "#1C1C1C", "icons": [{"src": "/static/img/logo/icoon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
+        "background_color": "#2B2E31", "theme_color": "#2B2E31", "icons": [{"src": "/static/img/logo/icoon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
 
 def vierhonderdvier():
     links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Contact", "/contact/")])
