@@ -21,32 +21,32 @@ SITE          = "https://westendorptoegang.nl"
 NAAM          = "Westendorp Toegangscontrole"                       # INPUT §A1, overal identiek
 RECHTSPERSOON = "Westendorp Groep VOF"                              # alleen schema, footer, privacy
 KVK           = "91885124"                                          # INPUT §A1 (aanname, controleren)
-VESTIGINGSNR  = INV("12-cijferig vestigingsnummer")                 # INPUT §A1, alleen in schema als ingevuld
-BTW           = ""                                                  # INPUT §A1 optioneel; leeg = niet tonen
+VESTIGINGSNR  = ""                                                  # INPUT §A1: voorlopig weglaten (Lars, 20-09-2026)
+BTW           = "NL865804990B01"                                    # INPUT §A1 (Lars, 20-09-2026)
 MOEDER        = "Westendorp Slotenspecialist"                       # zusterbedrijf; alleen genoemd op /over-ons/ (Lars, 20-09-2026)
 MOEDER_URL    = "https://www.westendorpslotenspecialist.nl/"
-MOEDER_SINDS  = INV("jaartal start Westendorp, 1995 of 1985")       # INPUT §C3 (aanname 1995; Almelo-CONFIG zegt 1985 voor het bedrijf)
+MOEDER_SINDS  = "1985"                                              # INPUT §C3: Twents familiebedrijf sinds 1985 (Lars, 20-09-2026)
 # Lars, chat 20-09-2026: het woord "slotenmaker" komt op deze site niet voor (check.py bewaakt dat); hoofdmerk is EVVA,
 # Salto plaatsen wij niet, maar onderhouden en breiden wij wel uit; klanten komen niet langs, wij komen op locatie.
 # Westendorp Toegangscontrole is onderdeel van Westendorp Groep VOF (niet van Slotenspecialist). Particulieren en
 # autosleutels worden nergens genoemd, behalve één zin op /over-ons/ over de verhouding tot het zusterbedrijf.
 
-STRAAT        = INV("straat en huisnummer, BAG-spelling")           # INPUT §A2
-POSTCODE      = INV("postcode")                                     # INPUT §A2
+STRAAT        = "Wesseler-Nering 33"                                # INPUT §A2 (Lars, 20-09-2026)
+POSTCODE      = "7544 JC"                                           # INPUT §A2
 PLAATS        = "Enschede"
 REGIO         = "Overijssel"
-LAT, LON      = None, None                                          # INPUT §A2: [[INVULLEN: lat, lon]] — None = geo weglaten
+LAT, LON      = 52.192259, 6.882859                                 # INPUT §A2 (Lars, 20-09-2026)
 TEL_TONEN     = "053 478 42 45"                                     # INPUT §A2, Lars chat 20-09-2026 (zelfde nummer als de hoofdsite)
 TEL_LINK      = "+31534784245"
-MAIL          = "info@westendorptoegang.nl"                         # INPUT §A2 (aanname)
-OPENING_TEKST = "maandag tot en met vrijdag 08:00–17:00 " + INV("openingstijden bevestigen of corrigeren")
-OPENING_SCHEMA = [("Monday", "08:00", "17:00"), ("Tuesday", "08:00", "17:00"), ("Wednesday", "08:00", "17:00"),
-                  ("Thursday", "08:00", "17:00"), ("Friday", "08:00", "17:00")]   # aanname INPUT §A2
-STORING_BUITEN_KANTOORTIJD = INV("storingen buiten kantoortijd: alleen met servicecontract / altijd / niet")
-BEZOEKADRES   = False                                               # chat 20-09-2026: geen bezoekadres, wij komen op locatie
+MAIL          = "info@westendorpgroep.nl"                           # INPUT §A2 (Lars, 20-09-2026; in kleine letters geschreven)
+OPENING_TEKST = "dag en nacht, 7 dagen per week voor storingen; kantoor maandag tot en met vrijdag 08:00–17:00"   # Bedrijfsprofiel staat op 24/7 (Lars, 20-09-2026)
+KANTOORTIJD   = "maandag tot en met vrijdag 08:00–17:00"            # aanname INPUT §A2
+OPENING_SCHEMA = [(d, "00:00", "23:59") for d in ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")]   # gelijk aan het Bedrijfsprofiel: 24/7
+STORING_BUITEN_KANTOORTIJD = "dag en nacht bereikbaar, 7 dagen per week"   # INPUT §A2 (Lars, 20-09-2026)
+BEZOEKADRES   = "alleen op afspraak"                                # INPUT §A2 (Lars, 20-09-2026); inventarisatie altijd op locatie bij de klant
 
-GOOGLE_PROFIEL = INV("Google Maps-URL Bedrijfsprofiel")              # INPUT §A3
-LINKEDIN       = INV("LinkedIn-URL")                                 # INPUT §A3
+GOOGLE_PROFIEL = "https://www.google.com/maps/dir/52.275625,6.8256912/Westendorp+Toegangscontrole,+Wesseler-Nering+33,+7544+JC+Enschede"   # INPUT §A3 (route-URL; liever de deellink van het profiel)
+LINKEDIN       = ""                                                  # INPUT §A3: nog geen pagina (Lars, 20-09-2026); leeg = weglaten
 ANDERE_PROFIELEN = []                                                # INPUT §A3 optioneel
 
 # Aanbod (INPUT §B1). Diensten zonder ja/nee staan als placeholder in de tekst waar ze genoemd worden.
@@ -78,8 +78,8 @@ WERKGEBIED_REGEL = "tot 60 minuten rijden vanaf Enschede"
 # Merken (INPUT §B4)
 MERKEN = {
     "salto": {"naam": "Salto", "lijnen": "", "partner": "", "logo_ok": ""},   # chat 20-09-2026: niet plaatsen, wel onderhoud en uitbreiding van bestaande Salto-systemen
-    "xesar": {"naam": "EVVA Xesar", "lijnen": INV("Xesar-lijnen: cilinders, beslag, wandlezers, versie"), "partner": INV("EVVA-partnerstatus, exacte benaming"), "logo_ok": INV("EVVA-logo mag: ja/nee")},
-    "emzy":  {"naam": "EVVA EMZY", "lijnen": "motorcilinder", "partner": INV("EVVA-partnerstatus, exacte benaming"), "logo_ok": INV("EVVA-logo mag: ja/nee")},
+    "xesar": {"naam": "EVVA Xesar", "lijnen": INV("Xesar-lijnen: cilinders, beslag, wandlezers, versie"), "partner": "EVVA Partner", "logo_ok": INV("EVVA-logo mag: ja/nee")},
+    "emzy":  {"naam": "EVVA EMZY", "lijnen": "motorcilinder", "partner": "EVVA Partner", "logo_ok": INV("EVVA-logo mag: ja/nee")},
     "mechanisch": {"naam": INV("merk en systeem mechanisch sluitsysteem, bijv. EVVA 4KS/ICS"), "lijnen": "", "partner": "", "logo_ok": ""},
 }
 AIRKEY = INV("EVVA AirKey: ja/nee")
@@ -110,7 +110,8 @@ REACTIE_STORING    = INV("reactietijd bij storing, met en zonder contract")
 CONTRACTVORMEN     = INV("contractvormen")
 
 SECTOREN = ["kantoren", "zorg", "onderwijs"]                          # INPUT §B7 aanname; pagina's pas in fase 2
-CERTIFICATEN = INV("certificaten en keurmerken, exacte namen, of 'geen'")   # INPUT §B9
+CERTIFICATEN = "EVVA Partner; getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20-09-2026)
+DEURDRANGERS = "GU"                                                  # INPUT §B1: deurdrangers en deurautomaten van GU (Lars, 20-09-2026)
 
 # Feiten in het kort (INPUT §C3)
 TOEGANG_SINDS   = INV("jaartal start elektronische toegangscontrole")
@@ -312,7 +313,7 @@ def bedrijf_ld():
         "areaServed": [{"@type": "City", "name": naam} for naam, _, _, _ in WERKGEBIED],
         "identifier": [{"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}],
         "parentOrganization": {"@type": "Organization", "@id": SITE + "/#groep", "name": RECHTSPERSOON, "identifier": {"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}},
-        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "Salto onderhoud"],
+        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "Salto onderhoud", "Deurdrangers GU"],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Diensten", "itemListElement": [
             {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": SITE + u}} for n, u in DIENSTEN_NAV]},
     }
@@ -433,7 +434,7 @@ def adviseurblok():
     foto = beeld(a["foto"], f"{a['naam']}, {a['functie']} bij {NAAM}", sizes="120px") if a["foto"] else ""
     feiten = [f"Reactie binnen {esc(REACTIE_AANVRAAG)}",
               "Inventarisatie op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
-              f"Deuren, sloten en beslag sinds {esc(MOEDER_SINDS)}, elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}"]
+              f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}"]
     return f'''<div class="adviseur">{foto}<p class="naam">{esc(a["naam"])}</p><p class="functie">{esc(a["functie"].capitalize())}</p>
 <p>Direct: <a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
 <ul class="feiten">{"".join(f"<li>{f}</li>" for f in feiten)}</ul></div>'''
@@ -531,7 +532,7 @@ def sitemap_robots_llms():
     plaatsen = ", ".join(n for n, _, _, _ in WERKGEBIED)
     llms = f"""# {NAAM}
 
-> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; actief in deuren, sloten en beslag sinds {MOEDER_SINDS}.
+> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; Twents familiebedrijf, actief in deuren, sloten en beslag sinds {MOEDER_SINDS}. EVVA Partner; deurdrangers en deurautomaten van GU.
 
 ## Pagina's
 
@@ -542,6 +543,7 @@ def sitemap_robots_llms():
 - E-mail: {MAIL}
 - Adres: {STRAAT}, {POSTCODE} {PLAATS}
 - Bereikbaar: {OPENING_TEKST}
+- Bezoek aan de vestiging: {BEZOEKADRES}; inventarisatie altijd op locatie bij de klant
 """
     (DIST / "llms.txt").write_text(llms, encoding="utf-8")
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")

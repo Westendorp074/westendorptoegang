@@ -11,7 +11,7 @@ def bouw():
                  onderschrift=INV("onderschrift hero-foto: wat, waar, jaar"), lazy=False)
     hero = f'''<section class="hero"><div class="wrap"><div class="rooster">
 <div class="k7"><h1>Toegangscontrole voor bedrijven in Oost-Nederland</h1>
-<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, motorcilinders en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. Deuren, sloten en beslag zijn ons vak sinds {esc(MOEDER_SINDS)}; het elektronische deel komt uit dezelfde hand.</p>
+<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, motorcilinders en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}: deuren, sloten en beslag zijn ons vak, het elektronische deel komt uit dezelfde hand.</p>
 {acties()}</div>
 <div class="k5">{foto}</div>
 </div></div></section>'''
@@ -53,7 +53,7 @@ def bouw():
 
     # ---- bewijs: drie feiten uit INPUT.md ----
     feiten = [
-        f"Deuren, sloten en beslag in Enschede en Hengelo sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
+        f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
         f"{esc(AANTAL_DEUREN)} deuren geplaatst, met {esc(AANTAL_MONTEURS)} eigen monteurs.",
         f"Eigen werkplaats ({esc(WERKPLAATS)}): houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
     ]

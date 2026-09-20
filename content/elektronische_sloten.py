@@ -48,6 +48,11 @@ def bouw():
         "Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er nu niet is. Die frezen wij zelf in, in eigen beheer, zodat er geen deurenfabrikant tussen zit en de deur niet vervangen hoeft te worden. "
         f"Wat dat kost staat bij <a href=\"/kosten/\">kosten</a> ({esc(PRIJZEN['infrezen'][0])} tot {esc(PRIJZEN['infrezen'][1])} per deur, excl. btw)."))
 
+    drangers = sectie("Deurdrangers en deurautomaten", p(
+        f"Een elektronisch slot werkt alleen als de deur ook dichtvalt. Daarom leveren en stellen wij deurdrangers en deurautomaten van {esc(DEURDRANGERS)} af, "
+        "en zijn wij door de fabrikant getraind in het afstellen ervan: sluitkracht, sluitsnelheid en eindslag afgestemd op de deur en op de brandwerende eisen. "
+        "Bij een deurautomaat combineren wij de lezer met de automaat, zodat de deur na een geldige pas zelf opengaat."))
+
     faq = [
         ("Kan een elektronisch slot op elke deur?", "Op vrijwel elke deur past een van de vier soorten. De uitzonderingen zijn glazen deuren zonder profiel en monumentale deuren; die bekijken wij per stuk."),
         ("Wat als de batterij leeg is?", "Het systeem waarschuwt weken van tevoren. Is de batterij toch leeg, dan opent u met een noodvoeding tegen de lezer of met de mechanische noodsleutel die bij elk slot hoort."),
@@ -56,7 +61,7 @@ def bouw():
         ("Wat kost een elektronisch slot voor een bedrijf?", f"Elektronisch beslag: {esc(PRIJZEN['beslag'][0])} tot {esc(PRIJZEN['beslag'][1])} per deur geplaatst; elektronische cilinder: {esc(PRIJZEN['cilinder_xesar'][0])} tot {esc(PRIJZEN['cilinder_xesar'][1])}; excl. btw. Alle bandbreedtes op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
     ]
 
-    body = hero("Elektronische sloten voor bedrijven: welk slot op welke deur", intro, foto) + soorten + deurtypes + specs + batterij + infrezen
+    body = hero("Elektronische sloten voor bedrijven: welk slot op welke deur", intro, foto) + soorten + deurtypes + specs + batterij + infrezen + drangers
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Elektronische sloten", PAD)],
             extra_ld=[service_ld(PAD, "Elektronische sloten", omschrijving)],
             llms="De vier soorten elektronische sloten, welk slot op welke deur, specificatietabel, batterij en levensduur, infrezen van houten deuren.")

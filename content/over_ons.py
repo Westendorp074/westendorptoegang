@@ -10,19 +10,20 @@ def bouw():
              f"motorcilinders en sluitplannen bij bedrijven en instellingen in Oost-Nederland, met eigen monteurs en een eigen werkplaats voor het infrezen van deuren.")
 
     feiten = sectie("Feiten in het kort", '<div class="rooster"><div class="k8">' + lijst([
-        f"Deuren, sloten en beslag sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}",
+        f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}",
         f"Vestiging: {esc(STRAAT)}, {esc(POSTCODE)} {esc(PLAATS)}",
         f"Werkgebied: {esc(WERKGEBIED_REGEL)}, heel Oost-Nederland",
         "Merken: EVVA Xesar, EVVA EMZY, mechanische sluitsystemen van " + esc(MERKEN['mechanisch']['naam']) + "; onderhoud van bestaande Salto-systemen",
         f"Geplaatst tot nu toe: {esc(AANTAL_DEUREN)} deuren",
         f"Team: {esc(AANTAL_MONTEURS)} monteurs en één vaste adviseur",
         f"Werkplaats: {esc(WERKPLAATS)}",
-        f"Certificaten: {esc(CERTIFICATEN)}",
+        f"Partner en opleiding: {esc(CERTIFICATEN)}",
+        f"Deurdrangers en deurautomaten: {esc(DEURDRANGERS)}",
         f"{esc(RECHTSPERSOON)}, KvK {esc(KVK)}",
     ], klas="feiten") + "</div></div>")
 
     verhaal = sectie("Van sloten naar toegangscontrole", '<div class="rooster"><div class="k8">' + p(
-        f"Westendorp doet sinds {esc(MOEDER_SINDS)} deuren, sloten en beslag in Enschede en Hengelo. Toen bedrijven vroegen om sloten die met een pas opengaan, bleek dat de deur en het beslag "
+        f"Westendorp is een Twents familiebedrijf dat sinds {esc(MOEDER_SINDS)} deuren, sloten en beslag doet in Enschede en Hengelo. Toen bedrijven vroegen om sloten die met een pas opengaan, bleek dat de deur en het beslag "
         "het lastige deel zijn: past het beslag, sluit de deur nog goed, blijft de brandwerende deur goedgekeurd. De elektronica komt daar bovenop.",
         f"Daarom is {esc(NAAM)} ontstaan: een eigen tak voor bedrijven en instellingen, met EVVA als hoofdmerk omdat die fabrikant mechanisch en elektronisch onder één dak maakt. "
         "Wat wij bieden is één adviseur van inventarisatie tot beheer, eigen monteurs binnen een uur rijden en een werkplaats waar wij houten deuren zelf infrezen.",

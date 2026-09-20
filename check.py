@@ -14,7 +14,7 @@ DIST = ROOT / "dist"
 WIP = "--wip" in sys.argv
 WHITELIST = ("https://www.googletagmanager.com/", "https://api.web3forms.com/", "https://bat.bing.com/")
 VERBODEN = ["dé specialist", "totaaloplossing", "ontzorgen", "state-of-the-art", "innovatief", "toekomstbestendig",
-            "naadloos", "uw partner in", "passie", "kwaliteit staat voorop", "wij zijn trots", "cutting-edge", "maatwerk", "24/7",
+            "naadloos", "uw partner in", "passie", "kwaliteit staat voorop", "wij zijn trots", "cutting-edge", "maatwerk",
             "slotenmaker"]   # chat 20-09-2026: dat woord hoort bij de hoofdsite, niet bij deze
 # Alleen /over-ons/ mag het zusterbedrijf en de particuliere markt noemen (Lars, 20-09-2026).
 ALLEEN_OVER_ONS = ["particulier", "autosleutel", "slotenspecialist", "westendorpslotenspecialist"]

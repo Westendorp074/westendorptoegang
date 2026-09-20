@@ -10,7 +10,7 @@ def bouw():
              "De inventarisatie doen wij bij u op locatie; u hoeft nergens heen.")
     profiel = f'<p><a href="{esc(GOOGLE_PROFIEL)}" rel="noopener">Bekijk ons Google Bedrijfsprofiel</a></p>' if not placeholder(GOOGLE_PROFIEL) else f"<p>{esc(GOOGLE_PROFIEL)}</p>"
     nap = sectie("Gegevens", '<div class="rooster"><div class="k4"><h3>Adres</h3>' + f'<address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p></address>' +
-        f'<p>{esc(RECHTSPERSOON)}, KvK {esc(KVK)}</p></div><div class="k4"><h3>Bereikbaar</h3><p>{esc(OPENING_TEKST)}.</p><p>Storingen buiten kantoortijd: {esc(STORING_BUITEN_KANTOORTIJD)}.</p></div>' +
+        f'<p>{esc(RECHTSPERSOON)}, KvK {esc(KVK)}</p><p>Bezoek aan de vestiging {esc(BEZOEKADRES)}; de inventarisatie doen wij bij u.</p></div><div class="k4"><h3>Bereikbaar</h3><p>Kantoor {esc(KANTOORTIJD)}.</p><p>Storingen: {esc(STORING_BUITEN_KANTOORTIJD)}.</p></div>' +
         f'<div class="k4"><h3>Direct</h3><p><a href="tel:{esc(TEL_LINK)}">{esc(TEL_TONEN)}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>{profiel}</div></div>')
     faq = [
         ("Wat gebeurt er na mijn aanvraag?", f"U krijgt een bevestiging per e-mail. {esc(ADVISEUR['naam'])} belt u binnen {esc(REACTIE_AANVRAAG)} om de inventarisatie in te plannen, meestal binnen {esc(INVENTARISATIE_BINNEN)}."),
