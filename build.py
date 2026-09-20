@@ -209,7 +209,7 @@ def kruimels(items):
     delen = []
     for i, (n, pad) in enumerate(items):
         delen.append(f'<li><a href="{pad}">{esc(n)}</a></li>' if i < len(items) - 1 else f'<li aria-current="page">{esc(n)}</li>')
-    return f'<nav class="wrap kruimels" aria-label="Kruimelpad"><ol>{"".join(delen)}</ol></nav>'
+    return f'<nav class="kruimels kruimels--donker" aria-label="Kruimelpad"><ol>{"".join(delen)}</ol></nav>'
 
 # ---------- Beeld: eigen foto's uit static/img/bron, alleen schalen en comprimeren ----------
 _ONTBREKEND = []
@@ -345,6 +345,7 @@ def footer():
     linkedin = f'<li><a href="{esc(LINKEDIN)}" rel="noopener">LinkedIn</a></li>' if not placeholder(LINKEDIN) else ""
     cookies = '<li><button type="button" data-consent-open>Cookie-instellingen</button></li>' if TAG_ACTIEF else ""
     return f'''<footer class="voet"><div class="wrap">
+<a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="/static/img/logo/logo.svg" alt="" width="2053" height="647" loading="lazy"></a>
 <div class="rooster">
 <div class="k4"><h2>Diensten</h2><ul>{diensten}</ul></div>
 <div class="k4"><h2>Contact</h2><address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
@@ -472,15 +473,15 @@ def assets():
     _ASSETS["css"], _ASSETS["js"] = f"/static/css/{css_naam}", f"/static/js/{js_naam}"
     shutil.copytree(STATIC / "font", DIST / "static" / "font")
     logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True)
-    # Lichte variant: logo-kleur.svg uit het logopakket als die er is, anders de afgeleide versie.
+    # Header, hero en footer zijn zwart (#111111), dus overal de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
     lb = STATIC / "img" / "logo"
-    shutil.copy(lb / ("logo-kleur.svg" if (lb / "logo-kleur.svg").exists() else "logo-kleur-afgeleid.svg"), logo_uit / "logo.svg")
-    shutil.copy(lb / ("icoon-kleur.svg" if (lb / "icoon-kleur.svg").exists() else "icoon-kleur-afgeleid.svg"), logo_uit / "icoon.svg")
+    shutil.copy(lb / "logo-zwarte-achtergrond.svg", logo_uit / "logo.svg")
+    shutil.copy(lb / "icoon-zwarte-achtergrond.svg", logo_uit / "icoon.svg")
     for extra in ["favicon.ico", "apple-touch-icon.png", "og-standaard.png"]:
         b = STATIC / "img" / extra
         if b.exists(): shutil.copy(b, DIST / (extra if extra != "og-standaard.png" else "static/img/og-standaard.png"))
     (DIST / "manifest.webmanifest").write_text(json.dumps({"name": NAAM, "short_name": "Westendorp", "start_url": "/", "display": "browser",
-        "background_color": "#EEF0EE", "theme_color": "#02295B", "icons": [{"src": "/static/img/logo/icoon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
+        "background_color": "#111111", "theme_color": "#111111", "icons": [{"src": "/static/img/logo/icoon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
 
 def vierhonderdvier():
     links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("Salto", "/salto/"), ("EVVA Xesar", "/evva-xesar/"), ("Contact", "/contact/")])

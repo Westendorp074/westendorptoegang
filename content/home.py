@@ -21,10 +21,14 @@ def bouw():
         ("Kantoren", "Sleutelbeheer dat niet meer bij te houden is, flexwerken of een verhuizing: één pas per medewerker, rechten zelf beheren."),
         ("Zorg", "Personeelswisselingen, medicijnruimtes en cliëntkamers: wie was wanneer waar, zonder sleutelbos."),
         ("Onderwijs", "Veel gebruikers, verhuur van ruimtes en verloren sleutels: zones en tijdsloten per groep, een kwijtgeraakte pas blokkeert u zelf."),
+        ("VvE en vastgoed", "Gemeenschappelijke entree, bergingen en sleutels die bij een verhuizing niet terugkomen: beheer op afstand, geen sleutelkopieën meer."),
+        ("Verenigingen en kerken", "Vrijwilligers, wisselende gebruikers, avonden en weekenden: tijdsloten en een pas die u intrekt als iemand stopt."),
+        ("Industrie en logistiek", "Ploegen, zonering en een verzekeraar of auditor die wil weten wie waar was: rapportage en uitbreiding per deur."),
     ]
     voor_wie = sectie("Voor wie wij werken",
-        '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in sectoren) + "</div>"
-        + p("Ook voor VvE's, verenigingen, kerken en bedrijfspanden met magazijn. Particulieren en autosleutels helpen wij via "
+        p("Voor alle bedrijven en instellingen die de toegang tot hun pand willen regelen zonder sleutelbos, van vijf deuren tot enkele honderden. Dit zijn de situaties die wij het meest tegenkomen.")
+        + '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in sectoren) + "</div>"
+        + p("Particulieren en autosleutels helpen wij via "
             f'<a href="{MOEDER_URL}" rel="noopener">{esc(MOEDER)}</a>.'))
 
     # ---- wat we plaatsen ----

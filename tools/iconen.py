@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 UIT = ROOT / "static" / "img"
 DONKER, MIDDEN, LICHT, WIT = (2, 41, 91), (27, 104, 192), (73, 191, 254), (255, 255, 255)
-VLAK = (238, 240, 238)
+ZWART = (17, 17, 17)
 
 def dichtstbij(px):
     r, g, b = px
@@ -32,12 +32,13 @@ def herkleur(im):
 
 def main(bron):
     bron = pathlib.Path(bron)
-    icoon_bron = next((p for p in [bron / "icoon-kleur.png", bron / "icoon-zwarte-achtergrond-1500px.png"] if p.exists()), None)
-    logo_bron = next((p for p in [bron / "logo-kleur.png", bron / "logo-zwarte-achtergrond-3000px.png"] if p.exists()), None)
+    icoon_bron = next((p for p in [bron / "icoon-zwarte-achtergrond-1500px.png"] if p.exists()), None)
+    logo_bron = next((p for p in [bron / "logo-zwarte-achtergrond-3000px.png"] if p.exists()), None)
     if not icoon_bron or not logo_bron:
         sys.exit("icoon- of logo-PNG niet gevonden in " + str(bron))
-    icoon = herkleur(Image.open(icoon_bron)) if "zwarte" in icoon_bron.name else Image.open(icoon_bron).convert("RGBA")
-    logo = herkleur(Image.open(logo_bron)) if "zwarte" in logo_bron.name else Image.open(logo_bron).convert("RGBA")
+    # Site is zwart in header, hero en footer: de zwarte-achtergrondvariant gaat ongewijzigd op #111111.
+    icoon = Image.open(icoon_bron).convert("RGBA")
+    logo = Image.open(logo_bron).convert("RGBA")
 
     def vierkant(im, maat, achtergrond, marge):
         doek = Image.new("RGBA", (maat, maat), achtergrond)
@@ -47,12 +48,12 @@ def main(bron):
         return doek
 
     # favicon.ico: 16, 32, 48 op transparant
-    lagen = [vierkant(icoon, m, (0, 0, 0, 0), max(1, m // 16)) for m in (16, 32, 48)]
+    lagen = [vierkant(icoon, m, ZWART + (255,), max(1, m // 16)) for m in (16, 32, 48)]
     lagen[0].save(ROOT / "static" / "img" / "favicon.ico", format="ICO", sizes=[(16, 16), (32, 32), (48, 48)], append_images=lagen[1:])
     # apple-touch-icon: 180 px, opaak
-    vierkant(icoon, 180, VLAK + (255,), 24).convert("RGB").save(UIT / "apple-touch-icon.png", optimize=True)
+    vierkant(icoon, 180, ZWART + (255,), 24).convert("RGB").save(UIT / "apple-touch-icon.png", optimize=True)
     # og-standaard: 1200×630, logo op --vlak
-    og = Image.new("RGBA", (1200, 630), VLAK + (255,))
+    og = Image.new("RGBA", (1200, 630), ZWART + (255,))
     k = logo.copy(); k.thumbnail((880, 300), Image.LANCZOS)
     og.alpha_composite(k, ((1200 - k.width) // 2, (630 - k.height) // 2))
     og.convert("RGB").save(UIT / "og-standaard.png", optimize=True)

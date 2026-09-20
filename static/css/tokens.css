@@ -7,8 +7,14 @@
   --primair-2:#1B68C0;      /* middenblauw: links, focus, actieve navigatie */
   --inkt:#14232E;           /* lopende tekst */
   --inkt-zacht:#4A5760;     /* onderschriften en metatekst, AA op --vlak */
-  --vlak:#EEF0EE;           /* pagina-achtergrond, koel als geborsteld staal */
-  --vlak-2:#FFFFFF;         /* secties die eruit springen, tabellen, formulier */
+  --vlak:#FFFFFF;           /* pagina-achtergrond */
+  --vlak-2:#F3F5F7;         /* afwisselende secties, tabellen, formulier */
+  --donker:#111111;         /* header, hero, footer: de ondergrond van logo-zwarte-achtergrond (max #1E1E1E) */
+  --donker-2:#1A1A1A;       /* velden op donker */
+  --donker-lijn:#2A2A2A;    /* lijnen op donker */
+  --op-donker:#FFFFFF;      /* tekst op donker */
+  --op-donker-zacht:#AEB9C4;/* bijschriften op donker */
+  --link-donker:#49BFFE;    /* links en accent op donker: het lichtblauw uit het logo */
   --lijn:#C9CED0;           /* scheidingen en tabelranden */
   --signaal:#1E8A4C;        /* "toegang verleend": alleen primaire CTA, formuliersucces, bedankt */
   --signaal-donker:#176E3C; /* hover/active van de CTA */

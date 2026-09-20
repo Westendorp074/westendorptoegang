@@ -10,12 +10,14 @@ Toets: "zou ik dit voor elke installateur maken?" Nee. Wat het eigen maakt: het 
 | `--primair-2` | `#1B68C0` middenblauw | links, focusring, actieve nav |
 | `--inkt` | `#14232E` | lopende tekst |
 | `--inkt-zacht` | `#4A5760` | onderschriften, metatekst (AA op `--vlak`) |
-| `--vlak` | `#EEF0EE` | pagina-achtergrond |
-| `--vlak-2` | `#FFFFFF` | secties die eruit springen, tabellen, formulier |
+| `--donker` | `#111111` | header, hero, footer, kruimelpad: de ondergrond van `logo-zwarte-achtergrond` (Lars, 20-09-2026: zwart achter het logo; wijkt af van BRIEF §6) |
+| `--link-donker` | `#49BFFE` | links en accent op zwart, het lichtblauw uit het logo |
+| `--vlak` | `#FFFFFF` | pagina-achtergrond van de inhoud |
+| `--vlak-2` | `#F3F5F7` | afwisselende secties, tabellen, formulier |
 | `--lijn` | `#C9CED0` | scheidingen, tabelranden |
 | `--signaal` | `#1E8A4C` | alleen primaire CTA, formuliersucces, bedanktpagina |
 
-Lichtblauw `#49BFFE` uit het logo wordt nergens als UI-kleur gebruikt (LEESMIJ: nooit op wit). Zwart is geen huisstijlkleur; de footer is `--primair` met wit, daar past `logo-donkere-achtergrond` (nog niet aangeleverd; tot dan de afgeleide lichte variant op een lichte footer).
+Lichtblauw `#49BFFE` alleen op zwart (LEESMIJ: nooit op wit). Zwart `#111111` is de ondergrond voor header, hero en footer, precies waar het logo staat; de inhoud ertussen is wit, omdat lange zakelijke tekst op zwart slechter leest. Het groen van de CTA staat op beide.
 
 ## Type
 
