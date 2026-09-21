@@ -3,8 +3,8 @@ from build import *
 
 def bouw():
     titel = "Toegangscontrole voor bedrijven in Oost-Nederland"
-    omschrijving = ("Westendorp Toegangscontrole installeert EVVA Xesar, mechanische sluitsystemen en sluitplannen bij bedrijven "
-                    "en instellingen in Twente en Oost-Nederland, op locatie.")
+    omschrijving = ("Westendorp Toegangscontrole installeert EVVA Xesar, mechanische sluitsystemen en sluitplannen bij "
+                    "bedrijven en instellingen in Twente en Oost-Nederland.")
 
     # ---- hero ----
     foto = beeld("hero-beslag.jpg", "Elektronisch beslag op een kantoordeur, geplaatst door Westendorp Toegangscontrole",
