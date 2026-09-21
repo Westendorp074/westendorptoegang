@@ -7,7 +7,7 @@ def bouw():
     titel = "Over Westendorp Toegangscontrole"
     omschrijving = ("Westendorp Toegangscontrole uit Enschede installeert EVVA-toegangscontrole en sluitplannen bij bedrijven in Oost-Nederland. Feiten, team en werkplaats.")
     intro = (f"{esc(NAAM)} is de zakelijke toegangscontroletak van {esc(RECHTSPERSOON)} in {esc(PLAATS)}. Wij leveren en installeren elektronische toegangscontrole van EVVA, "
-             f"motorcilinders en sluitplannen bij bedrijven en instellingen in Oost-Nederland, met eigen monteurs en een eigen werkplaats voor het infrezen van deuren.")
+             f"mechanische sluitsystemen en sluitplannen bij bedrijven en instellingen in Oost-Nederland, met eigen monteurs en een eigen werkplaats voor het infrezen van deuren.")
 
     feiten = sectie("Feiten in het kort", '<div class="rooster"><div class="k8">' + lijst([
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}",
@@ -26,14 +26,14 @@ def bouw():
         f"Westendorp is een Twents familiebedrijf dat sinds {esc(MOEDER_SINDS)} deuren, sloten en beslag doet in Enschede en Hengelo. Toen bedrijven vroegen om sloten die met een pas opengaan, bleek dat de deur en het beslag "
         "het lastige deel zijn: past het beslag, sluit de deur nog goed, blijft de brandwerende deur goedgekeurd. De elektronica komt daar bovenop.",
         f"Daarom is {esc(NAAM)} ontstaan: een eigen tak voor bedrijven en instellingen, met EVVA als hoofdmerk omdat die fabrikant mechanisch en elektronisch onder één dak maakt. Wij zijn officieel partner van EVVA, ASSA ABLOY en ABUS, en EVVA schakelt ons in voor bepaalde projecten. "
-        "Wat wij bieden is één adviseur van inventarisatie tot beheer, eigen monteurs binnen een uur rijden en een werkplaats waar wij houten deuren zelf infrezen.",
+        "Wat wij bieden is één adviseur van inventarisatie tot beheer, eigen monteurs binnen een uur rijden en een werkplaats waar wij houten deuren zelf infrezen. " + PKVW,
         f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}. Onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
         + "</div></div>", wit=True)
 
     personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")
         + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}. Uw contactpersoon van inventarisatie tot beheer.<br>'
         f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div>' for a in ADVISEURS)
-    team = sectie("Team", '<div class="rooster">' + personen + '<div class="k4"><h3>Monteurs</h3><p>Eigen monteurs die zowel het mechanische als het elektronische deel doen. '
+    team = sectie("Team", '<div class="rooster">' + personen + '<div class="k4"><h3>Monteurs</h3><p>Eigen, PKVW-gecertificeerde monteurs die zowel het mechanische als het elektronische deel doen, met ervaring in oudere panden. '
         "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.</p></div></div>")
 
     werkplaats = beeld("werkplaats-infrezen.jpg", "Houten deur wordt ingefreesd voor elektronisch beslag in de werkplaats van Westendorp", onderschrift=INV("onderschrift werkplaatsfoto"))

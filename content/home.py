@@ -3,7 +3,7 @@ from build import *
 
 def bouw():
     titel = "Toegangscontrole voor bedrijven in Oost-Nederland"
-    omschrijving = ("Westendorp Toegangscontrole installeert EVVA Xesar, motorcilinders en sluitplannen bij bedrijven "
+    omschrijving = ("Westendorp Toegangscontrole installeert EVVA Xesar, mechanische sluitsystemen en sluitplannen bij bedrijven "
                     "en instellingen in Twente en Oost-Nederland, op locatie.")
 
     # ---- hero ----
@@ -11,7 +11,7 @@ def bouw():
                  onderschrift=INV("onderschrift hero-foto: wat, waar, jaar"), lazy=False)
     hero = f'''<section class="hero"><div class="wrap"><div class="rooster">
 <div class="k7"><h1>Toegangscontrole voor bedrijven in Oost-Nederland</h1>
-<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, motorcilinders en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}: deuren, sloten en beslag zijn ons vak, het elektronische deel komt uit dezelfde hand.</p>
+<p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}: deuren, sloten en beslag zijn ons vak, het elektronische deel komt uit dezelfde hand.</p>
 {acties()}</div>
 <div class="k5">{foto}</div>
 </div></div></section>'''
@@ -56,6 +56,7 @@ def bouw():
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
         f"Eigen werkplaats in {esc(WERKPLAATS)}: houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
         f"Storingsdienst {esc(REACTIE_STORING)}.",
+        esc(PKVW),
         f"{PARTNER_TEKST.capitalize()}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
     # ---- video op klik (verschijnt zodra static/img/bron/hero-video.mp4 en hero-video-poster.jpg bestaan) ----

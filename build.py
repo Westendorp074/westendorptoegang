@@ -125,7 +125,8 @@ OFFERTE_BINNEN     = "zo snel mogelijk, afhankelijk van de omvang"
 REACTIE_STORING    = "binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar"
 
 SECTOREN = ["kantoren", "zorg", "onderwijs"]                          # INPUT §B7 aanname; pagina's pas in fase 2
-CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20-09-2026)
+CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; monteurs PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen); getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20/21-09-2026)
+PKVW = "Onze monteurs zijn PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen) en gespecialiseerd in het vernieuwen van oudere panden met toegangscontrole, zonder de bestaande deuren te vervangen."
 DEURDRANGERS = "GU"                                                  # INPUT §B1: deurdrangers en deurautomaten van GU (Lars, 20-09-2026)
 
 # Feiten in het kort (INPUT §C3)
@@ -348,7 +349,7 @@ def bedrijf_ld():
         "areaServed": [{"@type": "City", "name": naam} for naam, _, _, _ in WERKGEBIED],
         "identifier": [{"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}],
         "parentOrganization": {"@type": "Organization", "@id": SITE + "/#groep", "name": RECHTSPERSOON, "identifier": {"@type": "PropertyValue", "propertyID": "KvK", "value": KVK}},
-        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Motorcilinders", "Sluitplannen", "Elektronische sloten", "ASSA ABLOY", "ABUS", "Salto onderhoud", "Deurdrangers GU"],
+        "knowsAbout": ["Toegangscontrole", "EVVA Xesar", "EVVA EMZY", "Mechanische sluitsystemen", "Sluitplannen", "Elektronische sloten", "ASSA ABLOY", "ABUS", "Salto onderhoud", "Deurdrangers GU", "Politiekeurmerk Veilig Wonen"],
         "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Diensten", "itemListElement": [
             {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": SITE + u}} for n, u in DIENSTEN_NAV]},
     }
@@ -555,7 +556,7 @@ def assets():
 def vierhonderdvier():
     links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Contact", "/contact/")])
     body = f'<section class="hero"><div class="wrap"><div class="rooster"><div class="k8"><h1>Deze pagina bestaat niet</h1><p>Het adres klopt niet meer of is verkeerd getypt. Dit zijn de pagina\'s waar de meeste bezoekers naar zoeken.</p><ul class="lijst-links">{links}</ul>{acties()}</div></div></div></section>'
-    schrijf("/404/", "Pagina niet gevonden", "De pagina die u zocht bestaat niet op westendorptoegang.nl. Ga verder naar toegangscontrole, wat het kost, EVVA Xesar, motorcilinders of neem contact op.", body, noindex=True, met_formulier=False)
+    schrijf("/404/", "Pagina niet gevonden", "De pagina die u zocht bestaat niet op westendorptoegang.nl. Ga verder naar toegangscontrole, wat het kost, EVVA Xesar, sluitplannen of neem contact op.", body, noindex=True, met_formulier=False)
     shutil.move(DIST / "404" / "index.html", DIST / "404.html"); (DIST / "404").rmdir()
     _PAGINAS[:] = [p for p in _PAGINAS if p[0] != "/404/"]
 
@@ -570,7 +571,7 @@ def sitemap_robots_llms():
     plaatsen = ", ".join(n for n, _, _, _ in WERKGEBIED)
     llms = f"""# {NAAM}
 
-> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY-motorcilinders) en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; Twents familiebedrijf, actief in deuren, sloten en beslag sinds {MOEDER_SINDS}. Officieel partner van EVVA, ASSA ABLOY en ABUS; deurdrangers en deurautomaten van GU.
+> {NAAM} levert en installeert elektronische toegangscontrole (EVVA Xesar, EVVA EMZY), mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Oost-Nederland, altijd op locatie bij de klant, vanuit {PLAATS}. Bestaande Salto-systemen onderhoudt en breidt het bedrijf uit. Werkgebied: {WERKGEBIED_REGEL}, onder meer {plaatsen}. Onderdeel van {RECHTSPERSOON}, KvK {KVK}; Twents familiebedrijf, actief in deuren, sloten en beslag sinds {MOEDER_SINDS}. Officieel partner van EVVA, ASSA ABLOY en ABUS; monteurs PKVW-gecertificeerd; deurdrangers en deurautomaten van GU.
 
 ## Pagina's
 
