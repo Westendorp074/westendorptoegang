@@ -145,7 +145,7 @@ ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of N
 # Conversie (INPUT §E)
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
-WEB3FORMS_KEY  = "3d5d8a2f-0cfd-4187-8d41-9a8998bb2571"              # INPUT §E2 (Lars, 21-09-2026), gekoppeld aan info@westendorpgroep.nl
+WEB3FORMS_KEY  = "2fa6ec12-f0f3-417b-954e-3281ecf4b9a2"              # INPUT §E2 (Lars, 21-09-2026); oude key 3d5d8a2f… ging naar autosleutel@
 FORM_MAILBOX   = MAIL                                               # INPUT §E2: aanname, zelfde als het algemene adres
 BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Lars of Nick belt u binnen 1 werkdag om uw situatie door te nemen "
                   "en de inventarisatie op locatie in te plannen. Daarna ontvangt u zo snel mogelijk een offerte met een vaste prijs per deur.")   # voorstel Claude, 21-09-2026
