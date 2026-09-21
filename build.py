@@ -33,6 +33,7 @@ MOEDER_SINDS  = "1985"                                              # INPUT §C3
 
 STRAAT        = "Wesseler-Nering 33"                                # INPUT §A2 (Lars, 20-09-2026)
 POSTCODE      = "7544 JC"                                           # INPUT §A2
+KVK_ADRES     = "Wesseler-Nering 32, 7544 JC Enschede"              # inschrijfadres KvK van de VOF (Lars, 21-09-2026); vestiging 33 mag gebruikt worden
 PLAATS        = "Enschede"
 REGIO         = "Overijssel"
 LAT, LON      = 52.192259, 6.882859                                 # INPUT §A2 (Lars, 20-09-2026)

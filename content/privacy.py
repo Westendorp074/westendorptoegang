@@ -27,7 +27,7 @@ def bouw():
 <h2>Uw rechten</h2>
 <p>U kunt ons vragen welke gegevens wij van u hebben, ze laten corrigeren of verwijderen, en bezwaar maken tegen de verwerking. Mail daarvoor naar <a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a> of bel {tel()}. Bent u het niet eens met hoe wij met uw gegevens omgaan, dan kunt u een klacht indienen bij de Autoriteit Persoonsgegevens.</p>
 <h2>Contact</h2>
-<address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}<br>{esc(RECHTSPERSOON)}, KvK {esc(KVK)}<br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p></address>
+<address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}<br>{esc(RECHTSPERSOON)}, KvK {esc(KVK)}, inschrijfadres {esc(KVK_ADRES)}<br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p></address>
 </div></div></div></section>'''
     schrijf(PAD, titel, omschrijving, body, kruimelpad=[("Home", "/"), ("Privacy", PAD)], met_formulier=False,
             llms="Privacyverklaring: verwerking van het aanvraagformulier via Web3Forms, cookies pas na toestemming (Consent Mode v2), rechten en contact.")
