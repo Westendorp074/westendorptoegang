@@ -45,7 +45,7 @@ OPENING_SCHEMA = [(d, "00:00", "23:59") for d in ("Monday", "Tuesday", "Wednesda
 STORING_BUITEN_KANTOORTIJD = "dag en nacht bereikbaar, 7 dagen per week"   # INPUT §A2 (Lars, 20-09-2026)
 BEZOEKADRES   = "alleen op afspraak"                                # INPUT §A2 (Lars, 20-09-2026); inventarisatie altijd op locatie bij de klant
 
-GOOGLE_PROFIEL = "https://www.google.com/maps/dir/52.275625,6.8256912/Westendorp+Toegangscontrole,+Wesseler-Nering+33,+7544+JC+Enschede"   # INPUT §A3 (route-URL; liever de deellink van het profiel)
+GOOGLE_PROFIEL = "https://share.google/lRJgjHKFPBrgrWkop"           # INPUT §A3: deellink Google Bedrijfsprofiel (Lars, 21-09-2026)
 LINKEDIN       = ""                                                  # INPUT §A3: nog geen pagina (Lars, 20-09-2026); leeg = weglaten
 ANDERE_PROFIELEN = []                                                # INPUT §A3 optioneel
 
