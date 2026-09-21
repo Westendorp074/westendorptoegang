@@ -5,7 +5,7 @@ PAD = "/kosten/"
 
 def bouw():
     titel = "Wat kost toegangscontrole per deur"
-    omschrijving = ("Vanaf-prijzen voor elektronische sloten, EVVA AirKey en Xesar, wat de prijs bepaalt en wat er niet in zit. "
+    omschrijving = ("Vanaf-prijzen voor elektronische sloten en EVVA AirKey, wat de prijs bepaalt en wat er niet in zit. "
                     "Excl. btw, bijgewerkt door Westendorp Toegangscontrole.")
     intro = (f"Een elektronisch slot (smart lock) kost geplaatst {prijs('slot')}, {BTW_TEKST}. Welk slot het wordt, hangt af van de deur en van de beveiligingseisen "
              f"van uw pand; voor elk type bedrijf is er een passende uitvoering. Een EVVA AirKey-startpakket kost {prijs('airkey_start', False)}. {PRIJS_DISCLAIMER}")
