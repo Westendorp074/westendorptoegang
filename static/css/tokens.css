@@ -18,8 +18,8 @@
   --op-donker-zacht:#AEB9C4;/* bijschriften op donker */
   --link-donker:#49BFFE;    /* links en accent op donker: het lichtblauw uit het logo */
   --lijn:#C9CED0;           /* scheidingen en tabelranden */
-  --signaal:#1E8A4C;        /* "toegang verleend": alleen primaire CTA, formuliersucces, bedankt */
-  --signaal-donker:#176E3C; /* hover/active van de CTA */
+  --signaal:#177A42;        /* "toegang verleend": alleen primaire CTA, formuliersucces, bedankt; 5,4:1 met wit (AA) */
+  --signaal-donker:#125E33; /* hover/active van de CTA */
   --fout:#B3261E;           /* formulierfouten */
   --wit:#FFFFFF;
 
