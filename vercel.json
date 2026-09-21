@@ -21,28 +21,6 @@
       "has": [
         {
           "type": "host",
-          "value": "westendorptoegangscontrole.nl"
-        }
-      ],
-      "destination": "https://westendorptoegang.nl/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.westendorptoegangscontrole.nl"
-        }
-      ],
-      "destination": "https://westendorptoegang.nl/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
           "value": "toegangscontroles.nl"
         }
       ],
@@ -55,6 +33,50 @@
         {
           "type": "host",
           "value": "www.toegangscontroles.nl"
+        }
+      ],
+      "destination": "https://westendorptoegang.nl/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "westendorptoegangcontrole.nl"
+        }
+      ],
+      "destination": "https://westendorptoegang.nl/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.westendorptoegangcontrole.nl"
+        }
+      ],
+      "destination": "https://westendorptoegang.nl/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "westendorptoegangscontrole.nl"
+        }
+      ],
+      "destination": "https://westendorptoegang.nl/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.westendorptoegangscontrole.nl"
         }
       ],
       "destination": "https://westendorptoegang.nl/:path*",
