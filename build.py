@@ -152,7 +152,7 @@ BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per 
 GOOGLE_TAG_ID  = "AW-17596975114"                                   # INPUT §E3 (Lars, 21-09-2026), gedeeld met andere sites; conversielabels volgen
 ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie
 ADS_LABEL_TEL  = ""
-SC_VERIFICATIE = ""                                                   # INPUT §E3 Search Console meta-tag inhoud
+SC_VERIFICATIE = "cP27EjU-ymEGxRVvGIe0oJR3uFC-TVVEizK6w0S-oP0"      # INPUT §E3 Search Console (Lars, 21-09-2026)
 BING_VERIFICATIE = ""                                                 # INPUT §E3 optioneel
 UET_TAG        = ""                                                   # INPUT §E3 optioneel
 
