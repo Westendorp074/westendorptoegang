@@ -30,13 +30,13 @@ def bouw():
         ("Offline / online", "Beide; online voor bediening op afstand"),
         ("Voeding", "Batterij in de cilinder; netvoeding optioneel bij veel bewegingen"),
         ("Deurtypes", "Hout, staal, aluminium en kunststof; sloten met nachtschoot en meerpuntssluitingen"),
-        ("Certificering", INV("EMZY-certificering die Westendorp levert, bijv. SKG-sterren of EN-klasse")),
+        ("Certificering", "SKG-gecertificeerd; EN 179 op nooduitgangen en EN 1634 op brandwerende deuren waar van toepassing"),
         ("Uitbreidbaarheid", "Per deur, combineerbaar met Xesar en mechanisch sluitplan van EVVA"),
         ("Koppelingen", "Intercom, alarm, tijdregistratie of lift: in overleg"),
     ], bijschrift="Specificaties EVVA EMZY motorcilinder") + p(f"Partnerstatus: {esc(m['partner'])}."))
 
     kosten = sectie("Wat kost een motorcilinder", p(
-        f"Een EVVA EMZY kost geplaatst {esc(PRIJZEN['emzy'][0])} tot {esc(PRIJZEN['emzy'][1])} per deur, excl. btw; daarin zit {esc(PRIJZEN['emzy'][2])}. "
+        f"Een EVVA EMZY kost geplaatst {prijs('emzy')}; een gewoon elektronisch slot {prijs('slot')}, {BTW_TEKST}. "
         f"{PRIJS_DISCLAIMER} Meer op <a href=\"/kosten/\">wat kost toegangscontrole</a>."), wit=True)
 
     faq = [

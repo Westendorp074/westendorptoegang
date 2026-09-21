@@ -46,7 +46,7 @@ def bouw():
 
     infrezen = sectie("Wat wij zelf infrezen", p(
         "Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er nu niet is. Die frezen wij zelf in, in eigen beheer, zodat er geen deurenfabrikant tussen zit en de deur niet vervangen hoeft te worden. "
-        f"Wat dat kost staat bij <a href=\"/kosten/\">kosten</a> ({esc(PRIJZEN['infrezen'][0])} tot {esc(PRIJZEN['infrezen'][1])} per deur, excl. btw)."))
+        f"Wat dat kost staat bij <a href=\"/kosten/\">kosten</a> (infrezen: {prijs('infrezen')})."))
 
     drangers = sectie("Deurdrangers en deurautomaten", p(
         f"Een elektronisch slot werkt alleen als de deur ook dichtvalt. Daarom leveren en stellen wij deurdrangers en deurautomaten van {esc(DEURDRANGERS)} af, "
@@ -58,7 +58,7 @@ def bouw():
         ("Wat als de batterij leeg is?", "Het systeem waarschuwt weken van tevoren. Is de batterij toch leeg, dan opent u met een noodvoeding tegen de lezer of met de mechanische noodsleutel die bij elk slot hoort."),
         ("Blijft mijn deurdranger of brandwerende deur goedgekeurd?", "Ja, mits wij onderdelen gebruiken met een toelating voor die deur. Bij brandwerende deuren gebruiken wij alleen gecertificeerd beslag en laten wij de dranger zitten."),
         ("Kan ik met één pas alle deuren openen?", "Ja. Eén pas, tag of telefoon werkt op elektronisch beslag, cilinders, motorcilinders en wandlezers binnen hetzelfde systeem; de rechten per deur stelt u in de software in."),
-        ("Wat kost een elektronisch slot voor een bedrijf?", f"Elektronisch beslag: {esc(PRIJZEN['beslag'][0])} tot {esc(PRIJZEN['beslag'][1])} per deur geplaatst; elektronische cilinder: {esc(PRIJZEN['cilinder_xesar'][0])} tot {esc(PRIJZEN['cilinder_xesar'][1])}; excl. btw. Alle bandbreedtes op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+        ("Wat kost een elektronisch slot voor een bedrijf?", f"Een elektronisch slot (smart lock) kost geplaatst {prijs('slot')}, {BTW_TEKST}; welke uitvoering past, hangt af van de deur en de beveiligingseisen. Alle vanaf-prijzen op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
     ]
 
     body = hero("Elektronische sloten voor bedrijven: welk slot op welke deur", intro, foto) + soorten + deurtypes + specs + batterij + infrezen + drangers

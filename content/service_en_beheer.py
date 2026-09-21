@@ -25,7 +25,7 @@ def bouw():
     contract = sectie("Storingsdienst en servicecontract", tabel([
         ("Storingsdienst", esc(REACTIE_STORING)),
         ("Bereikbaar", esc(STORING_BUITEN_KANTOORTIJD)),
-        ("Servicecontract per jaar", f"{esc(PRIJZEN['servicecontract'][0])} tot {esc(PRIJZEN['servicecontract'][1])}, excl. btw; {esc(PRIJZEN['servicecontract'][2])}"),
+        ("Servicecontract", prijs('servicecontract') + "; inhoud per pand afgestemd"),
         ("Koppelingen met intercom, alarm, tijdregistratie of lift", "In overleg"),
     ], bijschrift="Storingsdienst en servicecontract") + p(PRIJS_DISCLAIMER + " De inhoud van een servicecontract stemmen wij per pand af."))
 

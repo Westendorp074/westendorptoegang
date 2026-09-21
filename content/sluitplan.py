@@ -30,7 +30,7 @@ def bouw():
     kwijt = sectie("Sleutel kwijt: het verschil in één tabel", tabel([
         ("Wat gebeurt er", "Onbekend wie de sleutel heeft en welke deuren ermee opengaan", "U blokkeert de pas in de software"),
         ("Wat moet u doen", "Cilinders vervangen van alle deuren waar de sleutel op paste; bij een hoofdsleutel vaak het hele plan", "Nieuwe pas uitgeven"),
-        ("Kosten", f"Per cilinder {esc(PRIJZEN['mech_cilinder'][0])} tot {esc(PRIJZEN['mech_cilinder'][1])}, excl. btw, plus montage; bij een hoofdsleutel maal het aantal deuren", "De prijs van één pas"),
+        ("Kosten", f"Per cilinder ({prijs('mech_cilinder', False)}) plus montage; bij een hoofdsleutel maal het aantal deuren", "De prijs van één pas"),
         ("Doorlooptijd", "Levertijd van gecertificeerde cilinders plus montage", "Direct"),
         ("Bewijs voor verzekeraar", "Alleen de sleutelkaart en de administratie", "Logboek: wanneer geblokkeerd, wie waar was"),
     ], kop=["", "Mechanisch sluitplan", "Elektronisch sluitplan"], bijschrift="Wat er gebeurt als een sleutel of pas kwijt is")
@@ -50,7 +50,7 @@ def bouw():
         "Het beheer van een mechanisch plan bestaat uit de sleutelkaart, de sleutelregistratie en het bijbestellen via ons. Bij een elektronisch plan doet u dat zelf in de software, of wij doen het voor u."), wit=True)
 
     faq = [
-        ("Wat kost een mechanisch sluitplan?", f"Per gecertificeerde cilinder {esc(PRIJZEN['mech_cilinder'][0])} tot {esc(PRIJZEN['mech_cilinder'][1])}, excl. btw, inclusief {esc(PRIJZEN['mech_cilinder'][2])}. {PRIJS_DISCLAIMER} Zie <a href=\"/kosten/\">kosten</a>."),
+        ("Wat kost een mechanisch sluitplan?", f"Dat hangt af van het aantal cilinders en sleutels en van het systeem: prijs per cilinder {prijs('mech_cilinder', False)}. Cilinders in ons eigen profiel leveren wij uit voorraad. {PRIJS_DISCLAIMER} Zie <a href=\"/kosten/\">kosten</a>."),
         ("Kan ik mijn bestaande sluitplan uitbreiden?", "Ja, zolang het systeem nog geleverd wordt en u de sleutelkaart heeft. Zit het plan in ons eigen profiel, dan leveren wij uit voorraad. Is het systeem verlopen of de kaart kwijt, dan adviseren wij een nieuw plan, meestal meteen elektronisch voor de deuren waar het om gaat."),
         ("Moet alles in één keer elektronisch?", "Nee. De meeste klanten beginnen met de buitendeur en de ruimtes met risico, en laten de rest mechanisch. Het EVVA-systeem laat beide naast elkaar bestaan."),
         ("Hoe lang duurt het maken van een sluitplan?", f"Het ontwerp maken wij na de inventarisatie, de offerte volgt {esc(OFFERTE_BINNEN)}. Cilinders in ons eigen profiel leveren wij uit voorraad; de montagedatum spreken wij per project af."),

@@ -85,7 +85,7 @@ MERKEN = {
     "assa": {"naam": "ASSA ABLOY", "lijnen": "mechanisch en elektronisch", "partner": "officieel partner", "logo_ok": "ja"},
     "abus": {"naam": "ABUS", "lijnen": "mechanisch: S6+ en Magtec, eigen profiel", "partner": "officieel partner", "logo_ok": "ja"},
 }
-AIRKEY = INV("EVVA AirKey: ja/nee")
+AIRKEY = "ja"                                                        # Lars, 21-09-2026: AirKey-startpakket vanaf € 487
 PARTNERS = ["EVVA", "ASSA ABLOY", "ABUS"]                              # officieel partner van alle drie (Lars, 20-09-2026)
 PARTNER_TEKST = "officieel partner van EVVA, ASSA ABLOY en ABUS"
 # Eigen sleutelprofielen (Lars, 20-09-2026): cilinders op naam, voorraad in huis, dus snel leveren in plaats van weken wachten.
@@ -94,19 +94,29 @@ EVVA_PROFIEL = "EVVA 4KS+ en EVVA EPS"
 EVVA_PROJECTEN = True   # EVVA schakelt Westendorp in voor bepaalde projecten (Lars, 20-09-2026)
 
 # Richtprijzen (INPUT §B5), excl. btw. Zonder ingevulde waarden gaat /kosten/ niet live.
+# Vanaf-prijzen (Lars, 21-09-2026). Sleutel: (omschrijving, vanaf in euro als tekst of None, eenheid). None = regel weglaten.
+# Aanname: excl. btw (B2B); Lars bevestigt.
 PRIJZEN = {
-    "beslag":         (INV("vanaf"), INV("tot"), INV("wat zit erin")),   # elektronisch beslag per deur, geplaatst
-    "cilinder_xesar": (INV("vanaf"), INV("tot"), INV("wat zit erin")),
-    "emzy":           (INV("vanaf"), INV("tot"), INV("wat zit erin")),
-    "wandlezer":      (INV("vanaf"), INV("tot"), INV("wat zit erin")),
-    "software":       (INV("vanaf"), INV("tot"), INV("wat zit erin")),
-    "infrezen":       (INV("vanaf"), INV("tot"), INV("wat zit erin")),
-    "mech_cilinder":  (INV("vanaf"), INV("tot"), INV("wat zit erin")),
-    "servicecontract":(INV("vanaf"), INV("tot"), INV("wat zit erin")),
+    "slot":            ("Elektronisch slot (smart lock), geplaatst", "123", "per deur"),
+    "airkey_start":    ("EVVA AirKey startpakket", "487", "per pakket"),
+    "cilinder_xesar":  ("Elektronische cilinder EVVA Xesar, geplaatst", None, "per deur"),
+    "beslag":          ("Elektronisch beslag, geplaatst", None, "per deur"),
+    "emzy":            ("Motorcilinder EVVA EMZY, geplaatst", None, "per deur"),
+    "wandlezer":       ("Wandlezer met elektrische sluitplaat", None, "per deur"),
+    "infrezen":        ("Infrezen houten deur", None, "per deur"),
+    "mech_cilinder":   ("Mechanische cilinder in eigen profiel", None, "per cilinder"),
+    "servicecontract": ("Servicecontract", None, "per jaar"),
 }
-REKENVOORBEELDEN = [("Klein kantoor", INV("rekenvoorbeeld klein kantoor")), ("School", INV("rekenvoorbeeld school")), ("Zorglocatie", INV("rekenvoorbeeld zorglocatie"))]
+REKENVOORBEELDEN = []                                                # optioneel; leeg = blok weglaten
 INVENTARISATIE_GRATIS = True                                         # INPUT §B5 aanname
 PRIJS_DISCLAIMER = "Richtprijs, definitieve prijs na inventarisatie."
+BTW_TEKST = "excl. btw"
+
+def prijs(sleutel, eenheid=True):
+    """'vanaf € 123 per deur' of, zonder bekende prijs, 'op aanvraag'."""
+    oms, v, een = PRIJZEN[sleutel]
+    if not v: return "op aanvraag"
+    return f"vanaf € {v}" + (f" {een}" if eenheid else "")
 
 # Proces en beloftes (INPUT §B6)
 # Lars, 21-09-2026: alleen deze twee beloftes; doorlooptijd, uren per deur, garantie en contractvormen zijn per project en staan niet op de site.
@@ -121,20 +131,24 @@ DEURDRANGERS = "GU"                                                  # INPUT §B
 # Feiten in het kort (INPUT §C3)
 TOEGANG_SINDS   = "1995"                                             # Lars, 21-09-2026
 # Aantal deuren en monteurs: bewust niet op de site (Lars, 21-09-2026).
-WERKPLAATS      = INV("waar is de werkplaats: adres of plaats")
+WERKPLAATS      = "Enschede en Hengelo"                              # Lars, 21-09-2026: werkplaats en uitrijbasis in beide; Hengelo is de servicevestiging met kantoor
 VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaalsestraat 553)"
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
-ADVISEUR = {"naam": INV("naam adviseur"), "functie": "adviseur toegangscontrole", "foto": None,
-            "tel_tonen": "053 478 42 45", "tel_link": "+31534784245",   # Lars, 21-09-2026: zelfde nummer
-            "sinds": INV("adviseur sinds")}
+ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer
+    {"naam": "Lars", "functie": "adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+    {"naam": "Nick", "functie": "adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+]
+ADVISEUR = ADVISEURS[0]
+ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of Nick"
 
 # Conversie (INPUT §E)
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = INV("Web3Forms access key")                          # INPUT §E2
 FORM_MAILBOX   = MAIL                                               # INPUT §E2: aanname, zelfde als het algemene adres
-BEDANKT_TEKST  = INV("tekst bedanktpagina: wat gebeurt er nu")        # INPUT §E2
+BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Lars of Nick belt u binnen 1 werkdag om uw situatie door te nemen "
+                  "en de inventarisatie op locatie in te plannen. Daarna ontvangt u zo snel mogelijk een offerte met een vaste prijs per deur.")   # voorstel Claude, 21-09-2026
 GOOGLE_TAG_ID  = INV("Google-tag ID, G-… of AW-…")                    # INPUT §E3
 ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie
 ADS_LABEL_TEL  = ""
@@ -429,7 +443,7 @@ def _opties(naam, items, leeg="Maak een keuze"):
 
 def formulier(kort=False, kop="Plan een inventarisatie", intro=None):
     """Het ene formulier van de site (BRIEF §7). kort=True: zelfde velden, als blok onderaan een pagina."""
-    intro = intro or ("Vul het formulier in; " + esc(ADVISEUR["naam"]) + " neemt contact met u op binnen " + esc(REACTIE_AANVRAAG) + ". Alleen naam, plaats en een telefoonnummer of e-mailadres zijn verplicht.")
+    intro = intro or ("Vul het formulier in; " + esc(ADVISEUR_NAMEN) + " neemt contact met u op binnen " + esc(REACTIE_AANVRAAG) + ". Alleen naam, plaats en een telefoonnummer of e-mailadres zijn verplicht.")
     velden = f'''<form class="formulier" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
 <div class="veld"><label for="f-naam">Naam</label><input id="f-naam" name="naam" type="text" autocomplete="name" required><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-bedrijf">Bedrijf of organisatie</label><input id="f-bedrijf" name="bedrijf" type="text" autocomplete="organization"></div>
@@ -451,13 +465,15 @@ def formulier(kort=False, kop="Plan een inventarisatie", intro=None):
 </div></div></section>'''
 
 def adviseurblok():
+    personen = "".join(
+        f'<div class="adviseur__persoon">{beeld(a["foto"], f"{a['naam']}, {a['functie']} bij {NAAM}", sizes="120px") if a["foto"] else ""}'
+        f'<p class="naam">{esc(a["naam"])}</p><p class="functie">{esc(a["functie"].capitalize())}</p></div>' for a in ADVISEURS)
     a = ADVISEUR
-    foto = beeld(a["foto"], f"{a['naam']}, {a['functie']} bij {NAAM}", sizes="120px") if a["foto"] else ""
     feiten = [f"Reactie binnen {esc(REACTIE_AANVRAAG)}",
               "Inventarisatie op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
               PARTNER_TEKST.capitalize(),
               f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}"]
-    return f'''<div class="adviseur">{foto}<p class="naam">{esc(a["naam"])}</p><p class="functie">{esc(a["functie"].capitalize())}</p>
+    return f'''<div class="adviseur"><div class="adviseur__personen">{personen}</div>
 <p>Direct: <a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
 <ul class="feiten">{"".join(f"<li>{f}</li>" for f in feiten)}</ul></div>'''
 

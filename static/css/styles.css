@@ -156,7 +156,9 @@ textarea{min-height:120px;resize:vertical}
 .form-status.mis{color:var(--fout)}
 .honing{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
 .adviseur{border-top:2px solid var(--primair);padding-top:20px}
-.adviseur img,.adviseur .foto-vlak{width:120px;aspect-ratio:1;object-fit:cover;margin-bottom:12px;padding:8px}
+.adviseur__personen{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:12px}
+.adviseur__persoon figure{margin:0 0 8px}
+.adviseur img{width:120px;aspect-ratio:1;object-fit:cover}
 .adviseur .naam{font-weight:600;color:var(--kop);margin:0}
 .adviseur .functie{margin:0 0 8px;color:var(--inkt-zacht)}
 .adviseur .feiten{margin-top:16px;font-size:.95em}
@@ -183,6 +185,7 @@ textarea{min-height:120px;resize:vertical}
 .consent .knop--tweede:hover{background:var(--vlak);color:var(--kop)}
 
 /* ---------- video op klik ---------- */
+.portret img{aspect-ratio:1}
 .video{margin:0}
 .video__start{display:block;position:relative;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left}
 .video__start figure{margin:0}

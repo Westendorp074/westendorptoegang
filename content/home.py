@@ -54,7 +54,7 @@ def bouw():
     # ---- bewijs: drie feiten uit INPUT.md ----
     feiten = [
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
-        f"Eigen werkplaats ({esc(WERKPLAATS)}): houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
+        f"Eigen werkplaats in {esc(WERKPLAATS)}: houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
         f"Storingsdienst {esc(REACTIE_STORING)}.",
         f"{PARTNER_TEKST.capitalize()}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
@@ -85,7 +85,7 @@ def bouw():
     # ---- FAQ ----
     faq = [
         ("Wat kost toegangscontrole per deur?",
-         f"Dat hangt af van het deurtype, het systeem en of de deur online moet zijn. Elektronisch beslag van EVVA Xesar kost geplaatst {esc(PRIJZEN['beslag'][0])} tot {esc(PRIJZEN['beslag'][1])} per deur, excl. btw. {PRIJS_DISCLAIMER} Alle bandbreedtes en drie rekenvoorbeelden staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+         f"Dat hangt af van het deurtype, het systeem en de beveiligingseisen. Een elektronisch slot kost geplaatst {prijs('slot')}, {BTW_TEKST}; een EVVA AirKey-startpakket {prijs('airkey_start', False)}. {PRIJS_DISCLAIMER} Meer op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Werkt elektronische toegangscontrole op onze bestaande deuren?",
          "Meestal wel. Op de meeste binnendeuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur blijft. Houten deuren die een uitsparing nodig hebben, frezen wij in onze eigen werkplaats in. Stalen, aluminium en glazen deuren bekijken wij tijdens de inventarisatie."),
         ("Wat gebeurt er als een medewerker zijn pas kwijtraakt?",

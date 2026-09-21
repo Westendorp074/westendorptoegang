@@ -34,7 +34,7 @@ def bouw():
         ("Kunnen jullie een Salto-storing verhelpen als jullie het systeem niet hebben geplaatst?", "Ja. Wij onderhouden regelmatig Salto-onderdelen die door anderen zijn geplaatst. Wij hebben de beheerderstoegang tot de software nodig, of de programmeerkaarten; heeft u die niet, dan kijken wij wat er zonder mogelijk is."),
         ("Leveren jullie Salto-onderdelen?", "Voor vervanging en uitbreiding van een bestaand systeem: ja. Voor een nieuw systeem adviseren wij EVVA Xesar."),
         ("Kan ik van Salto overstappen naar EVVA?", "Ja, gefaseerd. Deuren waarvan het Salto-beslag aan vervanging toe is, krijgen Xesar; de rest volgt later. Tijdens de overgang hebben gebruikers tijdelijk twee passen. Wij plannen dat per zone."),
-        ("Wat kost onderhoud aan een Salto-systeem?", f"Storingen zonder contract tegen uurtarief plus onderdelen; met servicecontract {esc(PRIJZEN['servicecontract'][0])} tot {esc(PRIJZEN['servicecontract'][1])} per jaar, excl. btw. {PRIJS_DISCLAIMER}"),
+        ("Wat kost onderhoud aan een Salto-systeem?", f"Storingen zonder contract tegen uurtarief plus onderdelen; een servicecontract {prijs('servicecontract')}. {PRIJS_DISCLAIMER}"),
         ("Werken jullie ook aan Salto-systemen buiten Twente?", "Ja, in heel Oost-Nederland. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 

@@ -43,17 +43,17 @@ def bouw():
         ("Offline / online", "Beide, in één systeem"),
         ("Voeding", "Batterij in cilinder en beslag; wandlezer op netvoeding"),
         ("Deurtypes", "Hout, staal, aluminium en kunststof profiel; brandwerende deuren met gecertificeerde uitvoering"),
-        ("Certificering", INV("Xesar-certificering die Westendorp levert, bijv. SKG-sterren of EN-klasse per onderdeel")),
+        ("Certificering", "SKG-gecertificeerd hang- en sluitwerk; EN 1634 (brandwerend) en EN 179 (nooduitgangen) waar van toepassing"),
         ("Uitbreidbaarheid", "Per deur, zonder de bestaande deuren aan te passen"),
         ("Rapportage", "Passages per deur en per pas, afhankelijk van offline of online"),
     ], bijschrift="Specificaties EVVA Xesar"), wit=True)
 
     kosten = sectie("Wat kost een Xesar-traject", p(
-        f"Een Xesar-cilinder kost geplaatst {esc(PRIJZEN['cilinder_xesar'][0])} tot {esc(PRIJZEN['cilinder_xesar'][1])} per deur, elektronisch beslag {esc(PRIJZEN['beslag'][0])} tot {esc(PRIJZEN['beslag'][1])}, excl. btw. "
+        f"Een elektronisch slot kost geplaatst {prijs('slot')}, {BTW_TEKST}; een Xesar-cilinder of -beslag {prijs('cilinder_xesar')}. "
         f"Daar komt de beheersoftware bij. {PRIJS_DISCLAIMER} Rekenvoorbeelden voor een klein kantoor, een school en een zorglocatie staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."))
 
     faq = [
-        ("Wat is het verschil tussen EVVA Xesar en EVVA AirKey?", f"Xesar is een systeem met eigen beheersoftware en passen, gericht op bedrijven en instellingen. AirKey werkt via de cloud en de telefoon. Of wij AirKey leveren: {esc(AIRKEY)}."),
+        ("Wat is het verschil tussen EVVA Xesar en EVVA AirKey?", f"Xesar is een systeem met eigen beheersoftware en passen, gericht op bedrijven en instellingen. AirKey werkt via de cloud en de telefoon en is geschikt voor kleinere panden of een paar deuren. Wij leveren beide; een AirKey-startpakket kost {prijs('airkey_start', False)}, {BTW_TEKST}."),
         ("Moet ik voor Xesar mijn deuren vervangen?", "Nee. De Xesar-cilinder vervangt de bestaande cilinder; beslag vervangt de kruk. Alleen houten deuren die beslag krijgen hebben soms een uitsparing nodig, die frezen wij zelf in."),
         ("Hoe krijgt een pas nieuwe rechten bij een offline deur?", "De pas haalt de rechten op bij een updater, meestal bij de entree, of bij het programmeerstation. Blokkeert u een pas, dan weten offline deuren dat zodra de blokkeerlijst is bijgewerkt; online deuren direct."),
         ("Kunnen wij Xesar combineren met een mechanisch sluitplan?", "Ja. EVVA maakt beide, en dat is een van de redenen waarom wij Xesar plaatsen: techniekruimtes, meterkasten en kasten mechanisch, de rest elektronisch, met één leverancier voor beide."),

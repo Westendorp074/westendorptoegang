@@ -15,8 +15,8 @@ def bouw():
         f"Werkgebied: {esc(WERKGEBIED_REGEL)}, heel Oost-Nederland",
         "Merken: EVVA (mechanisch en elektronisch), ASSA ABLOY (mechanisch en elektronisch), ABUS (mechanisch); onderhoud van bestaande Salto-systemen",
         f"Eigen sleutelprofiel: {esc(EIGEN_PROFIEL)}, cilinders op naam en op voorraad",
-        "Eén vaste adviseur van inventarisatie tot beheer, eigen monteurs",
-        f"Werkplaats: {esc(WERKPLAATS)}",
+        f"Adviseurs {esc(ADVISEUR_NAMEN.replace(' of ', ' en '))}, eigen monteurs",
+        f"Werkplaats en uitrijbasis in {esc(WERKPLAATS)}; Hengelo is de servicevestiging met kantoor",
         f"Partner en opleiding: {esc(CERTIFICATEN)}",
         f"Deurdrangers en deurautomaten: {esc(DEURDRANGERS)}",
         f"{esc(RECHTSPERSOON)}, KvK {esc(KVK)}",
@@ -30,15 +30,15 @@ def bouw():
         f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}. Onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
         + "</div></div>", wit=True)
 
-    a = ADVISEUR
-    foto = beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw") if a["foto"] else ""
-    team = sectie("Team", '<div class="rooster"><div class="k4">' + foto + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}, sinds {esc(a["sinds"])}. Uw contactpersoon van inventarisatie tot beheer.<br>'
-        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div><div class="k8"><h3>Monteurs</h3><p>Eigen monteurs die zowel het mechanische als het elektronische deel doen. '
+    personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")
+        + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}. Uw contactpersoon van inventarisatie tot beheer.<br>'
+        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div>' for a in ADVISEURS)
+    team = sectie("Team", '<div class="rooster">' + personen + '<div class="k4"><h3>Monteurs</h3><p>Eigen monteurs die zowel het mechanische als het elektronische deel doen. '
         "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.</p></div></div>")
 
     werkplaats = beeld("werkplaats-infrezen.jpg", "Houten deur wordt ingefreesd voor elektronisch beslag in de werkplaats van Westendorp", onderschrift=INV("onderschrift werkplaatsfoto"))
     werk = sectie("Werkplaats en infrezen", '<div class="rooster"><div class="k7">' + p(
-        f"Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er niet is. Die frezen wij zelf in ({esc(WERKPLAATS)}), zodat de deur niet vervangen hoeft te worden en er geen deurenfabrikant tussen zit. "
+        f"Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er niet is. Die frezen wij zelf in, in onze werkplaatsen in {esc(WERKPLAATS)}, zodat de deur niet vervangen hoeft te worden en er geen deurenfabrikant tussen zit. "
         "Voor de klant betekent dat één partij voor deur, beslag en elektronica.") + f'</div><div class="k5">{werkplaats}</div></div>', wit=True)
 
     faq = [
@@ -49,6 +49,6 @@ def bouw():
     ]
 
     body = hero(f"Over {esc(NAAM)}", intro) + feiten + verhaal + team + werk
-    person = {"@type": "Person", "@id": SITE + PAD + "#adviseur", "name": a["naam"], "jobTitle": a["functie"], "telephone": a["tel_link"], "worksFor": {"@id": ORG_ID}}
-    schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Over ons", PAD)], paginatype="AboutPage", extra_ld=[person],
+    personen_ld = [{"@type": "Person", "@id": SITE + PAD + "#" + a["naam"].lower(), "name": a["naam"], "jobTitle": a["functie"], "telephone": a["tel_link"], "worksFor": {"@id": ORG_ID}} for a in ADVISEURS]
+    schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Over ons", PAD)], paginatype="AboutPage", extra_ld=personen_ld,
             llms="Wie Westendorp Toegangscontrole is: feiten in het kort, ontstaan, team, werkplaats, onderdeel van Westendorp Groep VOF.")
