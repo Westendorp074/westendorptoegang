@@ -45,10 +45,10 @@ def bouw():
         "daar hangt de oplossing af van het profiel en het bestaande slot. Meer over de soorten op <a href=\"/elektronische-sloten/\">elektronische sloten</a>."))
 
     aanpak = sectie("Hoe wij het aanpakken", stappen([
-        ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs en leggen per deur vast: type, beslag, wie erdoor moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else 'Tegen een vaste prijs'}, ingepland binnen {esc(INVENTARISATIE_BINNEN)}."),
-        ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, binnen {esc(OFFERTE_BINNEN)}. Richtprijzen staan op de pagina <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
-        ("Installatie", f"Eigen monteurs, gemiddeld {esc(UREN_PER_DEUR)} uur per deur. Van akkoord tot installatie: {esc(DOORLOOPTIJD)}."),
-        ("Beheer en service", f"Wij zetten het systeem in bedrijf en leren u het beheer ({esc(DIENSTEN_ONBEVESTIGD['beheer'])}). Daarna: <a href=\"/service-en-beheer/\">service en beheer</a>."),
+        ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs en leggen per deur vast: type, beslag, wie erdoor moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else 'Tegen een vaste prijs'}; wij reageren binnen {esc(REACTIE_AANVRAAG)} op uw aanvraag."),
+        ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, {esc(OFFERTE_BINNEN)}. Richtprijzen staan op de pagina <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+        ("Installatie", "Eigen monteurs, mechanisch en elektronisch uit één hand. De planning en doorlooptijd spreken wij per project met u af."),
+        ("Beheer en service", f"Wij zetten het systeem in bedrijf en leren u het beheer, of wij beheren het voor u. Daarna: <a href=\"/service-en-beheer/\">service en beheer</a>."),
     ]), wit=True)
 
     faq = [
@@ -59,11 +59,11 @@ def bouw():
         ("Werkt het ook als de stroom uitvalt?",
          "Elektronisch beslag en elektronische cilinders werken op batterijen en blijven bij stroomuitval gewoon werken. Een wandlezer met elektrische sluitplaat heeft voeding nodig; daar kiest u vooraf of de deur bij stroomuitval open of dicht valt, afhankelijk van de vluchtroute."),
         ("Kan ik rechten zelf beheren?",
-         f"Ja. Na de installatie kunt u zelf passen uitgeven, blokkeren en tijdsloten instellen. Of wij dat voor u doen, spreken wij vooraf af ({esc(DIENSTEN_ONBEVESTIGD['beheer'])})."),
+         f"Ja. Na de installatie kunt u zelf passen uitgeven, blokkeren en tijdsloten instellen. Wilt u het liever uit handen geven, dan beheren wij het voor u."),
         ("Wat kost een toegangscontrolesysteem?",
          f"Dat hangt af van het aantal deuren, het deurtype en of de deur offline of online moet zijn. Elektronisch beslag kost geplaatst {esc(PRIJZEN['beslag'][0])} tot {esc(PRIJZEN['beslag'][1])} per deur, excl. btw. Alle richtprijzen en drie rekenvoorbeelden staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Kunnen jullie een bestaand systeem van een ander merk uitbreiden?",
-         f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Voor andere merken: {esc(DIENSTEN_ONBEVESTIGD['overnemen'])}."),
+         f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Systemen van andere merken nemen wij ook over en breiden wij uit; koppelingen met intercom, alarm of tijdregistratie bekijken wij in overleg."),
     ]
 
     body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + wanneer + soorten + middelen + deuren + aanpak

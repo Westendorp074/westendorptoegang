@@ -42,7 +42,7 @@ def bouw():
         "Elektronisch beslag en elektronische cilinders werken op gangbare batterijen. Hoe lang die meegaan, hangt af van het aantal passages per dag en van de omgeving; "
         "een buitendeur in de vorst vraagt meer dan een kantoordeur. Het systeem meldt ruim van tevoren, in de software en bij de deur, dat de batterij op raakt. "
         "Is hij toch leeg, dan opent u de deur met een noodvoeding of een mechanische noodsleutel; u staat nooit buiten.",
-        f"Batterijen vervangen kan onderdeel zijn van een servicecontract: {esc(DIENSTEN_ONBEVESTIGD['onderhoud'])}. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."), wit=True)
+        "Batterijen vervangen kan onderdeel zijn van een servicecontract. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."), wit=True)
 
     infrezen = sectie("Wat wij zelf infrezen", p(
         "Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er nu niet is. Die frezen wij zelf in, in eigen beheer, zodat er geen deurenfabrikant tussen zit en de deur niet vervangen hoeft te worden. "

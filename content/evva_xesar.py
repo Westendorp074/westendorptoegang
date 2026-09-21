@@ -57,7 +57,7 @@ def bouw():
         ("Moet ik voor Xesar mijn deuren vervangen?", "Nee. De Xesar-cilinder vervangt de bestaande cilinder; beslag vervangt de kruk. Alleen houten deuren die beslag krijgen hebben soms een uitsparing nodig, die frezen wij zelf in."),
         ("Hoe krijgt een pas nieuwe rechten bij een offline deur?", "De pas haalt de rechten op bij een updater, meestal bij de entree, of bij het programmeerstation. Blokkeert u een pas, dan weten offline deuren dat zodra de blokkeerlijst is bijgewerkt; online deuren direct."),
         ("Kunnen wij Xesar combineren met een mechanisch sluitplan?", "Ja. EVVA maakt beide, en dat is een van de redenen waarom wij Xesar plaatsen: techniekruimtes, meterkasten en kasten mechanisch, de rest elektronisch, met één leverancier voor beide."),
-        ("Doen jullie ook het beheer van Xesar?", f"Wij leveren het systeem op, richten het in en leren u het beheer. Beheer door ons: {esc(DIENSTEN_ONBEVESTIGD['beheer'])}. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."),
+        ("Doen jullie ook het beheer van Xesar?", "Wij leveren het systeem op, richten het in en leren u het beheer; wilt u het uit handen geven, dan beheren wij het voor u. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."),
     ]
 
     body = hero("EVVA Xesar: elektronische toegangscontrole voor uw pand", intro, foto) + voorwie + lijnen + plusmin + specs + kosten

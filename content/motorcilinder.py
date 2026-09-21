@@ -32,7 +32,7 @@ def bouw():
         ("Deurtypes", "Hout, staal, aluminium en kunststof; sloten met nachtschoot en meerpuntssluitingen"),
         ("Certificering", INV("EMZY-certificering die Westendorp levert, bijv. SKG-sterren of EN-klasse")),
         ("Uitbreidbaarheid", "Per deur, combineerbaar met Xesar en mechanisch sluitplan van EVVA"),
-        ("Koppelingen", esc(DIENSTEN_ONBEVESTIGD["koppelingen"])),
+        ("Koppelingen", "Intercom, alarm, tijdregistratie of lift: in overleg"),
     ], bijschrift="Specificaties EVVA EMZY motorcilinder") + p(f"Partnerstatus: {esc(m['partner'])}."))
 
     kosten = sectie("Wat kost een motorcilinder", p(

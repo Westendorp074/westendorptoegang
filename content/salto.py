@@ -15,7 +15,7 @@ def bouw():
         "Onderdelen vervangen: batterijen, beslag, cilinders en lezers die versleten of beschadigd zijn.",
         "Uitbreiding: extra deuren of een nieuwe entree binnen uw bestaande Salto-systeem.",
         "Beheer: passen uitgeven en blokkeren, rechten aanpassen als u daar zelf geen tijd voor heeft.",
-    ]) + p(f"Reactietijd bij storing: {esc(REACTIE_STORING)}. Buiten kantoortijd: {esc(STORING_BUITEN_KANTOORTIJD)}."))
+    ]) + p(f"Bij een storing zijn wij er {esc(REACTIE_STORING)}."))
 
     niet = sectie("Wat wij niet doen: nieuwe Salto-systemen", p(
         "Voor nieuwe installaties kiezen wij voor EVVA Xesar: cilinders, beslag en het mechanische sluitplan van dezelfde fabrikant, en offline en online deuren in één systeem. "

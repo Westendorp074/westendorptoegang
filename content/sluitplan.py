@@ -40,7 +40,7 @@ def bouw():
         ("Inventarisatie", "Wij nemen het bestaande sluitplan door: welke cilinders, welke sleutels in omloop, welke deuren echt elektronisch moeten."),
         ("Ontwerp", "Nieuw plan met elektronische deuren waar de wisselingen zitten en mechanische cilinders waar dat volstaat, in één systeem van EVVA."),
         ("Gefaseerd plaatsen", "Deur voor deur, zodat het pand in gebruik blijft. Oude sleutels worden per zone ingeleverd."),
-        ("Beheer overdragen", f"U krijgt de software en de instructie; oude sleutelkaarten worden afgesloten. Beheer door ons: {esc(DIENSTEN_ONBEVESTIGD['beheer'])}."),
+        ("Beheer overdragen", "U krijgt de software en de instructie; oude sleutelkaarten worden afgesloten. Wilt u het beheer uit handen geven, dan doen wij het."),
     ]))
 
     cert = sectie("Certificering, verzekering en beheer", p(
@@ -53,7 +53,7 @@ def bouw():
         ("Wat kost een mechanisch sluitplan?", f"Per gecertificeerde cilinder {esc(PRIJZEN['mech_cilinder'][0])} tot {esc(PRIJZEN['mech_cilinder'][1])}, excl. btw, inclusief {esc(PRIJZEN['mech_cilinder'][2])}. {PRIJS_DISCLAIMER} Zie <a href=\"/kosten/\">kosten</a>."),
         ("Kan ik mijn bestaande sluitplan uitbreiden?", "Ja, zolang het systeem nog geleverd wordt en u de sleutelkaart heeft. Zit het plan in ons eigen profiel, dan leveren wij uit voorraad. Is het systeem verlopen of de kaart kwijt, dan adviseren wij een nieuw plan, meestal meteen elektronisch voor de deuren waar het om gaat."),
         ("Moet alles in één keer elektronisch?", "Nee. De meeste klanten beginnen met de buitendeur en de ruimtes met risico, en laten de rest mechanisch. Het EVVA-systeem laat beide naast elkaar bestaan."),
-        ("Hoe lang duurt het maken van een sluitplan?", f"Het ontwerp maken wij na de inventarisatie, de offerte volgt binnen {esc(OFFERTE_BINNEN)}. Levertijd van gecertificeerde cilinders en de montage: {esc(DOORLOOPTIJD)}."),
+        ("Hoe lang duurt het maken van een sluitplan?", f"Het ontwerp maken wij na de inventarisatie, de offerte volgt {esc(OFFERTE_BINNEN)}. Cilinders in ons eigen profiel leveren wij uit voorraad; de montagedatum spreken wij per project af."),
         ("Wie mag sleutels bijbestellen?", "Alleen de houder van de sleutelkaart, of iemand die u schriftelijk machtigt. Wij leggen dat bij de oplevering vast; zo weet u zeker dat er geen sleutels buiten u om worden gemaakt."),
     ]
 

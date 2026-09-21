@@ -45,17 +45,17 @@ def bouw():
 
     # ---- hoe het werkt ----
     hoe = sectie("Hoe het werkt", stappen([
-        ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs: deurtype, beslag, wie er doorheen moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else ''}, ingepland binnen {esc(INVENTARISATIE_BINNEN)}."),
-        ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, binnen {esc(OFFERTE_BINNEN)}. Geen verrassingen achteraf."),
-        ("Installatie", f"Eigen monteurs, houten deuren frezen wij zelf in. Van akkoord tot installatie {esc(DOORLOOPTIJD)}."),
-        ("Beheer en service", f"U beheert pasjes en rechten zelf of laat het ons doen ({esc(DIENSTEN_ONBEVESTIGD['beheer'])}). Bij een storing: {esc(REACTIE_STORING)}."),
+        ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs: deurtype, beslag, wie er doorheen moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else ''}, na uw aanvraag binnen {esc(REACTIE_AANVRAAG)} gepland."),
+        ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, {esc(OFFERTE_BINNEN)}. Geen verrassingen achteraf."),
+        ("Installatie", "Eigen monteurs, houten deuren frezen wij zelf in. De planning spreken wij per project met u af."),
+        ("Beheer en service", f"U beheert pasjes en rechten zelf, of wij doen het voor u. Bij een storing zijn wij er {esc(REACTIE_STORING)}."),
     ]))
 
     # ---- bewijs: drie feiten uit INPUT.md ----
     feiten = [
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}.",
-        f"{esc(AANTAL_DEUREN)} deuren geplaatst, met {esc(AANTAL_MONTEURS)} eigen monteurs.",
         f"Eigen werkplaats ({esc(WERKPLAATS)}): houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
+        f"Storingsdienst {esc(REACTIE_STORING)}.",
         f"{PARTNER_TEKST.capitalize()}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
     # ---- video op klik (verschijnt zodra static/img/bron/hero-video.mp4 en hero-video-poster.jpg bestaan) ----
@@ -72,17 +72,15 @@ def bouw():
     for naam, regio, rijtijd, pad in WERKGEBIED:
         regios.setdefault(regio, []).append((naam, rijtijd, pad))
     def plaats_html(naam, rijtijd, pad):
-        t = f"{rijtijd} min" if rijtijd is not None else INV(f"rijtijd {naam}")
-        n = f'<a href="{pad}">{esc(naam)}</a>' if pad else esc(naam)
-        return f"{n} <span class=\"zacht\">({t})</span>"
+        return f'<a href="{pad}">{esc(naam)}</a>' if pad else esc(naam)
     plaatsen = '<ul class="plaatsen">' + "".join(
         f'<li><span class="regio">{esc(r)}</span><ul>' + "".join(f"<li>{plaats_html(*pl)}</li>" for pl in pls) + "</ul></li>"
         for r, pls in regios.items()) + "</ul>"
     kaart = kaart_svg()
     werkgebied = sectie("Werkgebied", f'''<div class="rooster"><div class="k8">
-{p(f"Wij werken vanuit {esc(PLAATS)}, {esc(WERKGEBIED_REGEL)}. Dat is heel Twente en het grootste deel van Salland, de Achterhoek, de Veluwe en het Vechtdal. Rijtijd vanaf onze vestiging:")}
+{p(f"Wij werken vanuit {esc(PLAATS)}, {esc(WERKGEBIED_REGEL)}. Dat is heel Twente en het grootste deel van Salland, de Achterhoek, de Veluwe en het Vechtdal, onder meer:")}
 {plaatsen}
-{p('<a href="/werkgebied/">Alle plaatsen en rijtijden</a>')}</div><div class="k4">{kaart}</div></div>''', wit=True)
+{p('<a href="/werkgebied/">Meer over het werkgebied</a>')}</div><div class="k4">{kaart}</div></div>''', wit=True)
 
     # ---- FAQ ----
     faq = [
@@ -93,9 +91,9 @@ def bouw():
         ("Wat gebeurt er als een medewerker zijn pas kwijtraakt?",
          "U blokkeert de pas in de software en geeft een nieuwe uit; de deuren en cilinders blijven zoals ze zijn. Bij een mechanisch sluitplan moet u bij een verloren hoofdsleutel vaak cilinders vervangen. Dat verschil is voor de meeste bedrijven de reden om over te stappen."),
         ("Hoe snel kunnen jullie beginnen?",
-         f"Na uw aanvraag reageren wij binnen {esc(REACTIE_AANVRAAG)} en plannen wij de inventarisatie binnen {esc(INVENTARISATIE_BINNEN)}. Na akkoord op de offerte duurt het {esc(DOORLOOPTIJD)} tot de installatie."),
+         f"Na uw aanvraag reageren wij binnen {esc(REACTIE_AANVRAAG)} en plannen wij de inventarisatie in. De offerte volgt {esc(OFFERTE_BINNEN)}; de installatiedatum spreken wij per project af."),
         ("Werken jullie ook buiten Twente?",
-         f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a> met rijtijd per plaats."),
+         f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
     body = hero + voor_wie + wat + hoe + video_blok + bewijs + werkgebied

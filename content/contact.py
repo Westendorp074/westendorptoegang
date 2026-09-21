@@ -13,7 +13,7 @@ def bouw():
         f'<p>{esc(RECHTSPERSOON)}, KvK {esc(KVK)}</p><p>Bezoek aan de vestiging {esc(BEZOEKADRES)}; de inventarisatie doen wij bij u.</p></div><div class="k4"><h3>Bereikbaar</h3><p>Kantoor {esc(KANTOORTIJD)}.</p><p>Storingen: {esc(STORING_BUITEN_KANTOORTIJD)}.</p></div>' +
         f'<div class="k4"><h3>Direct</h3><p><a href="tel:{esc(TEL_LINK)}">{esc(TEL_TONEN)}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>{profiel}</div></div>')
     faq = [
-        ("Wat gebeurt er na mijn aanvraag?", f"U krijgt een bevestiging per e-mail. {esc(ADVISEUR['naam'])} belt u binnen {esc(REACTIE_AANVRAAG)} om de inventarisatie in te plannen, meestal binnen {esc(INVENTARISATIE_BINNEN)}."),
+        ("Wat gebeurt er na mijn aanvraag?", f"U krijgt een bevestiging per e-mail. {esc(ADVISEUR['naam'])} belt u binnen {esc(REACTIE_AANVRAAG)} om de inventarisatie in te plannen."),
         ("Moet ik iets voorbereiden voor de inventarisatie?", "Handig zijn een plattegrond of deurenlijst, het huidige sluitplan of de sleutelkaart, en een idee van wie welke deuren moet kunnen openen. Heeft u dat niet, dan maken wij het samen ter plekke."),
         ("Kan ik een storing melden via dit formulier?", f"Voor storingen belt u liever direct: {tel()}. Het formulier is bedoeld voor nieuwe aanvragen en vragen zonder haast."),
     ]

@@ -15,8 +15,7 @@ def bouw():
         f"Werkgebied: {esc(WERKGEBIED_REGEL)}, heel Oost-Nederland",
         "Merken: EVVA (mechanisch en elektronisch), ASSA ABLOY (mechanisch en elektronisch), ABUS (mechanisch); onderhoud van bestaande Salto-systemen",
         f"Eigen sleutelprofiel: {esc(EIGEN_PROFIEL)}, cilinders op naam en op voorraad",
-        f"Geplaatst tot nu toe: {esc(AANTAL_DEUREN)} deuren",
-        f"Team: {esc(AANTAL_MONTEURS)} monteurs en één vaste adviseur",
+        "Eén vaste adviseur van inventarisatie tot beheer, eigen monteurs",
         f"Werkplaats: {esc(WERKPLAATS)}",
         f"Partner en opleiding: {esc(CERTIFICATEN)}",
         f"Deurdrangers en deurautomaten: {esc(DEURDRANGERS)}",
@@ -34,7 +33,7 @@ def bouw():
     a = ADVISEUR
     foto = beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw") if a["foto"] else ""
     team = sectie("Team", '<div class="rooster"><div class="k4">' + foto + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}, sinds {esc(a["sinds"])}. Uw contactpersoon van inventarisatie tot beheer.<br>'
-        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div><div class="k8"><h3>Monteurs</h3><p>{esc(AANTAL_MONTEURS)} eigen monteurs die zowel het mechanische als het elektronische deel doen. '
+        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div><div class="k8"><h3>Monteurs</h3><p>Eigen monteurs die zowel het mechanische als het elektronische deel doen. '
         "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.</p></div></div>")
 
     werkplaats = beeld("werkplaats-infrezen.jpg", "Houten deur wordt ingefreesd voor elektronisch beslag in de werkplaats van Westendorp", onderschrift=INV("onderschrift werkplaatsfoto"))

@@ -51,12 +51,12 @@ ANDERE_PROFIELEN = []                                                # INPUT §A
 
 # Aanbod (INPUT §B1). Diensten zonder ja/nee staan als placeholder in de tekst waar ze genoemd worden.
 DIENSTEN_ONBEVESTIGD = {
-    "wandlezers": INV("wandlezers met elektrische sluitplaat: ja/nee"),
-    "beheer": INV("beheer en programmering: doen wij / leren wij de klant / beide"),
-    "onderhoud": INV("onderhoud en servicecontracten: ja/nee"),
-    "storingsdienst": INV("storingsdienst: ja/nee"),
-    "overnemen": INV("uitbreiden of overnemen van systemen van andere installateurs: ja/nee"),
-    "koppelingen": INV("koppelingen: welke wel (intercom, alarm, tijdregistratie, kluis, lift)"),
+    "wandlezers": "ja",                                   # Lars, 21-09-2026
+    "beheer": "beide",                                    # wij doen het of leren het de klant
+    "onderhoud": "ja",
+    "storingsdienst": "ja",
+    "overnemen": "ja",
+    "koppelingen": "in overleg",
 }
 
 # Werkgebied (INPUT §B3): plaats, regio, rijtijd in minuten (None = placeholder), eigen pagina (pad of None).
@@ -74,11 +74,12 @@ WERKGEBIED = [
     ("Apeldoorn",  "Veluwe",    None, None),
 ]
 WERKGEBIED_REGEL = "tot 60 minuten rijden vanaf Enschede"
+# Rijtijd per plaats: bewust niet op de site (Lars, 21-09-2026).
 
 # Merken (INPUT §B4)
 MERKEN = {
     "salto": {"naam": "Salto", "lijnen": "", "partner": "", "logo_ok": ""},   # chat 20-09-2026: niet plaatsen, wel onderhoud en uitbreiding van bestaande Salto-systemen
-    "xesar": {"naam": "EVVA Xesar", "lijnen": INV("Xesar-lijnen: cilinders, beslag, wandlezers, versie"), "partner": "EVVA Partner", "logo_ok": "ja"},
+    "xesar": {"naam": "EVVA Xesar", "lijnen": "de complete Xesar-lijn", "partner": "EVVA Partner", "logo_ok": "ja"},
     "emzy":  {"naam": "EVVA EMZY", "lijnen": "motorcilinder", "partner": "EVVA Partner", "logo_ok": "ja"},
     "mechanisch": {"naam": "EVVA 4KS+ en EVVA EPS, ABUS S6+ en ABUS Magtec (eigen profiel), ASSA ABLOY", "lijnen": "", "partner": "", "logo_ok": "ja"},
     "assa": {"naam": "ASSA ABLOY", "lijnen": "mechanisch en elektronisch", "partner": "officieel partner", "logo_ok": "ja"},
@@ -108,36 +109,31 @@ INVENTARISATIE_GRATIS = True                                         # INPUT §B
 PRIJS_DISCLAIMER = "Richtprijs, definitieve prijs na inventarisatie."
 
 # Proces en beloftes (INPUT §B6)
-REACTIE_AANVRAAG   = INV("reactie op een aanvraag binnen, bijv. 1 werkdag")
-INVENTARISATIE_BINNEN = INV("inventarisatie ingepland binnen")
-OFFERTE_BINNEN     = INV("offerte binnen")
-DOORLOOPTIJD       = INV("doorlooptijd van akkoord tot installatie")
-UREN_PER_DEUR      = INV("installatie per deur, gemiddeld aantal uren")
-GARANTIE           = INV("garantie op montage en materiaal")
-REACTIE_STORING    = INV("reactietijd bij storing, met en zonder contract")
-CONTRACTVORMEN     = INV("contractvormen")
+# Lars, 21-09-2026: alleen deze twee beloftes; doorlooptijd, uren per deur, garantie en contractvormen zijn per project en staan niet op de site.
+REACTIE_AANVRAAG   = "1 werkdag"
+OFFERTE_BINNEN     = "zo snel mogelijk, afhankelijk van de omvang"
+REACTIE_STORING    = "binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar"
 
 SECTOREN = ["kantoren", "zorg", "onderwijs"]                          # INPUT §B7 aanname; pagina's pas in fase 2
 CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20-09-2026)
 DEURDRANGERS = "GU"                                                  # INPUT §B1: deurdrangers en deurautomaten van GU (Lars, 20-09-2026)
 
 # Feiten in het kort (INPUT §C3)
-TOEGANG_SINDS   = INV("jaartal start elektronische toegangscontrole")
-AANTAL_DEUREN   = INV("aantal geplaatste deuren of systemen, ruwweg")
-AANTAL_MONTEURS = INV("aantal monteurs")
-WERKPLAATS      = INV("eigen werkplaats: ja, waar")
+TOEGANG_SINDS   = "1995"                                             # Lars, 21-09-2026
+# Aantal deuren en monteurs: bewust niet op de site (Lars, 21-09-2026).
+WERKPLAATS      = INV("waar is de werkplaats: adres of plaats")
 VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaalsestraat 553)"
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
 ADVISEUR = {"naam": INV("naam adviseur"), "functie": "adviseur toegangscontrole", "foto": None,
-            "tel_tonen": INV("direct nummer adviseur"), "tel_link": INV("direct nummer adviseur in +31-notatie"),
+            "tel_tonen": "053 478 42 45", "tel_link": "+31534784245",   # Lars, 21-09-2026: zelfde nummer
             "sinds": INV("adviseur sinds")}
 
 # Conversie (INPUT §E)
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = INV("Web3Forms access key")                          # INPUT §E2
-FORM_MAILBOX   = INV("mailbox aanvragen")                             # INPUT §E2 (alleen in privacy/README)
+FORM_MAILBOX   = MAIL                                               # INPUT §E2: aanname, zelfde als het algemene adres
 BEDANKT_TEKST  = INV("tekst bedanktpagina: wat gebeurt er nu")        # INPUT §E2
 GOOGLE_TAG_ID  = INV("Google-tag ID, G-… of AW-…")                    # INPUT §E3
 ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie
