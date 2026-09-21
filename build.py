@@ -47,7 +47,7 @@ STORING_BUITEN_KANTOORTIJD = "dag en nacht bereikbaar, 7 dagen per week"   # INP
 BEZOEKADRES   = "alleen op afspraak"                                # INPUT §A2 (Lars, 20-09-2026); inventarisatie altijd op locatie bij de klant
 
 GOOGLE_PROFIEL = "https://share.google/lRJgjHKFPBrgrWkop"           # INPUT §A3: deellink Google Bedrijfsprofiel (Lars, 21-09-2026)
-LINKEDIN       = ""                                                  # INPUT §A3: nog geen pagina (Lars, 20-09-2026); leeg = weglaten
+LINKEDIN       = "https://www.linkedin.com/company/westendorp-toegangscontrole/"   # INPUT §A3 (Lars, 21-09-2026)
 ANDERE_PROFIELEN = []                                                # INPUT §A3 optioneel
 
 # Aanbod (INPUT §B1). Diensten zonder ja/nee staan als placeholder in de tekst waar ze genoemd worden.
