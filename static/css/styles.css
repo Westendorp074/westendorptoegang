@@ -170,6 +170,9 @@ textarea{min-height:120px;resize:vertical}
 .voet li{margin:0 0 6px}
 .voet a{color:var(--inkt)}
 .voet address{font-style:normal}
+.voet__logos{list-style:none;padding:0;margin:32px 0 0;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center}
+.voet__logos li{margin:0}
+.voet__logos img{height:44px;width:auto}
 .voet .onderdeel{margin-top:32px;padding-top:16px;border-top:var(--lijndikte) solid var(--lijn);color:var(--inkt-zacht);font-size:.92em}
 .voet .onderdeel p{margin:0 0 6px}
 .voet button{background:none;border:0;padding:0;font:inherit;color:var(--inkt);text-decoration:underline;cursor:pointer}

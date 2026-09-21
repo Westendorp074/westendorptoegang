@@ -407,6 +407,27 @@ def header(pad):
 <button class="menu-knop" id="menu-knop" type="button" aria-expanded="false" aria-controls="nav">{_ICOON_MENU}<span>Menu</span></button></div>
 </div></header>'''
 
+# Keurmerk- en partnerlogo's in de footer (Lars, 21-09-2026: PKVW mag erbij). Alleen getoond als het bestand bestaat.
+FOOTER_LOGOS = [("pkvw", "Politiekeurmerk Veilig Wonen, gecertificeerde monteurs"), ("evva", "EVVA Partner"),
+                ("assa-abloy", "ASSA ABLOY partner"), ("abus", "ABUS partner"), ("gu", "GU deurdrangers en deurautomaten")]
+
+def footer_logos():
+    map_ = STATIC / "img" / "logo" / "partners"
+    items = []
+    for naam, alt in FOOTER_LOGOS:
+        bron = next((map_ / f"{naam}.{ext}" for ext in ("svg", "png", "webp") if (map_ / f"{naam}.{ext}").exists()), None)
+        if not bron: continue
+        uit = DIST / "static" / "img" / "logo" / "partners"; uit.mkdir(parents=True, exist_ok=True)
+        shutil.copy(bron, uit / bron.name)
+        b, h = (0, 0)
+        if bron.suffix != ".svg":
+            from PIL import Image
+            with Image.open(bron) as im: b, h = im.size
+        else:
+            b, h = 160, 60
+        items.append(f'<li><img src="/static/img/logo/partners/{bron.name}" alt="{esc(alt)}" width="{b}" height="{h}" loading="lazy"></li>')
+    return f'<ul class="voet__logos" aria-label="Keurmerken en partners">{"".join(items)}</ul>' if items else ""
+
 def footer():
     diensten = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in DIENSTEN_NAV + [("Kosten", "/kosten/")])
     over = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Over ons", "/over-ons/"), ("Werkgebied", "/werkgebied/"), ("Contact", "/contact/"), ("Privacy", "/privacy/")])
@@ -422,7 +443,7 @@ def footer():
 <p>Bereikbaar {esc(OPENING_TEKST)}.</p></address></div>
 <div class="k4"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
 </div>
-<div class="onderdeel"><p>{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}, KvK {esc(KVK)}, {esc(PLAATS)}.</p>{btw}</div>
+{footer_logos()}<div class="onderdeel"><p>{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}, KvK {esc(KVK)}, {esc(PLAATS)}.</p>{btw}</div>
 </div></footer>'''
 
 def consent_html():

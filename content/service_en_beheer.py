@@ -26,6 +26,7 @@ def bouw():
         ("Storingsdienst", esc(REACTIE_STORING)),
         ("Bereikbaar", esc(STORING_BUITEN_KANTOORTIJD)),
         ("Servicecontract", prijs('servicecontract') + "; inhoud per pand afgestemd"),
+        ("Deurdrangers en deurautomaten", "GU, geplaatst en afgesteld door onze eigen, daarvoor getrainde monteurs"),
         ("Koppelingen met intercom, alarm, tijdregistratie of lift", "In overleg"),
     ], bijschrift="Storingsdienst en servicecontract") + p(PRIJS_DISCLAIMER + " De inhoud van een servicecontract stemmen wij per pand af."))
 

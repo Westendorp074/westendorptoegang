@@ -31,11 +31,12 @@ def bouw():
         + p("Bij EVVA Xesar zijn offline en online deuren te combineren in één systeem: de buitendeur online, de kantoren offline. Dat houdt de kosten in de hand. "
             "Zie <a href=\"/evva-xesar/\">EVVA Xesar</a>."), wit=True)
 
-    middelen = sectie("Pas, tag, telefoon of code", '<div class="kolommen kolommen--4">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
+    middelen = sectie("Pas, tag, telefoon, code of vingerafdruk", '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
         ("Pas", "Kaartformaat, past in de portemonnee, te bedrukken met naam en foto. Gangbaar bij kantoren en scholen."),
         ("Tag", "Sleutelhanger, robuust, handig voor monteurs en vrijwilligers die hem aan de sleutelbos hangen."),
         ("Telefoon", "Toegang via een app of virtuele pas. Geen uitgifte van passen, wel afhankelijk van een opgeladen telefoon."),
         ("Code", "Toetsenbord bij de deur, zonder pas. Praktisch voor bezoekers, minder veilig omdat codes worden doorgegeven."),
+        ("Biometrie", "Vingerafdruk of gezicht: niets om kwijt te raken of door te geven. Geschikt voor ruimtes met een hoge eis, zoals serverruimtes en medicijnkasten; vraagt zorgvuldigheid onder de AVG."),
     ]) + "</div>")
 
     deuren = sectie("Wat gebeurt er met onze bestaande deuren", p(
@@ -63,7 +64,7 @@ def bouw():
         ("Wat kost een toegangscontrolesysteem?",
          f"Dat hangt af van het aantal deuren, het deurtype en of de deur offline of online moet zijn. Een elektronisch slot kost geplaatst {prijs('slot')}, {BTW_TEKST}. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Kunnen jullie een bestaand systeem van een ander merk uitbreiden?",
-         f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Systemen van andere merken nemen wij ook over en breiden wij uit; koppelingen met intercom, alarm of tijdregistratie bekijken wij in overleg."),
+         f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Systemen van andere merken nemen wij ook over en breiden wij uit. Deurdrangers en deurautomaten van GU plaatsen en stellen wij zelf af; koppelingen met intercom, alarm of tijdregistratie bekijken wij in overleg."),
     ]
 
     body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + wanneer + soorten + middelen + deuren + aanpak

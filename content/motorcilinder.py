@@ -32,7 +32,7 @@ def bouw():
         ("Deurtypes", "Hout, staal, aluminium en kunststof; sloten met nachtschoot en meerpuntssluitingen"),
         ("Certificering", "SKG-gecertificeerd; EN 179 op nooduitgangen en EN 1634 op brandwerende deuren waar van toepassing"),
         ("Uitbreidbaarheid", "Per deur, combineerbaar met Xesar en mechanisch sluitplan van EVVA"),
-        ("Koppelingen", "Intercom, alarm, tijdregistratie of lift: in overleg"),
+        ("Koppelingen", "Deurdrangers en deurautomaten van GU: ja, door ons afgesteld; intercom, alarm, tijdregistratie of lift: in overleg"),
     ], bijschrift="Specificaties EVVA EMZY motorcilinder") + p(f"Partnerstatus: {esc(m['partner'])}."))
 
     kosten = sectie("Wat kost een motorcilinder", p(
