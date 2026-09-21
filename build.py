@@ -401,7 +401,7 @@ def header(pad):
     return f'''<header class="kop"><div class="wrap">
 <a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="/static/img/logo/logo.svg" alt="{esc(NAAM)}" width="2053" height="647"></a>
 <nav class="nav" id="nav" aria-label="Hoofdmenu"><ul>{items}</ul></nav>
-<div class="kop__acties"><a class="bel" href="tel:{esc(TEL_LINK)}">{_ICOON_BEL}<span>{esc(TEL_TONEN)}</span><span class="visueel-verborgen">Bel {esc(NAAM)}</span></a>
+<div class="kop__acties"><a class="bel" href="tel:{esc(TEL_LINK)}" aria-label="Bel {esc(NAAM)}, {esc(TEL_TONEN)}">{_ICOON_BEL}<span>{esc(TEL_TONEN)}</span></a>
 <button class="menu-knop" id="menu-knop" type="button" aria-expanded="false" aria-controls="nav">{_ICOON_MENU}<span>Menu</span></button></div>
 </div></header>'''
 
