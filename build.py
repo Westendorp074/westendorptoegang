@@ -418,7 +418,7 @@ def bedrijf_ld():
     same_as = [u for u in [LINKEDIN, GOOGLE_PROFIEL] + ANDERE_PROFIELEN if u and not placeholder(u)]
     org = {
         "@type": "LocalBusiness", "@id": ORG_ID, "name": NAAM, "legalName": RECHTSPERSOON,
-        "url": SITE + "/", "logo": SITE + "/static/img/logo/logo.svg", "image": SITE + "/static/img/og-standaard.png",
+        "url": SITE + "/", "logo": SITE + _ASSETS["logo"], "image": SITE + "/static/img/og-standaard.png",
         "telephone": TEL_LINK, "email": MAIL,
         "address": {"@type": "PostalAddress", "streetAddress": STRAAT, "postalCode": POSTCODE,
                     "addressLocality": PLAATS, "addressRegion": REGIO, "addressCountry": "NL"},
@@ -483,7 +483,7 @@ _ICOON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="c
 def header(pad):
     items = "".join(f'<li><a href="{u}"{" aria-current=\"page\"" if u == pad else ""}>{esc(n)}</a></li>' for n, u in NAV)
     return f'''<header class="kop{' kop--licht' if HEADER_LICHT else ''}"><div class="wrap">
-<a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="/static/img/logo/logo.svg" alt="{esc(NAAM)}" width="2053" height="647"></a>
+<a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="{_ASSETS["logo"]}" alt="{esc(NAAM)}" width="2053" height="647"></a>
 <nav class="nav" id="nav" aria-label="Hoofdmenu"><ul>{items}</ul></nav>
 <div class="kop__acties"><a class="bel" href="tel:{esc(TEL_LINK)}" aria-label="Bel {esc(NAAM)}, {esc(TEL_TONEN)}">{_ICOON_BEL}<span>{esc(TEL_TONEN)}</span></a>
 <button class="menu-knop" id="menu-knop" type="button" aria-expanded="false" aria-controls="nav">{_ICOON_MENU}<span>Menu</span></button></div>
@@ -625,7 +625,7 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
         "titel": esc(volledige_titel), "omschrijving": esc(omschrijving), "canonical": SITE + pad, "sitenaam": esc(NAAM),
         "robots": '<meta name="robots" content="noindex, nofollow">\n' if noindex else "", "verificatie": verificatie,
         "og_beeld": SITE + (og_beeld or (beelden[0][0] if beelden else "/static/img/og-standaard.png")),
-        "css": _ASSETS["css"], "js": _ASSETS["js"], "tag": tag_html(), "jsonld": ld_script(graph),
+        "css": _ASSETS["css"], "js": _ASSETS["js"], "icoon": _ASSETS["icoon"], "tag": tag_html(), "jsonld": ld_script(graph),
         "header": header(pad), "body": volledige_body, "footer": footer(), "consent": consent_html(),
         "config_js": json.dumps({"tagActief": TAG_ACTIEF, "web3formsKey": WEB3FORMS_KEY, "adsLabelForm": ADS_LABEL_FORM,
                                  "adsLabelTel": ADS_LABEL_TEL, "cta": CTA, "mail": MAIL}, ensure_ascii=False),
@@ -652,14 +652,17 @@ def assets():
     # Alleen de header is zwart (#111111); daar staat het logo, dus de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
     lb = STATIC / "img" / "logo"
     if HEADER_LICHT:   # test (Lars, 22-09-2026): witte header met zwart woordmerk
-        shutil.copy(lb / "pakket" / "logo-licht.svg", logo_uit / "logo.svg"); shutil.copy(lb / "pakket" / "icoon-licht.svg", logo_uit / "icoon.svg")
+        logo_bron, icoon_bron = lb / "pakket" / "logo-licht.svg", lb / "pakket" / "icoon-licht.svg"
     else:
-        shutil.copy(lb / "logo-zwarte-achtergrond.svg", logo_uit / "logo.svg"); shutil.copy(lb / "icoon-zwarte-achtergrond.svg", logo_uit / "icoon.svg")
+        logo_bron, icoon_bron = lb / "logo-zwarte-achtergrond.svg", lb / "icoon-zwarte-achtergrond.svg"
+    # versiehash in de bestandsnaam: /static/ wordt een jaar gecachet, dus een nieuw logo moet een nieuwe naam krijgen
+    _ASSETS["logo"] = f"/static/img/logo/logo.{versie(logo_bron)}.svg"; shutil.copy(logo_bron, DIST / _ASSETS["logo"].lstrip("/"))
+    _ASSETS["icoon"] = f"/static/img/logo/icoon.{versie(icoon_bron)}.svg"; shutil.copy(icoon_bron, DIST / _ASSETS["icoon"].lstrip("/"))
     for extra in ["favicon.ico", "apple-touch-icon.png", "og-standaard.png"]:
         b = STATIC / "img" / extra
         if b.exists(): shutil.copy(b, DIST / (extra if extra != "og-standaard.png" else "static/img/og-standaard.png"))
     (DIST / "manifest.webmanifest").write_text(json.dumps({"name": NAAM, "short_name": "Westendorp", "start_url": "/", "display": "browser",
-        "background_color": "#222427", "theme_color": "#222427", "icons": [{"src": "/static/img/logo/icoon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
+        "background_color": "#222427", "theme_color": "#222427", "icons": [{"src": _ASSETS["icoon"], "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
 
 def vierhonderdvier():
     links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Contact", "/contact/")])
