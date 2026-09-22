@@ -100,6 +100,17 @@ Lars wees de eerste twee versies af en gaf saltosystems.com/nl-nl als voorbeeld.
 - Warm gebroken wit (`#FAF7F2`), witte panelen met dunne warme lijnen, straal 6 px, geen schaduwen.
 - Archivo (het lettertype uit het logo) voor koppen en labels; labels in kapitalen met spatiëring; tekstlinks in kapitalen met chevron.
 - Isometrische illustraties in code (`isometrie.py`): hero-scène en acht sectorscènes in de logoblauwen; geen stock, geen AI-beeld.
+- Sectorscènes (herzien 22-09-2026 na feedback van Lars): elke sector heeft een eigen plattegrond en een eigen herkenningspunt.
+  Kantoren: torens van glas, zendmast met knipperlicht, plein met fontein. Zorg: ziekenhuis met rood kruis plat op de gevel en helikopterplatform,
+  apotheek met groen kruis, jeugdinstelling met speelplein, gele ambulance. Onderwijs: bakstenen school met klok, schoolplein met hinkelbaan en
+  speeltoestellen, fietsenrek, rood fietspad met fietser. VvE: woonstraat met appartementen met balkons, rijtjeshuizen met puntdak, garageboxen.
+  Verenigingen: sportpark met lichtmasten, doelen, atletiekbaan met loper, tennis, basketbal, clubvlag. Recreatie: bosrijk park met huisjes,
+  meer met steiger, zwembad, receptie met slagboom die opengaat voor de auto. Industrie: sheddak, silo's, schoorsteen, laaddocks, containers,
+  heftruck, hekwerk met portier. Overheid: gemeentehuis met zuilen en klokkentoren, drie Nederlandse vlaggen op het plein, regeringsgebouw met
+  spitse torens en hofvijver.
+- Regels voor de scènes: maximaal één auto per sector en één vrachtwagen waar nodig; voertuigen rijden in hun lengterichting (cabine vooruit)
+  over een stuk weg waar niets vóór staat; vlaggen wapperen alleen zijwaarts en staan op de grond vóór de gebouwen; bomen wuiven licht.
+  Tekenvolgorde via overlaptoets per object (scheidingsregel plus topologische sortering), niet via een optelsom van x+y.
 - Sectoren als horizontaal scrollende rij met pijlen, zoals Salto.
 - Primaire knop lichtblauw (`#49BFFE`) met donkere tekst in kapitalen.
 - Kleine animaties: led op de lezer knippert, secties schuiven in beeld (IntersectionObserver); uit bij `prefers-reduced-motion`.

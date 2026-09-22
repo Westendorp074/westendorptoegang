@@ -127,7 +127,7 @@ section,.sectie{padding:var(--sectie) 0}
 .anim-auto{animation:rijden 7s linear infinite}
 @keyframes rijden{0%{transform:translate(-62px,-36px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(62px,36px);opacity:0}}
 .anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}
-@keyframes wapperen{from{transform:scaleX(1)}to{transform:scaleX(.72)}}
+@keyframes wapperen{from{transform:scaleX(1)}to{transform:scaleX(.78)}}
 .anim-gloed{animation:gloed 2.4s ease-in-out infinite}
 @keyframes gloed{0%,100%{opacity:1}50%{opacity:.45}}
 .anim-water{animation:water 3s ease-in-out infinite}
