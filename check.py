@@ -113,8 +113,17 @@ def controleer_pagina(pad, tekst_html):
     if len(tekst_html.encode("utf-8")) > MAX_HTML: fout(rel, f"HTML {len(tekst_html)//1024} KB (> 150 KB)")
     # beeld
     for a in P.imgs:
-        if "alt" not in a: fout(rel, f"img zonder alt: {a.get('src')}")
-        if not a.get("width") or not a.get("height"): fout(rel, f"img zonder width/height: {a.get('src')}")
+        src = a.get("src", "")
+        if "alt" not in a: fout(rel, f"img zonder alt: {src}")
+        if not a.get("width") or not a.get("height"): fout(rel, f"img zonder width/height: {src}")
+        alt = (a.get("alt") or "").strip()
+        if src.startswith("/static/img/") and "/logo/" not in src:
+            naam = src.rsplit("/", 1)[-1]
+            if not re.match(r"^[a-z0-9]+(-[a-z0-9]+)*-\d+\.(webp|avif|jpg|png)$", naam): fout(rel, f"bestandsnaam beeld niet volgens de regels (kleine letters, koppeltekens): {naam}")
+            if re.search(r"(img|dsc|image|foto|screenshot|whatsapp)[-_]?\d", naam): fout(rel, f"bestandsnaam beeld is een cameranaam: {naam}")
+            if alt and len(alt) < 12: fout(rel, f"alt-tekst te kort (< 12 tekens): '{alt}' bij {naam}")
+            if alt and re.match(r"^(afbeelding|foto|image|plaatje)( van)?\b", alt.lower()): fout(rel, f"alt-tekst begint met 'afbeelding/foto van': {alt}")
+            if alt and naam.split("-")[0] == alt.lower().split(" ")[0] and len(alt.split()) < 3: fout(rel, f"alt-tekst is de bestandsnaam: {alt}")
     # links en externe requests
     for h in P.links:
         if not intern_bestaat(h): fout(rel, f"kapotte interne link: {h}")

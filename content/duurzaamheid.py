@@ -11,7 +11,7 @@ def bouw():
     intro = ("Een sluitsysteem gaat tientallen jaren mee, dus de keuze van de cilinder telt. Samen met onze partner ABUS kozen wij voor Magtec: "
              "een SKG***-cilinder in ons eigen sleutelprofiel die volgens een onafhankelijke berekening 46 procent minder broeikasgassen veroorzaakt "
              "dan een vergelijkbare conventionele cilinder, en die zonder lood wordt gemaakt.")
-    foto_hero = beeld("magtec-cilinder-voorkant.jpg", "ABUS Magtec-profielcilinder, vooraanzicht", onderschrift="ABUS Magtec (beeld: ABUS)", lazy=False)
+    foto_hero = beeld("magtec-cilinder-voorkant.jpg", "ABUS Magtec-profielcilinder, vooraanzicht", onderschrift="ABUS Magtec (beeld: ABUS)", lazy=False, bron="ABUS")
 
     cijfers = sectie("Wat de cijfers zeggen", '<div class="rooster"><div class="k7">' + p(
         "Magtec is ontworpen met de hele levenscyclus in beeld: grondstoffen, productie, levering aan de vakhandel en afvoer aan het einde van de levensduur. "
@@ -23,7 +23,7 @@ def bouw():
         + '</div><div class="k5">' + feiten_groen() + "</div></div>", kicker="Duurzaamheid")
 
     galerij = sectie("Van binnen en van buiten", '<div class="kolommen kolommen--3 galerij">'
-        + "".join(f"<div>{beeld(b, alt, onderschrift=o, sizes='(min-width: 900px) 30vw, 100vw')}</div>" for b, alt, o in [
+        + "".join(f"<div>{beeld(b, alt, onderschrift=o, sizes='(min-width: 900px) 30vw, 100vw', bron='ABUS')}</div>" for b, alt, o in [
             ("magtec-cilinder-doorsnede.jpg", "Doorsnede van een ABUS Magtec-cilinder met stiften en magneet", "Doorsnede: stiften en magneetcodering (beeld: ABUS)"),
             ("magtec-sleutel.jpg", "ABUS Magtec-sleutel met ingebouwde magneet", "Magtec-sleutel met ingebouwde magneet (beeld: ABUS)"),
             ("magtec-cilinder-zijkant.jpg", "Zijaanzicht van een ABUS Magtec-cilinder", "Zijaanzicht (beeld: ABUS)")]) + "</div>", wit=True, kicker="ABUS Magtec")

@@ -334,9 +334,9 @@ def _verwerk(bronpad):
                 continue
             w2 = min(w, b0); h2 = round(h0 * w2 / b0)
             kopie = im.resize((w2, h2), Image.LANCZOS)
-            wp = uit / f"{bronpad.stem}-{w}.webp"
+            wp = uit / f"{beeldnaam(bronpad.stem)}-{w}.webp"
             kopie.save(wp, "WEBP", quality=80, method=6)
-            av = uit / f"{bronpad.stem}-{w}.avif"
+            av = uit / f"{beeldnaam(bronpad.stem)}-{w}.avif"
             try:
                 kopie.save(av, "AVIF", quality=60)
                 if av.stat().st_size > wp.stat().st_size * 0.8:
@@ -346,7 +346,17 @@ def _verwerk(bronpad):
         return b0, h0, avif_ok
 
 _BEELDCACHE = {}
-def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 40vw, 100vw", klas=""):
+_BEELDEN_PAGINA = []   # (url, alt, onderschrift, breedte, hoogte) van de pagina die nu gebouwd wordt; schrijf() leest en leegt dit
+
+def beeldnaam(stem):
+    """Bestandsnaam voor Google: kleine letters, koppeltekens, geen spaties, cijfers of camera-namen (IMG_1234)."""
+    import unicodedata
+    n = unicodedata.normalize("NFKD", stem).encode("ascii", "ignore").decode().lower()
+    n = re.sub(r"[^a-z0-9]+", "-", n).strip("-")
+    return n or "foto"
+
+def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 40vw, 100vw", klas="", bron=None):
+    """bron: maker van het beeld voor het schema (standaard Westendorp; fabrikantbeeld: bijv. 'ABUS')."""
     """Eigen foto uit static/img/bron/<bestand>. Ontbreekt de foto: blok weglaten en melden."""
     bronpad = BRON / bestand
     if not bronpad.exists():
@@ -355,7 +365,7 @@ def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 
     if bestand not in _BEELDCACHE:
         _BEELDCACHE[bestand] = _verwerk(bronpad)
     b0, h0, avif_ok = _BEELDCACHE[bestand]
-    stem = bronpad.stem
+    stem = beeldnaam(bronpad.stem)
     maten = [w for w in _MATEN if w <= b0 or w == _MATEN[0]]
     w1 = maten[0]; h1 = round(h0 * min(w1, b0) / b0)
     srcset = lambda ext: ", ".join(f"/static/img/{stem}-{w}.{ext} {min(w, b0)}w" for w in maten)
@@ -365,6 +375,7 @@ def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 
     if avif_ok:
         img = f'<picture><source type="image/avif" srcset="{srcset("avif")}" sizes="{sizes}">{img}</picture>'
     kl = f' class="{klas}"' if klas else ""
+    wg = maten[-1]; _BEELDEN_PAGINA.append((f"/static/img/{stem}-{wg}.webp", alt, onderschrift, min(wg, b0), round(h0 * min(wg, b0) / b0), bron or NAAM))
     if onderschrift:
         return f"<figure{kl}>{img}<figcaption>{esc(onderschrift)}</figcaption></figure>"
     return f"<figure{kl}>{img}</figure>"
@@ -398,10 +409,16 @@ def bedrijf_ld():
 def website_ld():
     return {"@type": "WebSite", "@id": WEBSITE_ID, "url": SITE + "/", "name": NAAM, "inLanguage": "nl-NL", "publisher": {"@id": ORG_ID}}
 
-def webpage_ld(pad, titel, omschrijving, typ="WebPage", datum=None):
+def webpage_ld(pad, titel, omschrijving, typ="WebPage", datum=None, beelden=()):
     d = {"@type": typ, "@id": SITE + pad + "#webpage", "url": SITE + pad, "name": titel, "description": omschrijving,
          "inLanguage": "nl-NL", "isPartOf": {"@id": WEBSITE_ID}, "about": {"@id": ORG_ID}}
     if datum: d["dateModified"] = datum
+    if beelden:
+        url, alt, onderschrift, b, h, maker = beelden[0]
+        d["primaryImageOfPage"] = {"@type": "ImageObject", "contentUrl": SITE + url, "url": SITE + url, "width": b, "height": h,
+                                   "description": alt, **({"caption": onderschrift} if onderschrift else {}), "creditText": maker,
+                                   **({"creator": {"@id": ORG_ID}, "copyrightNotice": RECHTSPERSOON} if maker == NAAM else {"copyrightNotice": maker})}
+        d["image"] = [SITE + u for u, *_ in beelden[:5]]
     return d
 
 def kruimels_ld(items):
@@ -567,7 +584,8 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
     form_html = formulier(kop=formulier_kop) if met_formulier else ""
     volledige_body = kruimel_html + body + faq_html + form_html
     datum = _lastmod(pad, body)
-    graph = [bedrijf_ld(), website_ld(), webpage_ld(pad, titel, omschrijving, paginatype, datum), kruimels_ld(kruimelpad)]
+    beelden = [b for b in _BEELDEN_PAGINA if "adviseur-" not in b[0]]; _BEELDEN_PAGINA.clear()   # adviseurfoto's tellen niet als paginabeeld
+    graph = [bedrijf_ld(), website_ld(), webpage_ld(pad, titel, omschrijving, paginatype, datum, beelden), kruimels_ld(kruimelpad)]
     graph += list(extra_ld)
     if faq: graph.append(faq_ld(faq))
     volledige_titel = titel if pad == "/" else f"{titel} | {NAAM}" if len(f"{titel} | {NAAM}") <= 60 else titel
@@ -576,7 +594,7 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
     waarden = {
         "titel": esc(volledige_titel), "omschrijving": esc(omschrijving), "canonical": SITE + pad, "sitenaam": esc(NAAM),
         "robots": '<meta name="robots" content="noindex, nofollow">\n' if noindex else "", "verificatie": verificatie,
-        "og_beeld": SITE + (og_beeld or "/static/img/og-standaard.png"),
+        "og_beeld": SITE + (og_beeld or (beelden[0][0] if beelden else "/static/img/og-standaard.png")),
         "css": _ASSETS["css"], "js": _ASSETS["js"], "tag": tag_html(), "jsonld": ld_script(graph),
         "header": header(pad), "body": volledige_body, "footer": footer(), "consent": consent_html(),
         "config_js": json.dumps({"tagActief": TAG_ACTIEF, "web3formsKey": WEB3FORMS_KEY, "adsLabelForm": ADS_LABEL_FORM,
@@ -585,7 +603,7 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
     uit = DIST / pad.strip("/") / "index.html" if pad != "/" else DIST / "index.html"
     uit.parent.mkdir(parents=True, exist_ok=True)
     uit.write_text(_vul(_template(), waarden), encoding="utf-8")
-    _PAGINAS.append((pad, titel, llms, noindex, datum))
+    _PAGINAS.append((pad, titel, llms, noindex, datum, beelden))
 
 # ============================================================
 # Bouwen
@@ -619,13 +637,16 @@ def vierhonderdvier():
     _PAGINAS[:] = [p for p in _PAGINAS if p[0] != "/404/"]
 
 def sitemap_robots_llms():
-    index = [(pad, datum) for pad, _, _, noindex, datum in _PAGINAS if not noindex]
-    urls = "".join(f"<url><loc>{SITE}{pad}</loc><lastmod>{datum}</lastmod></url>" for pad, datum in index)
-    (DIST / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n', encoding="utf-8")
+    index = [(pad, datum, beelden) for pad, _, _, noindex, datum, beelden in _PAGINAS if not noindex]
+    def beeld_xml(b):
+        url, alt, onderschrift, *_ = b
+        return f"<image:image><image:loc>{SITE}{url}</image:loc><image:title>{html.escape(alt)}</image:title>" + (f"<image:caption>{html.escape(onderschrift)}</image:caption>" if onderschrift else "") + "</image:image>"
+    urls = "".join(f"<url><loc>{SITE}{pad}</loc><lastmod>{datum}</lastmod>{''.join(beeld_xml(b) for b in beelden)}</url>" for pad, datum, beelden in index)
+    (DIST / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">{urls}</urlset>\n', encoding="utf-8")
     bots = ["GPTBot", "OAI-SearchBot", "ClaudeBot", "Claude-Web", "PerplexityBot", "Google-Extended", "Bingbot", "Applebot"]
     robots = "User-agent: *\nAllow: /\nDisallow: /bedankt/\n\n" + "".join(f"User-agent: {b}\nAllow: /\nDisallow: /bedankt/\n\n" for b in bots) + f"Sitemap: {SITE}/sitemap.xml\n"
     (DIST / "robots.txt").write_text(robots, encoding="utf-8")
-    regels = "".join(f"- [{titel}]({SITE}{pad}): {llms}\n" for pad, titel, llms, noindex, _ in _PAGINAS if llms and not noindex)
+    regels = "".join(f"- [{titel}]({SITE}{pad}): {llms}\n" for pad, titel, llms, noindex, _, _ in _PAGINAS if llms and not noindex)
     plaatsen = ", ".join(n for n, _, _, _ in WERKGEBIED)
     llms = f"""# {NAAM}
 
