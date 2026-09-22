@@ -91,6 +91,14 @@ section,.sectie{padding:var(--sectie) 0}
   .nav.open a{display:block;padding:10px 0;border-bottom:var(--lijndikte) solid var(--donker-lijn)}
 }
 @media (min-width:1200px){.nav{display:block}.menu-knop{display:none}}
+/* lichte header (test): wit vlak, zwart woordmerk, donkere navigatie */
+.kop--licht{background:var(--paneel);color:var(--kop);border-bottom:var(--lijndikte) solid var(--lijn)}
+.kop--licht .nav a{color:var(--kop)}
+.kop--licht .nav a:hover,.kop--licht .nav a[aria-current="page"]{color:var(--primair);border-bottom-color:var(--primair)}
+.kop--licht .bel,.kop--licht .menu-knop{color:var(--kop);border-color:var(--lijn-2)}
+.kop--licht .bel:hover,.kop--licht .menu-knop:hover{border-color:var(--kop)}
+.kop--licht a:focus-visible,.kop--licht button:focus-visible{outline-color:var(--primair)}
+@media (max-width:1199px){.kop--licht .nav.open{background:var(--paneel);border-bottom-color:var(--lijn)}.kop--licht .nav.open a{border-bottom-color:var(--lijn)}}
 
 /* ---------- knoppen ---------- */
 .knop{display:inline-block;background:var(--accent);color:var(--kop);text-decoration:none;padding:14px 22px;border-radius:var(--straal-knop);border:0;font-family:var(--font-kop);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;line-height:1.2}

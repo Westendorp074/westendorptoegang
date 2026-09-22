@@ -152,6 +152,7 @@ DUURZAAM = [
     ("Loodvrij geproduceerd", "Bij de productie van Magtec-cilinders wordt geen lood gebruikt; het verschil in uitstoot zit vooral in grondstoffen en productie."),
     ("SKG*** en uit voorraad", "Hoogste niveau op DIN EN 1303 en SKG***-gecertificeerd. Wij voeren Magtec in ons eigen profiel en leveren uit voorraad."),
 ]
+HEADER_LICHT   = True   # witte header met zwart woordmerk (test, Lars 22-09-2026); False = antraciet met logo-zwarte-achtergrond
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = "50c899f1-e3b2-4bbe-b1b3-5dbd7c00ac7c"              # INPUT §E2 (Lars, 21-09-2026, incognito aangemaakt op info@); 3d5d8a2f… en 2fa6ec12… gingen naar autosleutel@
@@ -479,7 +480,7 @@ _ICOON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="c
 
 def header(pad):
     items = "".join(f'<li><a href="{u}"{" aria-current=\"page\"" if u == pad else ""}>{esc(n)}</a></li>' for n, u in NAV)
-    return f'''<header class="kop"><div class="wrap">
+    return f'''<header class="kop{' kop--licht' if HEADER_LICHT else ''}"><div class="wrap">
 <a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="/static/img/logo/logo.svg" alt="{esc(NAAM)}" width="2053" height="647"></a>
 <nav class="nav" id="nav" aria-label="Hoofdmenu"><ul>{items}</ul></nav>
 <div class="kop__acties"><a class="bel" href="tel:{esc(TEL_LINK)}" aria-label="Bel {esc(NAAM)}, {esc(TEL_TONEN)}">{_ICOON_BEL}<span>{esc(TEL_TONEN)}</span></a>
@@ -648,8 +649,10 @@ def assets():
     logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True)
     # Alleen de header is zwart (#111111); daar staat het logo, dus de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
     lb = STATIC / "img" / "logo"
-    shutil.copy(lb / "logo-zwarte-achtergrond.svg", logo_uit / "logo.svg")
-    shutil.copy(lb / "icoon-zwarte-achtergrond.svg", logo_uit / "icoon.svg")
+    if HEADER_LICHT:   # test (Lars, 22-09-2026): witte header met zwart woordmerk
+        shutil.copy(lb / "logo-licht-afgeleid.svg", logo_uit / "logo.svg"); shutil.copy(lb / "icoon-licht-afgeleid.svg", logo_uit / "icoon.svg")
+    else:
+        shutil.copy(lb / "logo-zwarte-achtergrond.svg", logo_uit / "logo.svg"); shutil.copy(lb / "icoon-zwarte-achtergrond.svg", logo_uit / "icoon.svg")
     for extra in ["favicon.ico", "apple-touch-icon.png", "og-standaard.png"]:
         b = STATIC / "img" / extra
         if b.exists(): shutil.copy(b, DIST / (extra if extra != "og-standaard.png" else "static/img/og-standaard.png"))
