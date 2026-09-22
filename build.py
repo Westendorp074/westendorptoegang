@@ -279,9 +279,11 @@ def sectorrij(items, kop, intro=None, kicker="Sectoren"):
         f'<article class="kaart"><div class="kaart__beeld">{iso_bestand(sleutel)}</div>'
         f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><a class="meer" href="{u}">{esc(linktekst)}</a></div></article>'
         for sleutel, k, t, u, linktekst in items)
-    return (f'<section class="reveal"><div class="wrap"><div class="rij-kop"><div>{label(kicker)}<h2>{kop}</h2>{f"<p class=intro>{intro}</p>" if intro else ""}</div>'
-            f'<div class="rij-knoppen"><button type="button" data-rij="-1" aria-label="Vorige">&#8249;</button><button type="button" data-rij="1" aria-label="Volgende">&#8250;</button></div></div>'
-            f'<div class="rij" data-rij-scroll>{kaarten}</div></div></section>')
+    pijl_l = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>'
+    pijl_r = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'
+    return (f'<section class="reveal"><div class="wrap"><div class="rij-kop"><div>{label(kicker)}<h2>{kop}</h2>{f"<p class=intro>{intro}</p>" if intro else ""}</div></div>'
+            f'<div class="rij" data-rij-scroll>{kaarten}</div>'
+            f'<div class="rij-knoppen"><button type="button" data-rij="-1" aria-label="Vorige sectoren">{pijl_l}</button><button type="button" data-rij="1" aria-label="Volgende sectoren">{pijl_r}</button></div></div></section>')
 
 def video(bestand, poster, alt, kop="Bekijk de video", onderschrift=None):
     """Video op klik, nooit autoplay, eigen bestand uit static/img/bron/. Poster is een eigen foto (3:2) die door de

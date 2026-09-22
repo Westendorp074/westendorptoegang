@@ -82,12 +82,22 @@
   }
 
   // ---------- Horizontale rij (sectoren): pijlen scrollen één kaart ----------
-  d.querySelectorAll('[data-rij]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var rij = b.closest('section').querySelector('[data-rij-scroll]'); if (!rij) return;
-      var kaart = rij.querySelector('.kaart'); var stap = kaart ? kaart.getBoundingClientRect().width : 320;
-      rij.scrollBy({ left: stap * parseInt(b.getAttribute('data-rij'), 10), behavior: rustig ? 'auto' : 'smooth' });
+  d.querySelectorAll('[data-rij-scroll]').forEach(function (rij) {
+    var sectie = rij.closest('section'), knoppen = sectie.querySelectorAll('[data-rij]');
+    function status() {
+      var max = rij.scrollWidth - rij.clientWidth - 2;
+      knoppen.forEach(function (b) {
+        var richting = parseInt(b.getAttribute('data-rij'), 10);
+        b.disabled = richting < 0 ? rij.scrollLeft <= 2 : rij.scrollLeft >= max;
+      });
+    }
+    knoppen.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var kaart = rij.querySelector('.kaart'); var stap = kaart ? kaart.getBoundingClientRect().width : 320;
+        rij.scrollBy({ left: stap * parseInt(b.getAttribute('data-rij'), 10), behavior: rustig ? 'auto' : 'smooth' });
+      });
     });
+    rij.addEventListener('scroll', status, { passive: true }); window.addEventListener('resize', status); status();
   });
 
   // ---------- Menu ----------

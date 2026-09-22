@@ -153,10 +153,10 @@ section,.sectie{padding:var(--sectie) 0}
 
 /* ---------- sectorrij (horizontaal scrollend, zoals Salto) ---------- */
 .rij-kop{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:28px}
-.rij-knoppen{display:none;gap:8px}
-@media (min-width:900px){.rij-knoppen{display:flex}}
-.rij-knoppen button{width:44px;height:44px;border-radius:50%;border:var(--lijndikte) solid var(--lijn-2);background:var(--paneel);cursor:pointer;font-size:20px;line-height:1;color:var(--kop)}
-.rij-knoppen button:hover{border-color:var(--kop)}
+.rij-knoppen{display:flex;gap:12px;margin-top:20px}
+.rij-knoppen button{width:48px;height:48px;border-radius:50%;border:0;background:#E6E6E9;cursor:pointer;color:var(--kop);display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
+.rij-knoppen button:hover{background:#D9D9DD}
+.rij-knoppen button[disabled]{background:#EFEFF1;color:#B8B8BD;cursor:default}
 .rij{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);background:var(--paneel)}
 .rij::-webkit-scrollbar{height:8px}
 .rij::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:4px}
