@@ -1,0 +1,18 @@
+WESTENDORP TOEGANGSCONTROLE - LOGOPAKKET
+Versie 22-09-2026. Twee varianten, alle maten.
+
+logo-licht                 Voor wit en lichte achtergronden (website-header, briefpapier, e-mail). Woordmerk donkergrijs #3A3F44,
+                           TOEGANGSCONTROLE lichtblauw #49BFFE, icoon middenblauw #1B68C0 en lichtblauw #49BFFE.
+logo-zwarte-achtergrond    Voor zwart en bijna-zwart (tot #1E1E1E): werkkleding, bus op donkere ondergrond, donkere footer.
+
+Per variant:
+  <naam>.svg                vector, strak uitgesneden (drukwerk, belettering, borduren, website)
+  <naam>-3000px.png         transparant, strak uitgesneden
+  <naam>-800x267.png        transparant, vast kader met vrije ruimte (Word, e-mail, social media)
+  <naam>-1600x534.png       zelfde kader op dubbele resolutie (retina)
+  <naam>-800x267.jpg        op wit (licht) of zwart (zwarte achtergrond), voor platforms zonder PNG
+  icoon-<variant>.svg / -1500px.png   los beeldmerk (sleutelgat met W), bijvoorbeeld als favicon
+  avatar-wit.png, avatar-zwart.png, avatar-donkerblauw.png   vierkant 1000 x 1000 voor LinkedIn en Google Bedrijfsprofiel
+
+Gebruik: minimale breedte volledig logo 200 px op scherm, 45 mm in druk; vrije ruimte rondom minimaal de hoogte van de onderregel.
+Niet uitrekken, niet kantelen, geen schaduw, kleuren niet aanpassen. Lettertype in het logo: Archivo (contouren).

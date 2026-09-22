@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 UIT = ROOT / "static" / "img"
 DONKER, MIDDEN, LICHT, WIT = (2, 41, 91), (27, 104, 192), (73, 191, 254), (255, 255, 255)
-ZWART = (34, 36, 39)
+ZWART = (255, 255, 255)   # sinds de lichte header: witte ondergrond voor favicon en OG-beeld
 
 def dichtstbij(px):
     r, g, b = px
@@ -32,8 +32,8 @@ def herkleur(im):
 
 def main(bron):
     bron = pathlib.Path(bron)
-    icoon_bron = next((p for p in [bron / "icoon-zwarte-achtergrond-1500px.png"] if p.exists()), None)
-    logo_bron = next((p for p in [bron / "logo-zwarte-achtergrond-3000px.png"] if p.exists()), None)
+    icoon_bron = next((p for p in [bron / "icoon-licht-1500px.png", bron / "icoon-zwarte-achtergrond-1500px.png"] if p.exists()), None)
+    logo_bron = next((p for p in [bron / "logo-licht-3000px.png", bron / "logo-zwarte-achtergrond-3000px.png"] if p.exists()), None)
     if not icoon_bron or not logo_bron:
         sys.exit("icoon- of logo-PNG niet gevonden in " + str(bron))
     # Site is zwart in header, hero en footer: de zwarte-achtergrondvariant gaat ongewijzigd op #111111.
@@ -60,4 +60,4 @@ def main(bron):
     print("geschreven: favicon.ico, apple-touch-icon.png, og-standaard.png")
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else ROOT / "static" / "img" / "logo")
+    main(sys.argv[1] if len(sys.argv) > 1 else ROOT / "static" / "img" / "logo" / "pakket")

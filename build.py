@@ -650,7 +650,7 @@ def assets():
     # Alleen de header is zwart (#111111); daar staat het logo, dus de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
     lb = STATIC / "img" / "logo"
     if HEADER_LICHT:   # test (Lars, 22-09-2026): witte header met zwart woordmerk
-        shutil.copy(lb / "logo-licht-afgeleid.svg", logo_uit / "logo.svg"); shutil.copy(lb / "icoon-licht-afgeleid.svg", logo_uit / "icoon.svg")
+        shutil.copy(lb / "pakket" / "logo-licht.svg", logo_uit / "logo.svg"); shutil.copy(lb / "pakket" / "icoon-licht.svg", logo_uit / "icoon.svg")
     else:
         shutil.copy(lb / "logo-zwarte-achtergrond.svg", logo_uit / "logo.svg"); shutil.copy(lb / "icoon-zwarte-achtergrond.svg", logo_uit / "icoon.svg")
     for extra in ["favicon.ico", "apple-touch-icon.png", "og-standaard.png"]:
