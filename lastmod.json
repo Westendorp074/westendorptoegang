@@ -1,7 +1,7 @@
 {
  "/": {
-  "hash": "e447656b72805e1c5c95ea1603f35cc1",
-  "datum": "2026-09-22"
+  "hash": "ae1ffdd27ed4a5c251e9e6370406d4d4",
+  "datum": "2026-09-21"
  },
  "/404/": {
   "hash": "2baf49c21b08f9ef3e6cf57b46183fcb",
@@ -36,8 +36,8 @@
   "datum": "2026-09-21"
  },
  "/kosten/": {
-  "hash": "606cdffe377c4b2d1c0562cd8fbbb497",
-  "datum": "2026-09-22"
+  "hash": "6dfef7a462b1c1cac1899db8941ff890",
+  "datum": "2026-09-21"
  },
  "/werkgebied/": {
   "hash": "f51515faacb0c9f380faecbbe94aab99",
@@ -56,7 +56,7 @@
   "datum": "2026-09-21"
  },
  "/privacy/": {
-  "hash": "5a40aca4340b7b1fd9885a1ba9cff36a",
-  "datum": "2026-09-22"
+  "hash": "81c79edf8ad2512e49b745417dd9c29d",
+  "datum": "2026-09-21"
  }
 }
