@@ -146,7 +146,12 @@ ADVISEUR = ADVISEURS[0]
 ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of Nick"
 
 # Conversie (INPUT §E)
-DUURZAAM = []   # Lars, 22-09-2026: wil een duurzaamheidsblok; alleen met echte feiten. Lijst van (kop, tekst); leeg = blok weglaten.
+# Duurzaamheid (Lars, 22-09-2026): ABUS Magtec in eigen profiel; cijfers van ABUS/ClimatePartner, met bron op /duurzaamheid/.
+DUURZAAM = [
+    ("46 procent minder CO₂", "De ABUS Magtec-cilinder veroorzaakt 46 procent minder broeikasgasemissies dan een conventionele profielcilinder, berekend door ClimatePartner over de levenscyclus (gebruiksfase niet meegerekend)."),
+    ("Loodvrij geproduceerd", "Bij de productie van Magtec-cilinders wordt geen lood gebruikt; het verschil in uitstoot zit vooral in grondstoffen en productie."),
+    ("SKG*** en uit voorraad", "Hoogste niveau op DIN EN 1303 en SKG***-gecertificeerd. Wij voeren Magtec in ons eigen profiel en leveren uit voorraad."),
+]
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = "50c899f1-e3b2-4bbe-b1b3-5dbd7c00ac7c"              # INPUT §E2 (Lars, 21-09-2026, incognito aangemaakt op info@); 3d5d8a2f… en 2fa6ec12… gingen naar autosleutel@
@@ -223,6 +228,12 @@ def feitenpaneel():
               ("PKVW", "gecertificeerde monteurs, gespecialiseerd in oudere panden")]
     return '<dl class="feitenpaneel">' + "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in feiten) + "</dl>"
 
+def feiten_groen():
+    """Groene accentpanelen voor het duurzaamheidsblok."""
+    return '<dl class="feitenpaneel feitenpaneel--groen">' + "".join(f"<div><dt>{esc(k)}</dt><dd>{esc(v)}</dd></div>" for k, v in [
+        ("46 %", "minder CO₂-equivalenten dan een conventionele ABUS-cilinder"), ("0", "lood in de productie"),
+        ("SKG***", "hoogste veiligheidsniveau, onafhankelijk getest"), ("Voorraad", "eigen profiel, direct leverbaar")]) + "</dl>"
+
 def label(tekst):
     return f'<span class="label">{esc(tekst)}</span>'
 
@@ -282,8 +293,8 @@ def kaart_svg():
             f'<circle cx="300" cy="220" r="205" fill="#F2F4F6" stroke="#C9CED0"/>{"".join(punten)}'
             f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ongeveer 60 minuten rijden</text></svg>')
 
-def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None):
-    kl = " ".join(k for k in ["reveal", "sectie--wit" if wit else "", "sectie--lijn" if lijn else ""] if k)
+def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None, groen=False):
+    kl = " ".join(k for k in ["reveal", "sectie--wit" if wit else "", "sectie--lijn" if lijn else "", "sectie--groen" if groen else ""] if k)
     kl = f' class="{kl}"' if kl else ""
     hid = f' id="{kop_id}"' if kop_id else ""
     kop_html = (label(kicker) if kicker else "") + (f"<h2{hid}>{kop}</h2>" if kop else "")
@@ -454,7 +465,7 @@ def footer_logos():
 
 def footer():
     diensten = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in DIENSTEN_NAV + [("Kosten", "/kosten/")])
-    over = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Over ons", "/over-ons/"), ("Werkgebied", "/werkgebied/"), ("Contact", "/contact/"), ("Privacy", "/privacy/")])
+    over = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaamheid/"), ("Werkgebied", "/werkgebied/"), ("Contact", "/contact/"), ("Privacy", "/privacy/")])
     btw = f"<p>Btw-nummer {esc(BTW)}.</p>" if BTW else ""
     profiel = f'<li><a href="{esc(GOOGLE_PROFIEL)}" rel="noopener">Google Bedrijfsprofiel</a></li>' if not placeholder(GOOGLE_PROFIEL) else ""
     linkedin = f'<li><a href="{esc(LINKEDIN)}" rel="noopener">LinkedIn</a></li>' if not placeholder(LINKEDIN) else ""
@@ -635,7 +646,7 @@ def sitemap_robots_llms():
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")
 
 CONTENT = ["home", "toegangscontrole", "elektronische_sloten", "evva_xesar", "motorcilinder", "sluitplan", "service_en_beheer",
-           "salto", "kosten", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
+           "salto", "kosten", "duurzaamheid", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
 
 def main():
     assets()

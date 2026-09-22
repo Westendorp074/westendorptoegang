@@ -1,6 +1,6 @@
 {
  "/": {
-  "hash": "e59735e0d495c8b2d74cf8c1d3941425",
+  "hash": "c65231381c5b2741e9ff3e3b33a32ff0",
   "datum": "2026-09-22"
  },
  "/404/": {
@@ -57,6 +57,10 @@
  },
  "/privacy/": {
   "hash": "5a40aca4340b7b1fd9885a1ba9cff36a",
+  "datum": "2026-09-22"
+ },
+ "/duurzaamheid/": {
+  "hash": "8f19ec84080c87dde10a87d3b82a299e",
   "datum": "2026-09-22"
  }
 }

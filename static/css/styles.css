@@ -50,6 +50,14 @@ section,.sectie{padding:var(--sectie) 0}
 @media (min-width:900px){section,.sectie{padding:104px 0}}
 .sectie--wit{background:var(--paneel);border-top:var(--lijndikte) solid var(--lijn);border-bottom:var(--lijndikte) solid var(--lijn)}
 .sectie--lijn{border-top:var(--lijndikte) solid var(--lijn)}
+/* groene accenten: alleen het duurzaamheidsblok en de Magtec-pagina */
+.sectie--groen{background:#F1F8F3;border-top:var(--lijndikte) solid #D6E9DC;border-bottom:var(--lijndikte) solid #D6E9DC}
+.sectie--groen .label{color:var(--signaal)}
+.kolommen--groen>div{border-top:3px solid var(--signaal-licht)}
+.feitenpaneel--groen dt{color:var(--signaal)}
+.feitenpaneel--groen div{border-top:3px solid var(--signaal-licht)}
+.galerij>div{padding:12px}
+.galerij figure img{aspect-ratio:3/2}
 
 /* ---------- paneel (kaart) ---------- */
 .paneel{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}

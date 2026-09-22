@@ -66,9 +66,10 @@ def bouw():
         + feitenpaneel() + "</div></div>", wit=True, kicker="Waarom wij")
 
     # ---- duurzaamheid: alleen met feiten van Lars (CONFIG DUURZAAM) ----
-    duurzaam = sectie("Duurzaam omgaan met deuren en sloten",
-        '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div>" for k, t in DUURZAAM) + "</div>",
-        kicker="Duurzaamheid") if DUURZAAM else ""
+    duurzaam = sectie("Duurzaam sluitsysteem: ABUS Magtec",
+        '<div class="kolommen kolommen--3 kolommen--groen">' + "".join(f"<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div>" for k, t in DUURZAAM) + "</div>"
+        + p('<a class="meer" href="/duurzaamheid/">Meer over Magtec en duurzaamheid</a>'),
+        kicker="Duurzaamheid", groen=True) if DUURZAAM else ""
 
     # ---- werkgebied ----
     regios = {}
