@@ -13,7 +13,7 @@ def bouw():
     hero_html = hero("Toegangscontrole voor bedrijven in Oost-Nederland",
         f"Wij leveren en installeren elektronische toegangscontrole van EVVA, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. "
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}: deuren, sloten en beslag zijn ons vak, het elektronische deel komt uit dezelfde hand.",
-        foto_html=foto, illustratie=isometrie.hero_scene(), kicker="Toegangscontrole, Enschede")
+        foto_html=foto, kicker="Toegangscontrole, Enschede")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
 
     # ---- sectoren: horizontale rij met illustraties ----
     sectoren = [
