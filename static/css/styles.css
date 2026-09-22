@@ -128,7 +128,17 @@ section,.sectie{padding:var(--sectie) 0}
 @keyframes rook{0%{opacity:.8;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-18px)}}
 .anim-bal{animation:bal 2.2s ease-in-out infinite alternate}
 @keyframes bal{from{transform:translate(0,0)}to{transform:translate(18px,10px)}}
-.reveal:not(.in) [class^="anim-"]{animation-play-state:paused}
+.anim-auto-2{animation:rijden 11s linear infinite 4s}
+.anim-heftruck{animation:heftruck 5s ease-in-out infinite alternate}
+@keyframes heftruck{from{transform:translate(0,0)}to{transform:translate(-26px,15px)}}
+.anim-licht{animation:licht 9s ease-in-out infinite}
+.anim-licht-1{animation-delay:2s}.anim-licht-2{animation-delay:4.5s}.anim-licht-3{animation-delay:6.5s}
+@keyframes licht{0%,35%{fill:#BFE6FF}45%,85%{fill:#FFE49A}95%,100%{fill:#BFE6FF}}
+.anim-kraan{animation:kraan 14s ease-in-out infinite alternate}
+@keyframes kraan{from{transform:rotate(-25deg)}to{transform:rotate(30deg)}}
+.anim-loper{animation:loper 9s linear infinite}
+@keyframes loper{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.reveal:not(.in) [class^="anim-"],.reveal:not(.in) [class*=" anim-"]{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none}.led{animation:none}}
 
 /* ---------- sectorrij (horizontaal scrollend, zoals Salto) ---------- */
