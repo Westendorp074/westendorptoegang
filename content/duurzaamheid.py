@@ -7,7 +7,7 @@ PAD = "/duurzaamheid/"
 def bouw():
     titel = "Duurzaam sluitsysteem: ABUS Magtec"
     omschrijving = ("ABUS Magtec: SKG***-cilinders in ons eigen profiel, loodvrij en met 46 procent minder CO₂-uitstoot "
-                    "dan een gewone profielcilinder. Uit voorraad bij Westendorp.")
+                    "dan een gewone cilinder. Uit voorraad bij Westendorp.")
     intro = ("Een sluitsysteem gaat tientallen jaren mee, dus de keuze van de cilinder telt. Samen met onze partner ABUS kozen wij voor Magtec: "
              "een SKG***-cilinder in ons eigen sleutelprofiel die volgens een onafhankelijke berekening 46 procent minder broeikasgassen veroorzaakt "
              "dan een vergelijkbare conventionele cilinder, en die zonder lood wordt gemaakt.")
