@@ -13,7 +13,7 @@ def bouw():
 <div class="k7"><h1>Toegangscontrole voor bedrijven in Oost-Nederland</h1>
 <p class="intro">Wij leveren en installeren elektronische toegangscontrole van EVVA, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}: deuren, sloten en beslag zijn ons vak, het elektronische deel komt uit dezelfde hand.</p>
 {acties()}</div>
-<div class="k5">{foto}</div>
+<div class="k5 hero__rechts">{foto or feitenpaneel()}</div>
 </div></div></section>'''
 
     # ---- voor wie ----
@@ -64,9 +64,9 @@ def bouw():
                  onderschrift=INV("onderschrift video: wat, waar, jaar"))
     video_blok = sectie("Zo werkt het bij ons", '<div class="rooster"><div class="k8">' + film + "</div></div>") if film else ""
 
-    bewijs = sectie("Waarom Westendorp", '<div class="rooster"><div class="k8">' + lijst(feiten, klas="feiten") +
-        p("Mechanisch en elektronisch uit één hand: de deur, het slot en het beslag kennen wij al dertig jaar, en daar komt de elektronica bovenop. "
-          "Eén vaste adviseur van inventarisatie tot beheer.") + "</div></div>", lijn=True)
+    bewijs = sectie("Waarom Westendorp", '<div class="rooster"><div class="k7">' + lijst(feiten, klas="feiten") + '</div><div class="k5"><p class="groot">'
+        "Mechanisch en elektronisch uit één hand: de deur, het slot en het beslag kennen wij al veertig jaar, en daar komt de elektronica bovenop. "
+        "Eén vaste adviseur van inventarisatie tot beheer.</p>" + acties() + "</div></div>", donker=True)
 
     # ---- werkgebied ----
     regios = {}

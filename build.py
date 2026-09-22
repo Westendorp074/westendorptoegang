@@ -213,10 +213,19 @@ def tabel(rijen, kop=None, bijschrift=None, rijkop=True):
     uit.append("</tbody></table></div>")
     return "".join(uit)
 
-def hero(h1, intro, foto_html="", cta=True, extra=""):
-    """Kop van elke dienst- en merkpagina: H1, answer-first alinea, CTA, foto rechts als die er is."""
-    rechts = f'<div class="k5">{foto_html}</div>' if foto_html else ""
-    kol = "k7" if foto_html else "k8"
+def feitenpaneel():
+    """Antraciet paneel met vier harde feiten; het anker van de hero zolang er geen foto is, daarna het bijschrift."""
+    feiten = [(esc(MOEDER_SINDS), "Twents familiebedrijf, deuren en sloten sinds dat jaar"),
+              ("EVVA", "officieel partner, net als van ASSA ABLOY en ABUS"),
+              ("4 tot 12 uur", "storingsdienst, dag en nacht, 365 dagen per jaar"),
+              ("PKVW", "gecertificeerde monteurs, gespecialiseerd in oudere panden")]
+    return '<dl class="feitenpaneel">' + "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in feiten) + "</dl>"
+
+def hero(h1, intro, foto_html="", cta=True, extra="", paneel=False):
+    """Kop van elke pagina: H1, answer-first alinea, CTA; rechts een foto of het feitenpaneel."""
+    rechts_inhoud = foto_html or (feitenpaneel() if paneel else "")
+    rechts = f'<div class="k5 hero__rechts">{rechts_inhoud}</div>' if rechts_inhoud else ""
+    kol = "k7" if rechts_inhoud else "k8"
     return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}"><h1>{h1}</h1>'
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
 
@@ -258,8 +267,8 @@ def kaart_svg():
             f'<circle cx="300" cy="220" r="205" fill="#F2F4F6" stroke="#C9CED0"/>{"".join(punten)}'
             f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ongeveer 60 minuten rijden</text></svg>')
 
-def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra=""):
-    kl = " ".join(k for k in ["sectie--wit" if wit else "", "sectie--lijn" if lijn else ""] if k)
+def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", donker=False):
+    kl = " ".join(k for k in ["sectie--wit" if wit else "", "sectie--lijn" if lijn else "", "sectie--donker" if donker else ""] if k)
     kl = f' class="{kl}"' if kl else ""
     hid = f' id="{kop_id}"' if kop_id else ""
     kop_html = f"<h2{hid}>{kop}</h2>" if kop else ""
@@ -436,12 +445,13 @@ def footer():
     linkedin = f'<li><a href="{esc(LINKEDIN)}" rel="noopener">LinkedIn</a></li>' if not placeholder(LINKEDIN) else ""
     cookies = '<li><button type="button" data-consent-open>Cookie-instellingen</button></li>' if TAG_ACTIEF else ""
     return f'''<footer class="voet"><div class="wrap">
-<div class="rooster">
-<div class="k4"><h2>Diensten</h2><ul>{diensten}</ul></div>
-<div class="k4"><h2>Contact</h2><address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
+<div class="rooster voet__kolommen">
+<div class="k3"><p class="voet__naam">{esc(NAAM)}</p><p>Elektronische toegangscontrole, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en Oost-Nederland.</p><p>{cta_knop(cta_id="footer")}</p></div>
+<div class="k3"><h2>Diensten</h2><ul>{diensten}</ul></div>
+<div class="k3"><h2>Contact</h2><address><p>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
 <p><a href="tel:{esc(TEL_LINK)}">{esc(TEL_TONEN)}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
 <p>Bereikbaar {esc(OPENING_TEKST)}.</p></address></div>
-<div class="k4"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
+<div class="k3"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
 </div>
 {footer_logos()}<div class="onderdeel"><p>{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}, KvK {esc(KVK)}, {esc(PLAATS)}.</p>{btw}</div>
 </div></footer>'''

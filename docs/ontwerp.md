@@ -92,3 +92,18 @@ Links uitgelijnd. Eén kolom mobiel; desktop twaalf kolommen van 1200 px, tekst 
 3. Bewijs staat als tekst en foto, nooit als logo-rij of cijferstrook.
 4. Geen beweging behalve open/dicht.
 5. Wat niet in INPUT.md staat, staat niet op de site; placeholders blijven zichtbaar tot ze zijn ingevuld.
+
+
+## Herziening 22-09-2026: richting "Precisie"
+
+Lars vond de eerste versie te simpel. Analyse: geen beeld, geen hiërarchie tussen secties, te weinig kleur in de pagina, vlakke typografie, tabellen en stappen functioneel maar niet mooi, hero zonder anker. Aanpassingen:
+
+- Typografische schaal: H1 64 / H2 44 / H3 24 / intro 22 / body 18 (desktop); mobiel 38 / 30 / 21 / 19.
+- Blauwe accentlijn (48 × 4 px) boven elke H2 in `main`; korte blauwe accent op kolomkoppen en stappen.
+- Hero met **feitenpaneel** (antraciet, vier feiten in groot cijfertype) rechts zolang er geen foto is; met foto verschijnt de foto.
+- Eén **donkere band** per pagina ("Waarom Westendorp") voor ritme: wit → grijs → donker → grijs.
+- Stappen met cijfers 01–04 in 72 px blauw.
+- Tabellen als datasheet: donkere koprij, zebra-rijen.
+- Formulier als wit paneel met rand op grijs; adviseurfoto's 140 px.
+- Footer in vier kolommen met naam, korte omschrijving en CTA; blauwe lijn erboven.
+- Secties 112 px desktop.

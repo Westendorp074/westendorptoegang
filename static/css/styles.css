@@ -11,11 +11,16 @@ body{margin:0;font-family:var(--font);font-size:var(--tekst);line-height:var(--r
 @media (min-width:900px){body{font-size:18px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-h1,h2,h3{color:var(--kop);font-weight:600;line-height:1.15;letter-spacing:var(--spatie-kop);margin:0 0 .5em;text-wrap:balance}
-h1{font-size:var(--h1);line-height:1.08}
-h2{font-size:var(--h2)}
+h1,h2,h3{color:var(--kop);font-weight:600;line-height:1.12;letter-spacing:var(--spatie-kop);margin:0 0 .5em;text-wrap:balance}
+h1{font-size:var(--h1);line-height:1.04;letter-spacing:-.025em}
+h2{font-size:var(--h2);margin-bottom:.7em}
+main h2::before{content:"";display:block;width:var(--accent-breedte);height:var(--accent-dikte);background:var(--primair);margin-bottom:20px}
+.intro,p.groot{font-size:var(--intro);line-height:1.5;max-width:60ch}
+@media (min-width:900px){.intro,p.groot{font-size:var(--intro-d)}}
 h3{font-size:var(--h3);letter-spacing:-.01em;line-height:1.3}
 @media (min-width:900px){h1{font-size:var(--h1-d)}h2{font-size:var(--h2-d)}h3{font-size:var(--h3-d)}}
+.k3{grid-column:span 12}
+@media (min-width:900px){.k3{grid-column:span 3}}
 p,ul,ol,table,figure{margin:0 0 1.1em}
 p,li,dd,dt,figcaption{max-width:var(--meet)}
 ul,ol{padding-left:1.25em}
@@ -41,10 +46,20 @@ hr{border:0;border-top:var(--lijndikte) solid var(--lijn);margin:0}
 }
 .tekst{max-width:var(--meet)}
 section,.sectie{padding:var(--sectie) 0}
-@media (min-width:900px){section,.sectie{padding:96px 0}}
+@media (min-width:900px){section,.sectie{padding:112px 0}}
+.sectie--donker{background:var(--donker);color:var(--op-donker)}
+.sectie--donker h2,.sectie--donker h3{color:var(--op-donker)}
+.sectie--donker h2::before{background:var(--link-donker)}
+.sectie--donker a{color:var(--link-donker)}
+.sectie--donker a:hover{color:var(--op-donker)}
+.sectie--donker .feiten li{border-color:var(--donker-lijn)}
+.sectie--donker .acties .tel{color:var(--op-donker)}
+.sectie--donker .zacht{color:var(--op-donker-zacht)}
+.sectie--donker a:focus-visible{outline-color:var(--link-donker)}
 .sectie--wit{background:var(--vlak-2)}
 .sectie--lijn{border-top:var(--lijndikte) solid var(--lijn)}
-.kolommen h3{padding-top:10px;border-top:2px solid var(--primair)}
+.kolommen h3{padding-top:14px;border-top:2px solid var(--lijn);position:relative}
+.kolommen h3::before{content:"";position:absolute;left:0;top:-2px;width:var(--accent-breedte);height:2px;background:var(--primair)}
 
 /* ---------- header ---------- */
 .kop{background:var(--donker);color:var(--op-donker);position:relative;border-bottom:2px solid var(--primair)}
@@ -74,7 +89,7 @@ section,.sectie{padding:var(--sectie) 0}
 @media (min-width:1200px){.nav{display:block}.menu-knop{display:none}}
 
 /* ---------- knoppen ---------- */
-.knop{display:inline-block;background:var(--signaal);color:var(--wit);text-decoration:none;padding:14px 22px;border-radius:var(--straal);border:0;font:inherit;font-weight:600;cursor:pointer;line-height:1.2}
+.knop{display:inline-block;background:var(--signaal);color:var(--wit);text-decoration:none;padding:16px 28px;font-size:1.02em;border-radius:var(--straal);border:0;font:inherit;font-weight:600;cursor:pointer;line-height:1.2}
 .knop:hover{background:var(--signaal-donker);color:var(--wit)}
 .knop--tweede{background:transparent;color:var(--kop);border:var(--lijndikte) solid var(--kop)}
 .knop--tweede:hover{background:var(--vlak-2);color:var(--kop)}
@@ -82,10 +97,17 @@ section,.sectie{padding:var(--sectie) 0}
 .acties .tel{font-weight:500}
 
 /* ---------- hero ---------- */
-.hero{background:var(--vlak-2);padding:48px 0 var(--sectie)}
-@media (min-width:900px){.hero{padding:80px 0 96px}}
-.hero p{font-size:1.06em}
-.hero .intro{max-width:56ch}
+.hero{background:var(--vlak-2);padding:56px 0 var(--sectie);border-bottom:var(--lijndikte) solid var(--lijn)}
+@media (min-width:900px){.hero{padding:96px 0 112px}.hero .rooster{align-items:center}}
+.hero .intro{max-width:56ch;margin-top:20px}
+.hero .acties{margin-top:32px}
+.hero__rechts figure img{aspect-ratio:3/2}
+.feitenpaneel{margin:0;background:var(--donker);color:var(--op-donker);padding:8px 32px 16px;display:grid;gap:0}
+.feitenpaneel div{padding:20px 0;border-bottom:var(--lijndikte) solid var(--donker-lijn)}
+.feitenpaneel div:last-child{border-bottom:0}
+.feitenpaneel dt{font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.05;color:var(--link-donker);max-width:none}
+.feitenpaneel dd{margin:6px 0 0;color:var(--op-donker-zacht);font-size:.95em;max-width:none}
+@media (min-width:900px){.feitenpaneel dt{font-size:40px}}
 
 /* ---------- kruimelpad ---------- */
 .kruimels{font-size:.9em;padding:16px 0 0;color:var(--inkt-zacht)}
@@ -106,21 +128,24 @@ figcaption{font-size:.9em;color:var(--inkt-zacht);padding-top:8px}
 .kolommen h3{margin-top:0}
 .kolommen p:last-child{margin-bottom:0}
 .kolommen+p{margin-top:32px}
-.stappen{list-style:none;padding:0;margin:0;counter-reset:stap;display:grid;gap:24px 32px}
-@media (min-width:700px){.stappen{grid-template-columns:repeat(4,1fr)}}
-.stappen li{counter-increment:stap;margin:0;padding-top:12px;border-top:2px solid var(--primair)}
-.stappen li::before{content:counter(stap);display:block;font-weight:600;font-size:var(--h2);color:var(--primair);line-height:1;margin-bottom:8px}
-.stappen h3{font-size:var(--h3);margin-bottom:.3em}
+.stappen{list-style:none;padding:0;margin:0;counter-reset:stap;display:grid;gap:32px}
+@media (min-width:700px){.stappen{grid-template-columns:repeat(4,1fr);gap:40px}}
+.stappen li{counter-increment:stap;margin:0;padding-top:20px;border-top:2px solid var(--lijn);position:relative}
+.stappen li::after{content:"";position:absolute;left:0;top:-2px;width:var(--accent-breedte);height:2px;background:var(--primair)}
+.stappen li::before{content:counter(stap,decimal-leading-zero);display:block;font-weight:600;font-size:56px;color:var(--primair);line-height:1;margin-bottom:16px;letter-spacing:-.03em}
+@media (min-width:900px){.stappen li::before{font-size:72px}}
+.stappen h3{font-size:var(--h3);margin-bottom:.4em}
 .stappen p{margin:0}
-table{border-collapse:collapse;width:100%;background:var(--vlak-2);border:var(--lijndikte) solid var(--lijn);font-size:.95em}
-th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:var(--lijndikte) solid var(--lijn)}
-th{font-weight:600;color:var(--kop)}
-tbody th{width:32%;font-weight:500;color:var(--inkt)}
+table{border-collapse:collapse;width:100%;background:var(--wit);border:var(--lijndikte) solid var(--lijn);font-size:.95em}
+th,td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:var(--lijndikte) solid var(--lijn)}
+thead th{background:var(--donker);color:var(--op-donker);font-weight:600;border-bottom:0}
+tbody tr:nth-child(even){background:var(--vlak-2)}
+tbody th{width:32%;font-weight:600;color:var(--kop)}
 tr:last-child td,tr:last-child th{border-bottom:0}
 .tabel-scroll{overflow-x:auto;margin:0 0 1.1em}
 .tabel-scroll table{margin:0;min-width:520px}
 .feiten{list-style:none;padding:0;margin:0}
-.feiten li{padding:12px 0;border-top:var(--lijndikte) solid var(--lijn);margin:0}
+.feiten li{padding:16px 0;border-top:var(--lijndikte) solid var(--lijn);margin:0;font-size:1.05em}
 .feiten li:last-child{border-bottom:var(--lijndikte) solid var(--lijn)}
 .plaatsen{list-style:none;padding:0;margin:0;display:grid;gap:16px 32px}
 @media (min-width:700px){.plaatsen{grid-template-columns:repeat(3,1fr)}}
@@ -132,7 +157,7 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 /* ---------- FAQ ---------- */
 .faq{border-top:var(--lijndikte) solid var(--lijn)}
 .faq details{border-bottom:var(--lijndikte) solid var(--lijn)}
-.faq summary{cursor:pointer;padding:16px 36px 16px 0;font-weight:500;color:var(--kop);list-style:none;position:relative;font-size:1.02em}
+.faq summary{cursor:pointer;padding:20px 40px 20px 0;font-weight:600;color:var(--kop);list-style:none;position:relative;font-size:1.06em}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"";position:absolute;right:6px;top:50%;width:10px;height:10px;border-right:2px solid var(--primair);border-bottom:2px solid var(--primair);transform:translateY(-70%) rotate(45deg)}
 .faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
@@ -140,7 +165,8 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .faq .antwoord p:last-child{margin-bottom:0}
 
 /* ---------- formulier en adviseur ---------- */
-.formulier{display:grid;gap:16px}
+.formulier{display:grid;gap:18px;background:var(--wit);border:var(--lijndikte) solid var(--lijn);padding:28px}
+@media (min-width:900px){.formulier{padding:40px}}
 @media (min-width:700px){.formulier{grid-template-columns:1fr 1fr}.formulier .breed{grid-column:1/-1}}
 .veld{display:flex;flex-direction:column;gap:6px;margin:0}
 .veld label{font-weight:500;color:var(--kop)}
@@ -158,13 +184,15 @@ textarea{min-height:120px;resize:vertical}
 .adviseur{border-top:2px solid var(--primair);padding-top:20px}
 .adviseur__personen{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:12px}
 .adviseur__persoon figure{margin:0 0 8px}
-.adviseur img{width:120px;aspect-ratio:1;object-fit:cover}
+.adviseur img{width:140px;aspect-ratio:1;object-fit:cover}
 .adviseur .naam{font-weight:600;color:var(--kop);margin:0}
 .adviseur .functie{margin:0 0 8px;color:var(--inkt-zacht)}
 .adviseur .feiten{margin-top:16px;font-size:.95em}
 
 /* ---------- footer ---------- */
-.voet{background:var(--vlak-2);border-top:var(--lijndikte) solid var(--lijn);padding:48px 0 32px;font-size:.95em}
+.voet{background:var(--vlak-2);border-top:var(--accent-dikte) solid var(--primair);padding:64px 0 32px;font-size:.95em}
+.voet__naam{font-weight:600;color:var(--kop);font-size:1.15em;margin-bottom:.4em}
+.voet .knop{padding:12px 20px;font-size:.95em}
 .voet h2{font-size:1em;margin-bottom:.6em;color:var(--kop)}
 .voet ul{list-style:none;padding:0;margin:0}
 .voet li{margin:0 0 6px}
