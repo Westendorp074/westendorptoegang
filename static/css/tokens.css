@@ -1,42 +1,41 @@
 /* tokens.css — westendorptoegang.nl
-   Alle ontwerpwaarden op één plek. Kleuren uit het logopakket (LEESMIJ 20-09-2026)
-   en BRIEF.md §6. Wordt bij het bouwen vóór styles.css in één bestand gezet. */
+   Richting "Salto" (Lars, 22-09-2026): warm gebroken wit, witte panelen met dunne lijnen, labels in kapitalen,
+   Archivo (uit het logo) voor koppen, isometrische illustraties, kleine animaties. Wijkt bewust af van BRIEF §6.
+   Kleuren uit het logopakket (LEESMIJ 20-09-2026). */
 :root{
   /* kleur */
-  --kop:#14232E;            /* koppen: hetzelfde bijna-zwart als de tekst, zodat de pagina bij de donkere header past */
-  --primair:#1B68C0;        /* middenblauw uit het logo: links, lijn onder de header, cijfers, accenten */
-  --primair-2:#1B68C0;      /* alias, zelfde blauw */
-  --primair-donker:#02295B; /* donkerblauw uit het logopakket: hover op links */
-  --inkt:#14232E;           /* lopende tekst */
-  --inkt-zacht:#4A5760;     /* onderschriften en metatekst, AA op --vlak */
-  --vlak:#FFFFFF;           /* pagina-achtergrond */
-  --vlak-2:#F2F4F6;         /* hero, afwisselende secties, tabellen, formulier: koel lichtgrijs */
-  --donker:#222427;         /* header: antraciet (Lars, 20-09-2026); lichter dan de LEESMIJ-grens van #1E1E1E voor logo-zwarte-achtergrond */
-  --donker-2:#1A1A1A;       /* velden op donker */
-  --donker-lijn:#2A2A2A;    /* lijnen op donker */
-  --op-donker:#FFFFFF;      /* tekst op donker */
-  --op-donker-zacht:#AEB9C4;/* bijschriften op donker */
-  --link-donker:#49BFFE;    /* links en accent op donker: het lichtblauw uit het logo */
-  --lijn:#C9CED0;           /* scheidingen en tabelranden */
-  --signaal:#177A42;        /* "toegang verleend": alleen primaire CTA, formuliersucces, bedankt; 5,4:1 met wit (AA) */
-  --signaal-donker:#125E33; /* hover/active van de CTA */
-  --fout:#B3261E;           /* formulierfouten */
+  --papier:#FAF7F2;         /* pagina-achtergrond, warm gebroken wit */
+  --paneel:#FFFFFF;         /* panelen, kaarten, tabellen, formulier */
+  --lijn:#E4DFD7;           /* dunne warme lijnen rond panelen */
+  --lijn-2:#CFC8BD;         /* iets zwaardere lijn */
+  --inkt:#14232E;           /* lopende tekst en koppen */
+  --kop:#0F1C27;
+  --inkt-zacht:#5A6570;     /* labels, bijschriften */
+  --primair:#1B68C0;        /* middenblauw uit het logo: links, accenten */
+  --primair-donker:#02295B; /* donkerblauw: hover, lijn onder de header */
+  --accent:#49BFFE;         /* lichtblauw uit het logo: primaire knop (donkere tekst erop) */
+  --accent-hover:#2FAFF7;
+  --signaal:#177A42;        /* groen: led op de lezer, formuliersucces, bedankt */
+  --signaal-licht:#3DBE7A;
+  --donker:#222427;         /* header: antraciet */
+  --donker-lijn:#2A2A2A;
+  --op-donker:#FFFFFF;
+  --op-donker-zacht:#AEB9C4;
+  --link-donker:#49BFFE;
+  --fout:#B3261E;
   --wit:#FFFFFF;
+  /* aliassen voor bestaande regels */
+  --vlak:var(--papier); --vlak-2:var(--paneel); --primair-2:var(--primair); --signaal-donker:#125E33;
 
   /* typografie */
   --font:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --tekst:17px;             /* body mobiel; desktop 18px in styles.css */
-  --regel:1.55;
-  --meet:72ch;              /* maximale regellengte */
-  --h1:36px; --h2:28px; --h3:20px;             /* mobiel */
-  --h1-d:52px; --h2-d:36px; --h3-d:22px;       /* desktop */
-  --spatie-kop:-0.02em;
+  --font-kop:"Archivo","IBM Plex Sans",system-ui,sans-serif;
+  --tekst:17px; --regel:1.6; --meet:68ch;
+  --h1:38px; --h2:30px; --h3:20px; --intro:19px;
+  --h1-d:60px; --h2-d:42px; --h3-d:22px; --intro-d:21px;
+  --label:12px;
 
   /* layout */
-  --max:1200px;
-  --goot:16px;              /* zijmarge mobiel; desktop 24px */
-  --sectie:64px;            /* ruimte tussen secties; desktop 96px */
-  --straal:4px;             /* alleen knoppen en invoervelden */
-  --lijndikte:1px;
+  --max:1240px; --goot:16px; --sectie:72px; --straal:6px; --straal-knop:4px; --lijndikte:1px;
   --focus:2px solid var(--primair);
 }

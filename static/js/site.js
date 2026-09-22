@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   var d = document;
+  d.documentElement.classList.add('js');
   var C = window.WT_CONFIG || {};   // uit build.py: {tagActief, web3formsKey, adsLabelForm, adsLabelTel}
 
   // ---------- Toestemming (Consent Mode v2) ----------
@@ -66,6 +67,26 @@
       start.hidden = true; vid.hidden = false; vid.load();
       var p = vid.play(); if (p && p.catch) p.catch(function () {});
       vid.focus();
+    });
+  });
+
+  // ---------- Kleine animaties: secties schuiven in beeld; uit bij prefers-reduced-motion ----------
+  var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var blokken = d.querySelectorAll('.reveal');
+  if (rustig || !('IntersectionObserver' in window)) { blokken.forEach(function (b) { b.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (items) {
+      items.forEach(function (it) { if (it.isIntersecting) { it.target.classList.add('in'); io.unobserve(it.target); } });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    blokken.forEach(function (b) { io.observe(b); });
+  }
+
+  // ---------- Horizontale rij (sectoren): pijlen scrollen één kaart ----------
+  d.querySelectorAll('[data-rij]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var rij = b.closest('section').querySelector('[data-rij-scroll]'); if (!rij) return;
+      var kaart = rij.querySelector('.kaart'); var stap = kaart ? kaart.getBoundingClientRect().width : 320;
+      rij.scrollBy({ left: stap * parseInt(b.getAttribute('data-rij'), 10), behavior: rustig ? 'auto' : 'smooth' });
     });
   });
 

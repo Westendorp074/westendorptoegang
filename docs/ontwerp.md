@@ -92,3 +92,15 @@ Links uitgelijnd. Eén kolom mobiel; desktop twaalf kolommen van 1200 px, tekst 
 3. Bewijs staat als tekst en foto, nooit als logo-rij of cijferstrook.
 4. Geen beweging behalve open/dicht.
 5. Wat niet in INPUT.md staat, staat niet op de site; placeholders blijven zichtbaar tot ze zijn ingevuld.
+
+
+## Herziening 22-09-2026: richting "Salto" (vervangt het bovenstaande)
+
+Lars wees de eerste twee versies af en gaf saltosystems.com/nl-nl als voorbeeld. BRIEF §6 is daarmee op zijn verzoek losgelaten.
+- Warm gebroken wit (`#FAF7F2`), witte panelen met dunne warme lijnen, straal 6 px, geen schaduwen.
+- Archivo (het lettertype uit het logo) voor koppen en labels; labels in kapitalen met spatiëring; tekstlinks in kapitalen met chevron.
+- Isometrische illustraties in code (`isometrie.py`): hero-scène en acht sectorscènes in de logoblauwen; geen stock, geen AI-beeld.
+- Sectoren als horizontaal scrollende rij met pijlen, zoals Salto.
+- Primaire knop lichtblauw (`#49BFFE`) met donkere tekst in kapitalen.
+- Kleine animaties: led op de lezer knippert, secties schuiven in beeld (IntersectionObserver); uit bij `prefers-reduced-motion`.
+- Duurzaamheidsblok alleen met feiten van Lars (`DUURZAAM` in CONFIG).

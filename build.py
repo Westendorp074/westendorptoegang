@@ -8,6 +8,7 @@ Regels (CLAUDE.md §1): een veld [[INVULLEN: ...]] blijft letterlijk staan tot L
 check.py faalt zolang zo'n veld in dist/ voorkomt; die pagina gaat niet live.
 """
 import sys, re, json, html, shutil, hashlib, pathlib, datetime, importlib
+import isometrie   # isometrische illustraties in code (richting Salto, Lars 22-09-2026)
 sys.dont_write_bytecode = True
 # Contentmodules doen `from build import *`; zo krijgen ze deze draaiende module, niet een tweede kopie.
 sys.modules.setdefault("build", sys.modules[__name__])
@@ -145,6 +146,7 @@ ADVISEUR = ADVISEURS[0]
 ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of Nick"
 
 # Conversie (INPUT §E)
+DUURZAAM = []   # Lars, 22-09-2026: wil een duurzaamheidsblok; alleen met echte feiten. Lijst van (kop, tekst); leeg = blok weglaten.
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = "50c899f1-e3b2-4bbe-b1b3-5dbd7c00ac7c"              # INPUT §E2 (Lars, 21-09-2026, incognito aangemaakt op info@); 3d5d8a2f… en 2fa6ec12… gingen naar autosleutel@
@@ -213,12 +215,34 @@ def tabel(rijen, kop=None, bijschrift=None, rijkop=True):
     uit.append("</tbody></table></div>")
     return "".join(uit)
 
-def hero(h1, intro, foto_html="", cta=True, extra=""):
-    """Kop van elke dienst- en merkpagina: H1, answer-first alinea, CTA, foto rechts als die er is."""
-    rechts = f'<div class="k5">{foto_html}</div>' if foto_html else ""
-    kol = "k7" if foto_html else "k8"
-    return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}"><h1>{h1}</h1>'
+def feitenpaneel():
+    """Vier harde feiten in panelen met groot cijfertype."""
+    feiten = [(esc(MOEDER_SINDS), "Twents familiebedrijf, deuren en sloten sinds dat jaar"),
+              ("EVVA", "officieel partner, net als van ASSA ABLOY en ABUS"),
+              ("4 tot 12 uur", "storingsdienst, dag en nacht, 365 dagen per jaar"),
+              ("PKVW", "gecertificeerde monteurs, gespecialiseerd in oudere panden")]
+    return '<dl class="feitenpaneel">' + "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in feiten) + "</dl>"
+
+def label(tekst):
+    return f'<span class="label">{esc(tekst)}</span>'
+
+def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=None):
+    """Kop van elke pagina: label, H1, answer-first alinea, CTA; rechts een foto of een illustratie."""
+    rechts_inhoud = foto_html or (f'<div class="hero__illustratie">{illustratie}</div>' if illustratie else "")
+    rechts = f'<div class="k6 hero__rechts">{rechts_inhoud}</div>' if rechts_inhoud else ""
+    kol = "k6" if rechts_inhoud else "k8"
+    return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}">{label(kicker) if kicker else ""}<h1>{h1}</h1>'
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
+
+def sectorrij(items, kop, intro=None, kicker="Sectoren"):
+    """Horizontaal scrollende rij met illustratie, kop, tekst en link, zoals de sectorrij van Salto."""
+    kaarten = "".join(
+        f'<article class="kaart"><div class="kaart__beeld">{isometrie.SECTOREN[sleutel]()}</div>'
+        f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><a class="meer" href="{u}">{esc(linktekst)}</a></div></article>'
+        for sleutel, k, t, u, linktekst in items)
+    return (f'<section class="reveal"><div class="wrap"><div class="rij-kop"><div>{label(kicker)}<h2>{kop}</h2>{f"<p class=intro>{intro}</p>" if intro else ""}</div>'
+            f'<div class="rij-knoppen"><button type="button" data-rij="-1" aria-label="Vorige">&#8249;</button><button type="button" data-rij="1" aria-label="Volgende">&#8250;</button></div></div>'
+            f'<div class="rij" data-rij-scroll>{kaarten}</div></div></section>')
 
 def video(bestand, poster, alt, kop="Bekijk de video", onderschrift=None):
     """Video op klik, nooit autoplay, eigen bestand uit static/img/bron/. Poster is een eigen foto (3:2) die door de
@@ -258,11 +282,11 @@ def kaart_svg():
             f'<circle cx="300" cy="220" r="205" fill="#F2F4F6" stroke="#C9CED0"/>{"".join(punten)}'
             f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ongeveer 60 minuten rijden</text></svg>')
 
-def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra=""):
-    kl = " ".join(k for k in ["sectie--wit" if wit else "", "sectie--lijn" if lijn else ""] if k)
+def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None):
+    kl = " ".join(k for k in ["reveal", "sectie--wit" if wit else "", "sectie--lijn" if lijn else ""] if k)
     kl = f' class="{kl}"' if kl else ""
     hid = f' id="{kop_id}"' if kop_id else ""
-    kop_html = f"<h2{hid}>{kop}</h2>" if kop else ""
+    kop_html = (label(kicker) if kicker else "") + (f"<h2{hid}>{kop}</h2>" if kop else "")
     return f'<section{kl}><div class="wrap">{kop_html}{inhoud}{extra}</div></section>'
 
 def stappen(items):
@@ -272,7 +296,7 @@ def stappen(items):
 def faqblok(items, kop="Veelgestelde vragen"):
     binnen = "".join(f'<details><summary>{esc(v)}</summary><div class="antwoord">{a if a.startswith("<") else "<p>"+a+"</p>"}</div></details>' for v, a in items)
     return sectie(kop, f'<div class="faq rooster"><div class="k8">{binnen}</div></div>') if False else \
-        f'<section><div class="wrap"><div class="rooster"><div class="k8"><h2>{kop}</h2><div class="faq">{binnen}</div></div></div></div></section>'
+        f'<section class="reveal"><div class="wrap"><div class="rooster"><div class="k8">{label("Veelgestelde vragen")}<h2>{kop}</h2><div class="faq">{binnen}</div></div></div></div></section>'
 
 def kruimels(items):
     """items = [(naam, pad), ...]; laatste zonder link."""
@@ -437,11 +461,12 @@ def footer():
     cookies = '<li><button type="button" data-consent-open>Cookie-instellingen</button></li>' if TAG_ACTIEF else ""
     return f'''<footer class="voet"><div class="wrap">
 <div class="rooster">
-<div class="k4"><h2>Diensten</h2><ul>{diensten}</ul></div>
-<div class="k4"><h2>Contact</h2><address><p>{esc(NAAM)}<br>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
+<div class="k3"><p class="voet__naam">{esc(NAAM)}</p><p>Elektronische toegangscontrole, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en Oost-Nederland.</p><p>{cta_knop(cta_id="footer")}</p></div>
+<div class="k3"><h2>Diensten</h2><ul>{diensten}</ul></div>
+<div class="k3"><h2>Contact</h2><address><p>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
 <p><a href="tel:{esc(TEL_LINK)}">{esc(TEL_TONEN)}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
 <p>Bereikbaar {esc(OPENING_TEKST)}.</p></address></div>
-<div class="k4"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
+<div class="k3"><h2>Over</h2><ul>{over}{profiel}{linkedin}{cookies}</ul></div>
 </div>
 {footer_logos()}<div class="onderdeel"><p>{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}, KvK {esc(KVK)}, {esc(PLAATS)}.</p>{btw}</div>
 </div></footer>'''
@@ -482,8 +507,8 @@ def formulier(kort=False, kop="Plan een inventarisatie", intro=None):
 <div class="breed"><button class="knop" type="submit">{esc(CTA)}</button><p class="form-status" role="status" aria-live="polite"></p>
 <p class="zacht">Uw gegevens gebruiken wij alleen om contact met u op te nemen. Zie de <a href="/privacy/">privacyverklaring</a>.</p></div>
 </form>'''
-    return f'''<section class="sectie--wit" id="aanvraag" data-gedeeld><div class="wrap"><div class="rooster">
-<div class="k8"><h2>{esc(kop)}</h2><p class="tekst">{intro}</p>{velden}</div>
+    return f'''<section class="reveal" id="aanvraag" data-gedeeld><div class="wrap"><div class="rooster">
+<div class="k8">{label("Contact")}<h2>{esc(kop)}</h2><p class="tekst">{intro}</p>{velden}</div>
 <div class="k4">{adviseurblok()}</div>
 </div></div></section>'''
 
