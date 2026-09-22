@@ -129,6 +129,8 @@ section,.sectie{padding:var(--sectie) 0}
 .anim-bal{animation:bal 2.2s ease-in-out infinite alternate}
 @keyframes bal{from{transform:translate(0,0)}to{transform:translate(18px,10px)}}
 .anim-auto-2{animation:rijden 11s linear infinite 4s}
+.anim-auto-y{animation:rijden-y 9s linear infinite 2s}
+@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
 .anim-heftruck{animation:heftruck 5s ease-in-out infinite alternate}
 @keyframes heftruck{from{transform:translate(0,0)}to{transform:translate(-26px,15px)}}
 .anim-licht{animation:licht 9s ease-in-out infinite}

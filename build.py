@@ -245,10 +245,37 @@ def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=N
     return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}">{label(kicker) if kicker else ""}<h1>{h1}</h1>'
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
 
+ISO_CSS = """<style>
+.led{animation:led 1.8s ease-in-out infinite}@keyframes led{0%,100%{opacity:1}50%{opacity:.15}}
+.anim-auto{animation:rijden 7s linear infinite}@keyframes rijden{0%{transform:translate(-62px,-36px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(62px,36px);opacity:0}}
+.anim-auto-2{animation:rijden 11s linear infinite 4s}
+.anim-auto-y{animation:rijden-y 9s linear infinite 2s}@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
+.anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}@keyframes wapperen{from{transform:skewY(-5deg)}to{transform:skewY(5deg)}}
+.anim-gloed{animation:gloed 2.4s ease-in-out infinite}@keyframes gloed{0%,100%{opacity:1}50%{opacity:.45}}
+.anim-water{animation:water 3s ease-in-out infinite}@keyframes water{0%,100%{opacity:1;transform:translate(0,0)}50%{opacity:.55;transform:translate(2px,1px)}}
+.anim-rook{animation:rook 3s ease-out infinite}@keyframes rook{0%{opacity:.8;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-18px)}}
+.anim-bal{animation:bal 2.2s ease-in-out infinite alternate}@keyframes bal{from{transform:translate(0,0)}to{transform:translate(18px,10px)}}
+.anim-heftruck{animation:heftruck 5s ease-in-out infinite alternate}@keyframes heftruck{from{transform:translate(0,0)}to{transform:translate(-26px,15px)}}
+.anim-licht{animation:licht 9s ease-in-out infinite}.anim-licht-1{animation-delay:2s}.anim-licht-2{animation-delay:4.5s}.anim-licht-3{animation-delay:6.5s}
+@keyframes licht{0%,35%{fill:#BFE6FF}45%,85%{fill:#FFE49A}95%,100%{fill:#BFE6FF}}
+.anim-kraan{animation:kraan 14s ease-in-out infinite alternate}@keyframes kraan{from{transform:rotate(-25deg)}to{transform:rotate(30deg)}}
+.anim-loper{animation:loper 9s linear infinite}@keyframes loper{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>"""
+
+def iso_bestand(sleutel):
+    """Schrijft de sectorscène als los SVG-bestand (met de animaties erin) en geeft een <img> terug; scheelt ~110 KB per pagina."""
+    uit = DIST / "static" / "img" / "iso"; uit.mkdir(parents=True, exist_ok=True)
+    svg = isometrie.SECTOREN[sleutel]()
+    svg = svg.replace('class="iso">', 'class="iso">' + ISO_CSS, 1)
+    (uit / f"{sleutel}.svg").write_text(svg, encoding="utf-8")
+    alt = re.search(r'aria-label="([^"]+)"', svg).group(1)
+    return f'<img src="/static/img/iso/{sleutel}.svg" alt="{alt}" width="444" height="350" loading="lazy" class="iso">'
+
 def sectorrij(items, kop, intro=None, kicker="Sectoren"):
     """Horizontaal scrollende rij met illustratie, kop, tekst en link, zoals de sectorrij van Salto."""
     kaarten = "".join(
-        f'<article class="kaart"><div class="kaart__beeld">{isometrie.SECTOREN[sleutel]()}</div>'
+        f'<article class="kaart"><div class="kaart__beeld">{iso_bestand(sleutel)}</div>'
         f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><a class="meer" href="{u}">{esc(linktekst)}</a></div></article>'
         for sleutel, k, t, u, linktekst in items)
     return (f'<section class="reveal"><div class="wrap"><div class="rij-kop"><div>{label(kicker)}<h2>{kop}</h2>{f"<p class=intro>{intro}</p>" if intro else ""}</div>'

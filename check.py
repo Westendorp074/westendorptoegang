@@ -117,7 +117,7 @@ def controleer_pagina(pad, tekst_html):
         if "alt" not in a: fout(rel, f"img zonder alt: {src}")
         if not a.get("width") or not a.get("height"): fout(rel, f"img zonder width/height: {src}")
         alt = (a.get("alt") or "").strip()
-        if src.startswith("/static/img/") and "/logo/" not in src:
+        if src.startswith("/static/img/") and "/logo/" not in src and "/iso/" not in src:
             naam = src.rsplit("/", 1)[-1]
             if not re.match(r"^[a-z0-9]+(-[a-z0-9]+)*-\d+\.(webp|avif|jpg|png)$", naam): fout(rel, f"bestandsnaam beeld niet volgens de regels (kleine letters, koppeltekens): {naam}")
             if re.search(r"(img|dsc|image|foto|screenshot|whatsapp)[-_]?\d", naam): fout(rel, f"bestandsnaam beeld is een cameranaam: {naam}")
