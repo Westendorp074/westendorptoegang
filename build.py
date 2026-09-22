@@ -250,7 +250,7 @@ ISO_CSS = """<style>
 .anim-auto{animation:rijden 7s linear infinite}@keyframes rijden{0%{transform:translate(-62px,-36px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(62px,36px);opacity:0}}
 .anim-auto-2{animation:rijden 11s linear infinite 4s}
 .anim-auto-y{animation:rijden-y 9s linear infinite 2s}@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
-.anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}@keyframes wapperen{from{transform:skewY(-5deg)}to{transform:skewY(5deg)}}
+.anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}@keyframes wapperen{from{transform:scaleX(1)}to{transform:scaleX(.72)}}
 .anim-gloed{animation:gloed 2.4s ease-in-out infinite}@keyframes gloed{0%,100%{opacity:1}50%{opacity:.45}}
 .anim-water{animation:water 3s ease-in-out infinite}@keyframes water{0%,100%{opacity:1;transform:translate(0,0)}50%{opacity:.55;transform:translate(2px,1px)}}
 .anim-rook{animation:rook 3s ease-out infinite}@keyframes rook{0%{opacity:.8;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-18px)}}
