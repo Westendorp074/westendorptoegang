@@ -101,6 +101,10 @@ class Scene:
             self.voeg((x, y, 0.003, x + w + sx, y + d + sy, 0.003), _poly([P(x + sx, y + sy, 0), P(x + w + sx, y + sy, 0), P(x + w + sx, y + d + sy, 0), P(x + sx, y + d + sy, 0)], SCHADUW, ' opacity=".09"'), grond=True)
         uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], links))    # linkervlak (y=d)
         uit.append(_poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], rechts))   # rechtervlak (x=w)
+        mat = {ROOD_L: "steen", ZAND_L: "natuursteen", WIT_L: "plaat", GRIJS_L: "plaat"}.get(links)
+        if mat and z == 0 and h >= 1.0 and w >= 0.8 and d >= 0.8:                                                # gevelstructuur, alleen op gebouwen
+            uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], f"url(#p-{mat}-l)"))
+            uit.append(_poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], f"url(#p-{mat}-r)"))
         uit.append(_poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], top, f' stroke="{rechts}" stroke-width=".6" stroke-opacity=".45"'))   # bovenvlak met dakrand
         if h >= 1.0 and w >= 0.8 and d >= 0.8:                                                                  # dak: binnenvlak met grind achter de dakrand
             i = min(0.18, w * 0.12, d * 0.12)
@@ -161,8 +165,8 @@ class Scene:
             uit.append(f'<rect x="{lx-3:.1f}" y="{ly-6:.1f}" width="6" height="12" rx="1" fill="#FFFFFF" stroke="{DONKER}" stroke-width="0.6"/>'
                        f'<circle class="{"led-deur" if deur_anim else "led"}" cx="{lx:.1f}" cy="{ly-2:.1f}" r="1.6" fill="{GROEN}"/>')
         self.voeg((x, y, z, x + w, y + d, z + h), "".join(uit))
-        if deur and deur_anim:                                                                                    # persoon vóór de deur, pas beweegt naar de lezer
-            self.persoon(x + dx + dw * 0.55, y + d + 0.42, DONKER, pas=(lx, ly - 2))
+        if deur and deur_anim:                                                                                    # persoon voor de lezer, houdt de pas ertegen
+            self.persoon(x + dx + dw + 0.35, y + d + 0.55, MIDDEN, pas=(lx, ly), schaal=1.3)
     def dak(self, x, y, z, w, d, hoog, nok="y", kl=(DAK_T, DAK_L, DAK_R)):
         """Zadeldak. nok 'y': nok loopt in de y-richting (schuine vlakken links en rechts); nok 'x': nok in de x-richting."""
         P = self.P; t, l, r = kl
@@ -252,18 +256,29 @@ class Scene:
         if wind:
             svg = f'<g class="anim-boom anim-boom-{self._bomen % 3}" style="transform-origin:{bx:.1f}px {by:.1f}px">{svg}</g>'; self._bomen += 1
         self.voeg((x - r, y - r, 0, x + r, y + r, h + 1.3 * r), svg, pad=(4, 2, 4, 2))
-    def persoon(self, x, y, kleur=MIDDEN, pas=None):
-        """Klein figuurtje: schaduw, lijf, hoofd. Staat stil; geeft schaal en leven. pas=(lx, ly): houdt een pas vast die naar de lezer op (lx, ly) beweegt."""
-        bx, by = self.P(x, y, 0)
-        extra = ""
+    def persoon(self, x, y, kleur=MIDDEN, pas=None, schaal=1.0):
+        """Figuur: schaduw, benen, lijf, arm, hoofd met haar. pas=(lx, ly): de persoon houdt een pas in de hand en brengt die met de arm
+        naar de lezer op (lx, ly); de arm draait om de schouder, dus de pas blijft altijd in de hand."""
+        k = schaal; bx, by = self.P(x, y, 0)
+        huid, haar, broek = "#F1C9A6", "#5A4636", DONKER
+        self.voeg((x, y, 0.003, x + 0.2, y + 0.1, 0.003), self.grond_g(f'<ellipse cx="{x*self.s:.1f}" cy="{y*self.s:.1f}" rx="{3*k:.1f}" ry="{2*k:.1f}" fill="{SCHADUW}" opacity=".16"/>'), grond=True)
+        lijf = (f'<line x1="{bx-1*k:.1f}" y1="{by-3*k:.1f}" x2="{bx-1*k:.1f}" y2="{by:.1f}" stroke="{broek}" stroke-width="{1.4*k:.1f}" stroke-linecap="round"/>'
+                f'<line x1="{bx+1*k:.1f}" y1="{by-3*k:.1f}" x2="{bx+1*k:.1f}" y2="{by:.1f}" stroke="{broek}" stroke-width="{1.4*k:.1f}" stroke-linecap="round"/>'
+                f'<rect x="{bx-2.4*k:.1f}" y="{by-11.5*k:.1f}" width="{4.8*k:.1f}" height="{9*k:.1f}" rx="{2*k:.1f}" fill="{kleur}"/>'
+                f'<circle cx="{bx:.1f}" cy="{by-13.8*k:.1f}" r="{2.5*k:.1f}" fill="{huid}"/>'
+                f'<path d="M{bx-2.5*k:.1f},{by-14*k:.1f} a{2.5*k:.1f},{2.5*k:.1f} 0 0 1 {5*k:.1f},0 z" fill="{haar}"/>')
+        arm = ""
         if pas:
-            hx, hy = bx + 3.2, by - 7.5                                                                                # hand
-            extra = (f'<line x1="{bx+1.6:.1f}" y1="{by-8.5:.1f}" x2="{hx:.1f}" y2="{hy:.1f}" stroke="{kleur}" stroke-width="1.6" stroke-linecap="round"/>'
-                     f'<g class="anim-pas" style="--dx:{pas[0]-hx:.1f}px;--dy:{pas[1]-hy:.1f}px"><rect x="{hx-1:.1f}" y="{hy-2.2:.1f}" width="4.4" height="3" rx=".6" fill="{LICHT}" stroke="{DONKER}" stroke-width=".5"/></g>')
-        self.voeg((x, y, 0.003, x + 0.2, y + 0.1, 0.003), self.grond_g(f'<ellipse cx="{x*self.s:.1f}" cy="{y*self.s:.1f}" rx="3" ry="2" fill="{SCHADUW}" opacity=".14"/>'), grond=True)
-        self.voeg((x - 0.12, y - 0.12, 0, x + 0.12, y + 0.12, 0.85),
-                  f'<rect x="{bx-2.2:.1f}" y="{by-11.5:.1f}" width="4.4" height="9" rx="2" fill="{kleur}"/><circle cx="{bx:.1f}" cy="{by-13.6:.1f}" r="2.4" fill="#F1C9A6"/>'
-                  f'<line x1="{bx-1:.1f}" y1="{by-2.5:.1f}" x2="{bx-1:.1f}" y2="{by:.1f}" stroke="{DONKER}" stroke-width="1.2"/><line x1="{bx+1:.1f}" y1="{by-2.5:.1f}" x2="{bx+1:.1f}" y2="{by:.1f}" stroke="{DONKER}" stroke-width="1.2"/>' + extra, pad=(6, 16, 26, 2))
+            sx, sy = bx + 1.8 * k, by - 10.2 * k                                                                    # schouder
+            dx, dy = pas[0] - sx, pas[1] - sy; L = math.hypot(dx, dy); hoek = math.degrees(math.atan2(dy, dx))
+            rust = 90 - hoek                                                                                         # arm langs het lijf
+            hx, hy = sx + dx, sy + dy
+            arm = (f'<g class="anim-arm" style="transform-origin:{sx:.1f}px {sy:.1f}px;--rust:{rust:.1f}deg">'
+                   f'<line x1="{sx:.1f}" y1="{sy:.1f}" x2="{hx:.1f}" y2="{hy:.1f}" stroke="{kleur}" stroke-width="{1.7*k:.1f}" stroke-linecap="round"/>'
+                   f'<rect x="{hx-2.6:.1f}" y="{hy-2:.1f}" width="5.2" height="3.4" rx=".6" fill="#FFFFFF" stroke="{DONKER}" stroke-width=".6"/>'
+                   f'<rect x="{hx-2.6:.1f}" y="{hy-2:.1f}" width="5.2" height="1.1" rx=".4" fill="{MIDDEN}"/>'
+                   f'<circle cx="{hx:.1f}" cy="{hy+1.2:.1f}" r="{1.1*k:.1f}" fill="{huid}"/></g>')
+        self.voeg((x - 0.12, y - 0.12, 0, x + 0.12, y + 0.12, 0.85 * k), lijf + arm, pad=(8, 20, 30, 3))
     def struik(self, x, y, r=0.32):
         cx, cy = self.P(x, y, 0.12); rs = r * self.s
         self.voeg((x - r, y - r, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x+0.1)*self.s:.1f}" cy="{(y+0.05)*self.s:.1f}" rx="{rs*0.9:.1f}" ry="{rs*0.6:.1f}" fill="{SCHADUW}" opacity=".1"/>'), grond=True)
@@ -452,7 +467,14 @@ class Scene:
                 f'<path d="M0,{t:.1f} H{t:.1f} V0" fill="none" stroke="#D3D9DF" stroke-width=".7"/></pattern>'
                 f'<pattern id="p-asfalt" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="{WEG}"/>'
                 f'<circle cx="2" cy="2" r=".55" fill="#CBD2D9"/><circle cx="5.5" cy="5" r=".55" fill="#CBD2D9"/></pattern>'
-                f'<pattern id="p-grind" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".5" fill="#000" opacity=".07"/><circle cx="4.5" cy="4" r=".5" fill="#FFF" opacity=".25"/></pattern></defs>')
+                f'<pattern id="p-grind" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".5" fill="#000" opacity=".07"/><circle cx="4.5" cy="4" r=".5" fill="#FFF" opacity=".25"/></pattern>'
+                + "".join(f'<pattern id="p-{naam}-{kant}" width="{bw}" height="{bh}" patternUnits="userSpaceOnUse" patternTransform="skewY({hoek})">{inhoud}</pattern>'
+                          for kant, hoek in (("l", 30), ("r", -30))
+                          for naam, bw, bh, inhoud in (
+                              ("steen", 7, 3.2, f'<path d="M0,0 H7 M0,1.6 H7 M0,0 V1.6 M3.5,1.6 V3.2" fill="none" stroke="#6E2F22" stroke-width=".35" opacity=".35"/>'),       # metselwerk halfsteens
+                              ("natuursteen", 14, 6, f'<path d="M0,0 H14 M0,3 H14 M0,0 V3 M7,3 V6" fill="none" stroke="#8C7B5E" stroke-width=".4" opacity=".4"/>'),    # grote blokken
+                              ("plaat", 9, 20, f'<path d="M0,0 V20 M0,10 H9" fill="none" stroke="#7D8C9B" stroke-width=".35" opacity=".35"/>')))                    # gevelplaten
+                + '</defs>')
         return (f'<svg viewBox="0 0 {breedte} {hoogte}" width="{breedte}" height="{hoogte}" role="img" aria-label="{label}" '
                 f'xmlns="http://www.w3.org/2000/svg" class="iso">' + defs + "".join(d[1] for d in self._volgorde(self.delen)) + "</svg>")
 
@@ -652,6 +674,31 @@ def recreatie():
     sc.persoon(9.2, 6.2); sc.persoon(5.4, 11.2, DONKER); sc.persoon(4.6, 8.2, KRUIS_L); sc.struik(5.0, 8.4); sc.struik(4.8, 11.0); sc.struik(9.6, 5.4)
     return sc.svg(444, 350, "Isometrische tekening van een recreatiepark met vakantiehuisjes, bungalows aan het water, zwembad, speeltuin en receptie met slagboom")
 
+def woningcorporatie():
+    """Woningcorporaties: galerijflat met trappenhuis, portiekflat waar een huurder met een pas binnengaat, rij bergingen, wijkkantoor
+    en de bus van de onderhoudsdienst; ondergrondse afvalcontainers. Eén auto rijdt."""
+    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    _weg_x(sc, 7.8); sc.zebra(5.4, 7.8, 1.2, 1.0, 4); _aansluiting(sc, 7.8)
+    for m in (1.0, 4.5, 8.0, 11.5): sc.lantaarn(m, 7.7)
+    sc.blok(0.4, 0.4, 0, 5.4, 2.2, 4.2, ROOD_T, ROOD_L, ROOD_R, ramen=(4, 5), dak="zon")                          # galerijflat
+    for v in range(1, 4):                                                                                        # galerijen met borstwering
+        sc.blok(0.4, 2.6, v * 1.05, 5.4, 0.45, 0.07, GRIJS_T, GRIJS_L, GRIJS_R)
+        sc.blok(0.4, 3.02, v * 1.05 + 0.07, 5.4, 0.03, 0.34, WIT_T, WIT_L, WIT_R)
+    sc.blok(5.8, 0.8, 0, 1.0, 1.6, 4.8, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(5, 1))                                 # trappenhuis
+    sc.blok(7.4, 0.4, 0, 4.4, 2.6, 3.2, WIT_T, WIT_L, WIT_R, ramen=(3, 4), deur=(1.6, 0.8, 1.3), deur_anim=True)   # portiekflat
+    sc.vlak(0.4, 3.6, 5.4, 0.6, GROND2); sc.vlak(7.4, 3.2, 4.4, 2.2, GROND2)                                      # stoep en voorplein portiekflat
+    sc.blok(0.4, 4.4, 0, 4.6, 2.4, 1.9, MIDDEN2, MIDDEN, DONKER, ramen=(1, 4), deur=(1.8, 0.7, 1.2))                 # wijkkantoor
+    for i in range(5): sc.blok(7.5 + i * 0.85, 5.8, 0, 0.8, 1.1, 0.9, ZAND_T, ZAND_L, ZAND_R, deur=(0.15, 0.5, 0.75))  # bergingen (laag, voor de portiek langs)
+    sc.auto(5.7, 4.3, MIDDEN, lang=1.8, richting="y")                                                               # bus onderhoudsdienst (geparkeerd)
+    sc.vlak(0.4, 9.0, 3.6, 3.0, GROEN2); sc.vlak(8.4, 9.0, 3.6, 3.0, GROEN2)                                        # groen aan beide kanten (in- en uitrit vrij)
+    sc.vlak(4.4, 9.0, 3.6, 3.0, GROND2)                                                                             # plein met ondergrondse containers
+    for i in range(3): sc.cilinder(5.0 + i * 0.8, 10.0, 0.16, 0.38, GRIJS_T, GRIJS_R)                              # inworpzuilen ondergrondse containers
+    sc.schommel(1.2, 10.2)
+    _bomen(sc, [(3.2, 9.6), (2.4, 11.4), (9.2, 9.8), (11.0, 10.6), (9.6, 11.6)], 0.5, 1.3)
+    sc.persoon(4.8, 9.4, KRUIS_L); sc.persoon(7.0, 11.2, DONKER); sc.struik(6.8, 3.9); sc.struik(7.2, 6.4)
+    sc.auto(1.2, 7.95, LICHT, klas="anim-auto")
+    return sc.svg(444, 350, "Isometrische tekening van een woonwijk van een woningcorporatie met galerijflat, portiekflat, bergingen, wijkkantoor en een bus van de onderhoudsdienst")
+
 def industrie():
     """Industrie en logistiek: bedrijvenpark met productiehal met sheddak, silo's, schoorsteen, distributiecentrum met laaddocks, containerterrein, hekwerk met slagboom en portier; één vrachtwagen rijdt, heftruck pendelt, schoorsteen rookt."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
@@ -752,4 +799,4 @@ def hero_scene():
     return sc.svg(600, 470, "Isometrische tekening van een bedrijfspand met een deur met elektronische lezer")
 
 SECTOREN = {"kantoren": kantoor, "zorg": zorg, "onderwijs": onderwijs, "vve": vve, "verenigingen": verenigingen,
-            "recreatie": recreatie, "industrie": industrie, "overheid": overheid, "retail": retail}
+            "recreatie": recreatie, "industrie": industrie, "overheid": overheid, "retail": retail, "woningcorporatie": woningcorporatie}

@@ -138,6 +138,9 @@ SECTOREN_LIJST = [
     ("vve", "VvE & Vastgoed",
      "Appartementencomplexen, verhuurde woningen en bedrijfsverzamelgebouwen: de eigenaar of beheerder regelt de toegang tot entree, bergingen en fietsenstalling met een pas of tag per woning of huurder. Bij een verhuizing blokkeert u de oude pas; sleutelbeheer zonder kopieën die niet terugkomen.",
      "Een wandlezer op de gemeenschappelijke entree, elektronische cilinders op bergingen en stalling, en toegangsbeheer door de VvE-beheerder of vastgoedbeheerder in de software."),
+    ("woningcorporatie", "Woningcorporaties",
+     "Portiekflats, galerijflats en seniorencomplexen: gemeenschappelijke entrees, bergingen, liftmachinekamers en technische ruimtes in tientallen complexen. Bij een huurderswissel blokkeert u de oude pas; de eigen onderhoudsdienst en aannemers krijgen toegang met een tijdslot.",
+     "Wandlezers op de entrees, elektronische cilinders op bergingen en technische ruimtes, tijdelijke rechten voor ketenpartners en centraal beheer over alle complexen."),
     ("industrie", "Industrie & Logistiek",
      "Productiehallen, distributiecentra en bedrijventerreinen: ploegendiensten, zonering per afdeling en rapportage van wie waar was, voor verzekeraar en auditor. Elektronische toegangscontrole die u per deur uitbreidt, van kantoor tot laaddock.",
      "Online lezers op de hoofdingang en het laaddock, offline beslag op kantoren en magazijn; een koppeling met tijdregistratie of alarm bekijken wij in overleg."),
@@ -313,9 +316,9 @@ ISO_CSS = """<style>
 .anim-knipper{animation:knipper 1.6s steps(1) infinite}@keyframes knipper{0%,55%{opacity:1}56%,100%{opacity:.12}}
 .anim-zwaailicht{animation:knipper .7s steps(1) infinite}
 .anim-fiets{animation:rijden 14s linear infinite}
-.anim-pas{animation:pas 6s ease-in-out infinite}@keyframes pas{0%,10%{transform:none;opacity:1}32%,44%{transform:translate(var(--dx),var(--dy));opacity:1}50%{transform:translate(var(--dx),var(--dy));opacity:0}51%,86%{transform:none;opacity:0}92%,100%{transform:none;opacity:1}}
-.led-deur{animation:leddeur 6s infinite}@keyframes leddeur{0%,36%{fill:#D9362B}40%,74%{fill:#3DBE7A}78%,100%{fill:#D9362B}}
-.anim-deur{animation:deur 6s ease-in-out infinite}@keyframes deur{0%,40%{transform:scaleX(1)}50%,74%{transform:scaleX(.22)}84%,100%{transform:scaleX(1)}}
+.anim-arm{animation:arm 6s ease-in-out infinite}@keyframes arm{0%,8%{transform:rotate(var(--rust))}26%,48%{transform:rotate(0)}62%,100%{transform:rotate(var(--rust))}}
+.led-deur{animation:leddeur 6s infinite}@keyframes leddeur{0%,30%{fill:#D9362B}32%,76%{fill:#3DBE7A}80%,100%{fill:#D9362B}}
+.anim-deur{animation:deur 6s ease-in-out infinite}@keyframes deur{0%,36%{transform:scaleX(1)}48%,72%{transform:scaleX(.22)}84%,100%{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>"""
 
