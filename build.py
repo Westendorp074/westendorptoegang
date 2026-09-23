@@ -156,9 +156,15 @@ SECTOREN_LIJST = [
     ("verenigingen", "Sport & Verenigingen",
      "Sportparken, sporthallen, clubhuizen en buurthuizen met vrijwilligers en wisselende gebruikers: tijdsloten voor trainingen, avonden en weekenden, en een toegangspas die u intrekt als iemand stopt. Geen sleutelbos meer bij de kantinevrijwilliger.",
      "Een pas of tag per vrijwilliger met tijdslot, elektronische cilinders op clubhuis, kleedkamers en materiaalhok, beheer door één bestuurslid."),
+    ("hotel", "Hotels",
+     "Hotels, B&B's en short stay: een kamerpas per gast die bij het uitchecken vanzelf verloopt, passen voor housekeeping en technische dienst, en de personeelsingang, het magazijn en de technische ruimtes alleen voor wie daar moet zijn. Neemt een gast de pas mee of raakt hij hem kwijt, dan blokkeert de receptie hem direct.",
+     "Kamerpassen met einddatum, elektronisch beslag op kamers en personeelsruimtes, een lezer op de personeelsingang en beheer vanuit de receptie."),
     ("recreatie", "Recreatieparken",
      "Vakantieparken en campings: huisjes, sanitairgebouwen, zwembad en slagboom met toegang per boeking. Gasten wisselen elke week; de receptie geeft de toegangspas uit en hoeft geen sleutels meer over te dragen.",
      "Toegang per boeking op huisjes en sanitairgebouwen, de slagboom of poort aan een lezer, beheer vanuit de receptie."),
+    ("anders", "Anders",
+     "Staat uw sector er niet bij, zoals een kerk, museum, laboratorium, datacenter of een pand dat nergens in past: dan kijken wij per pand wat er nodig is. Elk gebouw heeft deuren, gebruikers en sleutels die kwijtraken.",
+     "Dat bepalen wij samen bij de inventarisatie op locatie: van één elektronische cilinder tot een compleet systeem, op de deuren die er al zitten."),
 ]
 CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; monteurs PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen); getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20/21-09-2026)
 PKVW = "Onze monteurs zijn PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen) en gespecialiseerd in het vernieuwen van oudere panden met toegangscontrole, zonder de bestaande deuren te vervangen."
@@ -297,22 +303,19 @@ def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=N
 
 ISO_CSS = """<style>
 .led{animation:led 1.8s ease-in-out infinite}@keyframes led{0%,100%{opacity:1}50%{opacity:.15}}
-.anim-auto{animation:rijden 7s linear infinite}@keyframes rijden{0%{transform:translate(-62px,-36px);opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(62px,36px);opacity:0}}
+.anim-auto,.anim-auto-y,.anim-auto-y-terug{animation:rijden 12s linear infinite}@keyframes rijden{0%{transform:translate(var(--x0),var(--y0));opacity:0}2%{opacity:1}98%{opacity:1}100%{transform:translate(var(--x1),var(--y1));opacity:0}}
 .anim-auto-2{animation:rijden 11s linear infinite 4s}
-.anim-auto-y{animation:rijden-y 9s linear infinite 2s}@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
 .anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}@keyframes wapperen{from{transform:scaleX(1)}to{transform:scaleX(.78)}}
 .anim-gloed{animation:gloed 2.4s ease-in-out infinite}@keyframes gloed{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
 .anim-water{animation:water 3s ease-in-out infinite}@keyframes water{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,1px);filter:brightness(1.08)}}
 .anim-rook{animation:rook 3s ease-out infinite}@keyframes rook{0%{opacity:.8;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-18px)}}
-.anim-bal{animation:bal 2.2s ease-in-out infinite alternate}@keyframes bal{from{transform:translate(0,0)}to{transform:translate(18px,10px)}}
 .anim-heftruck{animation:heftruck 5s ease-in-out infinite alternate}@keyframes heftruck{from{transform:translate(0,0)}to{transform:translate(-26px,15px)}}
 .anim-licht{animation:licht 9s ease-in-out infinite}.anim-licht-1{animation-delay:2s}.anim-licht-2{animation-delay:4.5s}.anim-licht-3{animation-delay:6.5s}
 @keyframes licht{0%,35%{fill:#BFE6FF}45%,85%{fill:#FFE49A}95%,100%{fill:#BFE6FF}}
 .anim-kraan{animation:kraan 14s ease-in-out infinite alternate}@keyframes kraan{from{transform:rotate(-25deg)}to{transform:rotate(30deg)}}
-.anim-loper{animation:loper 9s linear infinite}@keyframes loper{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .anim-boom{animation:wind 3.4s ease-in-out infinite alternate}.anim-boom-1{animation-delay:-1.2s}.anim-boom-2{animation-delay:-2.4s}@keyframes wind{from{transform:skewX(-2.5deg)}to{transform:skewX(2.5deg)}}
 .anim-slagboom{animation:slagboom 9s ease-in-out infinite}@keyframes slagboom{0%,10%{transform:rotate(0)}17%,38%{transform:rotate(-58deg)}45%,100%{transform:rotate(0)}}
-.anim-auto-y-terug{animation:rijden-y-terug 9s linear infinite}@keyframes rijden-y-terug{0%{transform:translate(-58px,34px);opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(58px,-34px);opacity:0}}
+
 .anim-knipper{animation:knipper 1.6s steps(1) infinite}@keyframes knipper{0%,55%{opacity:1}56%,100%{opacity:.12}}
 .anim-zwaailicht{animation:knipper .7s steps(1) infinite}
 .anim-fiets{animation:rijden 14s linear infinite}

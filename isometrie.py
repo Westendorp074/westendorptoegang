@@ -446,7 +446,21 @@ class Scene:
         if not nieuw: return
         doos = [min(d[0][0] for d in nieuw), min(d[0][1] for d in nieuw), min(d[0][2] for d in nieuw),
                 max(d[0][3] for d in nieuw), max(d[0][4] for d in nieuw), max(d[0][5] for d in nieuw)]
-        r = rek or REK.get(klas)
+        if klas in ("anim-auto", "anim-auto-y", "anim-auto-y-terug"):                                             # hele weg over het eiland
+            S = self.s
+            if klas == "anim-auto":
+                terug, vooruit = doos[0] - 0.1, G - 0.1 - doos[3]
+                v0, v1 = (-terug * CX * S, -terug * CY * S), (vooruit * CX * S, vooruit * CY * S); r = (terug, 0, vooruit, 0)
+            elif klas == "anim-auto-y":
+                terug, vooruit = doos[1] - 0.1, G - 0.1 - doos[4]
+                v0, v1 = (terug * CX * S, -terug * CY * S), (-vooruit * CX * S, vooruit * CY * S); r = (0, terug, 0, vooruit)
+            else:
+                terug, vooruit = doos[1] - 0.1, G - 0.1 - doos[4]
+                v0, v1 = (-vooruit * CX * S, vooruit * CY * S), (terug * CX * S, -terug * CY * S); r = (0, terug, 0, vooruit)
+            duur = 1.0 * (terug + vooruit) + 3                                                                     # rustig tempo, ongeveer 1 s per eenheid
+            style = f"--x0:{v0[0]:.1f}px;--y0:{v0[1]:.1f}px;--x1:{v1[0]:.1f}px;--y1:{v1[1]:.1f}px;animation-duration:{duur:.0f}s"
+        else:
+            r = rek or REK.get(klas)
         if r: doos = [doos[0] - r[0], doos[1] - r[1], doos[2], doos[3] + r[2], doos[4] + r[3], doos[5]]
         pad = tuple(max(d[3][i] for d in nieuw) for i in range(4))
         # de delen binnen de groep in de juiste volgorde
@@ -668,12 +682,10 @@ def verenigingen():
     sc.vlak(0.4, 0.4, 5.6, 3.6, GROEN); sc.rechthoek_grond(0.5, 0.5, 5.4, 3.4); sc.lijn_grond(3.2, 0.5, 3.2, 3.9)   # voetbalveld
     sc.ellips(3.2, 2.2, 0.5, 0.5, "none", STREEP); sc.rechthoek_grond(0.5, 1.4, 0.8, 1.6); sc.rechthoek_grond(5.1, 1.4, 0.8, 1.6)
     sc.doel(0.42, 1.65, 1.1, "y"); sc.doel(5.9, 1.65, 1.1, "y")
-    sc.groep("anim-bal", lambda: sc.rondje(1.8, 2.6, 0.11, "#FFFFFF"))
     for lx, ly in [(0.35, 0.35), (6.05, 0.35), (0.35, 4.05), (6.05, 4.05)]: sc.lichtmast(lx, ly)
     sc.blok(0.6, 4.3, 0, 5.2, 0.5, 0.5, GRIJS_T, GRIJS_L, GRIJS_R); sc.blok(0.6, 4.3, 0.5, 5.2, 0.25, 0.4, GRIJS_T, GRIJS_L, GRIJS_R)   # tribune
     sc.ellips(9.6, 2.3, 2.3, 1.7, "#D9865E"); sc.ellips(9.6, 2.3, 1.5, 0.95, GROEN)                              # atletiekbaan
     for r in (1.7, 1.9, 2.1): sc.ellips(9.6, 2.3, r, r * 0.74, "none", "#FFFFFF", 0.6)
-    sc.draaiend(9.6, 2.3, f'<circle cx="{(9.6+1.9)*19:.1f}" cy="{2.3*19:.1f}" r="2.6" fill="{DONKER}"/>', "anim-loper")
     for k in (0.4, 2.2):                                                                                        # tennisbanen met net
         sc.vlak(k, 5.2, 1.6, 2.6, "#D9865E"); sc.rechthoek_grond(k + 0.15, 5.35, 1.3, 2.3, "#FFFFFF", 0.7); sc.net(k + 0.1, 6.5, 1.4, "x")
     sc.vlak(4.2, 5.2, 2.2, 2.6, "#C9CED0"); sc.rechthoek_grond(4.3, 5.3, 2.0, 2.4, "#FFFFFF", 0.7)               # basketbalveld
@@ -819,6 +831,45 @@ def retail():
     sc.struik(10.4, 4.3); sc.struik(0.8, 4.4)
     return sc.svg(444, 350, "Isometrische tekening van een winkelstraat met luifels en etalages, een supermarkt met parkeerplaats en winkelwagentjes en een bestelbus")
 
+def hotel():
+    """Hotels: hoteltoren met entree en luifel, restaurant met terras, parkeergarage, zwembad; een gast gaat met de kamerpas naar binnen."""
+    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    _weg_x(sc, 7.8); _aansluiting(sc, 7.8); sc.zebra(4.4, 7.8, 1.2, 1.0, 4)
+    for m in (0.6, 4.2, 8.6, 11.6): sc.lantaarn(m, 7.7)
+    sc.blok(3.6, 0.6, 0, 4.8, 2.8, 5.6, WIT_T, WIT_L, WIT_R, ramen=(6, 5), deur=(1.8, 0.9, 1.3), deur_anim=True, dak="zon")   # hoteltoren
+    sc.blok(5.2, 3.4, 1.6, 1.9, 0.8, 0.08, DONKER2, DONKER, DONKER)                                                # luifel boven de entree
+    sc.blok(0.4, 1.0, 0, 2.8, 2.4, 1.6, ZAND_T, ZAND_L, ZAND_R, ramen=(1, 3))                                      # restaurant
+    sc.vlak(0.4, 3.4, 2.8, 1.2, ZAND_T)                                                                            # terras
+    for tx in (0.9, 2.2):
+        a, b = sc.P(tx, 4.0, 0), sc.P(tx, 4.0, 1.0)
+        sc.voeg((tx, 4.0, 0, tx, 4.0, 1.0), f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{PAAL}" stroke-width="1"/><ellipse cx="{b[0]:.1f}" cy="{b[1]:.1f}" rx="9" ry="4" fill="{LICHT}"/>', pad=(10, 5, 10, 2))
+    sc.blok(9.2, 0.6, 0, 2.6, 2.8, 2.0, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(2, 2)); sc.bord(11.9, 3.7, "P")         # parkeergarage
+    sc.vlak(3.6, 3.4, 4.8, 4.4, GROND2)                                                                            # voorplein met oprit
+    sc.auto(7.0, 5.2, GEEL_L, lang=1.4)                                                                             # taxi, geparkeerd
+    for fx in (4.0, 4.6): sc.vlag(fx, 5.6, 2.4, LICHT)
+    sc.vlak(0.4, 9.0, 3.4, 3.0, GROEN2); sc.vlak(8.4, 9.0, 3.6, 3.0, GROEN2)                                        # groen (in- en uitrit vrij)
+    sc.vlak(4.2, 9.0, 3.8, 2.6, GROND2); sc.vlak(4.6, 9.3, 3.0, 2.0, LICHT); sc.groep("anim-water", lambda: sc.vlak(4.8, 9.5, 2.6, 1.6, GLAS2, 0.02))   # zwembad
+    _bomen(sc, [(1.6, 9.8), (2.8, 11.2), (9.4, 9.8), (11.0, 10.8)], 0.5, 1.3)
+    sc.auto(1.0, 7.95, MIDDEN, klas="anim-auto")
+    return sc.svg(444, 350, "Isometrische tekening van een hotel met entree en luifel, restaurant met terras, parkeergarage en zwembad, en een gast die met een kamerpas binnengaat")
+
+def anders():
+    """Anders: een algemeen bedrijfspand met entree, een kleiner pand en een hal, parkeerplaats; voor elke sector die niet apart genoemd is."""
+    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    _weg_x(sc, 7.8); _aansluiting(sc, 7.8)
+    for m in (0.6, 4.2, 8.6, 11.6): sc.lantaarn(m, 7.7)
+    sc.blok(0.4, 1.0, 0, 2.8, 2.6, 2.0, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 2)); sc.dak(0.4, 1.0, 2.0, 2.8, 2.6, 0.8, "x")   # kleiner pand met zadeldak
+    sc.blok(3.8, 0.8, 0, 4.4, 3.0, 3.0, MIDDEN2, MIDDEN, DONKER, ramen=(3, 5), deur=(1.8, 0.9, 1.3), deur_anim=True)   # uw pand
+    sc.blok(8.8, 0.6, 0, 3.0, 3.2, 2.4, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(1, 3), dak="licht")                        # hal
+    sc.vlak(3.8, 3.8, 4.4, 1.2, GROND2)
+    sc.vlak(8.8, 4.4, 3.0, 2.6, GROND2)
+    for i in range(5): sc.lijn_grond(9.0 + i * 0.6, 4.6, 9.0 + i * 0.6, 6.0, "#FFFFFF", 0.8)
+    sc.auto(9.1, 4.65, DONKER, lang=1.3, richting="y"); sc.bord(11.9, 6.9, "P")
+    sc.vlak(0.4, 9.0, 11.4, 3.0, GROEN2)
+    _bomen(sc, [(1.6, 10.0), (3.4, 11.2), (6.0, 10.4), (8.6, 11.2), (10.8, 10.0), (1.4, 4.8), (2.8, 5.8)], 0.5, 1.3)
+    sc.auto(1.0, 7.95, LICHT, klas="anim-auto")
+    return sc.svg(444, 350, "Isometrische tekening van een algemeen bedrijfspand met entree, een kleiner pand, een hal en een parkeerplaats")
+
 def hero_scene():
     """Grote scène voor de hero: bedrijfspand met entree, lezer en groene led."""
     sc = Scene(30, 300, 205)
@@ -832,4 +883,4 @@ def hero_scene():
     return sc.svg(600, 470, "Isometrische tekening van een bedrijfspand met een deur met elektronische lezer")
 
 SECTOREN = {"kantoren": kantoor, "zorg": zorg, "onderwijs": onderwijs, "vve": vve, "verenigingen": verenigingen,
-            "recreatie": recreatie, "industrie": industrie, "overheid": overheid, "retail": retail, "woningcorporatie": woningcorporatie}
+            "recreatie": recreatie, "industrie": industrie, "overheid": overheid, "retail": retail, "woningcorporatie": woningcorporatie, "hotel": hotel, "anders": anders}

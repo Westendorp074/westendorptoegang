@@ -15,8 +15,7 @@ def bouw():
         f"Sleutels die kwijtraken, cilinders die telkens vervangen moeten worden en geen overzicht wie waar naar binnen kan? "
         f"Wij regelen de toegang tot uw pand op de deuren die er al zitten: elektronisch van EVVA en mechanisch, uit één hand. "
         f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, alleen toegangscontrole.",
-        foto_html=foto, kicker="Toegangscontrole, Enschede",
-        extra='<p class="sectorknoppen-kop">Voor uw sector</p><ul class="sectorknoppen">' + "".join(f'<li><a href="#sector-{s}">{esc(k)}</a></li>' for s, k, *_ in SECTOREN_LIJST) + "</ul>")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
+        foto_html=foto, kicker="Toegangscontrole, Enschede")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
 
     # ---- sectoren: horizontale rij met illustraties ----
     voor_wie = sectorrij(SECTOREN_LIJST,
@@ -104,21 +103,18 @@ def bouw():
          f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
-    herken = sectie("Herkent u dit?", p("Toegangscontrole is geen doel op zich. Dit zijn de redenen waarom bedrijven en instellingen ons bellen, en wat er daarna verandert.")
-        + '<div class="herken">' + "".join(f'<div><h3>{esc(k)}</h3><p class="probleem">{esc(pr)}</p><p>{esc(op)}</p></div>' for k, pr, op in [
-            ("Sleutels raken kwijt", "Een sleutel is zoek en niemand weet welke deuren hij opent. Cilinders vervangen, nieuwe sleutels uitdelen, lijsten bijwerken.",
-             "Met een pas blokkeert u de verloren pas in de software. Het slot blijft zitten, er gaat niets de deur uit en de rest werkt gewoon door."),
-            ("Geen overzicht wie waar kan", "Sleutels zijn gekopieerd, uitgeleend of nooit teruggekomen. Wie er nu echt in kan, weet niemand.",
-             "Per persoon ziet u welke deuren open mogen en op welke tijden. Waar nodig ziet u ook wie wanneer binnen was."),
-            ("Zelf beheren of uitbesteden", "Niet elke organisatie heeft iemand die een systeem wil bijhouden.",
-             "U kiest: rechten zelf beheren in de software, of wij doen het voor u. Overstappen tussen die twee kan altijd."),
-            ("Tijd kwijt aan sleutelbeheer", "Uitgeven, innemen, tekenen voor ontvangst, achter vertrekkers aan: het kost elke week tijd.",
-             "Een nieuwe medewerker, huurder of vrijwilliger krijgt in een paar minuten een pas met de juiste rechten; bij vertrek trekt u hem in."),
-            ("Steeds weer kosten", "Elke verloren sleutel betekent nieuwe cilinders en sleutels, soms voor een hele verdieping.",
-             "Een pas vervangen kost een fractie van een nieuwe cilinder. Wat het per deur kost, staat op de pagina wat kost toegangscontrole."),
-            ("Minder vervangen, minder metaal", "Cilinders en sleutels die alleen worden vervangen omdat er iets zoek is, belanden bij het oud metaal.",
-             "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt. Voor de mechanische deuren die overblijven kiezen wij cilinders met minder uitstoot."),
-        ]) + "</div>" + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
+    # "Herkent u dit?": zes compacte tegels met icoon, het probleem als kop en in één regel wat er verandert (Lars, 23-09-2026)
+    IC = {'sleutel': '<path d="M15 7a4 4 0 1 1-3.9 5H9v2H7v2H4v-3l6.1-6.1A4 4 0 0 1 15 7z"/><circle cx="15.5" cy="8.5" r="1"/>', 'oog': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', 'regel': '<path d="M4 6h10M4 12h16M4 18h8"/><circle cx="17" cy="6" r="2"/><circle cx="15" cy="18" r="2"/>', 'klok': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', 'euro': '<path d="M17 6.5A7 7 0 1 0 17 17.5M4 10h9M4 14h9"/>', 'blad': '<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14zM5 19l7-7"/>'}
+    tegels = [("sleutel", "Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
+              ("oog", "Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
+              ("regel", "Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
+              ("klok", "Tijd kwijt aan sleutelbeheer", "Een nieuwe pas staat in minuten klaar; bij vertrek trekt u hem in."),
+              ("euro", "Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
+              ("blad", "Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
+    herken = sectie("Herkent u dit?",
+        '<ul class="herken">' + "".join(f'<li><span class="herken__icoon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>'
+                                        f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
+        + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
     body = hero_html + herken + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
     schrijf("/", titel, omschrijving, body, faq=faq,
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")
