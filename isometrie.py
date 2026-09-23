@@ -383,13 +383,25 @@ def _stad(sc):
     for k in (3.3, 7.7):
         for m in (0.6, 5.0, 9.4, 11.8): sc.lantaarn(m, k); sc.lantaarn(k, m)
 
+def _aansluiting(sc, y_weg, breedte=14):
+    """Verbindt de doorgaande weg op y_weg met de linker- en rechterrand van het beeld (op de hoogte van de zijpunten van het
+    eilandje), zodat de weg in de sectorrij van kaart naar kaart doorloopt (Lars, 23-09-2026). Getekend in de grondlaag."""
+    rand_y = sc.oy + G * CY * sc.s                                   # hoogte van de linker- en rechterpunt van het grondvlak
+    ex, ey = sc.P(0, y_weg + 0.5, 0); ux, uy = sc.P(G, y_weg + 0.5, 0)
+    ex += 3; ey += 1.7; ux -= 3; uy -= 1.7                            # ietsje het eiland in, zodat er geen naad zit
+    inrit = f"M0,{rand_y:.1f} C{ex*0.45:.1f},{rand_y:.1f} {ex-45:.1f},{ey-26:.1f} {ex:.1f},{ey:.1f}"
+    uitrit = f"M{ux:.1f},{uy:.1f} C{ux+38:.1f},{uy+22:.1f} {444-(444-ux)*0.45:.1f},{rand_y:.1f} 444,{rand_y:.1f}"
+    for d in (inrit, uitrit):
+        sc.voeg((-9, -9, 0.004, -8, -8, 0.004), f'<path d="{d}" fill="none" stroke="{WEG}" stroke-width="{breedte}" stroke-linecap="butt"/>'
+                f'<path d="{d}" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6 5"/>', grond=True)
+
 def _bomen(sc, punten, r=0.5, h=1.3):
     for x, y in punten: sc.boom(x, y, r, h)
 
 # ---------- de acht sectoren ----------
 def kantoor():
     """Kantoren: zakendistrict met kantoortorens van glas, zendmast met knipperlicht, plein met fontein; ramen lichten om de beurt op, één auto rijdt."""
-    sc = _nieuw(); _stad(sc)
+    sc = _nieuw(); _stad(sc); _aansluiting(sc, 3.4)
     sc.blok(0.3, 0.3, 0, 2.8, 2.8, 5.8, LICHT2, MIDDEN, DONKER, ramen=(6, 3), lichtjes=True)                 # hoogste toren
     sc.blok(1.5, 1.5, 5.8, 0.14, 0.14, 0.7, GRIJS_T, GRIJS_L, GRIJS_R)                                        # zendmast
     mx, my = sc.P(1.57, 1.57, 6.55); sc.voeg((1.5, 1.5, 6.5, 1.64, 1.64, 6.6), f'<circle class="anim-knipper" cx="{mx:.1f}" cy="{my:.1f}" r="2" fill="{KRUIS_L}"/>', pad=(3, 3, 3, 3))
@@ -414,7 +426,7 @@ def kantoor():
 def zorg():
     """Zorg: ziekenhuis met rood kruis op de gevel en helikopterplatform, spoedeisende hulp, apotheek met groen kruis, jeugdinstelling met speelplein, huisartsenpost; de ambulance rijdt (cabine vooruit)."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
-    _weg_x(sc, 6.6); _weg_y(sc, 6.0, y0=0, y1=6.6); sc.zebra(6.0, 4.0, 1.0, 1.0, 4); sc.zebra(2.2, 6.6, 1.2, 1.0, 4)
+    _weg_x(sc, 6.6); _weg_y(sc, 6.0, y0=0, y1=6.6); sc.zebra(6.0, 4.0, 1.0, 1.0, 4); sc.zebra(2.2, 6.6, 1.2, 1.0, 4); _aansluiting(sc, 6.6)
     for m in (0.5, 4.0, 8.5, 11.8): sc.lantaarn(m, 6.5)
     sc.blok(0.4, 0.4, 0, 4.6, 3.4, 4.0, WIT_T, WIT_L, WIT_R, ramen=(4, 5))                                     # ziekenhuis, hoofdgebouw
     sc.kruis_gevel(2.7, 3.8, 3.05, 1.6, 1.6, KRUIS_L, "links", klas="anim-gloed")                               # rood kruis, plat op de voorgevel
@@ -437,7 +449,7 @@ def zorg():
 def onderwijs():
     """Onderwijs: bakstenen basisschool met klok, schoolplein met hinkelbaan, klimrek, glijbaan en zandbak, fietsenrekken vol fietsen, gymzaal, kinderopvang; bal stuitert, schoolvlag wappert, een fietser rijdt over het fietspad."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
-    sc.vlak(0, 8.2, G, 0.8, FIETSPAD); sc.lijn_grond(0.3, 8.6, G - 0.3, 8.6, "#FFFFFF", 0.6)                  # fietspad (rood asfalt)
+    sc.vlak(0, 8.2, G, 0.8, FIETSPAD); sc.lijn_grond(0.3, 8.6, G - 0.3, 8.6, "#FFFFFF", 0.6); _aansluiting(sc, 8.1, 12)   # fietspad (rood asfalt)
     sc.blok(0.4, 0.4, 0, 5.0, 2.6, 2.2, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 5), deur=(2.2, 0.8, 1.3))            # school, begane grond
     sc.blok(0.4, 0.4, 2.2, 2.4, 2.6, 1.6, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 2))                                  # verdieping
     sc.klok(4.4, 3.0, 1.75)                                                                                    # klok op de gevel
@@ -463,7 +475,7 @@ def vve():
     """VvE en vastgoed: woonstraat met appartementencomplex met balkons, rijtjeshuizen met puntdaken en voortuinen, garageboxen en twee-onder-een-kapwoningen; een schoorsteen rookt, één auto rijdt."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
     sc.vlak(0, 4.4, G, 1.0, GROND2); sc.vlak(0, 6.4, G, 0.8, GROND2)                                           # stoepen
-    _weg_x(sc, 5.4); sc.zebra(5.6, 5.4, 1.2, 1.0, 4)
+    _weg_x(sc, 5.4); sc.zebra(5.6, 5.4, 1.2, 1.0, 4); _aansluiting(sc, 5.4)
     for m in (1.0, 5.0, 9.0): sc.lantaarn(m, 4.5); sc.lantaarn(m + 2.0, 6.6)
     sc.blok(0.4, 0.4, 0, 4.4, 3.0, 4.2, MIDDEN2, MIDDEN, DONKER, ramen=(4, 3), deur=(1.8, 0.7, 1.2))            # appartementencomplex
     sc.balkons(0.4, 3.4, 1.3, 3, 3, 1.0, 1.05)
@@ -488,7 +500,7 @@ def vve():
 def verenigingen():
     """Verenigingen: sportpark met voetbalveld met doelen en lichtmasten, atletiekbaan, tennisbanen met net, basketbalveld, tribune, clubhuis met terras en clubvlag, sporthal; loper rondt de baan, bal rolt, vlag wappert."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROEN2)
-    sc.vlak(0, 8.0, G, 0.7, GROND2); sc.vlak(6.6, 0, 0.6, 8.0, GROND2)                                          # paden
+    sc.vlak(0, 8.0, G, 0.7, GROND2); sc.vlak(6.6, 0, 0.6, 8.0, GROND2); _aansluiting(sc, 7.85, 12)             # paden
     sc.vlak(0.4, 0.4, 5.6, 3.6, GROEN); sc.rechthoek_grond(0.5, 0.5, 5.4, 3.4); sc.lijn_grond(3.2, 0.5, 3.2, 3.9)   # voetbalveld
     sc.ellips(3.2, 2.2, 0.5, 0.5, "none", STREEP); sc.rechthoek_grond(0.5, 1.4, 0.8, 1.6); sc.rechthoek_grond(5.1, 1.4, 0.8, 1.6)
     sc.doel(0.42, 1.65, 1.1, "y"); sc.doel(5.9, 1.65, 1.1, "y")
@@ -513,14 +525,14 @@ def verenigingen():
 def recreatie():
     """Recreatiepark in het bos: veel kleine huisjes met puntdak, luxe bungalows aan het water, meer met steiger, zwembad, speeltuin, receptie met slagboom; water beweegt, bomen wuiven, één auto rijdt het park op en de slagboom gaat open."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROEN2)
-    sc.vlak(8.6, 0, 0.9, G, GROND2); sc.vlak(0, 5.0, 9.5, 0.7, GROND2); sc.vlak(4.2, 0, 0.6, 5.0, GROND2)       # lanen
+    sc.vlak(8.6, 0, 0.9, G, GROND2); sc.vlak(0, 5.0, G, 0.7, GROND2); sc.vlak(4.2, 0, 0.6, 5.0, GROND2); _aansluiting(sc, 4.85, 12)   # lanen
     sc.ellips(2.6, 8.9, 2.3, 1.9, LICHT); sc.groep("anim-water", lambda: sc.ellips(2.6, 8.9, 2.0, 1.6, GLAS2, z=0.02))   # meer
     for i in range(5): sc.blok(4.6 + i * 0.3, 8.7, 0, 0.28, 0.5, 0.15, ZAND_T, ZAND_L, ZAND_R)                  # steiger
     sc.ellips(1.4, 9.8, 0.35, 0.18, "#FFFFFF", DAK_L, 0.8, z=0.03)                                              # roeiboot
     def huisje(x, y, w=0.95, d=0.85, h=0.75, kl=(ZAND_T, ZAND_L, ZAND_R)):
         sc.huis(x, y, w, d, h, kl, 0.5, "x", ramen=(1, 1))
     for x, y in [(0.6, 0.6), (2.0, 0.6), (0.6, 2.0), (2.0, 2.0), (0.6, 3.4), (2.0, 3.4), (5.4, 0.6), (6.9, 0.6), (5.4, 2.0), (6.9, 2.0), (5.4, 3.4), (6.9, 3.4)]: huisje(x, y)
-    for x, y in [(10.0, 0.6), (10.0, 2.4), (10.0, 4.2)]:                                                          # bungalows aan de laan
+    for x, y in [(10.0, 0.6), (10.0, 2.4)]:                                                                      # bungalows aan de laan
         sc.huis(x, y, 1.6, 1.3, 1.0, (WIT_T, WIT_L, WIT_R), 0.45, "x", ramen=(1, 2)); sc.vlak(x, y + 1.3, 1.6, 0.5, ZAND_T)
     for x, y in [(6.2, 6.4), (6.2, 8.6)]:                                                                         # luxe bungalows aan het water, met terras en bubbelbad
         sc.huis(x, y, 2.0, 1.5, 1.1, (WIT_T, WIT_L, WIT_R), 0.4, "y", ramen=(1, 2)); sc.vlak(x - 0.9, y, 0.9, 1.5, ZAND_T); sc.ellips(x - 0.45, y + 0.75, 0.25, 0.25, GLAS2, LICHT, 1.2, z=0.03)
@@ -529,13 +541,13 @@ def recreatie():
     sc.blok(6.0, 10.4, 0, 2.4, 1.4, 1.0, WIT_T, WIT_L, WIT_R, ramen=(1, 2), deur=(0.4, 0.5, 0.85))               # receptie bij de ingang
     sc.slagboom(8.4, 10.6, 1.4)
     sc.auto(8.75, 8.6, DONKER, klas="anim-auto-y-terug", lang=1.3, richting="-y")
-    _bomen(sc, [(3.6, 0.5), (3.6, 1.9), (3.6, 3.3), (0.5, 4.5), (8.0, 0.5), (8.0, 1.9), (8.0, 3.4), (11.9, 1.5), (11.9, 3.5), (1.2, 6.2), (0.6, 11.6), (5.2, 11.7), (11.7, 5.9), (4.6, 6.0), (9.4, 9.2), (11.8, 8.9)], 0.5, 1.4)
+    _bomen(sc, [(3.6, 0.5), (3.6, 1.9), (3.6, 3.3), (0.5, 4.5), (8.0, 0.5), (8.0, 1.9), (8.0, 3.4), (11.9, 1.5), (11.9, 3.5), (10.6, 4.4), (1.2, 6.2), (0.6, 11.6), (5.2, 11.7), (11.7, 5.9), (4.6, 6.0), (9.4, 9.2), (11.8, 8.9)], 0.5, 1.4)
     return sc.svg(444, 350, "Isometrische tekening van een recreatiepark met vakantiehuisjes, bungalows aan het water, zwembad, speeltuin en receptie met slagboom")
 
 def industrie():
     """Industrie en logistiek: bedrijvenpark met productiehal met sheddak, silo's, schoorsteen, distributiecentrum met laaddocks, containerterrein, hekwerk met slagboom en portier; één vrachtwagen rijdt, heftruck pendelt, schoorsteen rookt."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
-    _weg_y(sc, 5.6, 1.2); _weg_x(sc, 8.0, 1.0); sc.zebra(5.6, 8.0, 1.2, 1.0, 4)
+    _weg_y(sc, 5.6, 1.2); _weg_x(sc, 8.0, 1.0); sc.zebra(5.6, 8.0, 1.2, 1.0, 4); _aansluiting(sc, 8.0)
     for m in (1.0, 4.0, 8.0, 11.0): sc.lantaarn(m, 7.9)
     sc.blok(0.4, 0.4, 0, 4.6, 3.4, 2.2, GRIJS_T, GRIJS_L, GRIJS_R, deur=(0.4, 1.4, 1.6))                        # productiehal
     for i in range(4):                                                                                           # sheddak
@@ -566,7 +578,7 @@ def industrie():
 def overheid():
     """Overheid: gemeentehuis met zuilen en klokkentoren, plein met drie Nederlandse vlaggen en fontein, Binnenhof-achtig gebouw met twee spitse torens en hofvijver, rechtbank en provinciehuis; vlaggen wapperen, één auto rijdt."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
-    _weg_x(sc, 7.8); _weg_y(sc, 6.2, y0=0, y1=7.8); sc.zebra(2.2, 7.8, 1.2, 1.0, 4); sc.zebra(6.2, 6.4, 1.0, 1.0, 4)
+    _weg_x(sc, 7.8); _weg_y(sc, 6.2, y0=0, y1=7.8); sc.zebra(2.2, 7.8, 1.2, 1.0, 4); sc.zebra(6.2, 6.4, 1.0, 1.0, 4); _aansluiting(sc, 7.8)
     for m in (0.5, 4.0, 9.0, 11.8): sc.lantaarn(m, 7.7)
     sc.blok(0.4, 0.4, 0, 5.2, 3.0, 2.8, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 5), deur=(2.3, 0.7, 1.4))             # gemeentehuis
     sc.zuilen(0.7, 3.4, 6, 2.8, afstand=0.85); sc.blok(0.4, 3.4, 2.8, 5.2, 0.5, 0.25, ZAND_T, ZAND_L, ZAND_R)     # zuilengalerij met fries

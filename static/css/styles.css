@@ -178,14 +178,13 @@ section,.sectie{padding:var(--sectie) 0}
 .rij{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);background:var(--paneel)}
 .rij::-webkit-scrollbar{height:8px}
 .rij::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:4px}
-.kaart{flex:0 0 86%;scroll-snap-align:start;border-right:var(--lijndikte) solid var(--lijn);display:flex;flex-direction:column}
+.kaart{flex:0 0 86%;scroll-snap-align:start;display:flex;flex-direction:column}
 @media (min-width:700px){.kaart{flex-basis:44%}}
 @media (min-width:1100px){.kaart{flex-basis:33.333%}}
-.kaart:last-child{border-right:0}
-/* doorlopende weg onder de sector-eilandjes (Lars, 23-09-2026): band op dezelfde hoogte in elke kaart, met een afritje vanaf de voorste punt van de scène */
-.kaart__beeld{border-bottom:var(--lijndikte) solid var(--lijn);background:var(--paneel);padding:12px 12px 46px;position:relative}
-.kaart__beeld::after{content:"";position:absolute;left:0;right:-1px;bottom:0;height:24px;background:#D5DBE1;border-top:1px solid #C3CBD3;background-image:repeating-linear-gradient(90deg,#FFFFFF 0 14px,transparent 14px 28px);background-size:28px 2px;background-repeat:repeat-x;background-position:0 11px}
-.kaart__beeld::before{content:"";position:absolute;left:calc(50% - 8px);width:16px;bottom:24px;height:24px;background:#D5DBE1;clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%)}
+.kaart__tekst{border-right:var(--lijndikte) solid var(--lijn)}
+.kaart:last-child .kaart__tekst{border-right:0}
+/* de wegen in de scènes lopen door van kaart naar kaart (Lars, 23-09-2026): beeldvakken raken elkaar, scheidingslijn alleen bij de tekst */
+.kaart__beeld{border-bottom:var(--lijndikte) solid var(--lijn);background:var(--paneel);padding:12px 0 0}
 .kaart__beeld .iso{width:100%;height:auto}
 .kaart__tekst{padding:28px 28px 32px;display:flex;flex-direction:column;gap:12px;flex:1}
 .kaart__tekst h3{margin:0}
