@@ -33,9 +33,10 @@ hr{border:0;border-top:var(--lijndikte) solid var(--lijn);margin:0}
 .skip{position:absolute;left:-999px;top:8px;background:var(--paneel);color:var(--kop);padding:8px 12px;z-index:100}
 .skip:focus{left:8px}
 /* tekstlink in Salto-stijl: kapitalen, chevron */
-.meer{display:inline-block;font-family:var(--font-kop);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--kop)}
+/* "meer"-links als knop met rand (Lars, 23-09-2026: klikbaar is altijd een knop, geen tekstlink) */
+.meer{display:inline-block;font-family:var(--font-kop);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--kop);padding:12px 18px;border:var(--lijndikte) solid var(--lijn-2);border-radius:var(--straal-knop);line-height:1.2}
 .meer::after{content:" \203A";font-size:1.25em;line-height:0}
-.meer:hover{color:var(--primair)}
+.meer:hover{background:var(--paneel);border-color:var(--primair);color:var(--primair)}
 
 /* ---------- raster ---------- */
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--goot)}
@@ -106,6 +107,8 @@ section,.sectie{padding:var(--sectie) 0}
 .knop--tweede{background:transparent;color:var(--kop);border:var(--lijndikte) solid var(--lijn-2)}
 .knop--tweede:hover{background:var(--paneel);color:var(--kop)}
 .acties{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin:28px 0 0}
+.acties--kaart{gap:10px 12px;margin:20px 0 0}
+.acties--kaart .knop{padding:12px 16px;font-size:12px}
 .acties .tel{font-weight:500}
 
 /* ---------- hero ---------- */

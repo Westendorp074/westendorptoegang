@@ -17,19 +17,10 @@ def bouw():
         foto_html=foto, kicker="Toegangscontrole, Enschede")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
 
     # ---- sectoren: horizontale rij met illustraties ----
-    sectoren = [
-        ("kantoren", "Kantoren", "Sleutelbeheer dat niet meer bij te houden is, flexwerken of een verhuizing: één pas per medewerker, rechten zelf beheren."),
-        ("zorg", "Zorg", "Personeelswisselingen, medicijnruimtes en cliëntkamers: wie was wanneer waar, zonder sleutelbos."),
-        ("onderwijs", "Onderwijs", "Veel gebruikers, verhuur van ruimtes en verloren sleutels: zones en tijdsloten per groep, een kwijtgeraakte pas blokkeert u zelf."),
-        ("vve", "VvE en vastgoed", "Gemeenschappelijke entree, bergingen en sleutels die bij een verhuizing niet terugkomen: beheer op afstand, geen sleutelkopieën meer."),
-        ("verenigingen", "Verenigingen en kerken", "Vrijwilligers, wisselende gebruikers, avonden en weekenden: tijdsloten en een pas die u intrekt als iemand stopt."),
-        ("recreatie", "Recreatieparken", "Gasten die elke week wisselen, huisjes, sanitairgebouwen en een receptie die niet altijd bezet is: toegang per boeking, zonder sleuteloverdracht."),
-        ("industrie", "Industrie en logistiek", "Ploegen, zonering en een verzekeraar of auditor die wil weten wie waar was: rapportage en uitbreiding per deur."),
-        ("overheid", "Overheid en semi-overheid", "Gemeentelijke gebouwen, werven en buurthuizen: zones per afdeling en per gebruiker, met logging voor controle."),
-    ]
-    voor_wie = sectorrij([(s, k, t, "#aanvraag", "Plan een inventarisatie") for s, k, t in sectoren],
-        "Toegangscontrole voor elk pand",
-        "Voor alle bedrijven en instellingen die de toegang tot hun pand willen regelen zonder sleutelbos, van vijf deuren tot enkele honderden.")
+    voor_wie = sectorrij(SECTOREN_LIJST,
+        "Toegangscontrole per sector",
+        "Wij plaatsen toegangscontrole bij gemeenten, zorginstellingen, VvE's, bedrijven in industrie en logistiek, scholen, verenigingen, recreatieparken en kantoren "
+        "in Twente en Oost-Nederland. Elke sector heeft eigen deuren, gebruikers en regels; hieronder leest u per sector wat wij daar oplossen, van vijf deuren tot enkele honderden.")
 
     # ---- wat we plaatsen ----
     producten = [

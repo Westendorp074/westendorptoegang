@@ -52,6 +52,12 @@ def bouw():
         ("Beheer en service", f"Wij zetten het systeem in bedrijf en leren u het beheer, of wij beheren het voor u. Daarna: <a href=\"/service-en-beheer/\">service en beheer</a>."),
     ]), wit=True)
 
+    sectoren = sectie("Toegangscontrole per sector",
+        p("Per sector verschillen de deuren, de gebruikers en de regels. Dit is wat wij per sector tegenkomen en wat daar past; de inventarisatie op locatie bepaalt de uiteindelijke keuze.")
+        + '<div class="kolommen kolommen--2">' + "".join(
+            f'<div id="sector-{s}"><h3>{esc(k)}</h3><p><strong>Voor:</strong> {t.split(":")[0].lower()}.</p><p><strong>Wat past:</strong> {w}</p><p class="acties acties--kaart">{cta_knop("Plan een inventarisatie", "#aanvraag", f"sector-{s}")}</p></div>'
+            for s, k, t, w in SECTOREN_LIJST) + "</div>", kop_id="sectoren", kicker="Sectoren")
+
     faq = [
         ("Wat is het verschil tussen toegangscontrole en een elektronisch slot?",
          "Een elektronisch slot is één deur die met een pas opengaat. Toegangscontrole is het systeem eromheen: de software waarin u vastlegt wie welke deuren mag openen en wanneer, en de rapportage daarover. Eén elektronisch slot kan het begin zijn van een systeem."),
@@ -67,7 +73,7 @@ def bouw():
          f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Systemen van andere merken nemen wij ook over en breiden wij uit. Deurdrangers en deurautomaten van GU plaatsen en stellen wij zelf af; koppelingen met intercom, alarm of tijdregistratie bekijken wij in overleg."),
     ]
 
-    body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + wanneer + soorten + middelen + deuren + aanpak
+    body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + wanneer + soorten + middelen + deuren + sectoren + aanpak
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Toegangscontrole", PAD)],
             extra_ld=[service_ld(PAD, "Toegangscontrole", omschrijving)],
-            llms="Wat een toegangscontrolesysteem is, wanneer het loont, offline/online/cloud vergeleken, identificatiemiddelen, bestaande deuren, onze aanpak in vier stappen.")
+            llms="Wat een toegangscontrolesysteem is, wanneer het loont, offline/online/cloud vergeleken, identificatiemiddelen, bestaande deuren, per sector (overheid, zorg, VvE, industrie en logistiek, scholen, verenigingen, recreatieparken, kantoren) wat past, onze aanpak in vier stappen.")
