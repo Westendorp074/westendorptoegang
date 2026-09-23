@@ -182,6 +182,9 @@ DUURZAAM = [
     ("Loodvrij geproduceerd", "Bij de productie van Magtec-cilinders wordt geen lood gebruikt; het verschil in uitstoot zit vooral in grondstoffen en productie."),
     ("SKG*** en uit voorraad", "Hoogste niveau op DIN EN 1303 en SKG***-gecertificeerd. Wij voeren Magtec in ons eigen profiel en leveren uit voorraad."),
 ]
+DUURZAAM_ELEKTRONISCH = ("Geen sloten vervangen bij sleutelverlies",
+    "Raakt bij een mechanisch sluitplan een sleutel kwijt, dan moeten cilinders worden vervangen en sleutels opnieuw gemaakt. Bij elektronische toegangscontrole blokkeert u de pas in de software; "
+    "het slot blijft zitten. Er worden geen extra sleutels bijgemaakt en er wordt geen messing of staal verbruikt voor cilinders en sleutels die alleen nodig zijn omdat er een sleutel zoek is.")   # Lars, 23-09-2026
 HEADER_LICHT   = True   # witte header met zwart woordmerk (test, Lars 22-09-2026); False = antraciet met logo-zwarte-achtergrond
 CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
@@ -237,7 +240,9 @@ def cta_knop(tekst=None, href="#aanvraag", cta_id="primair", klas="knop"):
     return f'<a class="{klas}" href="{href}" data-cta="{cta_id}">{esc(tekst or CTA)}</a>'
 
 def acties(tekst=None, href="#aanvraag"):
-    return f'<p class="acties" data-gedeeld>{cta_knop(tekst, href)}<span>of bel {tel()}</span></p>'
+    # bellen is een knop, geen tekstlink (Lars, 23-09-2026)
+    return (f'<p class="acties" data-gedeeld>{cta_knop(tekst, href)}'
+            f'<a class="knop knop--tweede knop--bel" href="tel:{esc(TEL_LINK)}" data-cta="bel">{_ICOON_BEL}<span>Bel {esc(TEL_TONEN)}</span></a></p>')
 
 def p(*alineas):
     return "".join(f"<p>{a}</p>" for a in alineas)

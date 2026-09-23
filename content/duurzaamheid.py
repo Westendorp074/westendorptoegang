@@ -44,13 +44,17 @@ def bouw():
         ("Levering", "Eigen profiel bij Westendorp, uit voorraad"),
     ], bijschrift="Specificaties ABUS Magtec"), wit=True)
 
+    elektronisch = sectie(DUURZAAM_ELEKTRONISCH[0], p(DUURZAAM_ELEKTRONISCH[1],
+        "Dat geldt voor elk elektronisch systeem dat wij plaatsen, van één elektronische cilinder tot een compleet EVVA Xesar-systeem. "
+        "De mechanische deuren die overblijven, voorzien wij van Magtec-cilinders."), kicker="Elektronisch", groen=True)
+
     faq = [
         ("Is een duurzame cilinder net zo veilig?", "Ja. Magtec is SKG***-gecertificeerd en haalt op alle vijf de categorieën van DIN EN 1303 het hoogste niveau. De lagere uitstoot komt uit grondstoffen en productie, niet uit een lichtere constructie."),
         ("Waar komt het cijfer van 46 procent vandaan?", "Van een levenscyclusberekening door ClimatePartner Deutschland GmbH in opdracht van ABUS (november en december 2022), volgens het GHG Protocol. Vergeleken is één Magtec-cilinder met één conventionele ABUS Vitess-cilinder; de gebruiksfase is niet meegerekend."),
         ("Kan Magtec in mijn bestaande sluitplan?", "Bij een nieuw sluitplan of een uitbreiding in ons eigen profiel: ja, uit voorraad. Een bestaand plan van een ander systeem kan gefaseerd worden overgezet; dat bekijken wij bij de inventarisatie."),
     ]
 
-    body = hero("Duurzaam sluitsysteem: ABUS Magtec", intro, foto_hero, kicker="Duurzaamheid") + cijfers + galerij + veilig + specs
+    body = hero("Duurzaam sluitsysteem: ABUS Magtec", intro, foto_hero, kicker="Duurzaamheid") + cijfers + galerij + veilig + elektronisch + specs
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Duurzaamheid", PAD)],
             extra_ld=[service_ld(PAD, "Duurzaam sluitsysteem ABUS Magtec", omschrijving, merk="ABUS")],
             llms="Duurzaamheid: ABUS Magtec-cilinders in eigen profiel, 46 procent minder CO₂-equivalenten dan een conventionele cilinder (ClimatePartner 2022), loodvrij, SKG***.")
