@@ -169,8 +169,8 @@ VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaal
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
 ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer
-    {"naam": "Lars", "functie": "adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
-    {"naam": "Nick", "functie": "adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+    {"naam": "Lars", "functie": "adviseur toegangscontrole", "foto": "lars-adviseur-westendorp-toegangscontrole.png", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portret v2, staand 4:5 (23-09-2026)
+    {"naam": "Nick", "functie": "adviseur toegangscontrole", "foto": "nick-adviseur-westendorp-toegangscontrole.png", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
 ]
 ADVISEUR = ADVISEURS[0]
 ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of Nick"
@@ -207,6 +207,7 @@ VANDAAG = datetime.date.today()
 # ============================================================
 ROOT = pathlib.Path(__file__).parent
 DIST = ROOT / "dist"
+OG_STANDAARD = "/static/img/og-standaard-1200x630.png"   # deelbeeld uit het logopakket (Lars, 23-09-2026)
 
 def leeg_dist():
     """Maakt dist leeg. OneDrive houdt net aangemaakte mappen soms even vast (WinError 5); daarom een paar keer proberen."""
@@ -471,7 +472,7 @@ def bedrijf_ld():
     same_as = [u for u in [LINKEDIN, GOOGLE_PROFIEL] + ANDERE_PROFIELEN if u and not placeholder(u)]
     org = {
         "@type": "LocalBusiness", "@id": ORG_ID, "name": NAAM, "legalName": RECHTSPERSOON,
-        "url": SITE + "/", "logo": SITE + _ASSETS["logo"], "image": SITE + "/static/img/og-standaard.png",
+        "url": SITE + "/", "logo": SITE + _ASSETS["logo"], "image": SITE + OG_STANDAARD,
         "telephone": TEL_LINK, "email": MAIL,
         "address": {"@type": "PostalAddress", "streetAddress": STRAAT, "postalCode": POSTCODE,
                     "addressLocality": PLAATS, "addressRegion": REGIO, "addressCountry": "NL"},
@@ -677,7 +678,7 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
     waarden = {
         "titel": esc(volledige_titel), "omschrijving": esc(omschrijving), "canonical": SITE + pad, "sitenaam": esc(NAAM),
         "robots": '<meta name="robots" content="noindex, nofollow">\n' if noindex else "", "verificatie": verificatie,
-        "og_beeld": SITE + (og_beeld or (beelden[0][0] if beelden else "/static/img/og-standaard.png")),
+        "og_beeld": SITE + (og_beeld or (beelden[0][0] if beelden else OG_STANDAARD)),
         "css": _ASSETS["css"], "js": _ASSETS["js"], "icoon": _ASSETS["icoon"], "tag": tag_html(), "jsonld": ld_script(graph),
         "header": header(pad), "body": volledige_body, "footer": footer(), "consent": consent_html(),
         "config_js": json.dumps({"tagActief": TAG_ACTIEF, "web3formsKey": WEB3FORMS_KEY, "adsLabelForm": ADS_LABEL_FORM,
@@ -703,19 +704,20 @@ def assets():
     shutil.copytree(STATIC / "font", DIST / "static" / "font", dirs_exist_ok=True)
     logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True, exist_ok=True)
     # Alleen de header is zwart (#111111); daar staat het logo, dus de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
-    lb = STATIC / "img" / "logo"
-    if HEADER_LICHT:   # test (Lars, 22-09-2026): witte header met zwart woordmerk
-        logo_bron, icoon_bron = lb / "pakket" / "logo-licht.svg", lb / "pakket" / "icoon-licht.svg"
+    lb = STATIC / "img" / "logo" / "pakket"   # officieel logopakket van Lars (23-09-2026): logo-standaard is het hoofdlogo
+    if HEADER_LICHT:
+        logo_bron, icoon_bron = lb / "logo-standaard.svg", lb / "icoon-standaard.svg"
     else:
         logo_bron, icoon_bron = lb / "logo-zwarte-achtergrond.svg", lb / "icoon-zwarte-achtergrond.svg"
     # versiehash in de bestandsnaam: /static/ wordt een jaar gecachet, dus een nieuw logo moet een nieuwe naam krijgen
     _ASSETS["logo"] = f"/static/img/logo/logo.{versie(logo_bron)}.svg"; shutil.copy(logo_bron, DIST / _ASSETS["logo"].lstrip("/"))
     _ASSETS["icoon"] = f"/static/img/logo/icoon.{versie(icoon_bron)}.svg"; shutil.copy(icoon_bron, DIST / _ASSETS["icoon"].lstrip("/"))
-    for extra in ["favicon.ico", "apple-touch-icon.png", "og-standaard.png"]:
-        b = STATIC / "img" / extra
-        if b.exists(): shutil.copy(b, DIST / (extra if extra != "og-standaard.png" else "static/img/og-standaard.png"))
+    for extra in ["favicon.ico", "favicon.svg", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon.png", "android-chrome-192x192.png", "android-chrome-512x512.png"]:
+        shutil.copy(STATIC / "img" / "logo" / "favicon" / extra, DIST / extra)          # favicon-set uit het logopakket, in de hoofdmap
+    shutil.copy(lb / "og-standaard-1200x630.png", DIST / "static" / "img" / OG_STANDAARD.lstrip("/").replace("static/img/", ""))
     (DIST / "manifest.webmanifest").write_text(json.dumps({"name": NAAM, "short_name": "Westendorp", "start_url": "/", "display": "browser",
-        "background_color": "#222427", "theme_color": "#222427", "icons": [{"src": _ASSETS["icoon"], "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
+        "background_color": "#FFFFFF", "theme_color": "#02295B", "icons": [{"src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
+        {"src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png"}, {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml"}]}, ensure_ascii=False), encoding="utf-8")
 
 def vierhonderdvier():
     links = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Toegangscontrole", "/toegangscontrole/"), ("Wat kost toegangscontrole", "/kosten/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Contact", "/contact/")])

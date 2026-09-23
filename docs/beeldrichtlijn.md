@@ -30,7 +30,9 @@ Zet foto's in `static/img/bron/`. De build doet de rest: drie maten, WebP en AVI
 ## Waar de foto's terechtkomen (bestandsnamen die de site verwacht)
 | Bestand | Pagina | Wat erop moet staan |
 |---|---|---|
-| `hero-beslag.jpg` | home, hero | elektronisch beslag op een echte deur in het werkgebied |
+| `westendorp-bedrijfsbus-lumen-enschede.jpg` | home, hero | geleverd 23-09-2026: bedrijfsbus voor het gebouw van Lumen, Enschede |
+| `westendorp-toegangscontrole-onderhoud-elektronische-deur-enschede-2026.jpg` | /service-en-beheer/, hero | geleverd 23-09-2026: monteur met tablet bij een elektronische deur |
+| `lars-adviseur-westendorp-toegangscontrole.png`, `nick-adviseur-westendorp-toegangscontrole.png` | over-ons, adviseurblok | portretten v2, staand 4:5, geleverd 23-09-2026 |
 | `toegangscontrole-lezer.jpg` | /toegangscontrole/ | wandlezer naast een kantoordeur |
 | `elektronisch-beslag.jpg` | /elektronische-sloten/ | elektronisch beslag op een houten binnendeur |
 | `sluitplan-cilinders.jpg` | /sluitplan/ | cilinders en sleutels van een mechanisch sluitplan |

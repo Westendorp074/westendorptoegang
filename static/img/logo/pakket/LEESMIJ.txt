@@ -1,18 +1,81 @@
-WESTENDORP TOEGANGSCONTROLE - LOGOPAKKET
-Versie 22-09-2026. Twee varianten, alle maten.
+﻿WESTENDORP TOEGANGSCONTROLE - LOGOPAKKET
+Versie 23-09-2026: standaardversie op wit toegevoegd (woordmerk donkergrijs) met OG-beeld, avatar en favicon-set.
+Vervangt de eerdere LEESMIJ.
 
-logo-licht                 Voor wit en lichte achtergronden (website-header, briefpapier, e-mail). Woordmerk donkergrijs #3A3F44,
-                           TOEGANGSCONTROLE lichtblauw #49BFFE, icoon middenblauw #1B68C0 en lichtblauw #49BFFE.
-logo-zwarte-achtergrond    Voor zwart en bijna-zwart (tot #1E1E1E): werkkleding, bus op donkere ondergrond, donkere footer.
+WELK BESTAND WAARVOOR
+logo-standaard              Standaard. Op wit of een lichte achtergrond: website, offertes, briefpapier, e-mailhandtekening.
+                            Woordmerk donkergrijs, onderregel lichtblauw, icoon in twee kleuren blauw.
+                            Vervangt logo-kleur (woordmerk donkerblauw) uit het eerste pakket. Eén woordmerk, geen twee.
+logo-donkere-achtergrond    Op donkerblauw of een donkere foto: bus, werkkleding, footer. Werkt ook op zwart.
+logo-zwarte-achtergrond     Alleen op zwart of bijna-zwart (tot en met #1E1E1E). Icoon in twee kleuren blauw.
+                            Niet op donkerblauw of op foto's: daar zakt het middenblauw weg. Gebruik daar logo-donkere-achtergrond.
+logo-1kleur-donkerblauw     Eenkleurig: stempel, gravure, fax/kopie, goedkoop drukwerk.
+logo-1kleur-wit             Eenkleurig wit: op een gekleurd vlak of borduurwerk op donkere kleding.
+icoon-standaard             Los beeldmerk (sleutelgat met W) voor wit; W in donkergrijs.
+icoon-donkere-achtergrond / icoon-zwarte-achtergrond   Los beeldmerk bij de bijbehorende logovariant.
+avatar-wit                  Vierkant 1000 x 1000 px, icoon op wit. Blijft binnen een ronde uitsnede volledig zichtbaar.
+avatar-donkerblauw          Zelfde, icoon op donkerblauw (eerste pakket).
+og-standaard                1200 x 630 px: deelbeeld van de website (Open Graph) voor LinkedIn, WhatsApp en Google.
+favicon/                    Complete set voor de website, zie hieronder.
 
-Per variant:
-  <naam>.svg                vector, strak uitgesneden (drukwerk, belettering, borduren, website)
-  <naam>-3000px.png         transparant, strak uitgesneden
-  <naam>-800x267.png        transparant, vast kader met vrije ruimte (Word, e-mail, social media)
-  <naam>-1600x534.png       zelfde kader op dubbele resolutie (retina)
-  <naam>-800x267.jpg        op wit (licht) of zwart (zwarte achtergrond), voor platforms zonder PNG
-  icoon-<variant>.svg / -1500px.png   los beeldmerk (sleutelgat met W), bijvoorbeeld als favicon
-  avatar-wit.png, avatar-zwart.png, avatar-donkerblauw.png   vierkant 1000 x 1000 voor LinkedIn en Google Bedrijfsprofiel
+SVG = vector, onbeperkt schaalbaar. Gebruik dit voor drukwerk, belettering, borduren en de website.
+PNG = met transparante achtergrond, voor Word, e-mail en social media.
 
-Gebruik: minimale breedte volledig logo 200 px op scherm, 45 mm in druk; vrije ruimte rondom minimaal de hoogte van de onderregel.
-Niet uitrekken, niet kantelen, geen schaduw, kleuren niet aanpassen. Lettertype in het logo: Archivo (contouren).
+STANDAARDVERSIE: BESTANDEN
+logo-standaard.svg                  Vector, strak uitgesneden. Website en drukwerk; ruimte eromheen regel je in de opmaak.
+logo-standaard-3000px.png           Transparant, strak. Drukwerk als SVG niet kan.
+logo-standaard-1200px.png           Transparant, strak. Presentaties, Word.
+logo-standaard-600px.png            Transparant, strak. E-mailhandtekening (tonen op 200-300 px breed).
+logo-standaard-800x267.png          Transparant, vast kader met de voorgeschreven vrije ruimte. Voor uploadvakken.
+logo-standaard-1600x534.png         Zelfde kader op dubbele resolutie (retina).
+logo-standaard-800x267.jpg          Op wit. Alleen als een platform geen PNG accepteert.
+icoon-standaard.svg / icoon-standaard-1500px.png
+avatar-wit-1000x1000.png
+og-standaard-1200x630.png / .jpg    Logo 866 px breed, gecentreerd: dezelfde plaatsing als het beeld dat nu online staat.
+
+FAVICON
+favicon.ico                         16, 32 en 48 px in één bestand. Op 16 en 32 px staat een vereenvoudigd sleutelgat
+                                    zonder W met een dikkere lijn: op die maat is de W niet leesbaar. Op 48 px het volledige icoon.
+favicon.svg                         Volledig icoon voor browsers die SVG-favicons tonen. De W wordt wit op een donker tabblad.
+favicon-16x16.png / favicon-32x32.png   Losse PNG's van de twee kleine maten.
+apple-touch-icon.png                180 x 180 px, icoon op wit. iOS maakt transparantie zwart, daarom een witte tegel.
+android-chrome-192x192.png / android-chrome-512x512.png   Android en de webmanifest.
+
+Zet de favicon-bestanden in de hoofdmap van de site (of pas de paden aan) en zet dit in de <head>:
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+Deelbeeld:
+  <meta property="og:image" content="https://JOUW-DOMEIN/og-standaard-1200x630.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+KLEUREN
+Donkergrijs   #3A3F44   RGB 58 / 63 / 68      woordmerk WESTENDORP op wit
+Donkerblauw   #02295B   RGB 2 / 41 / 91       achtergrondvlakken, eenkleurige versie
+Middenblauw   #1B68C0   RGB 27 / 104 / 192
+Lichtblauw    #49BFFE   RGB 73 / 191 / 254
+Laat de drukker of het beletteringsbedrijf de CMYK- of PMS-waarden bepalen op basis van deze kleuren.
+Lichtblauw staat in de onderregel van het logo en in het icoon. Nooit voor lopende tekst op wit: te weinig contrast.
+Zwart is geen huisstijlkleur, alleen een ondergrond voor logo-zwarte-achtergrond.
+
+LETTERTYPE
+Archivo (Google Fonts, SIL Open Font License: gratis, ook commercieel).
+WESTENDORP        gewicht 800, breedte 116
+TOEGANGSCONTROLE  gewicht 600, breedte 100, spatiëring 0,17 em, uitgevuld tot de rechterrand van de naam
+De letters in het logo zijn omgezet naar contouren. Het lettertype hoeft dus nergens geïnstalleerd te zijn.
+
+GEBRUIK
+Minimale breedte volledig logo: 300 px op scherm op wit (de lichtblauwe onderregel is daaronder slecht leesbaar),
+200 px op een donkere achtergrond, 45 mm in druk. Kleiner: gebruik het icoon.
+Vrije ruimte rondom: minimaal de hoogte van de letters van de onderregel.
+Niet uitrekken, niet kantelen, geen schaduw of kader, kleuren niet aanpassen.
+Borduren of zeefdruk: logo-standaard en logo-zwarte-achtergrond tellen drie kleuren, logo-donkere-achtergrond twee.
+Vraag beide prijzen op voordat je bestelt.
+
+AANVULLING WEBSITE (Claude Code, 23-09-2026)
+Deze map is de enige plek voor het logo in de repository (static/img/logo/pakket/). De build gebruikt logo-standaard.svg en
+icoon-standaard.svg voor de header, og-standaard-1200x630.png als deelbeeld en de map ../favicon/ voor de favicon-set.
+Bestanden uit het pakket 'zwarte achtergrond' (20-09-2026) staan hier ook: logo-zwarte-achtergrond.* en icoon-zwarte-achtergrond.*;
+regels daarvoor: alleen op zwart of bijna-zwart tot #1E1E1E. avatar-donkerblauw.png komt uit het eerste pakket.
+westendorp-toegangscontrole-logo-300x300.jpg: vierkant logo op wit voor profielen die een klein JPG vragen (was westendorp_logo_300x300.jpg).
