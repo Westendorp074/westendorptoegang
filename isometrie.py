@@ -552,7 +552,7 @@ def kantoor():
     sc.vlak(3.9, 11.2, 4.2, 1.0, GROND2)                                                                          # stoep voor de entree
     _bomen(sc, [(1.6, 9.8), (2.8, 11.2), (1.2, 11.8), (9.4, 9.8), (11.0, 10.6), (9.8, 11.8)])
     sc.auto(8.0, 7.95, DONKER, klas="anim-auto")
-    sc.persoon(2.5, 5.2); sc.persoon(1.2, 6.9, DONKER); sc.struik(3.1, 4.9); sc.struik(3.1, 5.6); sc.struik(0.7, 5.5)
+    sc.struik(3.1, 4.9); sc.struik(3.1, 5.6); sc.struik(0.7, 5.5)
     return sc.svg(444, 350, "Isometrische tekening van een zakendistrict met kantoortorens van glas, een plein met fontein en een parkeergarage")
 
 def zorg():
@@ -577,7 +577,7 @@ def zorg():
     sc.vlak(3.0, 10.4, 3.8, 1.0, GROND2)                                                                          # pad voor de entree
     sc.blok(6.9, 8.0, 0, 3.1, 2.6, 2.2, MIDDEN2, MIDDEN, DONKER, ramen=(2, 3), deur=(1.3, 0.6, 1.1))            # verpleeghuis
     _bomen(sc, [(1.8, 8.8), (2.6, 10.6), (1.4, 11.7), (11.0, 8.9), (11.5, 10.6), (10.6, 11.7), (11.6, 3.0)])
-    sc.persoon(1.4, 9.6); sc.persoon(2.2, 9.0, DONKER); sc.persoon(5.3, 6.2, KRUIS_L); sc.struik(5.4, 4.2); sc.struik(5.4, 4.9); sc.struik(10.6, 8.6)
+    sc.struik(5.4, 4.2); sc.struik(5.4, 4.9); sc.struik(10.6, 8.6)
     return sc.svg(444, 350, "Isometrische tekening van een ziekenhuis met rood kruis en helikopterplatform, apotheek, jeugdinstelling en ambulance")
 
 def onderwijs():
@@ -601,10 +601,9 @@ def onderwijs():
     sc.blok(6.6, 0.4, 0, 5.2, 3.0, 2.6, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 4))                                   # gymzaal
     sc.blok(6.6, 4.2, 0, 5.2, 2.6, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(2.2, 0.6, 1.0), deur_anim=True)   # kinderopvang met entree
     sc.vlak(6.6, 6.8, 5.2, 1.3, GROND2); _bomen(sc, [(6.9, 7.6), (11.6, 7.6)], 0.4, 1.0)                        # schoolpad voor de kinderopvang
-    sc.fietser(4.0, 9.55)
     sc.vlak(0, 10.0, G, 2.2, GROEN2)
     _bomen(sc, [(3.0, 10.2), (5.4, 9.9), (7.6, 11.0), (9.6, 9.9), (11.4, 11.2), (4.2, 11.6)])
-    sc.persoon(1.6, 6.8); sc.persoon(3.4, 6.6, KRUIS_L); sc.persoon(6.0, 10.6, DONKER); sc.struik(6.0, 3.2); sc.struik(6.0, 3.8)
+    sc.struik(6.0, 3.2); sc.struik(6.0, 3.8)
     return sc.svg(444, 350, "Isometrische tekening van een basisschool met schoolplein, hinkelbaan, speeltoestellen, fietsenrek, gymzaal en fietspad")
 
 def vve():
@@ -631,7 +630,7 @@ def vve():
     sc.vlak(0.4, 10.4, 11.4, 1.6, GROEN2); sc.vlak(3.4, 10.2, 3.0, 0.9, GROND2)                                # tuinpad voor de voordeur
     _bomen(sc, [(3.2, 11.2), (7.4, 11.3), (10.4, 11.0), (11.8, 6.9)], 0.45, 1.2)
     sc.auto(2.6, 5.55, LICHT, klas="anim-auto")
-    sc.persoon(3.0, 4.8); sc.persoon(9.0, 6.7, DONKER); sc.struik(0.8, 4.7); sc.struik(5.2, 6.7)
+    sc.struik(0.8, 4.7); sc.struik(5.2, 6.7)
     return sc.svg(444, 350, "Isometrische tekening van een woonstraat met appartementencomplex met balkons, rijtjeshuizen met puntdaken, garageboxen en twee-onder-een-kapwoningen")
 
 def verenigingen():
@@ -656,7 +655,7 @@ def verenigingen():
     for i in range(5): sc.fiets(0.8 + i * 0.6, 9.4, DONKER)                                                    # fietsen langs het pad
     sc.blok(3.6, 9.0, 0, 5.2, 2.8, 2.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(2.2, 0.7, 1.1))               # sporthal in het midden (in- en uitrit vrij)
     _bomen(sc, [(2.2, 10.2), (1.4, 11.6), (10.0, 9.6), (11.4, 10.8), (10.2, 11.7), (11.8, 4.6), (6.9, 4.6)], 0.5, 1.3)
-    sc.persoon(4.0, 7.6); sc.persoon(9.0, 4.6, DONKER); sc.persoon(8.6, 7.8, KRUIS_L); sc.struik(11.4, 7.6); sc.struik(6.4, 4.6)
+    sc.struik(11.4, 7.6); sc.struik(6.4, 4.6)
     return sc.svg(444, 350, "Isometrische tekening van een sportpark met voetbalveld, lichtmasten, atletiekbaan, tennisbanen, basketbalveld, clubhuis en sporthal")
 
 def recreatie():
@@ -679,7 +678,7 @@ def recreatie():
     sc.slagboom(8.4, 10.6, 1.4)
     sc.auto(8.75, 8.6, DONKER, klas="anim-auto-y-terug", lang=1.3, richting="-y")
     _bomen(sc, [(3.6, 0.5), (3.6, 1.9), (3.6, 3.3), (0.5, 4.5), (8.0, 0.5), (8.0, 1.9), (8.0, 3.4), (11.9, 1.5), (11.9, 3.5), (10.6, 4.4), (3.4, 6.5), (0.6, 11.6), (5.2, 11.7), (11.7, 5.9), (4.6, 6.0), (9.4, 9.2), (11.8, 8.9)], 0.5, 1.4)
-    sc.persoon(9.2, 6.2); sc.persoon(5.4, 11.2, DONKER); sc.persoon(4.6, 8.2, KRUIS_L); sc.struik(5.0, 8.4); sc.struik(4.8, 11.0); sc.struik(9.6, 5.4)
+    sc.struik(5.0, 8.4); sc.struik(4.8, 11.0); sc.struik(9.6, 5.4)
     return sc.svg(444, 350, "Isometrische tekening van een recreatiepark met vakantiehuisjes, bungalows aan het water, zwembad, speeltuin en receptie met slagboom")
 
 def woningcorporatie():
@@ -703,7 +702,7 @@ def woningcorporatie():
     for i in range(3): sc.cilinder(5.0 + i * 0.8, 10.0, 0.16, 0.38, GRIJS_T, GRIJS_R)                              # inworpzuilen ondergrondse containers
     sc.schommel(1.2, 10.2)
     _bomen(sc, [(3.2, 9.6), (2.4, 11.4), (9.2, 9.8), (11.0, 10.6), (9.6, 11.6)], 0.5, 1.3)
-    sc.persoon(4.8, 9.4, KRUIS_L); sc.persoon(7.0, 11.2, DONKER); sc.struik(6.8, 3.9); sc.struik(7.2, 6.4)
+    sc.struik(6.8, 3.9); sc.struik(7.2, 6.4)
     sc.auto(1.2, 7.95, LICHT, klas="anim-auto")
     return sc.svg(444, 350, "Isometrische tekening van een woonwijk van een woningcorporatie met galerijflat, portiekflat, bergingen, wijkkantoor en een bus van de onderhoudsdienst")
 
@@ -732,7 +731,7 @@ def industrie():
     sc.blok(5.6, 9.4, 0, 4.0, 2.4, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(0.5, 0.6, 1.0))                # expeditie (midden, uitrit blijft vrij)
     sc.auto(5.85, 1.0, GRIJS_R, klas="anim-auto-y", lang=2.6, richting="y")                                                     # de enige vrachtwagen
     _bomen(sc, [(10.4, 9.8), (11.6, 11.0), (10.6, 11.8), (5.2, 4.9)], 0.45, 1.2)
-    sc.persoon(1.0, 11.2, DONKER); sc.struik(10.4, 10.6); sc.struik(4.6, 7.8)
+    sc.struik(10.4, 10.6); sc.struik(4.6, 7.8)
     return sc.svg(444, 350, "Isometrische tekening van een bedrijvenpark met productiehal, silo's, distributiecentrum met laaddocks, containers, heftruck, vrachtwagen en slagboom")
 
 def overheid():
@@ -758,7 +757,7 @@ def overheid():
     sc.vlak(4.2, 11.2, 4.0, 0.9, GROND2)   # rechtbank (midden)
     sc.vlak(8.6, 9.0, 3.4, 3.0, GROEN2); _bomen(sc, [(9.6, 9.6), (11.0, 10.6), (9.8, 11.7)])                    # park rechts vooraan (uitrit blijft vrij)
     sc.auto(8.4, 7.95, DONKER, klas="anim-auto")
-    sc.persoon(2.6, 4.6); sc.persoon(4.6, 5.8, DONKER); sc.persoon(7.0, 8.5, GROENDONKER); sc.struik(0.7, 4.2); sc.struik(0.7, 4.9); sc.struik(5.3, 4.2)
+    sc.struik(0.7, 4.2); sc.struik(0.7, 4.9); sc.struik(5.3, 4.2)
     return sc.svg(444, 350, "Isometrische tekening van een gemeentehuis met klokkentoren en Nederlandse vlaggen, regeringsgebouw met torens en hofvijver, rechtbank en provinciehuis")
 
 def retail():
@@ -789,7 +788,7 @@ def retail():
     sc.vlak(10.0, 7.4, 2.0, 3.4, GROEN2)
     sc.auto(0.4, 5.15, DONKER, klas="anim-auto", lang=1.8)                                                       # bestelbus
     _bomen(sc, [(2.0, 11.4), (10.6, 8.2), (11.4, 10.0), (10.4, 11.4), (0.6, 6.7)], 0.45, 1.2)
-    sc.persoon(2.0, 4.3); sc.persoon(5.2, 4.4, DONKER); sc.persoon(8.6, 4.2, KRUIS_L); sc.persoon(1.6, 6.5, GROENDONKER); sc.struik(10.4, 4.3); sc.struik(0.8, 4.4)
+    sc.struik(10.4, 4.3); sc.struik(0.8, 4.4)
     return sc.svg(444, 350, "Isometrische tekening van een winkelstraat met luifels en etalages, een supermarkt met parkeerplaats en winkelwagentjes en een bestelbus")
 
 def hero_scene():
