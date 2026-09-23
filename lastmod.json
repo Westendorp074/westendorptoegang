@@ -1,6 +1,6 @@
 {
  "/": {
-  "hash": "93fb35b7704097ffe0c4bf1ca2f3277b",
+  "hash": "8870d54f282c1f9908f27439a4cb1708",
   "datum": "2026-09-23"
  },
  "/404/": {
@@ -44,7 +44,7 @@
   "datum": "2026-09-23"
  },
  "/over-ons/": {
-  "hash": "76d27e8b09da2402a33780c75ab663b1",
+  "hash": "2f384b332d5f237ee4ea203be4cdcfc2",
   "datum": "2026-09-23"
  },
  "/contact/": {
@@ -60,7 +60,31 @@
   "datum": "2026-09-23"
  },
  "/duurzaamheid/": {
-  "hash": "9595abc8099f2c2c63cb9ec7b088263c",
+  "hash": "b5f45fb461689f7f9ba761ca8cc67d4a",
+  "datum": "2026-09-23"
+ },
+ "/kennisbank/sleutel-kwijt-sluitplan/": {
+  "hash": "ecb5bc3014fd2823892cfca24205999c",
+  "datum": "2026-09-23"
+ },
+ "/kennisbank/elektronisch-slot-cilinder-motorcilinder/": {
+  "hash": "66b1fcc1bbe8697f5bbcc5f8807aa643",
+  "datum": "2026-09-23"
+ },
+ "/kennisbank/wat-is-een-sluitplan/": {
+  "hash": "8a1aa553debfebc16ec28a50af5ca6df",
+  "datum": "2026-09-23"
+ },
+ "/kennisbank/skg-sterren-en-1303/": {
+  "hash": "8826f8a071aa4c8394ec3ad6489b89b4",
+  "datum": "2026-09-23"
+ },
+ "/kennisbank/batterijen-elektronische-sloten/": {
+  "hash": "3de1921645535a6e1686e6c55bd95d26",
+  "datum": "2026-09-23"
+ },
+ "/kennisbank/": {
+  "hash": "5af4460abd08f92194db31ed8df43393",
   "datum": "2026-09-23"
  }
 }

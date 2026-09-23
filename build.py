@@ -527,7 +527,7 @@ DIENSTEN_NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische slot
                 ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/")]
 NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
        ("Sluitplan", "/sluitplan/"), ("Kosten", "/kosten/"), ("Service", "/service-en-beheer/"),
-       ("Over ons", "/over-ons/"), ("Contact", "/contact/")]
+       ("Kennisbank", "/kennisbank/"), ("Over ons", "/over-ons/"), ("Contact", "/contact/")]   # Kennisbank bovenin (Lars, 23-09-2026)
 
 _ICOON_BEL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
 _ICOON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
@@ -564,7 +564,7 @@ def footer_logos():
 
 def footer():
     diensten = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in DIENSTEN_NAV + [("Kosten", "/kosten/")])
-    over = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaamheid/"), ("Werkgebied", "/werkgebied/"), ("Contact", "/contact/"), ("Privacy", "/privacy/")])
+    over = "".join(f'<li><a href="{u}">{esc(n)}</a></li>' for n, u in [("Over ons", "/over-ons/"), ("Kennisbank", "/kennisbank/"), ("Duurzaamheid", "/duurzaamheid/"), ("Werkgebied", "/werkgebied/"), ("Contact", "/contact/"), ("Privacy", "/privacy/")])
     btw = f"<p>Btw-nummer {esc(BTW)}.</p>" if BTW else ""
     profiel = f'<li><a href="{esc(GOOGLE_PROFIEL)}" rel="noopener">Google Bedrijfsprofiel</a></li>' if not placeholder(GOOGLE_PROFIEL) else ""
     linkedin = f'<li><a href="{esc(LINKEDIN)}" rel="noopener">LinkedIn</a></li>' if not placeholder(LINKEDIN) else ""
@@ -754,7 +754,7 @@ def sitemap_robots_llms():
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")
 
 CONTENT = ["home", "toegangscontrole", "elektronische_sloten", "evva_xesar", "motorcilinder", "sluitplan", "service_en_beheer",
-           "salto", "kosten", "duurzaamheid", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
+           "salto", "kosten", "kennisbank", "duurzaamheid", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
 
 def main():
     assets()

@@ -22,13 +22,24 @@ def bouw():
         f"{esc(RECHTSPERSOON)}, KvK {esc(KVK)}",
     ], klas="feiten") + "</div></div>")
 
-    verhaal = sectie("Van sloten naar toegangscontrole", '<div class="rooster"><div class="k8">' + p(
+    verhaal_tekst = p(
         f"Westendorp is een Twents familiebedrijf dat sinds {esc(MOEDER_SINDS)} deuren, sloten en beslag doet in Enschede en Hengelo. Toen bedrijven vroegen om sloten die met een pas opengaan, bleek dat de deur en het beslag "
         "het lastige deel zijn: past het beslag, sluit de deur nog goed, blijft de brandwerende deur goedgekeurd. De elektronica komt daar bovenop.",
         f"Daarom is {esc(NAAM)} ontstaan: een eigen tak voor bedrijven en instellingen, met EVVA als hoofdmerk omdat die fabrikant mechanisch en elektronisch onder één dak maakt. Wij zijn officieel partner van EVVA, ASSA ABLOY en ABUS, en EVVA schakelt ons in voor bepaalde projecten. "
         "Wat wij bieden is één adviseur van inventarisatie tot beheer, eigen monteurs binnen een uur rijden en een werkplaats waar wij houten deuren zelf infrezen. " + PKVW,
         f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}. Onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
-        + "</div></div>", wit=True)
+    beveiliging_tekst = p(
+        f"Wij zijn {esc(CERTIFICATEN)}. Dat betekent dat wij de systemen van deze fabrikanten mogen leveren en installeren en hun opleidingen hebben gevolgd.",
+        "Voor mechanische sluitplannen voeren wij cilinders met SKG-certificering waar de verzekeraar dat vraagt; ABUS Magtec haalt SKG*** en het hoogste niveau op DIN EN 1303. "
+        "Elektronisch beslag en elektronische cilinders van EVVA plaatsen wij ook op brandwerende deuren, met behoud van de certificering van de deur.",
+        "Uw gegevens en de logging van het toegangssysteem blijven van u; wij beheren alleen wat u ons vraagt te beheren. Zie ook <a href=\"/privacy/\">privacy</a>.")
+    duurzaam_tekst = p(
+        "Elektronische toegang scheelt vervangen: een verloren pas blokkeert u in de software, de cilinders blijven zitten en er worden geen extra sleutels gemaakt. Zo gaat er geen messing of staal verloren aan sleutelverlies.",
+        "Voor de mechanische deuren voeren wij standaard ABUS Magtec: loodvrij geproduceerd en met 46 procent minder broeikasgasemissies dan een conventionele cilinder, berekend door ClimatePartner. "
+        "Alles daarover staat op <a href=\"/duurzaamheid/\">duurzaamheid</a>.")
+    uitklap = "".join(f'<details{" open" if i == 0 else ""}><summary>{esc(k)}</summary><div class="antwoord">{t}</div></details>' for i, (k, t) in enumerate([
+        ("Wie zijn wij als bedrijf", verhaal_tekst), ("Beveiliging en certificaten", beveiliging_tekst), ("Duurzaamheid", duurzaam_tekst)]))
+    verhaal = sectie("Meer over ons", f'<div class="rooster"><div class="k8"><div class="faq">{uitklap}</div></div></div>', wit=True, kicker="Uitklappen")
 
     personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")
         + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}. Uw contactpersoon van inventarisatie tot beheer.<br>'

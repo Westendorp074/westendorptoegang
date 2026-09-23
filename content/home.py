@@ -52,18 +52,27 @@ def bouw():
         f"Eigen werkplaats in {esc(WERKPLAATS)}: houten deuren frezen wij zelf in voor elektronisch beslag, zonder deurenfabrikant ertussen.",
         f"Storingsdienst {esc(REACTIE_STORING)}.",
         esc(PKVW),
-        f"{PARTNER_TEKST.capitalize()}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
+        f"{PARTNER_TEKST[0].upper() + PARTNER_TEKST[1:]}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
     bewijs = sectie("Waarom Westendorp", '<div class="rooster"><div class="k7">' + lijst(feiten, klas="feiten") + '</div><div class="k5">'
         + feitenpaneel() + "</div></div>", wit=True, kicker="Waarom wij")
 
     # ---- duurzaamheid: alleen met feiten van Lars (CONFIG DUURZAAM) ----
+    # twee losse blokken (Lars, 23-09-2026): elektronisch (geen sloten vervangen) en mechanisch (ABUS Magtec)
     duurzaam = sectie("Duurzaam: minder vervangen, minder metaal",
-        p(f"<strong>{esc(DUURZAAM_ELEKTRONISCH[0])}.</strong> {esc(DUURZAAM_ELEKTRONISCH[1])}")
-        + f"<h3>Mechanisch: ABUS Magtec</h3>"
-        + '<div class="kolommen kolommen--3 kolommen--groen">' + "".join(f"<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div>" for k, t in DUURZAAM) + "</div>"
-        + p('<a class="meer" href="/duurzaamheid/">Meer over Magtec en duurzaamheid</a>'),
+        '<div class="kolommen kolommen--2 kolommen--groen">'
+        f'<div>{label("Elektronisch")}<h3>{esc(DUURZAAM_ELEKTRONISCH[0])}</h3><p>Raakt een sleutel kwijt, dan blokkeert u bij elektronische toegang de pas in de software: het slot blijft zitten, er worden geen sleutels bijgemaakt en er gaat geen messing of staal verloren aan cilinders die alleen nodig zijn omdat een sleutel zoek is.</p>'
+        '<p><a class="meer" href="/duurzaamheid/#elektronisch">Meer over elektronisch en duurzaam</a></p></div>'
+        f'<div>{label("Mechanisch")}<h3>ABUS Magtec: minder uitstoot, geen lood</h3>' + lijst([f"<strong>{esc(k)}.</strong> {esc(t)}" for k, t in DUURZAAM])
+        + '<p><a class="meer" href="/duurzaamheid/#magtec">Meer over ABUS Magtec</a></p></div></div>',
         kicker="Duurzaamheid", groen=True) if DUURZAAM else ""
+
+    # ---- kennisbank: drie artikelen als opstap (Lars, 23-09-2026) ----
+    from kennisbank import ARTIKELEN
+    kennis = sectie("Uit de kennisbank",
+        '<div class="kolommen kolommen--3">' + "".join(f'<div><h3><a href="/kennisbank/{slug}/">{esc(kop)}</a></h3><p>{esc(sam)}</p><p><a class="meer" href="/kennisbank/{slug}/">Lees het artikel</a></p></div>'
+                                                      for slug, kop, sam, *_ in ARTIKELEN[:3]) + "</div>"
+        + p('<a class="meer" href="/kennisbank/">Alle artikelen</a>'), kicker="Kennisbank", wit=True)
 
     # ---- werkgebied ----
     regios = {}
@@ -93,6 +102,6 @@ def bouw():
          f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
-    body = hero_html + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + werkgebied
+    body = hero_html + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
     schrijf("/", titel, omschrijving, body, faq=faq,
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")
