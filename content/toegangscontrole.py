@@ -76,4 +76,4 @@ def bouw():
     body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + wanneer + soorten + middelen + deuren + sectoren + aanpak
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Toegangscontrole", PAD)],
             extra_ld=[service_ld(PAD, "Toegangscontrole", omschrijving)],
-            llms="Wat een toegangscontrolesysteem is, wanneer het loont, offline/online/cloud vergeleken, identificatiemiddelen, bestaande deuren, per sector (overheid, zorg, VvE, industrie en logistiek, scholen, verenigingen, recreatieparken, kantoren) wat past, onze aanpak in vier stappen.")
+            llms="Wat een toegangscontrolesysteem is, wanneer het loont, offline/online/cloud vergeleken, identificatiemiddelen, bestaande deuren, per sector (overheid, zorg, VvE, industrie en logistiek, kantoren, retail, scholen, verenigingen, recreatieparken) wat past, onze aanpak in vier stappen.")

@@ -108,6 +108,10 @@ Lars wees de eerste twee versies af en gaf saltosystems.com/nl-nl als voorbeeld.
   meer met steiger, zwembad, receptie met slagboom die opengaat voor de auto. Industrie: sheddak, silo's, schoorsteen, laaddocks, containers,
   heftruck, hekwerk met portier. Overheid: gemeentehuis met zuilen en klokkentoren, drie Nederlandse vlaggen op het plein, regeringsgebouw met
   spitse torens en hofvijver.
+  Retail (toegevoegd 23-09-2026): winkelstraat met gekleurde luifels en etalages, supermarkt met parkeerplaats en winkelwagentjes, bestelbus.
+- Verbindingsweg (Lars, 23-09-2026): de doorgaande weg van elke scène bocht naar de linker- en rechterrand op de hoogte van de zijpunten van het
+  eilandje, zodat hij in de sectorrij van kaart naar kaart doorloopt. Regel: de hoeken links- en rechtsvoor van die weg blijven vrij van gebouwen
+  (gras, plein, parkeerplaats, water), want een gebouw op die hoek valt op het scherm over de in- of uitrit heen.
 - Regels voor de scènes: maximaal één auto per sector en één vrachtwagen waar nodig; voertuigen rijden in hun lengterichting (cabine vooruit)
   over een stuk weg waar niets vóór staat; vlaggen wapperen alleen zijwaarts en staan op de grond vóór de gebouwen; bomen wuiven licht.
   Tekenvolgorde via overlaptoets per object (scheidingsregel plus topologische sortering), niet via een optelsom van x+y.
