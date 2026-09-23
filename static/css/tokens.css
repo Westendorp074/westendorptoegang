@@ -36,6 +36,6 @@
   --label:12px;
 
   /* layout */
-  --max:1240px; --goot:16px; --sectie:72px; --straal:6px; --straal-knop:4px; --lijndikte:1px;
+  --max:1440px; --goot:16px; --sectie:72px; --straal:6px; --straal-knop:4px; --lijndikte:1px;
   --focus:2px solid var(--primair);
 }
