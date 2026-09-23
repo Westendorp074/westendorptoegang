@@ -316,9 +316,10 @@ ISO_CSS = """<style>
 .anim-knipper{animation:knipper 1.6s steps(1) infinite}@keyframes knipper{0%,55%{opacity:1}56%,100%{opacity:.12}}
 .anim-zwaailicht{animation:knipper .7s steps(1) infinite}
 .anim-fiets{animation:rijden 14s linear infinite}
-.anim-arm{animation:arm 6s ease-in-out infinite}@keyframes arm{0%,8%{transform:rotate(var(--rust))}26%,48%{transform:rotate(0)}62%,100%{transform:rotate(var(--rust))}}
-.led-deur{animation:leddeur 6s infinite}@keyframes leddeur{0%,30%{fill:#D9362B}32%,76%{fill:#3DBE7A}80%,100%{fill:#D9362B}}
-.anim-deur{animation:deur 6s ease-in-out infinite}@keyframes deur{0%,36%{transform:scaleX(1)}48%,72%{transform:scaleX(.22)}84%,100%{transform:scaleX(1)}}
+.anim-loop{animation:loop 8s linear infinite}@keyframes loop{0%{transform:translate(var(--ix),var(--iy));opacity:0}3%{opacity:1}18%,54%{transform:translate(0,0);opacity:1}70%{transform:translate(var(--dx),var(--dy));opacity:1}73%,100%{transform:translate(var(--dx),var(--dy));opacity:0}}
+.anim-arm{animation:arm 8s ease-in-out infinite}@keyframes arm{0%,20%{transform:rotate(var(--rust))}28%,42%{transform:rotate(0)}50%,100%{transform:rotate(var(--rust))}}
+.led-deur{animation:leddeur 8s infinite}@keyframes leddeur{0%,33%{fill:#D9362B}35%,80%{fill:#3DBE7A}84%,100%{fill:#D9362B}}
+.anim-deur{animation:deur 8s ease-in-out infinite}@keyframes deur{0%,40%{transform:scaleX(1)}50%,76%{transform:scaleX(.22)}88%,100%{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>"""
 
