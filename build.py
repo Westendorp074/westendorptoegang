@@ -174,6 +174,16 @@ VANDAAG = datetime.date.today()
 # ============================================================
 ROOT = pathlib.Path(__file__).parent
 DIST = ROOT / "dist"
+
+def leeg_dist():
+    """Maakt dist leeg. OneDrive houdt net aangemaakte mappen soms even vast (WinError 5); daarom een paar keer proberen."""
+    import time
+    for poging in range(6):
+        try:
+            shutil.rmtree(DIST); return
+        except PermissionError:
+            time.sleep(0.5 * (poging + 1))
+    shutil.rmtree(DIST, ignore_errors=True)   # laatste poging: mappen die blijven staan zijn leeg en worden overschreven
 STATIC = ROOT / "static"
 BRON = STATIC / "img" / "bron"
 
@@ -241,9 +251,9 @@ def label(tekst):
 def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=None):
     """Kop van elke pagina: label, H1, answer-first alinea, CTA; rechts een foto of een illustratie."""
     rechts_inhoud = foto_html or (f'<div class="hero__illustratie">{illustratie}</div>' if illustratie else "")
-    rechts = f'<div class="k6 hero__rechts">{rechts_inhoud}</div>' if rechts_inhoud else ""
+    rechts = f'<div class="k6 hero__rechts{" hero__foto" if foto_html else ""}">{rechts_inhoud}</div>' if rechts_inhoud else ""
     kol = "k6" if rechts_inhoud else "k8"
-    return (f'<section class="hero"><div class="wrap"><div class="rooster"><div class="{kol}">{label(kicker) if kicker else ""}<h1>{h1}</h1>'
+    return (f'<section class="hero{" hero--foto" if foto_html else ""}"><div class="wrap"><div class="rooster"><div class="{kol}">{label(kicker) if kicker else ""}<h1>{h1}</h1>'
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
 
 ISO_CSS = """<style>
@@ -645,16 +655,16 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
 # Bouwen
 # ============================================================
 def assets():
-    if DIST.exists(): shutil.rmtree(DIST)
-    (DIST / "static" / "css").mkdir(parents=True); (DIST / "static" / "js").mkdir(parents=True)
+    if DIST.exists(): leeg_dist()
+    (DIST / "static" / "css").mkdir(parents=True, exist_ok=True); (DIST / "static" / "js").mkdir(parents=True, exist_ok=True)
     css = (STATIC / "css" / "tokens.css").read_text(encoding="utf-8") + "\n" + (STATIC / "css" / "styles.css").read_text(encoding="utf-8")
     css_naam = f"site.{hashlib.md5(css.encode()).hexdigest()[:8]}.css"
     (DIST / "static" / "css" / css_naam).write_text(css, encoding="utf-8")
     js_naam = f"site.{versie(STATIC / 'js' / 'site.js')}.js"
     shutil.copy(STATIC / "js" / "site.js", DIST / "static" / "js" / js_naam)
     _ASSETS["css"], _ASSETS["js"] = f"/static/css/{css_naam}", f"/static/js/{js_naam}"
-    shutil.copytree(STATIC / "font", DIST / "static" / "font")
-    logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True)
+    shutil.copytree(STATIC / "font", DIST / "static" / "font", dirs_exist_ok=True)
+    logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True, exist_ok=True)
     # Alleen de header is zwart (#111111); daar staat het logo, dus de variant voor zwarte achtergrond (LEESMIJ: tot #1E1E1E).
     lb = STATIC / "img" / "logo"
     if HEADER_LICHT:   # test (Lars, 22-09-2026): witte header met zwart woordmerk

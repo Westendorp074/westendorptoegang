@@ -8,8 +8,9 @@ def bouw():
                     "bedrijven en instellingen in Twente en Oost-Nederland.")
 
     # ---- hero: eigen foto als die er is, anders de isometrische scène ----
-    foto = beeld("hero-beslag.jpg", "Elektronisch beslag op een kantoordeur, geplaatst door Westendorp Toegangscontrole",
-                 onderschrift=INV("onderschrift hero-foto: wat, waar, jaar"), lazy=False)
+    # foto van Lars (23-09-2026); "Slotenspecialist" op de bus mag volgens check.py alleen op /over-ons/ genoemd worden, dus niet in de alt
+    foto = beeld("bedrijfsbus-westendorp-gebouw-lumen-enschede.jpg", "Bedrijfsbus van Westendorp geparkeerd voor het gebouw van Lumen in Enschede",
+                 onderschrift="Op locatie bij Lumen, Enschede", lazy=False, sizes="(min-width: 900px) 56vw, 100vw")
     hero_html = hero("Toegangscontrole voor bedrijven in Oost-Nederland",
         f"Wij leveren en installeren elektronische toegangscontrole van EVVA, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. "
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}: deuren, sloten en beslag zijn ons vak, het elektronische deel komt uit dezelfde hand.",
