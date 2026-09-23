@@ -93,7 +93,7 @@ class Scene:
         self.voeg((x - r, y - r, z, x + r, y + r, z), f'<g transform="translate(0,{-z*s:.1f})">' + self.grond_g(binnen) + "</g>")
 
     # ---------- gebouwen ----------
-    def blok(self, x, y, z, w, d, h, top, links, rechts, ramen=None, deur=None, lichtjes=False):
+    def blok(self, x, y, z, w, d, h, top, links, rechts, ramen=None, deur=None, lichtjes=False, deur_anim=False, dak=None):
         """Gebouwblok: drie vlakken. ramen=(rijen, kolommen) tekent glas op beide zijvlakken; deur=(dx, breedte, hoogte) met lezer."""
         P = self.P; uit = []
         if z == 0 and h >= 0.3:                                                                                   # zachte slagschaduw op de grond, naar rechtsvoor
@@ -102,9 +102,24 @@ class Scene:
         uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], links))    # linkervlak (y=d)
         uit.append(_poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], rechts))   # rechtervlak (x=w)
         uit.append(_poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], top, f' stroke="{rechts}" stroke-width=".6" stroke-opacity=".45"'))   # bovenvlak met dakrand
-        if h >= 1.0 and w >= 0.8 and d >= 0.8:                                                                  # dak: binnenvlak achter de dakrand
+        if h >= 1.0 and w >= 0.8 and d >= 0.8:                                                                  # dak: binnenvlak met grind achter de dakrand
             i = min(0.18, w * 0.12, d * 0.12)
             uit.append(_poly([P(x + i, y + i, z + h), P(x + w - i, y + i, z + h), P(x + w - i, y + d - i, z + h), P(x + i, y + d - i, z + h)], _tint(top, 0.965)))
+            uit.append(_poly([P(x + i, y + i, z + h), P(x + w - i, y + i, z + h), P(x + w - i, y + d - i, z + h), P(x + i, y + d - i, z + h)], "url(#p-grind)"))
+        if dak is None and z == 0 and w >= 1.8 and d >= 1.8 and h >= 1.4: dak = ("zon", "licht", "kast")[int((x * 7 + y * 13) * 10) % 3]
+        if dak == "zon":                                                                                          # zonnepanelen in rijen
+            i = 0.35; kol = int((w - 2 * i) / 0.55); rij = int((d - 2 * i) / 0.45)
+            for r in range(rij):
+                for k in range(kol):
+                    px, py = x + i + k * 0.55, y + i + r * 0.45
+                    uit.append(_poly([P(px, py, z + h + 0.03), P(px + 0.45, py, z + h + 0.03), P(px + 0.45, py + 0.34, z + h + 0.12), P(px, py + 0.34, z + h + 0.12)], "#1F3A5F", ' stroke="#4A6C96" stroke-width=".4"'))
+        elif dak == "licht":                                                                                      # lichtstraten
+            for k in range(int((w - 0.6) / 0.9)):
+                px = x + 0.4 + k * 0.9
+                uit.append(_poly([P(px, y + 0.35, z + h + 0.01), P(px + 0.45, y + 0.35, z + h + 0.01), P(px + 0.45, y + d - 0.35, z + h + 0.01), P(px, y + d - 0.35, z + h + 0.01)], GLAS, f' stroke="{KOZIJN}" stroke-width=".5"'))
+        if z == 0 and w >= 1.4 and d >= 1.4 and h >= 1.0:                                                        # ontluchtingspijp
+            vx, vy = x + w - 0.35, y + 0.3; v0, v1 = P(vx, vy, z + h), P(vx, vy, z + h + 0.3)
+            uit.append(f'<line x1="{v0[0]:.1f}" y1="{v0[1]:.1f}" x2="{v1[0]:.1f}" y2="{v1[1]:.1f}" stroke="{GRIJS_R}" stroke-width="2.2"/><ellipse cx="{v1[0]:.1f}" cy="{v1[1]:.1f}" rx="1.3" ry=".7" fill="{GRIJS_T}"/>')
         if z == 0 and h >= 1.0:                                                                                   # plint onderaan beide gevels
             uit.append(_poly([P(x, y + d, 0), P(x + w, y + d, 0), P(x + w, y + d, 0.12), P(x, y + d, 0.12)], _tint(links, 0.86)))
             uit.append(_poly([P(x + w, y, 0), P(x + w, y + d, 0), P(x + w, y + d, 0.12), P(x + w, y, 0.12)], _tint(rechts, 0.86)))
@@ -133,26 +148,45 @@ class Scene:
                     uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN2}" stroke-width=".5"/>')
         if deur:
             dx, dw, dh = deur
-            uit.append(_poly([P(x + dx, y + d, z), P(x + dx + dw, y + d, z), P(x + dx + dw, y + d, z + dh), P(x + dx, y + d, z + dh)], DONKER, f' stroke="{KOZIJN}" stroke-width=".6"'))
+            if deur_anim: dw, dh = max(dw, 0.8), max(dh, 1.3)                                                     # de deur met animatie moet goed zichtbaar zijn
+            uit.append(_poly([P(x + dx, y + d, z), P(x + dx + dw, y + d, z), P(x + dx + dw, y + d, z + dh), P(x + dx, y + d, z + dh)], KOZIJN, f' stroke="{KOZIJN}" stroke-width=".6"') if deur_anim else "")   # deuropening (zichtbaar als de deur open is)
+            deurvlak = _poly([P(x + dx, y + d, z), P(x + dx + dw, y + d, z), P(x + dx + dw, y + d, z + dh), P(x + dx, y + d, z + dh)], DONKER, f' stroke="{KOZIJN}" stroke-width=".6"')
             kx, ky = P(x + dx + dw * 0.8, y + d, z + dh * 0.5)                                                        # deurklink
-            uit.append(f'<circle cx="{kx:.1f}" cy="{ky:.1f}" r="1" fill="{LICHT}"/>')
+            deurvlak += f'<circle cx="{kx:.1f}" cy="{ky:.1f}" r="1" fill="{LICHT}"/>'
+            if deur_anim:
+                sx, sy = P(x + dx, y + d, z)                                                                          # scharnierkant
+                uit.append(f'<g class="anim-deur" style="transform-origin:{sx:.1f}px {sy:.1f}px">{deurvlak}</g>')
+            else: uit.append(deurvlak)
             lx, ly = P(x + dx + dw + 0.35, y + d, z + dh * 0.55)
             uit.append(f'<rect x="{lx-3:.1f}" y="{ly-6:.1f}" width="6" height="12" rx="1" fill="#FFFFFF" stroke="{DONKER}" stroke-width="0.6"/>'
-                       f'<circle class="led" cx="{lx:.1f}" cy="{ly-2:.1f}" r="1.6" fill="{GROEN}"/>')
+                       f'<circle class="{"led-deur" if deur_anim else "led"}" cx="{lx:.1f}" cy="{ly-2:.1f}" r="1.6" fill="{GROEN}"/>')
         self.voeg((x, y, z, x + w, y + d, z + h), "".join(uit))
+        if deur and deur_anim:                                                                                    # persoon vóór de deur, pas beweegt naar de lezer
+            self.persoon(x + dx + dw * 0.55, y + d + 0.42, DONKER, pas=(lx, ly - 2))
     def dak(self, x, y, z, w, d, hoog, nok="y", kl=(DAK_T, DAK_L, DAK_R)):
         """Zadeldak. nok 'y': nok loopt in de y-richting (schuine vlakken links en rechts); nok 'x': nok in de x-richting."""
         P = self.P; t, l, r = kl
+        pan = f' stroke="{_tint(r, 0.8)}" stroke-width=".45"'
         if nok == "y":
             n0, n1 = P(x + w / 2, y, z + hoog), P(x + w / 2, y + d, z + hoog)
             svg = (_poly([n0, P(x, y, z), P(x, y + d, z), n1], t)            # achterste schuine vlak (soms net zichtbaar)
                    + _poly([n0, P(x + w, y, z), P(x + w, y + d, z), n1], r)  # voorste schuine vlak
                    + _poly([P(x, y + d, z), P(x + w, y + d, z), n1], l))     # topgevel
+            for f in (0.25, 0.5, 0.75):                                                                               # pannenlijnen op het voorste vlak
+                a, b = P(x + w / 2 + (w / 2) * f, y, z + hoog * (1 - f)), P(x + w / 2 + (w / 2) * f, y + d, z + hoog * (1 - f))
+                svg += f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}"{pan}/>'
+            g0, g1 = P(x + w + 0.03, y, z - 0.02), P(x + w + 0.03, y + d, z - 0.02)                                     # dakgoot
         else:
             n0, n1 = P(x, y + d / 2, z + hoog), P(x + w, y + d / 2, z + hoog)
             svg = (_poly([n0, P(x, y, z), P(x + w, y, z), n1], t)
                    + _poly([n0, P(x, y + d, z), P(x + w, y + d, z), n1], l)
                    + _poly([P(x + w, y, z), P(x + w, y + d, z), n1], r))
+            for f in (0.25, 0.5, 0.75):
+                a, b = P(x, y + d / 2 + (d / 2) * f, z + hoog * (1 - f)), P(x + w, y + d / 2 + (d / 2) * f, z + hoog * (1 - f))
+                svg += f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}"{pan}/>'
+            g0, g1 = P(x, y + d + 0.03, z - 0.02), P(x + w, y + d + 0.03, z - 0.02)
+        svg += (f'<line x1="{n0[0]:.1f}" y1="{n0[1]:.1f}" x2="{n1[0]:.1f}" y2="{n1[1]:.1f}" stroke="{_tint(r, 0.7)}" stroke-width="1"/>'          # nok
+                f'<line x1="{g0[0]:.1f}" y1="{g0[1]:.1f}" x2="{g1[0]:.1f}" y2="{g1[1]:.1f}" stroke="{GRIJS_R}" stroke-width="1.2"/>')            # dakgoot
         self.voeg((x, y, z, x + w, y + d, z + hoog), svg)
     def spits(self, x, y, z, w, d, hoog, kl=(DONKER2, DONKER, MIDDEN)):
         """Piramidedak (torenspits)."""
@@ -218,13 +252,18 @@ class Scene:
         if wind:
             svg = f'<g class="anim-boom anim-boom-{self._bomen % 3}" style="transform-origin:{bx:.1f}px {by:.1f}px">{svg}</g>'; self._bomen += 1
         self.voeg((x - r, y - r, 0, x + r, y + r, h + 1.3 * r), svg, pad=(4, 2, 4, 2))
-    def persoon(self, x, y, kleur=MIDDEN):
-        """Klein figuurtje: schaduw, lijf, hoofd. Staat stil; geeft schaal en leven."""
+    def persoon(self, x, y, kleur=MIDDEN, pas=None):
+        """Klein figuurtje: schaduw, lijf, hoofd. Staat stil; geeft schaal en leven. pas=(lx, ly): houdt een pas vast die naar de lezer op (lx, ly) beweegt."""
         bx, by = self.P(x, y, 0)
+        extra = ""
+        if pas:
+            hx, hy = bx + 3.2, by - 7.5                                                                                # hand
+            extra = (f'<line x1="{bx+1.6:.1f}" y1="{by-8.5:.1f}" x2="{hx:.1f}" y2="{hy:.1f}" stroke="{kleur}" stroke-width="1.6" stroke-linecap="round"/>'
+                     f'<g class="anim-pas" style="--dx:{pas[0]-hx:.1f}px;--dy:{pas[1]-hy:.1f}px"><rect x="{hx-1:.1f}" y="{hy-2.2:.1f}" width="4.4" height="3" rx=".6" fill="{LICHT}" stroke="{DONKER}" stroke-width=".5"/></g>')
         self.voeg((x, y, 0.003, x + 0.2, y + 0.1, 0.003), self.grond_g(f'<ellipse cx="{x*self.s:.1f}" cy="{y*self.s:.1f}" rx="3" ry="2" fill="{SCHADUW}" opacity=".14"/>'), grond=True)
         self.voeg((x - 0.12, y - 0.12, 0, x + 0.12, y + 0.12, 0.85),
                   f'<rect x="{bx-2.2:.1f}" y="{by-11.5:.1f}" width="4.4" height="9" rx="2" fill="{kleur}"/><circle cx="{bx:.1f}" cy="{by-13.6:.1f}" r="2.4" fill="#F1C9A6"/>'
-                  f'<line x1="{bx-1:.1f}" y1="{by-2.5:.1f}" x2="{bx-1:.1f}" y2="{by:.1f}" stroke="{DONKER}" stroke-width="1.2"/><line x1="{bx+1:.1f}" y1="{by-2.5:.1f}" x2="{bx+1:.1f}" y2="{by:.1f}" stroke="{DONKER}" stroke-width="1.2"/>', pad=(3, 4, 3, 2))
+                  f'<line x1="{bx-1:.1f}" y1="{by-2.5:.1f}" x2="{bx-1:.1f}" y2="{by:.1f}" stroke="{DONKER}" stroke-width="1.2"/><line x1="{bx+1:.1f}" y1="{by-2.5:.1f}" x2="{bx+1:.1f}" y2="{by:.1f}" stroke="{DONKER}" stroke-width="1.2"/>' + extra, pad=(6, 16, 26, 2))
     def struik(self, x, y, r=0.32):
         cx, cy = self.P(x, y, 0.12); rs = r * self.s
         self.voeg((x - r, y - r, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x+0.1)*self.s:.1f}" cy="{(y+0.05)*self.s:.1f}" rx="{rs*0.9:.1f}" ry="{rs*0.6:.1f}" fill="{SCHADUW}" opacity=".1"/>'), grond=True)
@@ -412,7 +451,8 @@ class Scene:
                 f'<pattern id="p-tegels" width="{t:.1f}" height="{t:.1f}" patternUnits="userSpaceOnUse" {iso}><rect width="{t:.1f}" height="{t:.1f}" fill="{GROND2}"/>'
                 f'<path d="M0,{t:.1f} H{t:.1f} V0" fill="none" stroke="#D3D9DF" stroke-width=".7"/></pattern>'
                 f'<pattern id="p-asfalt" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="{WEG}"/>'
-                f'<circle cx="2" cy="2" r=".55" fill="#CBD2D9"/><circle cx="5.5" cy="5" r=".55" fill="#CBD2D9"/></pattern></defs>')
+                f'<circle cx="2" cy="2" r=".55" fill="#CBD2D9"/><circle cx="5.5" cy="5" r=".55" fill="#CBD2D9"/></pattern>'
+                f'<pattern id="p-grind" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".5" fill="#000" opacity=".07"/><circle cx="4.5" cy="4" r=".5" fill="#FFF" opacity=".25"/></pattern></defs>')
         return (f'<svg viewBox="0 0 {breedte} {hoogte}" width="{breedte}" height="{hoogte}" role="img" aria-label="{label}" '
                 f'xmlns="http://www.w3.org/2000/svg" class="iso">' + defs + "".join(d[1] for d in self._volgorde(self.delen)) + "</svg>")
 
@@ -469,7 +509,7 @@ def kantoor():
     sc.blok(1.5, 1.5, 5.8, 0.14, 0.14, 0.7, GRIJS_T, GRIJS_L, GRIJS_R)                                        # zendmast
     mx, my = sc.P(1.57, 1.57, 6.55); sc.voeg((1.5, 1.5, 6.5, 1.64, 1.64, 6.6), f'<circle class="anim-knipper" cx="{mx:.1f}" cy="{my:.1f}" r="2" fill="{KRUIS_L}"/>', pad=(3, 3, 3, 3))
     sc.dakkast(0.6, 2.2, 5.8); sc.dakkast(2.3, 0.6, 5.8)
-    sc.blok(4.7, 0.4, 0, 2.8, 2.6, 4.0, WIT_T, WIT_L, WIT_R, ramen=(4, 3), deur=(0.5, 0.7, 1.2), lichtjes=True)   # hoofdkantoor met entree
+    sc.blok(4.7, 0.4, 0, 2.8, 2.6, 4.0, WIT_T, WIT_L, WIT_R, ramen=(4, 3), deur=(0.5, 0.7, 1.2), lichtjes=True, deur_anim=True)   # hoofdkantoor met entree
     sc.dakkast(5.0, 0.7, 4.0); sc.dakkast(6.6, 2.2, 4.0)
     sc.blok(9.1, 0.3, 0, 2.8, 2.8, 5.0, LICHT2, MIDDEN2, DONKER2, ramen=(5, 3), lichtjes=True)                 # tweede toren
     sc.blok(9.1, 0.3, 5.0, 1.4, 1.4, 0.5, LICHT2, MIDDEN2, DONKER2)                                            # dakopbouw
@@ -494,7 +534,7 @@ def zorg():
     sc.blok(0.4, 0.4, 0, 4.6, 3.4, 4.0, WIT_T, WIT_L, WIT_R, ramen=(4, 5))                                     # ziekenhuis, hoofdgebouw
     sc.kruis_gevel(2.7, 3.8, 3.05, 1.6, 1.6, KRUIS_L, "links", klas="anim-gloed")                               # rood kruis, plat op de voorgevel
     sc.dak_cirkel(2.7, 2.1, 4.0, 0.9, GRIJS_L, "#FFFFFF", "H")                                                 # helikopterplatform
-    sc.blok(0.4, 3.8, 0, 4.6, 1.9, 2.0, WIT_T, WIT_L, WIT_R, ramen=(1, 5), deur=(0.4, 1.3, 1.5))               # spoedeisende hulp met brede ingang
+    sc.blok(0.4, 3.8, 0, 4.6, 1.9, 2.0, WIT_T, WIT_L, WIT_R, ramen=(1, 5), deur=(0.4, 1.3, 1.5), deur_anim=True)   # spoedeisende hulp met brede ingang
     sc.kruis_gevel(3.6, 5.7, 1.5, 0.5, 0.5, KRUIS_L)
     sc.bord(5.4, 5.9, "H", KRUIS_L)
     sc.blok(7.4, 0.4, 0, 2.6, 2.4, 1.8, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(0.4, 0.6, 1.1))               # apotheek
@@ -515,7 +555,7 @@ def onderwijs():
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
     _weg_x(sc, 8.2); _aansluiting(sc, 8.2)                                                                    # straat langs de school
     sc.vlak(0, 9.35, G, 0.6, FIETSPAD)                                                                           # rood fietspad naast de straat
-    sc.blok(0.4, 0.4, 0, 5.0, 2.6, 2.2, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 5), deur=(2.2, 0.8, 1.3))            # school, begane grond
+    sc.blok(0.4, 0.4, 0, 5.0, 2.6, 2.2, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 5), deur=(2.2, 0.8, 1.3), deur_anim=True)   # school, begane grond
     sc.blok(0.4, 0.4, 2.2, 2.4, 2.6, 1.6, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 2))                                  # verdieping
     sc.klok(4.4, 3.0, 1.75)                                                                                    # klok op de gevel
     sc.vlak(0.4, 3.2, 5.0, 4.4, GROND2); sc.hek(0.4, 3.2, 5.0, 4.4)                                             # schoolplein met hek
@@ -543,7 +583,7 @@ def vve():
     sc.vlak(0, 4.4, G, 1.0, GROND2); sc.vlak(0, 6.4, G, 0.8, GROND2)                                           # stoepen
     _weg_x(sc, 5.4); sc.zebra(5.6, 5.4, 1.2, 1.0, 4); _aansluiting(sc, 5.4)
     for m in (1.0, 5.0, 9.0): sc.lantaarn(m, 4.5); sc.lantaarn(m + 2.0, 6.6)
-    sc.blok(0.4, 0.4, 0, 4.4, 3.0, 4.2, MIDDEN2, MIDDEN, DONKER, ramen=(4, 3), deur=(1.8, 0.7, 1.2))            # appartementencomplex
+    sc.blok(0.4, 0.4, 0, 4.4, 3.0, 4.2, MIDDEN2, MIDDEN, DONKER, ramen=(4, 3), deur=(1.8, 0.7, 1.2), deur_anim=True)   # appartementencomplex
     sc.balkons(0.4, 3.4, 1.3, 3, 3, 1.0, 1.05)
     sc.vlak(0.4, 3.5, 4.4, 0.9, GROEN2); _bomen(sc, [(1.0, 3.9), (4.2, 3.9)], 0.35, 0.9)
     for i in range(5):                                                                                          # rijtjeshuizen met voortuin en heg
@@ -581,7 +621,7 @@ def verenigingen():
         sc.vlak(k, 5.2, 1.6, 2.6, "#D9865E"); sc.rechthoek_grond(k + 0.15, 5.35, 1.3, 2.3, "#FFFFFF", 0.7); sc.net(k + 0.1, 6.5, 1.4, "x")
     sc.vlak(4.2, 5.2, 2.2, 2.6, "#C9CED0"); sc.rechthoek_grond(4.3, 5.3, 2.0, 2.4, "#FFFFFF", 0.7)               # basketbalveld
     sc.ellips(5.3, 6.5, 0.4, 0.4, "none", "#FFFFFF", 0.7); sc.basket(5.3, 5.25); sc.basket(5.3, 7.75)
-    sc.blok(7.6, 5.0, 0, 3.4, 2.4, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(1.2, 0.6, 1.0))               # clubhuis
+    sc.blok(7.6, 5.0, 0, 3.4, 2.4, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(1.2, 0.6, 1.0), deur_anim=True)   # clubhuis
     sc.vlak(7.6, 7.4, 3.4, 0.6, ZAND_T); sc.vlag(11.5, 7.6, 2.4, LICHT)                                        # terras en clubvlag
     for i in range(5): sc.fiets(0.8 + i * 0.6, 9.4, DONKER)                                                    # fietsen langs het pad
     sc.blok(3.6, 9.0, 0, 5.2, 2.8, 2.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(2.2, 0.7, 1.1))               # sporthal in het midden (in- en uitrit vrij)
@@ -605,7 +645,7 @@ def recreatie():
         sc.huis(x, y, 2.0, 1.5, 1.1, (WIT_T, WIT_L, WIT_R), 0.4, "y", ramen=(1, 2)); sc.vlak(x - 0.9, y, 0.9, 1.5, ZAND_T); sc.ellips(x - 0.45, y + 0.75, 0.25, 0.25, GLAS2, LICHT, 1.2, z=0.03)
     sc.vlak(9.8, 6.4, 2.0, 2.4, LICHT); sc.groep("anim-water", lambda: sc.vlak(10.0, 6.6, 1.6, 2.0, GLAS2, 0.02))   # zwembad
     sc.schommel(9.9, 9.5); sc.glijbaan(10.6, 10.3)                                                              # speeltuin
-    sc.blok(6.0, 10.4, 0, 2.4, 1.4, 1.0, WIT_T, WIT_L, WIT_R, ramen=(1, 2), deur=(0.4, 0.5, 0.85))               # receptie bij de ingang
+    sc.blok(6.0, 10.4, 0, 2.4, 1.4, 1.2, WIT_T, WIT_L, WIT_R, ramen=(1, 2), deur=(0.4, 0.5, 0.85), deur_anim=True)   # receptie bij de ingang
     sc.slagboom(8.4, 10.6, 1.4)
     sc.auto(8.75, 8.6, DONKER, klas="anim-auto-y-terug", lang=1.3, richting="-y")
     _bomen(sc, [(3.6, 0.5), (3.6, 1.9), (3.6, 3.3), (0.5, 4.5), (8.0, 0.5), (8.0, 1.9), (8.0, 3.4), (11.9, 1.5), (11.9, 3.5), (10.6, 4.4), (3.4, 6.5), (0.6, 11.6), (5.2, 11.7), (11.7, 5.9), (4.6, 6.0), (9.4, 9.2), (11.8, 8.9)], 0.5, 1.4)
@@ -626,7 +666,7 @@ def industrie():
     rx, ry = sc.P(3.85, 4.15, 4.6)
     sc.voeg((3.6, 3.9, 4.6, 4.1, 4.4, 5.6), f'<g class="anim-rook"><circle cx="{rx:.1f}" cy="{ry-6:.1f}" r="5" fill="#D5DBE1" opacity=".8"/><circle cx="{rx+4:.1f}" cy="{ry-14:.1f}" r="4" fill="#D5DBE1" opacity=".6"/></g>', pad=(6, 22, 12, 2))
     sc.cilinder(1.2, 4.6, 0.42, 3.0, GRIJS_T, GRIJS_L); sc.cilinder(2.3, 4.6, 0.42, 3.0, GRIJS_T, GRIJS_L)        # silo's
-    sc.blok(0.4, 5.4, 0, 3.0, 2.0, 1.2, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(0.4, 0.6, 1.0))                # kantoor
+    sc.blok(0.4, 5.4, 0, 3.0, 2.0, 1.4, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(0.4, 0.6, 1.0), deur_anim=True)   # kantoor
     sc.blok(7.2, 0.4, 0, 4.6, 3.4, 2.8, MIDDEN2, MIDDEN, DONKER, ramen=(1, 4))                                  # distributiecentrum
     for i in range(3): sc.blok(7.6 + i * 1.3, 3.8, 0, 0.9, 0.05, 1.1, DONKER, DONKER, DONKER)                    # laaddocks
     for i in range(3): sc.blok(7.7 + i * 1.3, 3.95, 0, 0.7, 0.5, 0.35, ZAND_T, ZAND_L, ZAND_R)                   # pallets
@@ -649,7 +689,7 @@ def overheid():
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
     _weg_x(sc, 7.8); _weg_y(sc, 6.2, y0=0, y1=7.8); sc.zebra(2.2, 7.8, 1.2, 1.0, 4); sc.zebra(6.2, 6.4, 1.0, 1.0, 4); _aansluiting(sc, 7.8)
     for m in (0.5, 4.0, 9.0, 11.8): sc.lantaarn(m, 7.7)
-    sc.blok(0.4, 0.4, 0, 5.2, 3.0, 2.8, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 5), deur=(2.3, 0.7, 1.4))             # gemeentehuis
+    sc.blok(0.4, 0.4, 0, 5.2, 3.0, 2.8, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 5), deur=(2.3, 0.7, 1.4), deur_anim=True)   # gemeentehuis
     sc.zuilen(0.7, 3.4, 6, 2.8, afstand=0.85); sc.blok(0.4, 3.4, 2.8, 5.2, 0.5, 0.25, ZAND_T, ZAND_L, ZAND_R)     # zuilengalerij met fries
     sc.blok(2.5, 1.4, 2.8, 1.0, 1.0, 1.6, ZAND_T, ZAND_L, ZAND_R); sc.klok(3.0, 2.4, 3.9); sc.spits(2.5, 1.4, 4.4, 1.0, 1.0, 0.9)   # klokkentoren
     sc.vlak(0.4, 3.9, 5.2, 3.5, GROND2)                                                                          # plein
@@ -691,7 +731,7 @@ def retail():
     for i in range(5): sc.lijn_grond(0.6 + i * 0.75, 7.6, 0.6 + i * 0.75, 9.2, "#FFFFFF", 0.8)
     sc.bord(3.6, 7.5, "P")
     for i in range(3): sc.blok(0.8 + i * 0.5, 9.9, 0.15, 0.35, 0.5, 0.35, GRIJS_T, GRIJS_L, GRIJS_R)             # winkelwagentjes
-    sc.blok(4.2, 7.4, 0, 5.4, 3.2, 2.2, MIDDEN2, MIDDEN, DONKER, ramen=(1, 5), deur=(0.6, 1.2, 1.4))              # supermarkt (midden, uitrit blijft vrij)
+    sc.blok(4.2, 7.4, 0, 5.4, 3.2, 2.2, MIDDEN2, MIDDEN, DONKER, ramen=(1, 5), deur=(0.6, 1.2, 1.4), deur_anim=True)   # supermarkt (midden, uitrit blijft vrij)
     sc.blok(4.2, 7.4, 2.2, 5.4, 0.5, 0.45, LICHT2, LICHT, MIDDEN)                                                # naambord op de gevelrand
     sc.vlak(10.0, 7.4, 2.0, 3.4, GROEN2)
     sc.auto(0.4, 5.15, DONKER, klas="anim-auto", lang=1.8)                                                       # bestelbus

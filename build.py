@@ -294,12 +294,12 @@ def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=N
 
 ISO_CSS = """<style>
 .led{animation:led 1.8s ease-in-out infinite}@keyframes led{0%,100%{opacity:1}50%{opacity:.15}}
-.anim-auto{animation:rijden 7s linear infinite}@keyframes rijden{0%{transform:translate(-62px,-36px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(62px,36px);opacity:0}}
+.anim-auto{animation:rijden 7s linear infinite}@keyframes rijden{0%{transform:translate(-62px,-36px);opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(62px,36px);opacity:0}}
 .anim-auto-2{animation:rijden 11s linear infinite 4s}
-.anim-auto-y{animation:rijden-y 9s linear infinite 2s}@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
+.anim-auto-y{animation:rijden-y 9s linear infinite 2s}@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
 .anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}@keyframes wapperen{from{transform:scaleX(1)}to{transform:scaleX(.78)}}
-.anim-gloed{animation:gloed 2.4s ease-in-out infinite}@keyframes gloed{0%,100%{opacity:1}50%{opacity:.45}}
-.anim-water{animation:water 3s ease-in-out infinite}@keyframes water{0%,100%{opacity:1;transform:translate(0,0)}50%{opacity:.55;transform:translate(2px,1px)}}
+.anim-gloed{animation:gloed 2.4s ease-in-out infinite}@keyframes gloed{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+.anim-water{animation:water 3s ease-in-out infinite}@keyframes water{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,1px);filter:brightness(1.08)}}
 .anim-rook{animation:rook 3s ease-out infinite}@keyframes rook{0%{opacity:.8;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-18px)}}
 .anim-bal{animation:bal 2.2s ease-in-out infinite alternate}@keyframes bal{from{transform:translate(0,0)}to{transform:translate(18px,10px)}}
 .anim-heftruck{animation:heftruck 5s ease-in-out infinite alternate}@keyframes heftruck{from{transform:translate(0,0)}to{transform:translate(-26px,15px)}}
@@ -309,10 +309,13 @@ ISO_CSS = """<style>
 .anim-loper{animation:loper 9s linear infinite}@keyframes loper{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .anim-boom{animation:wind 3.4s ease-in-out infinite alternate}.anim-boom-1{animation-delay:-1.2s}.anim-boom-2{animation-delay:-2.4s}@keyframes wind{from{transform:skewX(-2.5deg)}to{transform:skewX(2.5deg)}}
 .anim-slagboom{animation:slagboom 9s ease-in-out infinite}@keyframes slagboom{0%,10%{transform:rotate(0)}17%,38%{transform:rotate(-58deg)}45%,100%{transform:rotate(0)}}
-.anim-auto-y-terug{animation:rijden-y-terug 9s linear infinite}@keyframes rijden-y-terug{0%{transform:translate(-58px,34px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(58px,-34px);opacity:0}}
+.anim-auto-y-terug{animation:rijden-y-terug 9s linear infinite}@keyframes rijden-y-terug{0%{transform:translate(-58px,34px);opacity:0}3%{opacity:1}97%{opacity:1}100%{transform:translate(58px,-34px);opacity:0}}
 .anim-knipper{animation:knipper 1.6s steps(1) infinite}@keyframes knipper{0%,55%{opacity:1}56%,100%{opacity:.12}}
 .anim-zwaailicht{animation:knipper .7s steps(1) infinite}
 .anim-fiets{animation:rijden 14s linear infinite}
+.anim-pas{animation:pas 6s ease-in-out infinite}@keyframes pas{0%,10%{transform:none;opacity:1}32%,44%{transform:translate(var(--dx),var(--dy));opacity:1}50%{transform:translate(var(--dx),var(--dy));opacity:0}51%,86%{transform:none;opacity:0}92%,100%{transform:none;opacity:1}}
+.led-deur{animation:leddeur 6s infinite}@keyframes leddeur{0%,36%{fill:#D9362B}40%,74%{fill:#3DBE7A}78%,100%{fill:#D9362B}}
+.anim-deur{animation:deur 6s ease-in-out infinite}@keyframes deur{0%,40%{transform:scaleX(1)}50%,74%{transform:scaleX(.22)}84%,100%{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>"""
 
