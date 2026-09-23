@@ -51,6 +51,8 @@ section,.sectie{padding:var(--sectie) 0}
 @media (min-width:900px){section,.sectie{padding:104px 0}}
 .sectie--wit{background:var(--paneel);border-top:var(--lijndikte) solid var(--lijn);border-bottom:var(--lijndikte) solid var(--lijn)}
 .sectie--lijn{border-top:var(--lijndikte) solid var(--lijn)}
+.sectie--wit .kolommen>div,.sectie--wit .stappen li,.sectie--wit .paneel,.sectie--wit .faq,.sectie--wit table{background:#F6F8FA}   /* kaarten vallen niet weg op wit */
+.sectie--zacht{background:#EEF3F8;border-top:var(--lijndikte) solid #DCE5EE;border-bottom:var(--lijndikte) solid #DCE5EE}   /* lichtblauw-grijs uit het logoblauw, om en om met wit */
 /* groene accenten: alleen het duurzaamheidsblok en de Magtec-pagina */
 .sectie--groen{background:#F1F8F3;border-top:var(--lijndikte) solid #D6E9DC;border-bottom:var(--lijndikte) solid #D6E9DC}
 .sectie--groen .label{color:var(--signaal)}

@@ -672,6 +672,24 @@ def _lastmod(pad, inhoud):
         _LASTMOD[pad] = {"hash": h, "datum": VANDAAG.isoformat()}
     return _LASTMOD[pad]["datum"]
 
+def afwisselen(html_body):
+    """Achtergronden om en om (Lars, 23-09-2026): geen twee opeenvolgende blokken met dezelfde kleur. De hero is warm gebroken wit,
+    het aanvraagblok onderaan altijd lichtblauw; daartussen wit en lichtblauw om en om, terug gerekend vanaf het aanvraagblok.
+    Groene blokken (duurzaamheid) houden hun kleur en tellen mee als eigen kleur."""
+    delen = re.split(r'(<section class="reveal[^"]*"(?: id="[^"]*")?)', html_body)
+    tags = [i for i in range(1, len(delen), 2)]
+    kleuren, volgende = {}, "zacht"                                                     # het aanvraagblok
+    for i in reversed(tags):
+        t = delen[i]
+        if 'id="aanvraag"' in t: kleuren[i] = "zacht"; volgende = "wit"; continue
+        if "sectie--groen" in t: kleuren[i] = "groen"; continue
+        kleuren[i] = volgende; volgende = "zacht" if volgende == "wit" else "wit"
+    for i in tags:
+        t = re.sub(r" sectie--(wit|lijn|zacht)", "", delen[i])
+        if kleuren[i] != "groen": t = t.replace('class="reveal', f'class="reveal sectie--{kleuren[i]}', 1)
+        delen[i] = t
+    return "".join(delen)
+
 def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=(), paginatype="WebPage",
             noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie"):
     """Schrijft dist/<pad>/index.html. pad begint en eindigt met een slash."""
@@ -680,6 +698,7 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
     faq_html = faqblok(faq) if faq else ""
     form_html = formulier(kop=formulier_kop) if met_formulier else ""
     volledige_body = kruimel_html + body + faq_html + form_html
+    volledige_body = afwisselen(volledige_body)
     datum = _lastmod(pad, body)
     beelden = [b for b in _BEELDEN_PAGINA if "adviseur-" not in b[0]]; _BEELDEN_PAGINA.clear()   # adviseurfoto's tellen niet als paginabeeld
     graph = [bedrijf_ld(), website_ld(), webpage_ld(pad, titel, omschrijving, paginatype, datum, beelden), kruimels_ld(kruimelpad)]
