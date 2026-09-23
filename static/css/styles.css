@@ -84,12 +84,21 @@ section,.sectie{padding:var(--sectie) 0}
 .nav li{margin:0}
 .nav a{color:var(--op-donker);text-decoration:none;font-weight:500;padding:6px 0;display:inline-block;border-bottom:2px solid transparent;white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--link-donker);border-bottom-color:var(--link-donker)}
+/* uitklapmenu onder Over ons (Lars, 23-09-2026) */
+.nav .heeft-sub{position:relative}
+.nav .heeft-sub>a svg{margin-left:4px;vertical-align:1px}
+.nav .sub{display:none;position:absolute;top:100%;left:-16px;min-width:230px;flex-direction:column;gap:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:8px 0;box-shadow:0 12px 28px rgba(20,35,46,.12);z-index:60}
+.nav .sub a{display:block;padding:9px 16px;border:0;color:var(--kop)}
+.nav .sub a:hover{background:var(--papier);color:var(--primair)}
+.nav .heeft-sub:hover>.sub,.nav .heeft-sub:focus-within>.sub{display:flex}
 .bel:hover,.menu-knop:hover{border-color:var(--op-donker)}
 .kop a:focus-visible,.kop button:focus-visible{outline-color:var(--link-donker)}
 @media (max-width:1199px){
   .nav.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--donker);border-bottom:var(--lijndikte) solid var(--donker-lijn);padding:12px var(--goot) 20px;z-index:50}
   .nav.open ul{flex-direction:column;flex-wrap:wrap;gap:0;font-size:inherit}
   .nav.open a{display:block;padding:10px 0;border-bottom:var(--lijndikte) solid var(--donker-lijn)}
+  .nav.open .sub{display:flex;position:static;border:0;box-shadow:none;padding:0 0 0 16px;background:transparent;min-width:0}
+  .nav.open .heeft-sub>a svg{display:none}
 }
 @media (min-width:1200px){.nav{display:block}.menu-knop{display:none}}
 /* lichte header (test): wit vlak, zwart woordmerk, donkere navigatie */
@@ -205,7 +214,7 @@ figure{margin:0}
 figure img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--straal)}
 figcaption{font-size:.9em;color:var(--inkt-zacht);padding-top:8px}
 .foto-vlak{aspect-ratio:3/2;border:var(--lijndikte) solid var(--lijn);background:var(--paneel);display:flex;align-items:center;justify-content:center;color:var(--inkt-zacht);font-size:.9em;text-align:center;padding:16px}
-.portret img{aspect-ratio:4/5}   /* portretten v2 zijn staand (Lars, 23-09-2026) */
+.portret img{aspect-ratio:1}
 
 /* ---------- kolommen, stappen, tabellen, lijsten ---------- */
 .kolommen{display:grid;gap:24px}

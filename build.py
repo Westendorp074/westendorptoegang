@@ -169,8 +169,8 @@ VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaal
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
 ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer
-    {"naam": "Lars", "functie": "adviseur toegangscontrole", "foto": "lars-adviseur-westendorp-toegangscontrole.png", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portret v2, staand 4:5 (23-09-2026)
-    {"naam": "Nick", "functie": "adviseur toegangscontrole", "foto": "nick-adviseur-westendorp-toegangscontrole.png", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+    {"naam": "Lars", "functie": "adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portret v2, staand 4:5 (23-09-2026)
+    {"naam": "Nick", "functie": "adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
 ]
 ADVISEUR = ADVISEURS[0]
 ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of Nick"
@@ -533,12 +533,18 @@ DIENSTEN_NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische slot
 NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
        ("Sluitplan", "/sluitplan/"), ("Kosten", "/kosten/"), ("Service", "/service-en-beheer/"),
        ("Kennisbank", "/kennisbank/"), ("Over ons", "/over-ons/"), ("Contact", "/contact/")]   # Kennisbank bovenin (Lars, 23-09-2026)
+SUBNAV = {"/over-ons/": [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaamheid/"), ("Beveiliging en certificaten", "/over-ons/#beveiliging")]}   # uitklapmenu (Lars, 23-09-2026)
 
 _ICOON_BEL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
 _ICOON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 
 def header(pad):
-    items = "".join(f'<li><a href="{u}"{" aria-current=\"page\"" if u == pad else ""}>{esc(n)}</a></li>' for n, u in NAV)
+    def item(n, u):
+        huidig = " aria-current=\"page\"" if u == pad or (u in SUBNAV and pad in [s for _, s in SUBNAV[u]]) else ""
+        if u not in SUBNAV: return f'<li><a href="{u}"{huidig}>{esc(n)}</a></li>'
+        sub = "".join(f'<li><a href="{su}">{esc(sn)}</a></li>' for sn, su in SUBNAV[u])
+        return f'<li class="heeft-sub"><a href="{u}"{huidig} aria-haspopup="true">{esc(n)}<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"/></svg></a><ul class="sub">{sub}</ul></li>'
+    items = "".join(item(n, u) for n, u in NAV)
     return f'''<header class="kop{' kop--licht' if HEADER_LICHT else ''}"><div class="wrap">
 <a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="{_ASSETS["logo"]}" alt="{esc(NAAM)}" width="2053" height="647"></a>
 <nav class="nav" id="nav" aria-label="Hoofdmenu"><ul>{items}</ul></nav>

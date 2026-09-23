@@ -38,10 +38,7 @@ def bouw():
         ("Nemen jullie ook een mechanisch sluitplan van een ander bedrijf over?", "Ja, als het systeem nog leverbaar is en u de sleutelkaart heeft. Anders adviseren wij een nieuw plan; zie <a href=\"/sluitplan/\">sluitplan</a>."),
     ]
 
-    foto = beeld("westendorp-toegangscontrole-onderhoud-elektronische-deur-enschede-2026.jpg",
-                 "Monteur van Westendorp leest een elektronisch slot uit met een tablet bij een buitendeur in Enschede",
-                 onderschrift="Onderhoud aan een elektronische deur, Enschede, 2026")   # foto van Lars (23-09-2026)
-    body = hero("Service en beheer van uw toegangscontrole", intro, foto) + wat + ander + contract
+    body = hero("Service en beheer van uw toegangscontrole", intro) + wat + ander + contract
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Service en beheer", PAD)],
             extra_ld=[service_ld(PAD, "Onderhoud en beheer toegangscontrole", omschrijving)], formulier_kop="Storing melden of onderhoud aanvragen",
             llms="Storing, onderhoud, uitbreiding en beheer van toegangscontrole, ook voor systemen van andere installateurs; contractvormen en reactietijden.")

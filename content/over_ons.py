@@ -37,8 +37,8 @@ def bouw():
         "Elektronische toegang scheelt vervangen: een verloren pas blokkeert u in de software, de cilinders blijven zitten en er worden geen extra sleutels gemaakt. Zo gaat er geen messing of staal verloren aan sleutelverlies.",
         "Voor de mechanische deuren voeren wij standaard ABUS Magtec: loodvrij geproduceerd en met 46 procent minder broeikasgasemissies dan een conventionele cilinder, berekend door ClimatePartner. "
         "Alles daarover staat op <a href=\"/duurzaamheid/\">duurzaamheid</a>.")
-    uitklap = "".join(f'<details{" open" if i == 0 else ""}><summary>{esc(k)}</summary><div class="antwoord">{t}</div></details>' for i, (k, t) in enumerate([
-        ("Wie zijn wij als bedrijf", verhaal_tekst), ("Beveiliging en certificaten", beveiliging_tekst), ("Duurzaamheid", duurzaam_tekst)]))
+    uitklap = "".join(f'<details id="{a}"{" open" if i == 0 else ""}><summary>{esc(k)}</summary><div class="antwoord">{t}</div></details>' for i, (a, k, t) in enumerate([
+        ("wie-zijn-wij", "Wie zijn wij als bedrijf", verhaal_tekst), ("beveiliging", "Beveiliging en certificaten", beveiliging_tekst), ("duurzaamheid", "Duurzaamheid", duurzaam_tekst)]))
     verhaal = sectie("Meer over ons", f'<div class="rooster"><div class="k8"><div class="faq">{uitklap}</div></div></div>', wit=True, kicker="Uitklappen")
 
     personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")

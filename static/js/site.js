@@ -173,3 +173,9 @@
     });
   });
 })();
+
+// uitklapblok openen als het adres ernaar wijst (bijv. /over-ons/#beveiliging vanuit het menu)
+(function () {
+  function open() { var d = location.hash && document.getElementById(location.hash.slice(1)); if (d && d.tagName === "DETAILS") { d.open = true; d.scrollIntoView(); } }
+  open(); window.addEventListener("hashchange", open);
+})();
