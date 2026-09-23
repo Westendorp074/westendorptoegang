@@ -320,9 +320,10 @@ def iso_bestand(sleutel):
     uit = DIST / "static" / "img" / "iso"; uit.mkdir(parents=True, exist_ok=True)
     svg = isometrie.SECTOREN[sleutel]()
     svg = svg.replace('class="iso">', 'class="iso">' + ISO_CSS, 1)
-    (uit / f"{sleutel}.svg").write_text(svg, encoding="utf-8")
+    naam = f"{sleutel}.{hashlib.md5(svg.encode()).hexdigest()[:8]}.svg"   # versiehash: /static/ wordt lang gecachet, een nieuwe scène moet een nieuwe naam krijgen
+    (uit / naam).write_text(svg, encoding="utf-8")
     alt = re.search(r'aria-label="([^"]+)"', svg).group(1)
-    return f'<img src="/static/img/iso/{sleutel}.svg" alt="{alt}" width="444" height="350" loading="lazy" class="iso">'
+    return f'<img src="/static/img/iso/{naam}" alt="{alt}" width="444" height="350" loading="lazy" class="iso">'
 
 def sectorrij(items, kop, intro=None, kicker="Sectoren"):
     """Horizontaal scrollende rij met illustratie, kop, tekst en twee knoppen (Lars wil knoppen, geen tekstlinks): inventarisatie en meer informatie."""
