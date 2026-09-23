@@ -27,6 +27,9 @@ GEEL_T, GEEL_L, GEEL_R = "#F7D774", "#E9B93A", "#C4951C"      # ambulance
 NL_ROOD, NL_BLAUW = "#AE1C28", "#21468B"                      # Nederlandse vlag
 WIEL = "#1F2428"
 PAAL = "#6B7680"
+SCHADUW = "#14232E"                                             # slagschaduw (met lage dekking)
+KOZIJN, KOZIJN2 = "#8FA9BE", "#A9BFD0"                          # raamkozijnen op het linker- en rechtervlak
+STOEPRAND = "#C3CBD3"
 
 CX, CY = math.cos(math.radians(30)), math.sin(math.radians(30))
 EPS = 1e-6
@@ -54,8 +57,9 @@ class Scene:
 
     # ---------- grondvlak ----------
     def vlak(self, x, y, w, d, kleur, z=0):
-        """Plat vlak op de grond (weg, gras, plein). z alleen als laagvolgorde binnen het grondvlak."""
-        self.voeg((x, y, z, x + w, y + d, z), _poly([self.P(x, y, 0), self.P(x + w, y, 0), self.P(x + w, y + d, 0), self.P(x, y + d, 0)], kleur), grond=True)
+        """Plat vlak op de grond (weg, gras, plein). z alleen als laagvolgorde binnen het grondvlak. Gras en bestrating krijgen een fijne textuur."""
+        fill = {GROEN2: "url(#p-gras)", GROND2: "url(#p-tegels)"}.get(kleur, kleur)
+        self.voeg((x, y, z, x + w, y + d, z), _poly([self.P(x, y, 0), self.P(x + w, y, 0), self.P(x + w, y + d, 0), self.P(x, y + d, 0)], fill), grond=True)
     def zebra(self, x, y, w, d, n=5):
         for i in range(n):
             self.vlak(x + w * i / n + w / n * 0.15, y, w / n * 0.5, d, STREEP, 0.01)
@@ -87,9 +91,12 @@ class Scene:
     def blok(self, x, y, z, w, d, h, top, links, rechts, ramen=None, deur=None, lichtjes=False):
         """Gebouwblok: drie vlakken. ramen=(rijen, kolommen) tekent glas op beide zijvlakken; deur=(dx, breedte, hoogte) met lezer."""
         P = self.P; uit = []
+        if z == 0 and h >= 0.3:                                                                                   # zachte slagschaduw op de grond, naar rechtsvoor
+            sx, sy = min(0.9, 0.22 * h), min(0.35, 0.07 * h)
+            self.voeg((x, y, 0.003, x + w + sx, y + d + sy, 0.003), _poly([P(x + sx, y + sy, 0), P(x + w + sx, y + sy, 0), P(x + w + sx, y + d + sy, 0), P(x + sx, y + d + sy, 0)], SCHADUW, ' opacity=".09"'), grond=True)
         uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], links))    # linkervlak (y=d)
         uit.append(_poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], rechts))   # rechtervlak (x=w)
-        uit.append(_poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], top))       # bovenvlak
+        uit.append(_poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], top, f' stroke="{rechts}" stroke-width=".6" stroke-opacity=".45"'))   # bovenvlak met dakrand
         if ramen:
             rijen, kol = ramen
             for r in range(rijen):
@@ -97,12 +104,18 @@ class Scene:
                 for k in range(kol):
                     xx = x + w * (k + 0.2) / kol; ww = w / kol * 0.6
                     lk = f' class="anim-licht anim-licht-{(r * 3 + k) % 4}"' if lichtjes and (r * 7 + k * 3) % 5 == 0 else ""
-                    uit.append(_poly([P(xx, y + d, zz), P(xx + ww, y + d, zz), P(xx + ww, y + d, zz + hh), P(xx, y + d, zz + hh)], GLAS, lk))
+                    uit.append(_poly([P(xx, y + d, zz), P(xx + ww, y + d, zz), P(xx + ww, y + d, zz + hh), P(xx, y + d, zz + hh)], GLAS, lk + f' stroke="{KOZIJN}" stroke-width=".5"'))
+                    m0, m1 = P(xx + ww / 2, y + d, zz), P(xx + ww / 2, y + d, zz + hh)                                # tussenstijl
+                    uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN}" stroke-width=".5"/>')
                     yy = y + d * (k + 0.2) / kol; dd = d / kol * 0.6
-                    uit.append(_poly([P(x + w, yy, zz), P(x + w, yy + dd, zz), P(x + w, yy + dd, zz + hh), P(x + w, yy, zz + hh)], GLAS2))
+                    uit.append(_poly([P(x + w, yy, zz), P(x + w, yy + dd, zz), P(x + w, yy + dd, zz + hh), P(x + w, yy, zz + hh)], GLAS2, f' stroke="{KOZIJN2}" stroke-width=".5"'))
+                    m0, m1 = P(x + w, yy + dd / 2, zz), P(x + w, yy + dd / 2, zz + hh)
+                    uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN2}" stroke-width=".5"/>')
         if deur:
             dx, dw, dh = deur
-            uit.append(_poly([P(x + dx, y + d, z), P(x + dx + dw, y + d, z), P(x + dx + dw, y + d, z + dh), P(x + dx, y + d, z + dh)], DONKER))
+            uit.append(_poly([P(x + dx, y + d, z), P(x + dx + dw, y + d, z), P(x + dx + dw, y + d, z + dh), P(x + dx, y + d, z + dh)], DONKER, f' stroke="{KOZIJN}" stroke-width=".6"'))
+            kx, ky = P(x + dx + dw * 0.8, y + d, z + dh * 0.5)                                                        # deurklink
+            uit.append(f'<circle cx="{kx:.1f}" cy="{ky:.1f}" r="1" fill="{LICHT}"/>')
             lx, ly = P(x + dx + dw + 0.35, y + d, z + dh * 0.55)
             uit.append(f'<rect x="{lx-3:.1f}" y="{ly-6:.1f}" width="6" height="12" rx="1" fill="#FFFFFF" stroke="{DONKER}" stroke-width="0.6"/>'
                        f'<circle class="led" cx="{lx:.1f}" cy="{ly-2:.1f}" r="1.6" fill="{GROEN}"/>')
@@ -175,16 +188,19 @@ class Scene:
 
     # ---------- straatmeubilair ----------
     def boom(self, x, y, r=0.55, h=1.4, wind=True):
-        P = self.P; bx, by = P(x, y, 0); tx, ty = P(x, y, h)
+        r = r * (1 + 0.12 * ((self._bomen % 3) - 1)); h = h * (1 + 0.08 * ((self._bomen % 2) - 0.5))            # geen twee bomen precies gelijk
+        P = self.P; bx, by = P(x, y, 0); tx, ty = P(x, y, h); rs = r * self.s
+        self.voeg((x, y, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x + 0.3 * r) * self.s:.1f}" cy="{(y + 0.15 * r) * self.s:.1f}" rx="{r * self.s * 0.9:.1f}" ry="{r * self.s * 0.6:.1f}" fill="{SCHADUW}" opacity=".1"/>'), grond=True)
         svg = (f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{tx:.1f}" y2="{ty:.1f}" stroke="{STAM}" stroke-width="2"/>'
-               f'<circle cx="{tx:.1f}" cy="{ty - r * self.s * 0.5:.1f}" r="{r * self.s:.1f}" fill="{GROEN}"/>'
-               f'<circle cx="{tx - r * self.s * 0.3:.1f}" cy="{ty - r * self.s * 0.7:.1f}" r="{r * self.s * 0.6:.1f}" fill="{GROEN2}"/>')
+               f'<circle cx="{tx:.1f}" cy="{ty - rs * 0.5:.1f}" r="{rs:.1f}" fill="{GROEN}"/>'
+               f'<circle cx="{tx + rs * 0.22:.1f}" cy="{ty - rs * 0.3:.1f}" r="{rs * 0.62:.1f}" fill="{GROENDONKER}" opacity=".28"/>'
+               f'<circle cx="{tx - rs * 0.3:.1f}" cy="{ty - rs * 0.7:.1f}" r="{rs * 0.55:.1f}" fill="{GROEN2}"/>')
         if wind:
             svg = f'<g class="anim-boom anim-boom-{self._bomen % 3}" style="transform-origin:{bx:.1f}px {by:.1f}px">{svg}</g>'; self._bomen += 1
         self.voeg((x - r, y - r, 0, x + r, y + r, h + 1.3 * r), svg, pad=(4, 2, 4, 2))
     def lantaarn(self, x, y, h=1.6):
         P = self.P; bx, by = P(x, y, 0); tx, ty = P(x, y, h)
-        self.voeg((x, y, 0, x, y, h), f'<line x1="{bx:.0f}" y1="{by:.0f}" x2="{tx:.0f}" y2="{ty:.0f}" stroke="{PAAL}" stroke-width="1.5"/><circle cx="{tx:.0f}" cy="{ty:.0f}" r="2.2" fill="#FFF3B0" stroke="{PAAL}" stroke-width="0.6"/>', pad=(3, 3, 3, 3))
+        self.voeg((x, y, 0, x, y, h), f'<circle cx="{tx:.0f}" cy="{ty:.0f}" r="6" fill="#FFE9A0" opacity=".18"/><line x1="{bx:.0f}" y1="{by:.0f}" x2="{tx:.0f}" y2="{ty:.0f}" stroke="{PAAL}" stroke-width="1.5"/><circle cx="{tx:.0f}" cy="{ty:.0f}" r="2.2" fill="#FFF3B0" stroke="{PAAL}" stroke-width="0.6"/>', pad=(7, 7, 7, 7))
     def lichtmast(self, x, y, h=4.2):
         """Lichtmast van een sportveld: hoge paal met lampenbak."""
         P = self.P; bx, by = P(x, y, 0); tx, ty = P(x, y, h)
@@ -357,8 +373,12 @@ class Scene:
         for i in range(n): bezoek(i)
         return grond + [ruim[i] for i in volg]
     def svg(self, breedte, hoogte, label):
+        defs = (f'<defs><pattern id="p-gras" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="{GROEN2}"/>'
+                f'<circle cx="2" cy="3" r=".8" fill="#62CC92"/><circle cx="6.5" cy="7" r=".8" fill="#62CC92"/></pattern>'
+                f'<pattern id="p-tegels" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="{GROND2}"/>'
+                f'<circle cx="4" cy="4" r=".7" fill="#D2D8DE"/></pattern></defs>')
         return (f'<svg viewBox="0 0 {breedte} {hoogte}" width="{breedte}" height="{hoogte}" role="img" aria-label="{label}" '
-                f'xmlns="http://www.w3.org/2000/svg" class="iso">' + "".join(d[1] for d in self._volgorde(self.delen)) + "</svg>")
+                f'xmlns="http://www.w3.org/2000/svg" class="iso">' + defs + "".join(d[1] for d in self._volgorde(self.delen)) + "</svg>")
 
 # ---------- gedeelde bouwstenen ----------
 G = 12.2   # grondvlak 12.2 x 12.2
@@ -368,10 +388,12 @@ def _nieuw():
 
 def _weg_x(sc, y, b=1.0, x0=0, x1=G, streep=True):
     sc.vlak(x0, y, x1 - x0, b, WEG)
+    for k in (y + 0.02, y + b - 0.02): sc.lijn_grond(x0, k, x1, k, STOEPRAND, 0.6, z=0.012)                    # stoepranden
     if streep: sc.lijn_grond(x0 + 0.3, y + b / 2, x1 - 0.3, y + b / 2, "#FFFFFF", 0.8)
 
 def _weg_y(sc, x, b=1.0, y0=0, y1=G, streep=True):
     sc.vlak(x, y0, b, y1 - y0, WEG)
+    for k in (x + 0.02, x + b - 0.02): sc.lijn_grond(k, y0, k, y1, STOEPRAND, 0.6, z=0.012)
     if streep: sc.lijn_grond(x + b / 2, y0 + 0.3, x + b / 2, y1 - 0.3, "#FFFFFF", 0.8)
 
 def _stad(sc):
