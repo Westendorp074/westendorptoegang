@@ -383,17 +383,20 @@ def _stad(sc):
     for k in (3.3, 7.7):
         for m in (0.6, 5.0, 9.4, 11.8): sc.lantaarn(m, k); sc.lantaarn(k, m)
 
-def _aansluiting(sc, y_weg, breedte=14):
-    """Verbindt de doorgaande weg op y_weg met de linker- en rechterrand van het beeld (op de hoogte van de zijpunten van het
-    eilandje), zodat de weg in de sectorrij van kaart naar kaart doorloopt (Lars, 23-09-2026). Getekend in de grondlaag."""
-    rand_y = sc.oy + G * CY * sc.s                                   # hoogte van de linker- en rechterpunt van het grondvlak
-    ex, ey = sc.P(0, y_weg + 0.5, 0); ux, uy = sc.P(G, y_weg + 0.5, 0)
-    ex += 3; ey += 1.7; ux -= 3; uy -= 1.7                            # ietsje het eiland in, zodat er geen naad zit
-    inrit = f"M0,{rand_y:.1f} C{ex*0.45:.1f},{rand_y:.1f} {ex-45:.1f},{ey-26:.1f} {ex:.1f},{ey:.1f}"
-    uitrit = f"M{ux:.1f},{uy:.1f} C{ux+38:.1f},{uy+22:.1f} {444-(444-ux)*0.45:.1f},{rand_y:.1f} 444,{rand_y:.1f}"
+def _aansluiting(sc, y_weg):
+    """Verbindt de doorgaande weg (breedte 1.0, kleur WEG, op y_weg) met de linker- en rechterrand van het beeld op de hoogte van de
+    zijpunten van het eilandje, zodat de weg in de sectorrij van kaart naar kaart doorloopt (Lars, 23-09-2026).
+    Het verbindingsstuk loopt eerst recht in de richting van de weg het eiland in en uit (zelfde breedte en kleur, dus geen naad)
+    en bocht daarna naar de rand. Grondlaag: onder alle gebouwen."""
+    rand_y = sc.oy + G * CY * sc.s; yc = y_weg + 0.5
+    breedte = 2 * CX * sc.s * CY                             # (x-richting: afstand tussen de randen y en y+1)
+    bi, bu = sc.P(1.0, yc, 0), sc.P(-1.1, yc, 0)              # inrit: binnen en buiten het eiland
+    ui, uu = sc.P(G - 1.0, yc, 0), sc.P(G + 0.8, yc, 0)       # uitrit
+    inrit = f"M0,{rand_y:.1f} C{bu[0]*0.4:.1f},{rand_y:.1f} {bu[0]-34:.1f},{bu[1]-19.6:.1f} {bu[0]:.1f},{bu[1]:.1f} L{bi[0]:.1f},{bi[1]:.1f}"
+    uitrit = f"M{ui[0]:.1f},{ui[1]:.1f} L{uu[0]:.1f},{uu[1]:.1f} C{uu[0]+30:.1f},{uu[1]+17:.1f} {444-(444-uu[0])*0.5:.1f},{rand_y:.1f} 444,{rand_y:.1f}"
     for d in (inrit, uitrit):
-        sc.voeg((-9, -9, 0.004, -8, -8, 0.004), f'<path d="{d}" fill="none" stroke="{WEG}" stroke-width="{breedte}" stroke-linecap="butt"/>'
-                f'<path d="{d}" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="6 5"/>', grond=True)
+        sc.voeg((-9, -9, 0.004, -8, -8, 0.004), f'<path d="{d}" fill="none" stroke="{WEG}" stroke-width="{breedte:.1f}"/>'
+                f'<path d="{d}" fill="none" stroke="#FFFFFF" stroke-width="0.8"/>', grond=True)
 
 def _bomen(sc, punten, r=0.5, h=1.3):
     for x, y in punten: sc.boom(x, y, r, h)
@@ -448,7 +451,8 @@ def zorg():
 def onderwijs():
     """Onderwijs: bakstenen basisschool met klok, schoolplein met hinkelbaan, klimrek, glijbaan en zandbak, fietsenrekken vol fietsen, gymzaal, kinderopvang; bal stuitert, schoolvlag wappert, een fietser rijdt over het fietspad."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
-    sc.vlak(0, 8.2, G, 0.8, FIETSPAD); sc.lijn_grond(0.3, 8.6, G - 0.3, 8.6, "#FFFFFF", 0.6); _aansluiting(sc, 8.1, 12)   # fietspad (rood asfalt)
+    _weg_x(sc, 8.2); _aansluiting(sc, 8.2)                                                                    # straat langs de school
+    sc.vlak(0, 9.35, G, 0.6, FIETSPAD)                                                                           # rood fietspad naast de straat
     sc.blok(0.4, 0.4, 0, 5.0, 2.6, 2.2, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 5), deur=(2.2, 0.8, 1.3))            # school, begane grond
     sc.blok(0.4, 0.4, 2.2, 2.4, 2.6, 1.6, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 2))                                  # verdieping
     sc.klok(4.4, 3.0, 1.75)                                                                                    # klok op de gevel
@@ -465,8 +469,8 @@ def onderwijs():
     sc.blok(6.6, 0.4, 0, 5.2, 3.0, 2.6, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 4))                                   # gymzaal
     sc.blok(6.6, 4.2, 0, 5.2, 2.6, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(2.2, 0.6, 1.0))               # kinderopvang
     sc.vlak(6.6, 6.9, 5.2, 0.9, GROEN2); _bomen(sc, [(7.2, 7.3), (9.4, 7.3), (11.4, 7.3)], 0.4, 1.0)
-    sc.fietser(4.0, 8.35)
-    sc.vlak(0, 9.2, G, 3.0, GROEN2)
+    sc.fietser(4.0, 9.55)
+    sc.vlak(0, 10.0, G, 2.2, GROEN2)
     _bomen(sc, [(3.0, 10.2), (5.4, 9.9), (7.6, 11.0), (9.6, 9.9), (11.4, 11.2), (4.2, 11.6)])
     return sc.svg(444, 350, "Isometrische tekening van een basisschool met schoolplein, hinkelbaan, speeltoestellen, fietsenrek, gymzaal en fietspad")
 
@@ -499,7 +503,7 @@ def vve():
 def verenigingen():
     """Verenigingen: sportpark met voetbalveld met doelen en lichtmasten, atletiekbaan, tennisbanen met net, basketbalveld, tribune, clubhuis met terras en clubvlag, sporthal; loper rondt de baan, bal rolt, vlag wappert."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROEN2)
-    sc.vlak(0, 8.0, G, 0.7, GROND2); sc.vlak(6.6, 0, 0.6, 8.0, GROND2); _aansluiting(sc, 7.85, 12)             # paden
+    _weg_x(sc, 8.0); sc.vlak(6.6, 0, 0.6, 8.0, GROND2); _aansluiting(sc, 8.0)                                # toegangsweg en pad
     sc.vlak(0.4, 0.4, 5.6, 3.6, GROEN); sc.rechthoek_grond(0.5, 0.5, 5.4, 3.4); sc.lijn_grond(3.2, 0.5, 3.2, 3.9)   # voetbalveld
     sc.ellips(3.2, 2.2, 0.5, 0.5, "none", STREEP); sc.rechthoek_grond(0.5, 1.4, 0.8, 1.6); sc.rechthoek_grond(5.1, 1.4, 0.8, 1.6)
     sc.doel(0.42, 1.65, 1.1, "y"); sc.doel(5.9, 1.65, 1.1, "y")
@@ -515,7 +519,7 @@ def verenigingen():
     sc.ellips(5.3, 6.5, 0.4, 0.4, "none", "#FFFFFF", 0.7); sc.basket(5.3, 5.25); sc.basket(5.3, 7.75)
     sc.blok(7.6, 5.0, 0, 3.4, 2.4, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(1.2, 0.6, 1.0))               # clubhuis
     sc.vlak(7.6, 7.4, 3.4, 0.6, ZAND_T); sc.vlag(11.5, 7.6, 2.4, LICHT)                                        # terras en clubvlag
-    for i in range(5): sc.fiets(1.0 + i * 0.6, 8.35, DONKER)                                                    # fietsen langs het pad
+    for i in range(5): sc.fiets(0.8 + i * 0.6, 9.4, DONKER)                                                    # fietsen langs het pad
     sc.blok(3.6, 9.0, 0, 5.2, 2.8, 2.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(2.2, 0.7, 1.1))               # sporthal in het midden (in- en uitrit vrij)
     _bomen(sc, [(2.2, 10.2), (1.4, 11.6), (10.0, 9.6), (11.4, 10.8), (10.2, 11.7), (11.8, 4.6), (6.9, 4.6)], 0.5, 1.3)
     return sc.svg(444, 350, "Isometrische tekening van een sportpark met voetbalveld, lichtmasten, atletiekbaan, tennisbanen, basketbalveld, clubhuis en sporthal")
@@ -523,7 +527,7 @@ def verenigingen():
 def recreatie():
     """Recreatiepark in het bos: veel kleine huisjes met puntdak, luxe bungalows aan het water, meer met steiger, zwembad, speeltuin, receptie met slagboom; water beweegt, bomen wuiven, één auto rijdt het park op en de slagboom gaat open."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROEN2)
-    sc.vlak(8.6, 0, 0.9, G, GROND2); sc.vlak(0, 5.0, G, 0.7, GROND2); sc.vlak(4.2, 0, 0.6, 5.0, GROND2); _aansluiting(sc, 4.85, 12)   # lanen
+    sc.vlak(8.6, 0, 0.9, G, GROND2); _weg_x(sc, 5.0); sc.vlak(4.2, 0, 0.6, 5.0, GROND2); _aansluiting(sc, 5.0)   # lanen
     sc.ellips(2.6, 8.9, 2.3, 1.9, LICHT); sc.groep("anim-water", lambda: sc.ellips(2.6, 8.9, 2.0, 1.6, GLAS2, z=0.02))   # meer
     for i in range(5): sc.blok(4.6 + i * 0.3, 8.7, 0, 0.28, 0.5, 0.15, ZAND_T, ZAND_L, ZAND_R)                  # steiger
     sc.ellips(1.4, 9.8, 0.35, 0.18, "#FFFFFF", DAK_L, 0.8, z=0.03)                                              # roeiboot
@@ -599,8 +603,8 @@ def overheid():
 def retail():
     """Retail: winkelstraat met vier winkels met gekleurde luifels en etalages, supermarkt met parkeerplaats en winkelwagentjes, bloemenkraam; een bestelbus rijdt."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
-    sc.vlak(0, 3.6, G, 1.4, GROND2); sc.vlak(0, 6.4, G, 0.8, GROND2)                                           # brede stoep (winkelstraat)
-    _weg_x(sc, 5.0, 1.4); sc.zebra(5.4, 5.0, 1.2, 1.4, 4); _aansluiting(sc, 5.2, 16)
+    sc.vlak(0, 3.6, G, 1.4, GROND2); sc.vlak(0, 6.0, G, 1.0, GROND2)                                           # brede stoep (winkelstraat)
+    _weg_x(sc, 5.0); sc.zebra(5.4, 5.0, 1.2, 1.0, 4); _aansluiting(sc, 5.0)
     for m in (1.5, 5.0, 8.5, 11.5): sc.lantaarn(m, 4.9)
     def winkel(x, w, kl, luifel, ramen=(1, 2), deur=(0.3, 0.55, 1.1)):
         sc.blok(x, 0.6, 0, w, 3.0, 2.4, *kl, ramen=ramen)                                                        # winkel met woning erboven
@@ -622,7 +626,7 @@ def retail():
     sc.blok(4.2, 7.4, 0, 5.4, 3.2, 2.2, MIDDEN2, MIDDEN, DONKER, ramen=(1, 5), deur=(0.6, 1.2, 1.4))              # supermarkt (midden, uitrit blijft vrij)
     sc.blok(4.2, 7.4, 2.2, 5.4, 0.5, 0.45, LICHT2, LICHT, MIDDEN)                                                # naambord op de gevelrand
     sc.vlak(10.0, 7.4, 2.0, 3.4, GROEN2)
-    sc.auto(0.4, 5.35, DONKER, klas="anim-auto", lang=1.8)                                                       # bestelbus
+    sc.auto(0.4, 5.15, DONKER, klas="anim-auto", lang=1.8)                                                       # bestelbus
     _bomen(sc, [(2.0, 11.4), (10.6, 8.2), (11.4, 10.0), (10.4, 11.4), (0.6, 6.7)], 0.45, 1.2)
     return sc.svg(444, 350, "Isometrische tekening van een winkelstraat met luifels en etalages, een supermarkt met parkeerplaats en winkelwagentjes en een bestelbus")
 
