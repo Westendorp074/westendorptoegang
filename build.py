@@ -127,32 +127,32 @@ OFFERTE_BINNEN     = "zo snel mogelijk, afhankelijk van de omvang"
 REACTIE_STORING    = "binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar"
 
 SECTOREN = ["kantoren", "zorg", "onderwijs"]                          # INPUT §B7 aanname; pagina's pas in fase 2
-# Sectoren op de home en op /toegangscontrole/: (sleutel, kop als zoekterm, wat wij daar oplossen, wat er past). Volgorde van Lars (23-09-2026).
+# Sectoren op de home en op /toegangscontrole/: (sleutel, kop zonder 'toegangscontrole', wat wij daar oplossen, wat er past). Volgorde van Lars (23-09-2026).
 SECTOREN_LIJST = [
-    ("overheid", "Toegangscontrole voor gemeenten en overheid",
+    ("overheid", "Overheid",
      "Gemeentehuizen, gemeentewerven, wijkcentra en sporthallen van de gemeente: één systeem voor alle locaties, zones per afdeling en logging voor de accountant. Ook voor semi-overheid en gemeenschappelijke regelingen.",
      "Xesar online op de publieksingang zodat de receptie of bode op afstand opent, offline beslag op kantoren en werven, mechanische cilinders uit hetzelfde sluitplan op techniekruimtes."),
-    ("zorg", "Toegangscontrole in de zorg",
+    ("zorg", "Zorg",
      "Ziekenhuizen, verpleeghuizen, huisartsenposten en jeugdzorg: medicijnruimtes, cliëntkamers en personeelsingangen met een pas per medewerker. Bij personeelswisselingen trekt u de pas in, zonder cilinders te vervangen.",
      "Elektronisch beslag op cliëntkamers en medicijnruimtes, een wandlezer op de personeelsingang en rapportage per deur van wie wanneer binnen was."),
-    ("vve", "Toegangscontrole voor VvE en vastgoed",
+    ("vve", "VvE & Vastgoed",
      "Appartementencomplexen en verhuurde panden: gemeenschappelijke entree, bergingen en fietsenstalling met een pas of tag per woning. Bij een verhuizing blokkeert de beheerder de oude pas; sleutelkopieën die niet terugkomen zijn geen probleem meer.",
      "Een wandlezer op de gemeenschappelijke entree, elektronische cilinders op bergingen en stalling, en beheer door de VvE-beheerder in de software."),
-    ("industrie", "Toegangscontrole voor industrie en logistiek",
+    ("industrie", "Industrie & Logistiek",
      "Productiehallen, distributiecentra en bedrijventerreinen: ploegendiensten, zonering per afdeling en rapportage van wie waar was voor verzekeraar en auditor. Uit te breiden per deur, van kantoor tot laaddock.",
      "Online lezers op de hoofdingang en het laaddock, offline beslag op kantoren en magazijn; een koppeling met tijdregistratie of alarm bekijken wij in overleg."),
-    ("onderwijs", "Toegangscontrole op scholen",
-     "Basisscholen, middelbare scholen, mbo en kinderopvang: veel gebruikers, verhuur van lokalen en verloren sleutels. Zones en tijdsloten per groep; een kwijtgeraakte pas blokkeert de conciërge zelf.",
-     "Zones per bouwdeel, tijdsloten voor verhuur van gymzaal en aula, en een pas per leerkracht, conciërge en huurder."),
-    ("verenigingen", "Toegangscontrole voor verenigingen",
-     "Sportparken, clubhuizen, kerken en buurthuizen met vrijwilligers en wisselende gebruikers: tijdsloten voor trainingen, avonden en weekenden, en een pas die u intrekt als iemand stopt.",
-     "Een pas of tag per vrijwilliger met tijdslot, elektronische cilinders op clubhuis, kleedkamers en materiaalhok, beheer door één bestuurslid."),
-    ("recreatie", "Toegangscontrole op recreatieparken",
-     "Vakantieparken en campings: huisjes, sanitairgebouwen, zwembad en slagboom met toegang per boeking. Gasten wisselen elke week; de receptie geeft rechten uit en hoeft geen sleutels meer over te dragen.",
-     "Toegang per boeking op huisjes en sanitairgebouwen, de slagboom of poort aan een lezer, beheer vanuit de receptie."),
-    ("kantoren", "Toegangscontrole voor kantoren",
+    ("kantoren", "Kantoren",
      "Kantoorpanden en bedrijfsverzamelgebouwen: één pas per medewerker, flexwerken en verhuizingen zonder nieuw sluitplan. Rechten beheert u zelf, ook voor schoonmaak en leveranciers.",
      "Een wandlezer op de entree, elektronisch beslag op kantoren en vergaderruimtes, rechten per afdeling en per huurder."),
+    ("onderwijs", "Onderwijs",
+     "Basisscholen, middelbare scholen, mbo en kinderopvang: veel gebruikers, verhuur van lokalen en verloren sleutels. Zones en tijdsloten per groep; een kwijtgeraakte pas blokkeert de conciërge zelf.",
+     "Zones per bouwdeel, tijdsloten voor verhuur van gymzaal en aula, en een pas per leerkracht, conciërge en huurder."),
+    ("verenigingen", "Verenigingen",
+     "Sportparken, clubhuizen, kerken en buurthuizen met vrijwilligers en wisselende gebruikers: tijdsloten voor trainingen, avonden en weekenden, en een pas die u intrekt als iemand stopt.",
+     "Een pas of tag per vrijwilliger met tijdslot, elektronische cilinders op clubhuis, kleedkamers en materiaalhok, beheer door één bestuurslid."),
+    ("recreatie", "Recreatieparken",
+     "Vakantieparken en campings: huisjes, sanitairgebouwen, zwembad en slagboom met toegang per boeking. Gasten wisselen elke week; de receptie geeft rechten uit en hoeft geen sleutels meer over te dragen.",
+     "Toegang per boeking op huisjes en sanitairgebouwen, de slagboom of poort aan een lezer, beheer vanuit de receptie."),
 ]
 CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; monteurs PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen); getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20/21-09-2026)
 PKVW = "Onze monteurs zijn PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen) en gespecialiseerd in het vernieuwen van oudere panden met toegangscontrole, zonder de bestaande deuren te vervangen."
