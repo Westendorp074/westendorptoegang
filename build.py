@@ -329,7 +329,7 @@ def sectorrij(items, kop, intro=None, kicker="Sectoren"):
     kaarten = "".join(
         f'<article class="kaart"><div class="kaart__beeld">{iso_bestand(sleutel)}</div>'
         f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><p class="acties acties--kaart">{cta_knop("Plan een inventarisatie", "#aanvraag", f"sector-{sleutel}")}'
-        f'{cta_knop("Meer informatie", f"/toegangscontrole/#sector-{sleutel}", f"sector-{sleutel}-info", "knop knop--tweede")}</p></div></article>'
+        f'{cta_knop("Meer info", f"/toegangscontrole/#sector-{sleutel}", f"sector-{sleutel}-info", "knop knop--tweede")}</p></div></article>'
         for sleutel, k, t, _ in items)
     pijl_l = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>'
     pijl_r = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>'

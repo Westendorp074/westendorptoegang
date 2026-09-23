@@ -107,8 +107,10 @@ section,.sectie{padding:var(--sectie) 0}
 .knop--tweede{background:transparent;color:var(--kop);border:var(--lijndikte) solid var(--lijn-2)}
 .knop--tweede:hover{background:var(--paneel);color:var(--kop)}
 .acties{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin:28px 0 0}
-.acties--kaart{flex-direction:column;align-items:stretch;gap:10px;margin:20px 0 0}
-.acties--kaart .knop{padding:13px 16px;font-size:12px;text-align:center}
+/* knoppen in de sectorkaarten: rustig (Lars, 23-09-2026): twee compacte omrande knoppen naast elkaar, geen gevulde knop per kaart */
+.acties--kaart{gap:8px 10px;margin:20px 0 0}
+.acties--kaart .knop{padding:9px 12px;font-size:11px;background:transparent;color:var(--kop);border:var(--lijndikte) solid var(--lijn-2)}
+.acties--kaart .knop:hover{background:var(--paneel);border-color:var(--primair);color:var(--primair)}
 .acties .tel{font-weight:500}
 .knop--bel{display:inline-flex;align-items:center;gap:8px}.knop--bel svg{width:16px;height:16px;flex:none}
 
