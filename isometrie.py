@@ -553,7 +553,7 @@ def _bomen(sc, punten, r=0.5, h=1.3):
 # ---------- de acht sectoren ----------
 def kantoor():
     """Kantoren: zakendistrict met kantoortorens van glas, zendmast met knipperlicht, plein met fontein; ramen lichten om de beurt op, één auto rijdt."""
-    sc = _nieuw(); _stad(sc); _aansluiting(sc, 7.8)
+    sc = _nieuw(); sc.huid, sc.haar = "#7B4A2D", "#1E1A17"; _stad(sc); _aansluiting(sc, 7.8)
     sc.blok(0.3, 0.3, 0, 2.8, 2.8, 5.8, LICHT2, MIDDEN, DONKER, ramen=(6, 3), lichtjes=True)                 # hoogste toren
     sc.blok(1.5, 1.5, 5.8, 0.14, 0.14, 0.7, GRIJS_T, GRIJS_L, GRIJS_R)                                        # zendmast
     mx, my = sc.P(1.57, 1.57, 6.55); sc.voeg((1.5, 1.5, 6.5, 1.64, 1.64, 6.6), f'<circle class="anim-knipper" cx="{mx:.1f}" cy="{my:.1f}" r="2" fill="{KRUIS_L}"/>', pad=(3, 3, 3, 3))
@@ -712,7 +712,7 @@ def recreatie():
 def woningcorporatie():
     """Woningcorporaties: galerijflat met trappenhuis, portiekflat waar een huurder met een pas binnengaat, rij bergingen, wijkkantoor
     en de bus van de onderhoudsdienst; ondergrondse afvalcontainers. Eén auto rijdt."""
-    sc = _nieuw(); sc.huid, sc.haar = "#7B4A2D", "#1E1A17"; sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
     _weg_x(sc, 7.8); sc.zebra(5.4, 7.8, 1.2, 1.0, 4); _aansluiting(sc, 7.8)
     for m in (1.0, 4.5, 8.0, 11.5): sc.lantaarn(m, 7.7)
     sc.blok(0.4, 0.4, 0, 5.4, 2.2, 4.2, ROOD_T, ROOD_L, ROOD_R, ramen=(4, 5), dak="zon")                          # galerijflat

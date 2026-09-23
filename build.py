@@ -129,30 +129,30 @@ REACTIE_STORING    = "binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar"
 SECTOREN = ["kantoren", "zorg", "onderwijs"]                          # INPUT §B7 aanname; pagina's pas in fase 2
 # Sectoren op de home en op /toegangscontrole/: (sleutel, kop zonder 'toegangscontrole', wat wij daar oplossen, wat er past). Volgorde van Lars (23-09-2026).
 SECTOREN_LIJST = [
-    ("overheid", "Overheid",
-     "Gemeentehuizen, gemeentewerven, wijkcentra en sporthallen: één toegangscontrolesysteem voor alle gemeentelijke gebouwen, met zones per afdeling en een logboek voor de accountant. Ook voor semi-overheid en gemeenschappelijke regelingen.",
-     "Xesar online op de publieksingang zodat de receptie of bode op afstand opent, elektronisch beslag op kantoren en werven, en mechanische cilinders uit hetzelfde sluitplan op techniekruimtes."),
     ("zorg", "Zorg",
      "Ziekenhuizen, verpleeghuizen, huisartsenposten en jeugdzorg: medicijnruimtes, cliëntkamers en personeelsingangen met een toegangspas per medewerker. Bij personeelswisselingen trekt u de pas in; cilinders vervangen is niet meer nodig.",
      "Elektronisch beslag op cliëntkamers en medicijnruimtes, een wandlezer op de personeelsingang en rapportage per deur van wie wanneer binnen was."),
-    ("vve", "VvE & Vastgoed",
-     "Appartementencomplexen, verhuurde woningen en bedrijfsverzamelgebouwen: de eigenaar of beheerder regelt de toegang tot entree, bergingen en fietsenstalling met een pas of tag per woning of huurder. Bij een verhuizing blokkeert u de oude pas; sleutelbeheer zonder kopieën die niet terugkomen.",
-     "Een wandlezer op de gemeenschappelijke entree, elektronische cilinders op bergingen en stalling, en toegangsbeheer door de VvE-beheerder of vastgoedbeheerder in de software."),
     ("woningcorporatie", "Woningcorporaties",
      "Portiekflats, galerijflats en seniorencomplexen: gemeenschappelijke entrees, bergingen, liftmachinekamers en technische ruimtes in tientallen complexen. Bij een huurderswissel blokkeert u de oude pas; de eigen onderhoudsdienst en aannemers krijgen toegang met een tijdslot.",
      "Wandlezers op de entrees, elektronische cilinders op bergingen en technische ruimtes, tijdelijke rechten voor ketenpartners en centraal beheer over alle complexen."),
+    ("overheid", "Overheid",
+     "Gemeentehuizen, gemeentewerven, wijkcentra en sporthallen: één toegangscontrolesysteem voor alle gemeentelijke gebouwen, met zones per afdeling en een logboek voor de accountant. Ook voor semi-overheid en gemeenschappelijke regelingen.",
+     "Xesar online op de publieksingang zodat de receptie of bode op afstand opent, elektronisch beslag op kantoren en werven, en mechanische cilinders uit hetzelfde sluitplan op techniekruimtes."),
+    ("onderwijs", "Onderwijs",
+     "Basisscholen, middelbare scholen, mbo en kinderopvang: veel gebruikers, verhuur van lokalen en verloren sleutels. Elektronische sloten met zones en tijdsloten per groep; een kwijtgeraakte pas blokkeert de conciërge zelf.",
+     "Zones per bouwdeel, tijdsloten voor verhuur van gymzaal en aula, en een pas per leerkracht, conciërge en huurder."),
+    ("vve", "VvE & Vastgoed",
+     "Appartementencomplexen, verhuurde woningen en bedrijfsverzamelgebouwen: de eigenaar of beheerder regelt de toegang tot entree, bergingen en fietsenstalling met een pas of tag per woning of huurder. Bij een verhuizing blokkeert u de oude pas; sleutelbeheer zonder kopieën die niet terugkomen.",
+     "Een wandlezer op de gemeenschappelijke entree, elektronische cilinders op bergingen en stalling, en toegangsbeheer door de VvE-beheerder of vastgoedbeheerder in de software."),
+    ("kantoren", "Kantoren",
+     "Kantoorpanden waar u zelf zit: één toegangspas per medewerker, flexwerken en een verhuizing zonder nieuw sluitplan. Rechten beheert u zelf in het toegangscontrolesysteem, ook voor schoonmaak en leveranciers.",
+     "Een wandlezer op de entree, elektronisch beslag op kantoren en vergaderruimtes, en rechten per afdeling die u zelf bijwerkt."),
     ("industrie", "Industrie & Logistiek",
      "Productiehallen, distributiecentra en bedrijventerreinen: ploegendiensten, zonering per afdeling en rapportage van wie waar was, voor verzekeraar en auditor. Elektronische toegangscontrole die u per deur uitbreidt, van kantoor tot laaddock.",
      "Online lezers op de hoofdingang en het laaddock, offline beslag op kantoren en magazijn; een koppeling met tijdregistratie of alarm bekijken wij in overleg."),
     ("retail", "Retail",
      "Winkels, supermarkten, winkelcentra en filiaalbedrijven: wisselend personeel, magazijn en kantoor achter de winkel, en meerdere vestigingen onder één toegangsbeheer. Een toegangspas per medewerker; een verloren pas blokkeert de filiaalmanager zelf.",
      "Elektronisch beslag op magazijn, kantoor en kluisruimte, een lezer op de personeelsingang, beheer per filiaal of centraal vanuit het hoofdkantoor."),
-    ("kantoren", "Kantoren",
-     "Kantoorpanden waar u zelf zit: één toegangspas per medewerker, flexwerken en een verhuizing zonder nieuw sluitplan. Rechten beheert u zelf in het toegangscontrolesysteem, ook voor schoonmaak en leveranciers.",
-     "Een wandlezer op de entree, elektronisch beslag op kantoren en vergaderruimtes, en rechten per afdeling die u zelf bijwerkt."),
-    ("onderwijs", "Onderwijs",
-     "Basisscholen, middelbare scholen, mbo en kinderopvang: veel gebruikers, verhuur van lokalen en verloren sleutels. Elektronische sloten met zones en tijdsloten per groep; een kwijtgeraakte pas blokkeert de conciërge zelf.",
-     "Zones per bouwdeel, tijdsloten voor verhuur van gymzaal en aula, en een pas per leerkracht, conciërge en huurder."),
     ("verenigingen", "Sport & Verenigingen",
      "Sportparken, sporthallen, clubhuizen en buurthuizen met vrijwilligers en wisselende gebruikers: tijdsloten voor trainingen, avonden en weekenden, en een toegangspas die u intrekt als iemand stopt. Geen sleutelbos meer bij de kantinevrijwilliger.",
      "Een pas of tag per vrijwilliger met tijdslot, elektronische cilinders op clubhuis, kleedkamers en materiaalhok, beheer door één bestuurslid."),
@@ -336,7 +336,7 @@ def iso_bestand(sleutel):
 def sectorrij(items, kop, intro=None, kicker="Sectoren"):
     """Horizontaal scrollende rij met illustratie, kop, tekst en twee knoppen (Lars wil knoppen, geen tekstlinks): inventarisatie en meer informatie."""
     kaarten = "".join(
-        f'<article class="kaart"><div class="kaart__beeld">{iso_bestand(sleutel)}</div>'
+        f'<article class="kaart" id="sector-{sleutel}"><div class="kaart__beeld">{iso_bestand(sleutel)}</div>'
         f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><p class="acties acties--kaart">{cta_knop("Plan een inventarisatie", "#aanvraag", f"sector-{sleutel}")}'
         f'{cta_knop("Meer info", f"/toegangscontrole/#sector-{sleutel}", f"sector-{sleutel}-info", "knop knop--tweede")}</p></div></article>'
         for sleutel, k, t, _ in items)
@@ -534,13 +534,17 @@ def ld_script(graph):
 DIENSTEN_NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
                 ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Sluitplan", "/sluitplan/"),
                 ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/")]
-NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische sloten", "/elektronische-sloten/"),
-       ("Sluitplan", "/sluitplan/"), ("Kosten", "/kosten/"), ("Service", "/service-en-beheer/"),
-       ("Kennisbank", "/kennisbank/"), ("Over ons", "/over-ons/"), ("Contact", "/contact/")]   # Kennisbank bovenin (Lars, 23-09-2026)
-SUBNAV = {"/over-ons/": [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaamheid/"), ("Beveiliging en certificaten", "/over-ons/#beveiliging")]}   # uitklapmenu (Lars, 23-09-2026)
+NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Sectoren", "/toegangscontrole/#sectoren"), ("Elektronische sloten", "/elektronische-sloten/"),
+       ("Sluitplan", "/sluitplan/"), ("Kennisbank", "/kennisbank/"), ("Over ons", "/over-ons/"), ("Contact", "/contact/")]   # Kosten en Service in het uitklapmenu (Lars, 23-09-2026)
+SUBNAV = {"/over-ons/": [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaamheid/"), ("Beveiliging en certificaten", "/over-ons/#beveiliging")],
+          "/toegangscontrole/": [("Wat is toegangscontrole", "/toegangscontrole/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"),
+                                 ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/"), ("Wat kost het", "/kosten/")],
+          "/toegangscontrole/#sectoren": None}   # wordt hieronder gevuld uit SECTOREN_LIJST   # uitklapmenu (Lars, 23-09-2026)
 
 _ICOON_BEL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
 _ICOON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
+
+SUBNAV["/toegangscontrole/#sectoren"] = [(k, f"/toegangscontrole/#sector-{s}") for s, k, *_ in SECTOREN_LIJST]
 
 def header(pad):
     def item(n, u):

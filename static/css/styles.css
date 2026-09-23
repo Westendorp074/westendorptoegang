@@ -52,6 +52,18 @@ section,.sectie{padding:var(--sectie) 0}
 .sectie--wit{background:var(--paneel);border-top:var(--lijndikte) solid var(--lijn);border-bottom:var(--lijndikte) solid var(--lijn)}
 .sectie--lijn{border-top:var(--lijndikte) solid var(--lijn)}
 .sectie--wit .kolommen>div,.sectie--wit .stappen li,.sectie--wit .paneel,.sectie--wit .faq,.sectie--wit table{background:#F6F8FA}   /* kaarten vallen niet weg op wit */
+/* "Herkent u dit?" en sectorknoppen op de home (Lars, 23-09-2026) */
+.herken{display:grid;gap:16px}
+@media (min-width:700px){.herken{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.herken{grid-template-columns:repeat(3,1fr)}}
+.herken>div{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:24px 26px}
+.herken h3{margin:0 0 6px;font-size:18px}
+.herken .probleem{margin:0 0 10px;color:var(--inkt-zacht);font-style:italic}
+.herken p:last-child{margin:0}
+.sectorknoppen{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.sectorknoppen a{display:inline-block;padding:7px 12px;border:var(--lijndikte) solid var(--lijn-2);border-radius:999px;background:var(--paneel);color:var(--kop);text-decoration:none;font-size:14px;font-weight:500}
+.sectorknoppen a:hover{border-color:var(--primair);color:var(--primair)}
+.sectorknoppen-kop{margin:26px 0 0;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--inkt-zacht)}
 .sectie--zacht{background:#EEF3F8;border-top:var(--lijndikte) solid #DCE5EE;border-bottom:var(--lijndikte) solid #DCE5EE}   /* lichtblauw-grijs uit het logoblauw, om en om met wit */
 /* groene accenten: alleen het duurzaamheidsblok en de Magtec-pagina */
 .sectie--groen{background:#F1F8F3;border-top:var(--lijndikte) solid #D6E9DC;border-bottom:var(--lijndikte) solid #D6E9DC}
@@ -88,7 +100,8 @@ section,.sectie{padding:var(--sectie) 0}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--link-donker);border-bottom-color:var(--link-donker)}
 /* uitklapmenu onder Over ons (Lars, 23-09-2026) */
 .nav .heeft-sub{position:relative}
-.nav .heeft-sub>a svg{margin-left:4px;vertical-align:1px}
+.nav .heeft-sub>a{display:inline-flex;align-items:center;gap:5px}   /* pijltje rechts naast de tekst */
+.nav .heeft-sub>a svg{flex:none}
 .nav .sub{display:none;position:absolute;top:100%;left:-16px;min-width:230px;flex-direction:column;gap:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:8px 0;box-shadow:0 12px 28px rgba(20,35,46,.12);z-index:60}
 .nav .sub a{display:block;padding:9px 16px;border:0;color:var(--kop)}
 .nav .sub a:hover{background:var(--papier);color:var(--primair)}

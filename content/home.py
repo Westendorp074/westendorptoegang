@@ -12,10 +12,11 @@ def bouw():
     foto = beeld("westendorp-bedrijfsbus-lumen-enschede.jpg", "Bedrijfsbus van Westendorp geparkeerd voor het gebouw van Lumen in Enschede",
                  lazy=False, sizes="(min-width: 900px) 56vw, 100vw")   # zonder bijschrift (Lars, 23-09-2026)
     hero_html = hero("Toegangscontrole voor bedrijven in Oost-Nederland",
-        f"Wij leveren en installeren elektronische toegangscontrole van EVVA, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en de rest van Oost-Nederland. "
-        f"Onze kracht is renovatie en bestaande panden: mechanisch en elektronisch uit één hand, op de deuren die er al zitten. "
-        f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, alleen toegangscontrole.",
-        foto_html=foto, kicker="Toegangscontrole, Enschede")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
+        f"Sleutels die kwijtraken, cilinders die telkens vervangen moeten worden en geen overzicht wie waar naar binnen kan? "
+        f"Wij regelen de toegang tot uw pand op de deuren die er al zitten: elektronisch van EVVA en mechanisch, uit één hand. "
+        f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, alleen toegangscontrole.",
+        foto_html=foto, kicker="Toegangscontrole, Enschede",
+        extra='<p class="sectorknoppen-kop">Voor uw sector</p><ul class="sectorknoppen">' + "".join(f'<li><a href="#sector-{s}">{esc(k)}</a></li>' for s, k, *_ in SECTOREN_LIJST) + "</ul>")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
 
     # ---- sectoren: horizontale rij met illustraties ----
     voor_wie = sectorrij(SECTOREN_LIJST,
@@ -103,6 +104,21 @@ def bouw():
          f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
-    body = hero_html + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
+    herken = sectie("Herkent u dit?", p("Toegangscontrole is geen doel op zich. Dit zijn de redenen waarom bedrijven en instellingen ons bellen, en wat er daarna verandert.")
+        + '<div class="herken">' + "".join(f'<div><h3>{esc(k)}</h3><p class="probleem">{esc(pr)}</p><p>{esc(op)}</p></div>' for k, pr, op in [
+            ("Sleutels raken kwijt", "Een sleutel is zoek en niemand weet welke deuren hij opent. Cilinders vervangen, nieuwe sleutels uitdelen, lijsten bijwerken.",
+             "Met een pas blokkeert u de verloren pas in de software. Het slot blijft zitten, er gaat niets de deur uit en de rest werkt gewoon door."),
+            ("Geen overzicht wie waar kan", "Sleutels zijn gekopieerd, uitgeleend of nooit teruggekomen. Wie er nu echt in kan, weet niemand.",
+             "Per persoon ziet u welke deuren open mogen en op welke tijden. Waar nodig ziet u ook wie wanneer binnen was."),
+            ("Zelf beheren of uitbesteden", "Niet elke organisatie heeft iemand die een systeem wil bijhouden.",
+             "U kiest: rechten zelf beheren in de software, of wij doen het voor u. Overstappen tussen die twee kan altijd."),
+            ("Tijd kwijt aan sleutelbeheer", "Uitgeven, innemen, tekenen voor ontvangst, achter vertrekkers aan: het kost elke week tijd.",
+             "Een nieuwe medewerker, huurder of vrijwilliger krijgt in een paar minuten een pas met de juiste rechten; bij vertrek trekt u hem in."),
+            ("Steeds weer kosten", "Elke verloren sleutel betekent nieuwe cilinders en sleutels, soms voor een hele verdieping.",
+             "Een pas vervangen kost een fractie van een nieuwe cilinder. Wat het per deur kost, staat op de pagina wat kost toegangscontrole."),
+            ("Minder vervangen, minder metaal", "Cilinders en sleutels die alleen worden vervangen omdat er iets zoek is, belanden bij het oud metaal.",
+             "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt. Voor de mechanische deuren die overblijven kiezen wij cilinders met minder uitstoot."),
+        ]) + "</div>" + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
+    body = hero_html + herken + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
     schrijf("/", titel, omschrijving, body, faq=faq,
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")
