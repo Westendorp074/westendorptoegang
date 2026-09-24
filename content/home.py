@@ -96,6 +96,8 @@ def bouw():
          "Meestal wel. Op de meeste binnendeuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur blijft. Houten deuren die een uitsparing nodig hebben, frezen wij in onze eigen werkplaats in. Stalen, aluminium en glazen deuren bekijken wij tijdens de inventarisatie."),
         ("Wat gebeurt er als een medewerker zijn pas kwijtraakt?",
          "U blokkeert de pas in de software en geeft een nieuwe uit; de deuren en cilinders blijven zoals ze zijn. Bij een mechanisch sluitplan moet u bij een verloren hoofdsleutel vaak cilinders vervangen. Dat verschil is voor de meeste bedrijven de reden om over te stappen."),
+        ("Kan ik mijn telefoon als sleutel gebruiken?",
+         "Ja. De digitale sleutel staat in een app op de telefoon en werkt samen met passen, druppels en gewone sleutels in hetzelfde systeem. U stuurt een sleutel op afstand toe en trekt hem ook op afstand in, bijvoorbeeld met EVVA AirKey."),
         ("Hoe snel kunnen jullie beginnen?",
          f"Na uw aanvraag reageren wij binnen {esc(REACTIE_AANVRAAG)} en plannen wij de inventarisatie in. De offerte volgt {esc(OFFERTE_BINNEN)}; de installatiedatum spreken wij per project af."),
         ("Werken jullie ook buiten Twente?",
@@ -107,13 +109,25 @@ def bouw():
     tegels = [("sleutel", "Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
               ("oog", "Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
               ("regel", "Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
-              ("klok", "Tijd kwijt aan sleutelbeheer", "Een nieuwe pas staat in minuten klaar; bij vertrek trekt u hem in."),
+              ("klok", "Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar; bij vertrek trekt u hem in."),
               ("euro", "Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
               ("blad", "Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
     herken = sectie("Herkent u dit?",
         '<ul class="herken">' + "".join(f'<li><span class="herken__icoon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>'
                                         f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
         + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
-    body = hero_html + herken + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
+    # sleutel, pas, druppel of telefoon door elkaar (Lars, 24-09-2026): mobiel voorop
+    ICM = {'telefoon': '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>', 'pas': '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 15h4"/>', 'druppel': '<path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/><circle cx="12" cy="14" r="2"/>', 'sleutel': '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/>'}
+    middelen_tegels = [("telefoon", "Telefoon", "De sleutel staat in een app. U stuurt hem op afstand toe en trekt hem net zo snel in; niemand hoeft een pas op te halen."),
+                       ("pas", "Pas", "Kaart in de portemonnee, te bedrukken met naam en foto."),
+                       ("druppel", "Tag of druppel", "Aan de sleutelbos: robuust en handig voor schoonmaak, monteurs en vrijwilligers."),
+                       ("sleutel", "Sleutel", "De mechanische sleutel blijft waar dat handig is, zoals de meterkast of als noodopening.")]
+    middelen = sectie("Openen met sleutel, pas, druppel of telefoon",
+        p("Iedere gebruiker opent de deur met wat bij hem past, en dat mag door elkaar in hetzelfde systeem. De ene medewerker gebruikt zijn telefoon, de schoonmaker een druppel, de directie ook nog een sleutel voor de kluis. "
+          "Steeds meer organisaties kiezen voor de telefoon: geen passen uitgeven of innemen, en een nieuwe collega kan op de eerste werkdag meteen naar binnen.")
+        + '<ul class="herken herken--4">' + "".join(f'<li><span class="herken__icoon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{ICM[i]}</svg></span>'
+                                                    f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in middelen_tegels) + "</ul>",
+        kicker="Hybride")
+    body = hero_html + herken + voor_wie + middelen + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
     schrijf("/", titel, omschrijving, body, faq=faq,
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")

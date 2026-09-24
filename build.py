@@ -87,6 +87,7 @@ MERKEN = {
     "assa": {"naam": "ASSA ABLOY", "lijnen": "mechanisch en elektronisch", "partner": "officieel partner", "logo_ok": "ja"},
     "abus": {"naam": "ABUS", "lijnen": "mechanisch: S6+ en Magtec, eigen profiel", "partner": "officieel partner", "logo_ok": "ja"},
 }
+HYBRIDE = True   # Lars, 24-09-2026: sleutel, pas, tag/druppel en telefoon door elkaar in één systeem; mobiel vaker noemen
 AIRKEY = "ja"                                                        # Lars, 21-09-2026: AirKey-startpakket vanaf € 487
 PARTNERS = ["EVVA", "ASSA ABLOY", "ABUS"]                              # officieel partner van alle drie (Lars, 20-09-2026)
 PARTNER_TEKST = "officieel partner van EVVA, ASSA ABLOY en ABUS"
@@ -142,10 +143,10 @@ SECTOREN_LIJST = [
      "Basisscholen, middelbare scholen, mbo en kinderopvang: veel gebruikers, verhuur van lokalen en verloren sleutels. Elektronische sloten met zones en tijdsloten per groep; een kwijtgeraakte pas blokkeert de conciërge zelf.",
      "Zones per bouwdeel, tijdsloten voor verhuur van gymzaal en aula, en een pas per leerkracht, conciërge en huurder."),
     ("vve", "VvE & Vastgoed",
-     "Appartementencomplexen, verhuurde woningen en bedrijfsverzamelgebouwen: de eigenaar of beheerder regelt de toegang tot entree, bergingen en fietsenstalling met een pas of tag per woning of huurder. Bij een verhuizing blokkeert u de oude pas; sleutelbeheer zonder kopieën die niet terugkomen.",
+     "Appartementencomplexen, verhuurde woningen en bedrijfsverzamelgebouwen: de eigenaar of beheerder regelt de toegang tot entree, bergingen en fietsenstalling met een pas, druppel of de telefoon per woning of huurder. Bij een verhuizing blokkeert u de oude pas; sleutelbeheer zonder kopieën die niet terugkomen.",
      "Een wandlezer op de gemeenschappelijke entree, elektronische cilinders op bergingen en stalling, en toegangsbeheer door de VvE-beheerder of vastgoedbeheerder in de software."),
     ("kantoren", "Kantoren",
-     "Kantoorpanden waar u zelf zit: één toegangspas per medewerker, flexwerken en een verhuizing zonder nieuw sluitplan. Rechten beheert u zelf in het toegangscontrolesysteem, ook voor schoonmaak en leveranciers.",
+     "Kantoorpanden waar u zelf zit: een pas of de telefoon per medewerker, flexwerken en een verhuizing zonder nieuw sluitplan. Rechten beheert u zelf in het toegangscontrolesysteem, ook voor schoonmaak en leveranciers.",
      "Een wandlezer op de entree, elektronisch beslag op kantoren en vergaderruimtes, en rechten per afdeling die u zelf bijwerkt."),
     ("industrie", "Industrie & Logistiek",
      "Productiehallen, distributiecentra en bedrijventerreinen: ploegendiensten, zonering per afdeling en rapportage van wie waar was, voor verzekeraar en auditor. Elektronische toegangscontrole die u per deur uitbreidt, van kantoor tot laaddock.",
@@ -157,10 +158,10 @@ SECTOREN_LIJST = [
      "Sportparken, sporthallen, clubhuizen en buurthuizen met vrijwilligers en wisselende gebruikers: tijdsloten voor trainingen, avonden en weekenden, en een toegangspas die u intrekt als iemand stopt. Geen sleutelbos meer bij de kantinevrijwilliger.",
      "Een pas of tag per vrijwilliger met tijdslot, elektronische cilinders op clubhuis, kleedkamers en materiaalhok, beheer door één bestuurslid."),
     ("hotel", "Hotels",
-     "Hotels, B&B's en short stay: een kamerpas per gast die bij het uitchecken vanzelf verloopt, passen voor housekeeping en technische dienst, en de personeelsingang, het magazijn en de technische ruimtes alleen voor wie daar moet zijn. Neemt een gast de pas mee of raakt hij hem kwijt, dan blokkeert de receptie hem direct.",
+     "Hotels, B&B's en short stay: een kamerpas of digitale sleutel op de telefoon per gast, die bij het uitchecken vanzelf verloopt, passen voor housekeeping en technische dienst, en de personeelsingang, het magazijn en de technische ruimtes alleen voor wie daar moet zijn. Neemt een gast de pas mee of raakt hij hem kwijt, dan blokkeert de receptie hem direct.",
      "Kamerpassen met einddatum, elektronisch beslag op kamers en personeelsruimtes, een lezer op de personeelsingang en beheer vanuit de receptie."),
     ("recreatie", "Recreatieparken",
-     "Vakantieparken en campings: huisjes, sanitairgebouwen, zwembad en slagboom met toegang per boeking. Gasten wisselen elke week; de receptie geeft de toegangspas uit en hoeft geen sleutels meer over te dragen.",
+     "Vakantieparken en campings: huisjes, sanitairgebouwen, zwembad en slagboom met toegang per boeking. Gasten wisselen elke week; de receptie stuurt de digitale sleutel naar de telefoon van de gast of geeft een pas uit, zonder sleuteloverdracht.",
      "Toegang per boeking op huisjes en sanitairgebouwen, de slagboom of poort aan een lezer, beheer vanuit de receptie."),
     ("anders", "Anders",
      "Staat uw sector er niet bij, zoals een kerk, museum, laboratorium, datacenter of een pand dat nergens in past: dan kijken wij per pand wat er nodig is. Elk gebouw heeft deuren, gebruikers en sleutels die kwijtraken.",

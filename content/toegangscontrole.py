@@ -31,10 +31,13 @@ def bouw():
         + p("Bij EVVA Xesar zijn offline en online deuren te combineren in één systeem: de buitendeur online, de kantoren offline. Dat houdt de kosten in de hand. "
             "Zie <a href=\"/evva-xesar/\">EVVA Xesar</a>."), wit=True)
 
-    middelen = sectie("Pas, tag, telefoon, code of vingerafdruk", '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
+    middelen = sectie("Telefoon, pas, druppel, sleutel, code of vingerafdruk", p(
+        "U hoeft niet te kiezen: in één systeem kunnen gebruikers met verschillende middelen naar binnen, door elkaar (hybride). "
+        "Per persoon legt u vast welk middel hij gebruikt; de rechten per deur en per tijdslot zijn voor elk middel hetzelfde.") + '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
+        ("Telefoon", "Mobiele toegang via een app: de digitale sleutel komt op afstand binnen en verdwijnt net zo snel als u hem intrekt. Geen uitgifte van passen; wel afhankelijk van een opgeladen telefoon."),
         ("Pas", "Kaartformaat, past in de portemonnee, te bedrukken met naam en foto. Gangbaar bij kantoren en scholen."),
-        ("Tag", "Sleutelhanger, robuust, handig voor monteurs en vrijwilligers die hem aan de sleutelbos hangen."),
-        ("Telefoon", "Toegang via een app of virtuele pas. Geen uitgifte van passen, wel afhankelijk van een opgeladen telefoon."),
+        ("Tag of druppel", "Sleutelhanger, robuust, handig voor monteurs en vrijwilligers die hem aan de sleutelbos hangen."),
+        ("Sleutel", "Een mechanische sleutel uit hetzelfde sluitplan, voor deuren waar geen elektronica hoeft te zitten of als noodopening."),
         ("Code", "Toetsenbord bij de deur, zonder pas. Praktisch voor bezoekers, minder veilig omdat codes worden doorgegeven."),
         ("Biometrie", "Vingerafdruk of gezicht: niets om kwijt te raken of door te geven. Geschikt voor ruimtes met een hoge eis, zoals serverruimtes en medicijnkasten; vraagt zorgvuldigheid onder de AVG."),
     ]) + "</div>")
