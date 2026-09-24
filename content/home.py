@@ -20,8 +20,7 @@ def bouw():
     # ---- sectoren: horizontale rij met illustraties ----
     voor_wie = sectorrij(SECTOREN_LIJST,
         "Toegangscontrole per sector",
-        "Wij plaatsen toegangscontrole bij gemeenten, zorginstellingen, VvE's, woningcorporaties, bedrijven in industrie en logistiek, kantoren, winkels, scholen, verenigingen en recreatieparken "
-        "in Twente en Oost-Nederland. Elke sector heeft eigen deuren, gebruikers en regels; hieronder leest u per sector wat wij daar oplossen, van vijf deuren tot enkele honderden.")
+        "Elke sector heeft eigen deuren, gebruikers en regels. Kies de uwe en lees wat wij daar oplossen, van vijf deuren tot enkele honderden.")
 
     # ---- wat we plaatsen ----
     producten = [
