@@ -138,9 +138,21 @@ class Scene:
             for k in range(int((w - 0.6) / 0.9)):
                 px = x + 0.4 + k * 0.9
                 uit.append(_poly([P(px, y + 0.35, z + h + 0.01), P(px + 0.45, y + 0.35, z + h + 0.01), P(px + 0.45, y + d - 0.35, z + h + 0.01), P(px, y + d - 0.35, z + h + 0.01)], GLAS, f' stroke="{KOZIJN}" stroke-width=".5"'))
+        elif dak == "kast":                                                                                       # installaties op het dak
+            for (fx, fy, fw, fd, fh) in ((0.3, 0.3, 0.7, 0.5, 0.35), (0.55, 0.55, 0.45, 0.45, 0.25)):
+                kx, ky = x + w * fx, y + d * fy; kz = z + h
+                uit.append(_poly([P(kx, ky + fd, kz), P(kx + fw, ky + fd, kz), P(kx + fw, ky + fd, kz + fh), P(kx, ky + fd, kz + fh)], GRIJS_L)
+                           + _poly([P(kx + fw, ky, kz), P(kx + fw, ky + fd, kz), P(kx + fw, ky + fd, kz + fh), P(kx + fw, ky, kz + fh)], GRIJS_R)
+                           + _poly([P(kx, ky, kz + fh), P(kx + fw, ky, kz + fh), P(kx + fw, ky + fd, kz + fh), P(kx, ky + fd, kz + fh)], GRIJS_T))
+                c = P(kx + fw / 2, ky + fd / 2, kz + fh); uit.append(f'<ellipse cx="{c[0]:.1f}" cy="{c[1]:.1f}" rx="{fw*6:.1f}" ry="{fw*3.4:.1f}" fill="{GRIJS_R}"/>')
         if z == 0 and w >= 1.4 and d >= 1.4 and h >= 1.0:                                                        # ontluchtingspijp
             vx, vy = x + w - 0.35, y + 0.3; v0, v1 = P(vx, vy, z + h), P(vx, vy, z + h + 0.3)
             uit.append(f'<line x1="{v0[0]:.1f}" y1="{v0[1]:.1f}" x2="{v1[0]:.1f}" y2="{v1[1]:.1f}" stroke="{GRIJS_R}" stroke-width="2.2"/><ellipse cx="{v1[0]:.1f}" cy="{v1[1]:.1f}" rx="1.3" ry=".7" fill="{GRIJS_T}"/>')
+        if z == 0 and h >= 1.0 and w >= 0.8 and d >= 0.8:                                                        # daklijst met schaduwlijn
+            uit.append(_poly([P(x, y + d, z + h - 0.12), P(x + w, y + d, z + h - 0.12), P(x + w, y + d, z + h), P(x, y + d, z + h)], _tint(links, 1.07)))
+            uit.append(_poly([P(x + w, y, z + h - 0.12), P(x + w, y + d, z + h - 0.12), P(x + w, y + d, z + h), P(x + w, y, z + h)], _tint(rechts, 1.07)))
+            a0, a1, a2 = P(x, y + d, z + h - 0.12), P(x + w, y + d, z + h - 0.12), P(x + w, y, z + h - 0.12)
+            uit.append(f'<polyline points="{a0[0]:.1f},{a0[1]:.1f} {a1[0]:.1f},{a1[1]:.1f} {a2[0]:.1f},{a2[1]:.1f}" fill="none" stroke="#0B1B2B" stroke-width=".8" opacity=".25"/>')
         if z == 0 and h >= 1.0:                                                                                   # plint onderaan beide gevels
             uit.append(_poly([P(x, y + d, 0), P(x + w, y + d, 0), P(x + w, y + d, 0.12), P(x, y + d, 0.12)], _tint(links, 0.86)))
             uit.append(_poly([P(x + w, y, 0), P(x + w, y + d, 0), P(x + w, y + d, 0.12), P(x + w, y, 0.12)], _tint(rechts, 0.86)))
@@ -156,7 +168,7 @@ class Scene:
                 uit.append(f'<line x1="{a0[0]:.0f}" y1="{a0[1]:.0f}" x2="{a1[0]:.0f}" y2="{a1[1]:.0f}" stroke="{_tint(links, 0.8)}" stroke-width=".5" stroke-opacity=".55"/>'
                            f'<line x1="{b0[0]:.0f}" y1="{b0[1]:.0f}" x2="{b1[0]:.0f}" y2="{b1[1]:.0f}" stroke="{_tint(rechts, 0.8)}" stroke-width=".5" stroke-opacity=".55"/>')
             for r in range(rijen):
-                zz = z + h * (r + 0.55) / rijen; hh = h / rijen * 0.45
+                zz = z + h * (r + 0.32) / rijen; hh = h / rijen * 0.5          # ruimte boven elk raam (latei, daklijst)
                 for k in range(kol):
                     xx = x + w * (k + 0.2) / kol; ww = w / kol * 0.6
                     yy = y + d * (k + 0.2) / kol; dd = d / kol * 0.6
@@ -165,10 +177,24 @@ class Scene:
                         uit.append(_poly([P(xx, y + d, zz), P(xx + ww, y + d, zz), P(xx + ww, y + d, zz + hh), P(xx, y + d, zz + hh)], "url(#g-glas)", lk + f' stroke="{KOZIJN}" stroke-width=".5"'))
                         m0, m1 = P(xx + ww / 2, y + d, zz), P(xx + ww / 2, y + d, zz + hh)                                # tussenstijl
                         uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN}" stroke-width=".5"/>')
+                        # neg: het raam ligt terug in de gevel; schaduw langs boven- en linkerkant
+                        uit.append(_poly([P(xx, y + d, zz + hh), P(xx + ww, y + d, zz + hh), P(xx + ww, y + d, zz + hh - 0.07), P(xx + 0.05, y + d, zz + hh - 0.07), P(xx + 0.05, y + d, zz), P(xx, y + d, zz)], "#0B1B2B", ' opacity=".28"'))
+                        v = (r * 5 + k * 3 + int(x * 10)) % 7
+                        if v in (0, 3):                                                                                   # lamellen
+                            for f in (0.72, 0.84):
+                                a0, a1 = P(xx + 0.05, y + d, zz + hh * f), P(xx + ww, y + d, zz + hh * f)
+                                uit.append(f'<line x1="{a0[0]:.1f}" y1="{a0[1]:.1f}" x2="{a1[0]:.1f}" y2="{a1[1]:.1f}" stroke="#FFFFFF" stroke-width=".7" opacity=".75"/>')
+                        elif v == 5:                                                                                      # donker interieur
+                            uit.append(_poly([P(xx + 0.05, y + d, zz), P(xx + ww, y + d, zz), P(xx + ww, y + d, zz + hh * 0.6), P(xx + 0.05, y + d, zz + hh * 0.6)], "#0B1B2B", ' opacity=".18"'))
                         v0, v1 = P(xx - 0.04, y + d, zz - 0.02), P(xx + ww + 0.04, y + d, zz - 0.02)                        # vensterbank
                         uit.append(f'<line x1="{v0[0]:.1f}" y1="{v0[1]:.1f}" x2="{v1[0]:.1f}" y2="{v1[1]:.1f}" stroke="{_tint(links, 0.8)}" stroke-width=".9"/>')
                     if not self._bezet("r", x + w, yy, yy + dd, zz, zz + hh):
                         uit.append(_poly([P(x + w, yy, zz), P(x + w, yy + dd, zz), P(x + w, yy + dd, zz + hh), P(x + w, yy, zz + hh)], "url(#g-glas2)", f' stroke="{KOZIJN2}" stroke-width=".5"'))
+                        uit.append(_poly([P(x + w, yy, zz + hh), P(x + w, yy + dd, zz + hh), P(x + w, yy + dd, zz + hh - 0.07), P(x + w, yy + 0.05, zz + hh - 0.07), P(x + w, yy + 0.05, zz), P(x + w, yy, zz)], "#0B1B2B", ' opacity=".22"'))
+                        if (r * 3 + k * 5 + int(y * 10)) % 6 == 1:
+                            uit.append(_poly([P(x + w, yy + 0.05, zz), P(x + w, yy + dd, zz), P(x + w, yy + dd, zz + hh * 0.6), P(x + w, yy + 0.05, zz + hh * 0.6)], "#0B1B2B", ' opacity=".15"'))
+                        b0, b1 = P(x + w, yy - 0.04, zz - 0.02), P(x + w, yy + dd + 0.04, zz - 0.02)                         # vensterbank rechts
+                        uit.append(f'<line x1="{b0[0]:.1f}" y1="{b0[1]:.1f}" x2="{b1[0]:.1f}" y2="{b1[1]:.1f}" stroke="{_tint(rechts, 0.8)}" stroke-width=".9"/>')
                         m0, m1 = P(x + w, yy + dd / 2, zz), P(x + w, yy + dd / 2, zz + hh)
                         uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN2}" stroke-width=".5"/>')
             return "".join(uit)
@@ -277,9 +303,12 @@ class Scene:
         P = self.P; bx, by = P(x, y, 0); tx, ty = P(x, y, h); rs = r * self.s
         self.voeg((x, y, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x + 0.3 * r) * self.s:.1f}" cy="{(y + 0.15 * r) * self.s:.1f}" rx="{r * self.s * 0.9:.1f}" ry="{r * self.s * 0.6:.1f}" fill="{SCHADUW}" opacity=".16" filter="url(#f-zacht)"/>'), grond=True)
         svg = (f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{tx:.1f}" y2="{ty:.1f}" stroke="{STAM}" stroke-width="2.4"/>'
-               f'<circle cx="{tx:.1f}" cy="{ty - rs * 0.5:.1f}" r="{rs:.1f}" fill="url(#g-boom)"/>'
-               f'<circle cx="{tx + rs * 0.22:.1f}" cy="{ty - rs * 0.3:.1f}" r="{rs * 0.62:.1f}" fill="{GROENDONKER}" opacity=".28"/>'
-               f'<circle cx="{tx - rs * 0.3:.1f}" cy="{ty - rs * 0.7:.1f}" r="{rs * 0.55:.1f}" fill="{GROEN2}"/>')
+               f'<ellipse cx="{tx + rs * 0.1:.1f}" cy="{ty - rs * 0.15:.1f}" rx="{rs * 0.95:.1f}" ry="{rs * 0.7:.1f}" fill="{GROENDONKER}" opacity=".55"/>'   # onderkant kroon
+               f'<circle cx="{tx - rs * 0.45:.1f}" cy="{ty - rs * 0.35:.1f}" r="{rs * 0.62:.1f}" fill="url(#g-boom)"/>'
+               f'<circle cx="{tx + rs * 0.45:.1f}" cy="{ty - rs * 0.4:.1f}" r="{rs * 0.6:.1f}" fill="url(#g-boom)"/>'
+               f'<circle cx="{tx:.1f}" cy="{ty - rs * 0.75:.1f}" r="{rs * 0.72:.1f}" fill="url(#g-boom)"/>'
+               f'<circle cx="{tx - rs * 0.1:.1f}" cy="{ty - rs * 1.2:.1f}" r="{rs * 0.45:.1f}" fill="url(#g-boom)"/>'
+               f'<circle cx="{tx - rs * 0.3:.1f}" cy="{ty - rs * 1.05:.1f}" r="{rs * 0.2:.1f}" fill="#A6E8C2" opacity=".7"/>')
         if wind:
             svg = f'<g class="anim-boom anim-boom-{self._bomen % 3}" style="transform-origin:{bx:.1f}px {by:.1f}px">{svg}</g>'; self._bomen += 1
         self.voeg((x - r, y - r, 0, x + r, y + r, h + 1.3 * r), svg, pad=(4, 2, 4, 2))
@@ -405,6 +434,8 @@ class Scene:
                 else:
                     self.blok(x, y, 0, lang, 0.7, 0.3, kleur, kleur, kleur)
                     self.blok(x + 0.3, y + 0.05, 0.3, min(0.85, lang * 0.55), 0.6, 0.28, kleur, GLAS, GLAS)
+                    g0, g1 = self.P(x + 0.4, y + 0.2, 0.585), self.P(x + 0.3 + min(0.85, lang * 0.55) - 0.1, y + 0.2, 0.585)
+                    self.voeg((x + 0.3, y + 0.05, 0.58, x + 1.2, y + 0.65, 0.59), f'<line x1="{g0[0]:.1f}" y1="{g0[1]:.1f}" x2="{g1[0]:.1f}" y2="{g1[1]:.1f}" stroke="#FFFFFF" stroke-width="1" opacity=".55" stroke-linecap="round"/>')
             else:
                 if lang >= 2.2:
                     self.blok(x, y, 0.15, 0.7, lang - 0.9, 0.95, WIT_T, WIT_L, WIT_R)
@@ -515,7 +546,7 @@ class Scene:
                 f'<linearGradient id="g-glas2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6FBFF"/><stop offset=".5" stop-color="{GLAS2}"/><stop offset=".55" stop-color="#C6E2F5"/><stop offset="1" stop-color="#B5D6EE"/></linearGradient>'
                 f'<radialGradient id="g-boom" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="{GROEN2}"/><stop offset=".55" stop-color="{GROEN}"/><stop offset="1" stop-color="{GROENDONKER}"/></radialGradient>'
                 + f'<pattern id="p-gras" width="{t:.1f}" height="{t:.1f}" patternUnits="userSpaceOnUse" {iso}><rect width="{t:.1f}" height="{t:.1f}" fill="{GROEN2}"/>'
-                f'<path d="M2,7 l1,-3 l1,3 M6,4 l1,-3 l1,3" fill="none" stroke="#62CC92" stroke-width=".7"/></pattern>'
+                f'<path d="M2,7 l1,-3 l1,3 M6,4 l1,-3 l1,3" fill="none" stroke="#62CC92" stroke-width=".7"/><circle cx="7" cy="8" r="1.8" fill="#5FC48C" opacity=".35"/><circle cx="2" cy="2" r="1.2" fill="#9BE3BA" opacity=".4"/></pattern>'
                 f'<pattern id="p-tegels" width="{t:.1f}" height="{t:.1f}" patternUnits="userSpaceOnUse" {iso}><rect width="{t:.1f}" height="{t:.1f}" fill="{GROND2}"/>'
                 f'<path d="M0,{t:.1f} H{t:.1f} V0" fill="none" stroke="#D3D9DF" stroke-width=".7"/></pattern>'
                 f'<pattern id="p-asfalt" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="{WEG}"/>'
@@ -524,7 +555,10 @@ class Scene:
                 + "".join(f'<pattern id="p-{naam}-{kant}" width="{bw}" height="{bh}" patternUnits="userSpaceOnUse" patternTransform="skewY({hoek})">{inhoud}</pattern>'
                           for kant, hoek in (("l", 30), ("r", -30))
                           for naam, bw, bh, inhoud in (
-                              ("steen", 7, 3.2, f'<path d="M0,0 H7 M0,1.6 H7 M0,0 V1.6 M3.5,1.6 V3.2" fill="none" stroke="#6E2F22" stroke-width=".35" opacity=".35"/>'),       # metselwerk halfsteens
+                              ("steen", 14, 6.4, '<rect x="0" y="0" width="3.5" height="1.6" fill="#5A2418" opacity=".10"/><rect x="7" y="1.6" width="3.5" height="1.6" fill="#FFFFFF" opacity=".08"/>'
+                                                '<rect x="10.5" y="3.2" width="3.5" height="1.6" fill="#5A2418" opacity=".12"/><rect x="3.5" y="4.8" width="3.5" height="1.6" fill="#5A2418" opacity=".08"/>'
+                                                '<path d="M0,0 H14 M0,1.6 H14 M0,3.2 H14 M0,4.8 H14 M0,0 V1.6 M3.5,0 V1.6 M7,0 V1.6 M10.5,0 V1.6 M1.75,1.6 V3.2 M5.25,1.6 V3.2 M8.75,1.6 V3.2 M12.25,1.6 V3.2 '
+                                                'M0,3.2 V4.8 M3.5,3.2 V4.8 M7,3.2 V4.8 M10.5,3.2 V4.8 M1.75,4.8 V6.4 M5.25,4.8 V6.4 M8.75,4.8 V6.4 M12.25,4.8 V6.4" fill="none" stroke="#6E2F22" stroke-width=".3" opacity=".4"/>'),       # metselwerk halfsteens
                               ("natuursteen", 14, 6, f'<path d="M0,0 H14 M0,3 H14 M0,0 V3 M7,3 V6" fill="none" stroke="#8C7B5E" stroke-width=".4" opacity=".4"/>'),    # grote blokken
                               ("plaat", 9, 20, f'<path d="M0,0 V20 M0,10 H9" fill="none" stroke="#7D8C9B" stroke-width=".35" opacity=".35"/>')))                    # gevelplaten
                 + '</defs>')
