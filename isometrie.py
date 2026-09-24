@@ -108,10 +108,15 @@ class Scene:
         """Gebouwblok: drie vlakken. ramen=(rijen, kolommen) tekent glas op beide zijvlakken; deur=(dx, breedte, hoogte) met lezer."""
         P = self.P; uit = []
         if z == 0 and h >= 0.3:                                                                                   # zachte slagschaduw op de grond, naar rechtsvoor
-            sx, sy = min(0.9, 0.22 * h), min(0.35, 0.07 * h)
-            self.voeg((x, y, 0.003, x + w + sx, y + d + sy, 0.003), _poly([P(x + sx, y + sy, 0), P(x + w + sx, y + sy, 0), P(x + w + sx, y + d + sy, 0), P(x + sx, y + d + sy, 0)], SCHADUW, ' opacity=".09"'), grond=True)
+            sx, sy = min(1.4, 0.32 * h), min(0.5, 0.1 * h)
+            schaduw = _poly([P(x, y, 0), P(x + w + sx, y + sy, 0), P(x + w + sx, y + d + sy, 0), P(x + sx, y + d + sy, 0), P(x, y + d, 0)], SCHADUW, ' opacity=".16" filter="url(#f-zacht)"')
+            contact = _poly([P(x - 0.05, y + d, 0), P(x + w, y + d, 0), P(x + w + 0.05, y + d + 0.12, 0), P(x - 0.05, y + d + 0.12, 0)], SCHADUW, ' opacity=".18" filter="url(#f-zacht)"')   # contactschaduw langs de voet
+            self.voeg((x, y, 0.003, x + w + sx, y + d + sy, 0.003), schaduw + contact, grond=True)
         uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], links))    # linkervlak (y=d)
         uit.append(_poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], rechts))   # rechtervlak (x=w)
+        if h >= 0.25:
+            uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], "url(#g-muur)"))
+            uit.append(_poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], "url(#g-muur)"))
         mat = {ROOD_L: "steen", ZAND_L: "natuursteen", WIT_L: "plaat", GRIJS_L: "plaat"}.get(links)
         if mat and z == 0 and h >= 1.0 and w >= 0.8 and d >= 0.8:                                                # gevelstructuur, alleen op gebouwen
             uit.append(_poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], f"url(#p-{mat}-l)"))
@@ -120,6 +125,7 @@ class Scene:
         if h >= 1.0 and w >= 0.8 and d >= 0.8:                                                                  # dak: binnenvlak met grind achter de dakrand
             i = min(0.18, w * 0.12, d * 0.12)
             uit.append(_poly([P(x + i, y + i, z + h), P(x + w - i, y + i, z + h), P(x + w - i, y + d - i, z + h), P(x + i, y + d - i, z + h)], _tint(top, 0.965)))
+            uit.append(_poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], "url(#g-dak)"))
             uit.append(_poly([P(x + i, y + i, z + h), P(x + w - i, y + i, z + h), P(x + w - i, y + d - i, z + h), P(x + i, y + d - i, z + h)], "url(#p-grind)"))
         if dak is None and z == 0 and w >= 1.8 and d >= 1.8 and h >= 1.4: dak = ("zon", "licht", "kast")[int((x * 7 + y * 13) * 10) % 3]
         if dak == "zon":                                                                                          # zonnepanelen in rijen
@@ -156,13 +162,13 @@ class Scene:
                     yy = y + d * (k + 0.2) / kol; dd = d / kol * 0.6
                     if not self._bezet("l", y + d, xx, xx + ww, zz, zz + hh):
                         lk = f' class="anim-licht anim-licht-{(r * 3 + k) % 4}"' if lichtjes and (r * 7 + k * 3) % 5 == 0 else ""
-                        uit.append(_poly([P(xx, y + d, zz), P(xx + ww, y + d, zz), P(xx + ww, y + d, zz + hh), P(xx, y + d, zz + hh)], GLAS, lk + f' stroke="{KOZIJN}" stroke-width=".5"'))
+                        uit.append(_poly([P(xx, y + d, zz), P(xx + ww, y + d, zz), P(xx + ww, y + d, zz + hh), P(xx, y + d, zz + hh)], "url(#g-glas)", lk + f' stroke="{KOZIJN}" stroke-width=".5"'))
                         m0, m1 = P(xx + ww / 2, y + d, zz), P(xx + ww / 2, y + d, zz + hh)                                # tussenstijl
                         uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN}" stroke-width=".5"/>')
                         v0, v1 = P(xx - 0.04, y + d, zz - 0.02), P(xx + ww + 0.04, y + d, zz - 0.02)                        # vensterbank
                         uit.append(f'<line x1="{v0[0]:.1f}" y1="{v0[1]:.1f}" x2="{v1[0]:.1f}" y2="{v1[1]:.1f}" stroke="{_tint(links, 0.8)}" stroke-width=".9"/>')
                     if not self._bezet("r", x + w, yy, yy + dd, zz, zz + hh):
-                        uit.append(_poly([P(x + w, yy, zz), P(x + w, yy + dd, zz), P(x + w, yy + dd, zz + hh), P(x + w, yy, zz + hh)], GLAS2, f' stroke="{KOZIJN2}" stroke-width=".5"'))
+                        uit.append(_poly([P(x + w, yy, zz), P(x + w, yy + dd, zz), P(x + w, yy + dd, zz + hh), P(x + w, yy, zz + hh)], "url(#g-glas2)", f' stroke="{KOZIJN2}" stroke-width=".5"'))
                         m0, m1 = P(x + w, yy + dd / 2, zz), P(x + w, yy + dd / 2, zz + hh)
                         uit.append(f'<line x1="{m0[0]:.0f}" y1="{m0[1]:.0f}" x2="{m1[0]:.0f}" y2="{m1[1]:.0f}" stroke="{KOZIJN2}" stroke-width=".5"/>')
             return "".join(uit)
@@ -269,9 +275,9 @@ class Scene:
     def boom(self, x, y, r=0.55, h=1.4, wind=True):
         r = r * (1 + 0.12 * ((self._bomen % 3) - 1)); h = h * (1 + 0.08 * ((self._bomen % 2) - 0.5))            # geen twee bomen precies gelijk
         P = self.P; bx, by = P(x, y, 0); tx, ty = P(x, y, h); rs = r * self.s
-        self.voeg((x, y, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x + 0.3 * r) * self.s:.1f}" cy="{(y + 0.15 * r) * self.s:.1f}" rx="{r * self.s * 0.9:.1f}" ry="{r * self.s * 0.6:.1f}" fill="{SCHADUW}" opacity=".1"/>'), grond=True)
+        self.voeg((x, y, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x + 0.3 * r) * self.s:.1f}" cy="{(y + 0.15 * r) * self.s:.1f}" rx="{r * self.s * 0.9:.1f}" ry="{r * self.s * 0.6:.1f}" fill="{SCHADUW}" opacity=".16" filter="url(#f-zacht)"/>'), grond=True)
         svg = (f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{tx:.1f}" y2="{ty:.1f}" stroke="{STAM}" stroke-width="2.4"/>'
-               f'<circle cx="{tx:.1f}" cy="{ty - rs * 0.5:.1f}" r="{rs:.1f}" fill="{GROEN}"/>'
+               f'<circle cx="{tx:.1f}" cy="{ty - rs * 0.5:.1f}" r="{rs:.1f}" fill="url(#g-boom)"/>'
                f'<circle cx="{tx + rs * 0.22:.1f}" cy="{ty - rs * 0.3:.1f}" r="{rs * 0.62:.1f}" fill="{GROENDONKER}" opacity=".28"/>'
                f'<circle cx="{tx - rs * 0.3:.1f}" cy="{ty - rs * 0.7:.1f}" r="{rs * 0.55:.1f}" fill="{GROEN2}"/>')
         if wind:
@@ -502,7 +508,13 @@ class Scene:
     def svg(self, breedte, hoogte, label):
         iso = f'patternTransform="matrix({CX:.4f},{CY:.4f},{-CX:.4f},{CY:.4f},{self.ox},{self.oy})"'
         t = 0.5 * self.s                                                                                            # tegel van een halve eenheid
-        defs = (f'<defs><pattern id="p-gras" width="{t:.1f}" height="{t:.1f}" patternUnits="userSpaceOnUse" {iso}><rect width="{t:.1f}" height="{t:.1f}" fill="{GROEN2}"/>'
+        defs = ('<defs><filter id="f-zacht" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.6"/></filter>'
+                '<linearGradient id="g-muur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".10"/><stop offset=".55" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#0B1B2B" stop-opacity=".14"/></linearGradient>'
+                '<linearGradient id="g-dak" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".16"/><stop offset="1" stop-color="#0B1B2B" stop-opacity=".05"/></linearGradient>'
+                f'<linearGradient id="g-glas" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9F6FF"/><stop offset=".45" stop-color="{GLAS}"/><stop offset=".5" stop-color="#9FCDEB"/><stop offset="1" stop-color="#8DBEDF"/></linearGradient>'
+                f'<linearGradient id="g-glas2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6FBFF"/><stop offset=".5" stop-color="{GLAS2}"/><stop offset=".55" stop-color="#C6E2F5"/><stop offset="1" stop-color="#B5D6EE"/></linearGradient>'
+                f'<radialGradient id="g-boom" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="{GROEN2}"/><stop offset=".55" stop-color="{GROEN}"/><stop offset="1" stop-color="{GROENDONKER}"/></radialGradient>'
+                + f'<pattern id="p-gras" width="{t:.1f}" height="{t:.1f}" patternUnits="userSpaceOnUse" {iso}><rect width="{t:.1f}" height="{t:.1f}" fill="{GROEN2}"/>'
                 f'<path d="M2,7 l1,-3 l1,3 M6,4 l1,-3 l1,3" fill="none" stroke="#62CC92" stroke-width=".7"/></pattern>'
                 f'<pattern id="p-tegels" width="{t:.1f}" height="{t:.1f}" patternUnits="userSpaceOnUse" {iso}><rect width="{t:.1f}" height="{t:.1f}" fill="{GROND2}"/>'
                 f'<path d="M0,{t:.1f} H{t:.1f} V0" fill="none" stroke="#D3D9DF" stroke-width=".7"/></pattern>'
@@ -516,14 +528,20 @@ class Scene:
                               ("natuursteen", 14, 6, f'<path d="M0,0 H14 M0,3 H14 M0,0 V3 M7,3 V6" fill="none" stroke="#8C7B5E" stroke-width=".4" opacity=".4"/>'),    # grote blokken
                               ("plaat", 9, 20, f'<path d="M0,0 V20 M0,10 H9" fill="none" stroke="#7D8C9B" stroke-width=".35" opacity=".35"/>')))                    # gevelplaten
                 + '</defs>')
+        eiland = ""
+        if getattr(self, "eiland", False):
+            P = self.P; dz = -0.4
+            eiland = (f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(0, G, 0), P(G, G, 0), P(G, G, dz), P(0, G, dz)))}" fill="#D3DAE1"/>'
+                      f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(G, 0, 0), P(G, G, 0), P(G, G, dz), P(G, 0, dz)))}" fill="#BCC5CE"/>'
+                      f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(0, G, dz), P(G, G, dz), P(G, 0, dz), P(G + 0.6, 0.3, dz), P(G + 0.6, G + 0.6, dz), P(0.3, G + 0.6, dz)))}" fill="#0B1B2B" opacity=".07" filter="url(#f-zacht)"/>')
         return (f'<svg viewBox="0 0 {breedte} {hoogte}" width="{breedte}" height="{hoogte}" role="img" aria-label="{label}" '
-                f'xmlns="http://www.w3.org/2000/svg" class="iso">' + defs + "".join(str(d[1]) for d in self._volgorde(self.delen)) + "</svg>")
+                f'xmlns="http://www.w3.org/2000/svg" class="iso">' + defs + eiland + "".join(str(d[1]) for d in self._volgorde(self.delen)) + "</svg>")
 
 # ---------- gedeelde bouwstenen ----------
 G = 12.2   # grondvlak 12.2 x 12.2
 
 def _nieuw():
-    return Scene(19, 222, 116)
+    sc = Scene(19, 222, 116); sc.eiland = True; return sc
 
 def _weg_x(sc, y, b=1.0, x0=0, x1=G, streep=True):
     sc.vlak(x0, y, x1 - x0, b, WEG)
