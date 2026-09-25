@@ -207,6 +207,9 @@ section,.sectie{padding:var(--sectie) 0}
 .rij-knoppen button[disabled]{background:#EFEFF1;color:#B8B8BD;cursor:default}
 .rij{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);background:var(--paneel)}
 .rij::-webkit-scrollbar{height:8px}
+@media (hover:hover) and (pointer:fine){.rij{cursor:grab}.rij a,.rij button{cursor:pointer}}
+.rij.sleept{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.rij img{-webkit-user-drag:none;user-select:none}
 .rij::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:4px}
 .kaart{flex:0 0 86%;scroll-snap-align:start;display:flex;flex-direction:column}
 @media (min-width:700px){.kaart{flex-basis:44%}}

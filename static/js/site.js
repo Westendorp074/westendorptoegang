@@ -98,6 +98,28 @@
       });
     });
     rij.addEventListener('scroll', status, { passive: true }); window.addEventListener('resize', status); status();
+    // slepen met de muis (Lars, 25-09-2026); aanraken werkt al vanzelf. Na slepen klikt een knop in de kaart niet per ongeluk.
+    var bezig = false, gesleept = false, startX = 0, startScroll = 0;
+    rij.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      bezig = true; gesleept = false; startX = e.clientX; startScroll = rij.scrollLeft;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!bezig) return;
+      var dx = e.clientX - startX;
+      if (!gesleept && Math.abs(dx) > 5) { gesleept = true; rij.classList.add('sleept'); }
+      if (gesleept) { rij.scrollLeft = startScroll - dx; e.preventDefault(); }
+    });
+    window.addEventListener('pointerup', function () {
+      if (!bezig) return; bezig = false;
+      if (gesleept) {
+        rij.classList.remove('sleept');
+        var kaart = rij.querySelector('.kaart'), b = kaart ? kaart.getBoundingClientRect().width : 320;
+        rij.scrollTo({ left: Math.round(rij.scrollLeft / b) * b, behavior: rustig ? 'auto' : 'smooth' });   // netjes op een kaart uitkomen
+      }
+    });
+    rij.addEventListener('click', function (e) { if (gesleept) { e.preventDefault(); e.stopPropagation(); gesleept = false; } }, true);
+    rij.addEventListener('dragstart', function (e) { e.preventDefault(); });
   });
 
   // ---------- Menu ----------
