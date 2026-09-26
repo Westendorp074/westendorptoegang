@@ -318,7 +318,17 @@ ISO_CSS = """<style>
 .anim-slagboom{animation:slagboom 9s ease-in-out infinite}@keyframes slagboom{0%,10%{transform:rotate(0)}17%,38%{transform:rotate(-58deg)}45%,100%{transform:rotate(0)}}
 
 .anim-knipper{animation:knipper 1.6s steps(1) infinite}@keyframes knipper{0%,55%{opacity:1}56%,100%{opacity:.12}}
-.anim-zwaailicht{animation:knipper .7s steps(1) infinite}
+.anim-zwaailicht{animation:knipper 1.4s steps(1) infinite}
+.anim-rotor{animation:rotor 20s linear infinite}@keyframes rotor{to{transform:rotate(360deg)}}
+.anim-wijzer{animation:rotor 60s linear infinite}
+.anim-lamp{animation:lamp 8s ease-in-out infinite;opacity:.25}@keyframes lamp{0%,100%{opacity:.25}20%,40%{opacity:1}}
+.anim-wimpel{animation:wimpel 2.6s ease-in-out infinite alternate}@keyframes wimpel{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.anim-roldeur{animation:roldeur 10s ease-in-out infinite}@keyframes roldeur{0%,30%{transform:scaleY(1)}45%,75%{transform:scaleY(.08)}90%,100%{transform:scaleY(1)}}
+.anim-letter{animation:letter 5s ease-in-out infinite}@keyframes letter{0%,100%{opacity:.55}15%,35%{opacity:1}}
+.anim-boot{animation:boot 12s ease-in-out infinite alternate}@keyframes boot{from{transform:translate(-8px,-4px)}to{transform:translate(12px,6px)}}
+.anim-loopkat{animation:loopkat 10s ease-in-out infinite alternate}@keyframes loopkat{from{transform:translate(0,0)}to{transform:translate(38px,22px)}}
+.anim-schommel{animation:schommel 2.8s ease-in-out infinite alternate}@keyframes schommel{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.led-beurt{animation:ledbeurt 6s infinite}@keyframes ledbeurt{0%,20%{fill:#D9362B}25%,50%{fill:#3DBE7A}55%,100%{fill:#D9362B}}
 .anim-fiets{animation:rijden 14s linear infinite}
 .anim-loop{animation:loop 8s linear infinite}@keyframes loop{0%{transform:translate(var(--ix),var(--iy));opacity:0}3%{opacity:1}18%,54%{transform:translate(0,0);opacity:1}70%{transform:translate(var(--dx),var(--dy));opacity:1}73%,100%{transform:translate(var(--dx),var(--dy));opacity:0}}
 .anim-arm{animation:arm 8s ease-in-out infinite}@keyframes arm{0%,20%{transform:rotate(var(--rust))}28%,42%{transform:rotate(0)}50%,100%{transform:rotate(var(--rust))}}

@@ -26,6 +26,13 @@ KRUIS_T, KRUIS_L, KRUIS_R = "#F05A4E", "#D9362B", "#A8271E"   # rood kruis (ziek
 GEEL_T, GEEL_L, GEEL_R = "#F7D774", "#E9B93A", "#C4951C"      # ambulance
 NL_ROOD, NL_BLAUW = "#AE1C28", "#21468B"                      # Nederlandse vlag
 WIEL = "#1F2428"
+MINT_T, MINT_L, MINT_R = "#F3FAF7", "#DDEFE8", "#C3E0D4"        # zorg
+ANTR_T, ANTR_L, ANTR_R = "#6A737E", "#4E5661", "#3A414B"        # vve: antraciet
+HOUT_T, HOUT_L, HOUT_R = "#DDB88E", "#BF9366", "#9A744C"        # hout
+CREME_T, CREME_L, CREME_R = "#FAF4E6", "#EADFC6", "#D5C6A6"     # retail, woningcorporatie
+CHAMP_T, CHAMP_L, CHAMP_R = "#F5EDDE", "#E4D6BD", "#CDBB9B"     # hotel
+ORANJE_T, ORANJE_L, ORANJE_R = "#F5AA5E", "#E08636", "#BA6A24"  # industrie
+GOUD = "#C9A227"
 PAAL = "#6B7680"
 SCHADUW = "#14232E"                                             # slagschaduw (met lage dekking)
 KOZIJN, KOZIJN2 = "#8FA9BE", "#A9BFD0"                          # raamkozijnen op het linker- en rechtervlak
@@ -127,7 +134,6 @@ class Scene:
             uit.append(_poly([P(x + i, y + i, z + h), P(x + w - i, y + i, z + h), P(x + w - i, y + d - i, z + h), P(x + i, y + d - i, z + h)], _tint(top, 0.965)))
             uit.append(_poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], "url(#g-dak)"))
             uit.append(_poly([P(x + i, y + i, z + h), P(x + w - i, y + i, z + h), P(x + w - i, y + d - i, z + h), P(x + i, y + d - i, z + h)], "url(#p-grind)"))
-        if dak is None and z == 0 and w >= 1.8 and d >= 1.8 and h >= 1.4: dak = ("zon", "licht", "kast")[int((x * 7 + y * 13) * 10) % 3]
         if dak == "zon":                                                                                          # zonnepanelen in rijen
             i = 0.35; kol = int((w - 2 * i) / 0.55); rij = int((d - 2 * i) / 0.45)
             for r in range(rij):
@@ -269,7 +275,7 @@ class Scene:
         """Klok op een gevel (x, y op het gevelvlak)."""
         cx, cy = self.P(x, y, z); self.vrij("l", y, x - 0.35, x + 0.35, z - 0.35, z + 0.35)
         self.voeg((x, y, z - 0.2, x, y, z + 0.2), f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r}" fill="#FFFFFF" stroke="{DONKER}" stroke-width="1"/>'
-                  f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{cx:.1f}" y2="{cy-r*0.7:.1f}" stroke="{DONKER}" stroke-width="1"/><line x1="{cx:.1f}" y1="{cy:.1f}" x2="{cx+r*0.55:.1f}" y2="{cy+r*0.2:.1f}" stroke="{DONKER}" stroke-width="1"/>', pad=(r, r, r, r))
+                  f'<g class="anim-wijzer" style="transform-origin:{cx:.1f}px {cy:.1f}px"><line x1="{cx:.1f}" y1="{cy:.1f}" x2="{cx:.1f}" y2="{cy-r*0.75:.1f}" stroke="{DONKER}" stroke-width="1"/></g><line x1="{cx:.1f}" y1="{cy:.1f}" x2="{cx+r*0.5:.1f}" y2="{cy+r*0.2:.1f}" stroke="{DONKER}" stroke-width="1.3"/>', pad=(r, r, r, r))
     def zuilen(self, x, y, n, h, kl=ZAND_T, afstand=0.75, dik=0.22):
         for i in range(n): self.blok(x + i * afstand, y, 0, dik, dik, h, kl, kl, ZAND_L)
     def balkons(self, x, y, z0, n_verd, n_per, w, stap, kleur=LICHT):
@@ -392,10 +398,58 @@ class Scene:
     def basket(self, x, y):
         P = self.P; b0, b1 = P(x, y, 0), P(x, y, 1.1)
         self.voeg((x, y, 0, x, y, 1.15), f'<line x1="{b0[0]:.0f}" y1="{b0[1]:.0f}" x2="{b1[0]:.0f}" y2="{b1[1]:.0f}" stroke="{PAAL}" stroke-width="1.4"/><rect x="{b1[0]-5:.0f}" y="{b1[1]-6:.0f}" width="10" height="7" fill="#FFFFFF" stroke="{PAAL}" stroke-width="0.6"/><circle cx="{b1[0]:.0f}" cy="{b1[1]+1:.0f}" r="1.8" fill="none" stroke="{KRUIS_L}" stroke-width="1"/>', pad=(6, 8, 6, 2))
-    def schommel(self, x, y):
+    def schommel(self, x, y, anim=False):
         self.blok(x, y, 0, 0.12, 0.12, 1.0, LICHT, LICHT, MIDDEN); self.blok(x + 1.2, y, 0, 0.12, 0.12, 1.0, LICHT, LICHT, MIDDEN)
         self.blok(x, y, 1.0, 1.32, 0.12, 0.08, GROEN2, GROEN, GROENDONKER)
-        self.blok(x + 0.5, y, 0.35, 0.3, 0.12, 0.05, DONKER, DONKER, DONKER)
+        if not anim:
+            self.blok(x + 0.5, y, 0.35, 0.3, 0.12, 0.05, DONKER, DONKER, DONKER); return
+        a, b = self.P(x + 0.55, y + 0.06, 1.0), self.P(x + 0.75, y + 0.06, 1.0); c, d = self.P(x + 0.55, y + 0.06, 0.38), self.P(x + 0.75, y + 0.06, 0.38)
+        ox, oy = (a[0] + b[0]) / 2, a[1]
+        self.voeg((x + 0.5, y, 0.35, x + 0.8, y + 0.12, 1.0), f'<g class="anim-schommel" style="transform-origin:{ox:.1f}px {oy:.1f}px">'
+                  f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{c[0]:.1f}" y2="{c[1]:.1f}" stroke="{PAAL}" stroke-width=".8"/><line x1="{b[0]:.1f}" y1="{b[1]:.1f}" x2="{d[0]:.1f}" y2="{d[1]:.1f}" stroke="{PAAL}" stroke-width=".8"/>'
+                  f'<rect x="{c[0]-1.5:.1f}" y="{c[1]-1.2:.1f}" width="{d[0]-c[0]+3:.1f}" height="2.4" rx=".6" fill="{KRUIS_L}"/></g>', pad=(4, 4, 4, 4))
+    def naaldboom(self, x, y, h=1.9, r=0.45):
+        """Donkere spar: drie gestapelde driehoeken, voor het bos van het recreatiepark."""
+        P = self.P; bx, by = P(x, y, 0); s = self.s
+        self.voeg((x, y, 0.003, x + r, y + r, 0.003), self.grond_g(f'<ellipse cx="{(x+0.3*r)*s:.1f}" cy="{(y+0.1*r)*s:.1f}" rx="{r*s*0.9:.1f}" ry="{r*s*0.5:.1f}" fill="{SCHADUW}" opacity=".18" filter="url(#f-zacht)"/>'), grond=True)
+        svg = f'<line x1="{bx:.1f}" y1="{by:.1f}" x2="{bx:.1f}" y2="{by-h*s*0.3:.1f}" stroke="{STAM}" stroke-width="2"/>'
+        for i, (f, w) in enumerate(((0.25, 1.0), (0.5, 0.78), (0.72, 0.52))):
+            t = by - h * s * f; top = by - h * s * (f + 0.4)
+            svg += f'<polygon points="{bx-r*s*w:.1f},{t:.1f} {bx+r*s*w:.1f},{t:.1f} {bx:.1f},{top:.1f}" fill="{"#2E7D55" if i % 2 == 0 else "#256B48"}"/><polygon points="{bx:.1f},{t:.1f} {bx+r*s*w:.1f},{t:.1f} {bx:.1f},{top:.1f}" fill="#1B5238" opacity=".45"/>'
+        self.voeg((x - r, y - r, 0, x + r, y + r, h), svg, pad=(4, 4, 4, 2))
+    def helikopter(self, x, y, z):
+        """Helikopter op het dakplatform; de rotor draait heel langzaam."""
+        self.blok(x - 0.35, y - 0.18, z, 0.8, 0.36, 0.3, WIT_T, KRUIS_L, KRUIS_R)
+        self.blok(x + 0.45, y - 0.05, z + 0.12, 0.6, 0.1, 0.08, KRUIS_T, KRUIS_L, KRUIS_R)
+        cx, cy = self.P(x, y, z + 0.42)
+        self.voeg((x - 0.4, y - 0.4, z + 0.4, x + 0.4, y + 0.4, z + 0.45), f'<g transform="translate({cx:.1f},{cy:.1f}) scale(1,.55)"><g class="anim-rotor">'
+                  f'<line x1="-15" y1="0" x2="15" y2="0" stroke="{WIEL}" stroke-width="1.6"/><line x1="0" y1="-15" x2="0" y2="15" stroke="{WIEL}" stroke-width="1.6"/></g></g>'
+                  f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="1.4" fill="{WIEL}"/>', pad=(16, 10, 16, 10))
+    def lampjes(self, punten, kleur="#FFE08A"):
+        """Kleine lampen op een gevel of galerij die om de beurt zacht oplichten."""
+        uit = ""
+        for i, (x, y, z) in enumerate(punten):
+            cx, cy = self.P(x, y, z)
+            uit += f'<circle class="anim-lamp" style="animation-delay:{i * 0.9 % 8:.1f}s" cx="{cx:.1f}" cy="{cy:.1f}" r="1.6" fill="{kleur}"/>'
+        xs = [p[0] for p in punten]; ys = [p[1] for p in punten]; zs = [p[2] for p in punten]
+        self.voeg((min(xs), min(ys), min(zs), max(xs), max(ys), max(zs)), uit, pad=(3, 3, 3, 3))
+    def vlaggenlijn(self, x0, x1, y, z, kleuren=(KRUIS_L, GEEL_L, LICHT, GROEN)):
+        """Slinger met wimpels boven de winkelstraat; de wimpels wiegen zacht."""
+        a, b = self.P(x0, y, z), self.P(x1, y, z); uit = f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{PAAL}" stroke-width=".6"/>'
+        n = int((x1 - x0) / 0.45)
+        for i in range(n):
+            px, py = self.P(x0 + (i + 0.5) * (x1 - x0) / n, y, z)
+            uit += (f'<g class="anim-wimpel" style="transform-origin:{px:.1f}px {py:.1f}px;animation-delay:{(i % 5) * 0.4:.1f}s">'
+                    f'<polygon points="{px-2.6:.1f},{py:.1f} {px+2.6:.1f},{py:.1f} {px:.1f},{py+5:.1f}" fill="{kleuren[i % len(kleuren)]}"/></g>')
+        self.voeg((x0, y, z, x1, y, z), uit, pad=(4, 2, 4, 8))
+    def extra_deur(self, x, y, z, breedte, hoogte, kleur, vertraging):
+        """Extra voordeur met lezer op een gevel (vlak y=const); de led springt op zijn beurt op groen."""
+        P = self.P; self.vrij("l", y, x - 0.05, x + breedte + 0.55, z, z + hoogte + 0.12)
+        d = _poly([P(x, y, z), P(x + breedte, y, z), P(x + breedte, y, z + hoogte), P(x, y, z + hoogte)], kleur, f' stroke="{KOZIJN}" stroke-width=".6"')
+        lx, ly = P(x + breedte + 0.3, y, z + hoogte * 0.55)
+        d += (f'<rect x="{lx-3:.1f}" y="{ly-6:.1f}" width="6" height="12" rx="1" fill="#FFFFFF" stroke="{DONKER}" stroke-width="0.6"/>'
+              + (f'<circle class="led-beurt" style="animation-delay:{vertraging:.1f}s" cx="{lx:.1f}" cy="{ly-2:.1f}" r="1.6" fill="{KRUIS_L}"/>' if vertraging is not None else f'<circle cx="{lx:.1f}" cy="{ly-2:.1f}" r="1.3" fill="{KRUIS_L}"/>'))
+        self.voeg((x, y, z, x + breedte + 0.4, y, z + hoogte), d)
     def glijbaan(self, x, y):
         self.blok(x, y, 0, 0.35, 0.35, 0.9, LICHT2, LICHT, MIDDEN)
         P = self.P; self.voeg((x + 0.35, y, 0, x + 1.3, y + 0.35, 0.9), _poly([P(x + 0.35, y, 0.9), P(x + 0.35, y + 0.35, 0.9), P(x + 1.3, y + 0.35, 0.05), P(x + 1.3, y, 0.05)], LICHT))
@@ -565,8 +619,8 @@ class Scene:
         eiland = ""
         if getattr(self, "eiland", False):
             P = self.P; dz = -0.4
-            eiland = (f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(0, G, 0), P(G, G, 0), P(G, G, dz), P(0, G, dz)))}" fill="#D3DAE1"/>'
-                      f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(G, 0, 0), P(G, G, 0), P(G, G, dz), P(G, 0, dz)))}" fill="#BCC5CE"/>'
+            eiland = (f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(0, G, 0), P(G, G, 0), P(G, G, dz), P(0, G, dz)))}" fill="{_tint(getattr(self, "grond", GROND), 0.9)}"/>'
+                      f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(G, 0, 0), P(G, G, 0), P(G, G, dz), P(G, 0, dz)))}" fill="{_tint(getattr(self, "grond", GROND), 0.8)}"/>'
                       f'<polygon points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in (P(0, G, dz), P(G, G, dz), P(G, 0, dz), P(G + 0.6, 0.3, dz), P(G + 0.6, G + 0.6, dz), P(0.3, G + 0.6, dz)))}" fill="#0B1B2B" opacity=".07" filter="url(#f-zacht)"/>')
         return (f'<svg viewBox="0 0 {breedte} {hoogte}" width="{breedte}" height="{hoogte}" role="img" aria-label="{label}" '
                 f'xmlns="http://www.w3.org/2000/svg" class="iso">' + defs + eiland + "".join(str(d[1]) for d in self._volgorde(self.delen)) + "</svg>")
@@ -574,24 +628,22 @@ class Scene:
 # ---------- gedeelde bouwstenen ----------
 G = 12.2   # grondvlak 12.2 x 12.2
 
-def _nieuw():
-    sc = Scene(19, 222, 116); sc.eiland = True; return sc
+def _nieuw(grond=GROND):
+    sc = Scene(19, 222, 116); sc.eiland = True; sc.grond = grond; return sc
 
 def _weg_x(sc, y, b=1.0, x0=0, x1=G, streep=True):
     sc.vlak(x0, y, x1 - x0, b, WEG)
     for k in (y + 0.02, y + b - 0.02): sc.lijn_grond(x0, k, x1, k, STOEPRAND, 0.6, z=0.012)                    # stoepranden
-    for f in (0.28, 0.74): sc.ellips(x0 + (x1 - x0) * f, y + b * 0.7, 0.13, 0.13, "#C4CBD2", "#B3BBC3", 0.6, z=0.013)   # putdeksels
     if streep: sc.lijn_grond(x0 + 0.3, y + b / 2, x1 - 0.3, y + b / 2, "#FFFFFF", 0.8)
 
 def _weg_y(sc, x, b=1.0, y0=0, y1=G, streep=True):
     sc.vlak(x, y0, b, y1 - y0, WEG)
     for k in (x + 0.02, x + b - 0.02): sc.lijn_grond(k, y0, k, y1, STOEPRAND, 0.6, z=0.012)
-    for f in (0.3, 0.72): sc.ellips(x + b * 0.3, y0 + (y1 - y0) * f, 0.13, 0.13, "#C4CBD2", "#B3BBC3", 0.6, z=0.013)
     if streep: sc.lijn_grond(x + b / 2, y0 + 0.3, x + b / 2, y1 - 0.3, "#FFFFFF", 0.8)
 
 def _stad(sc):
     """Stadsraster: twee wegen in elke richting met zebra's en lantaarns (kantoren)."""
-    sc.vlak(0, 0, G, G, GROND)
+    sc.vlak(0, 0, G, G, getattr(sc, "grond", GROND))
     for k in (3.4, 7.8): _weg_x(sc, k); _weg_y(sc, k)
     for k in (3.4, 7.8):
         for m in (1.4, 5.8, 10.2): sc.zebra(m, k, 1.2, 1.0, 4); sc.zebra(k, m, 1.0, 1.2, 4)
@@ -619,50 +671,46 @@ def _bomen(sc, punten, r=0.5, h=1.3):
 # ---------- de acht sectoren ----------
 def kantoor():
     """Kantoren: zakendistrict met kantoortorens van glas, zendmast met knipperlicht, plein met fontein; ramen lichten om de beurt op, één auto rijdt."""
-    sc = _nieuw(); sc.huid, sc.haar = "#7B4A2D", "#1E1A17"; _stad(sc); _aansluiting(sc, 7.8)
-    sc.blok(0.3, 0.3, 0, 2.8, 2.8, 5.8, LICHT2, MIDDEN, DONKER, ramen=(6, 3), lichtjes=True)                 # hoogste toren
-    sc.blok(1.5, 1.5, 5.8, 0.14, 0.14, 0.7, GRIJS_T, GRIJS_L, GRIJS_R)                                        # zendmast
-    mx, my = sc.P(1.57, 1.57, 6.55); sc.voeg((1.5, 1.5, 6.5, 1.64, 1.64, 6.6), f'<circle class="anim-knipper" cx="{mx:.1f}" cy="{my:.1f}" r="2" fill="{KRUIS_L}"/>', pad=(3, 3, 3, 3))
-    sc.dakkast(0.6, 2.2, 5.8); sc.dakkast(2.3, 0.6, 5.8)
-    sc.blok(4.7, 0.4, 0, 2.8, 2.6, 4.0, WIT_T, WIT_L, WIT_R, ramen=(4, 3), deur=(0.5, 0.7, 1.2), lichtjes=True)   # hoofdkantoor met entree
-    sc.dakkast(5.0, 0.7, 4.0); sc.dakkast(6.6, 2.2, 4.0)
-    sc.blok(9.1, 0.3, 0, 2.8, 2.8, 5.0, LICHT2, MIDDEN2, DONKER2, ramen=(5, 3), lichtjes=True)                 # tweede toren
-    sc.blok(9.1, 0.3, 5.0, 1.4, 1.4, 0.5, LICHT2, MIDDEN2, DONKER2)                                            # dakopbouw
+    sc = _nieuw("#EDF2F8"); sc.huid, sc.haar = "#7B4A2D", "#1E1A17"; _stad(sc); _aansluiting(sc, 7.8)
+    sc.blok(0.3, 0.3, 0, 2.8, 2.8, 5.2, LICHT2, MIDDEN, DONKER, ramen=(6, 3), lichtjes=True)                 # één hoge glazen toren
+    sc.blok(1.5, 1.5, 5.2, 0.14, 0.14, 0.8, GRIJS_T, GRIJS_L, GRIJS_R)                                        # zendmast
+    mx, my = sc.P(1.57, 1.57, 5.95); sc.voeg((1.5, 1.5, 5.9, 1.64, 1.64, 6.0), f'<circle class="anim-knipper" cx="{mx:.1f}" cy="{my:.1f}" r="2" fill="{KRUIS_L}"/>', pad=(3, 3, 3, 3))
+    sc.dakkast(0.6, 2.2, 5.2); sc.dakkast(2.3, 0.6, 5.2)
+    sc.blok(4.7, 0.4, 0, 2.8, 2.6, 1.4, LICHT2, MIDDEN2, DONKER2, ramen=(1, 3))                             # laag glazen paviljoen
+    sc.blok(9.1, 0.3, 0, 2.8, 2.8, 3.8, LICHT2, MIDDEN2, DONKER2, ramen=(4, 3), lichtjes=True)                 # tweede kantoor, lager
     sc.vlak(0.4, 4.6, 3.0, 3.0, GROND2)                                                                        # plein
     sc.ellips(1.9, 6.1, 0.8, 0.8, LICHT); sc.groep("anim-water", lambda: sc.ellips(1.9, 6.1, 0.55, 0.55, GLAS2, z=0.02))   # fontein
-    for bx, by in [(0.7, 5.0), (2.8, 4.9), (0.7, 7.0)]: sc.blok(bx, by, 0, 0.6, 0.18, 0.22, DAK_T, DAK_L, DAK_R)   # bankjes
     _bomen(sc, [(3.0, 6.9), (0.8, 6.1)], 0.42, 1.1)
     sc.blok(4.7, 4.7, 0, 2.8, 2.6, 3.4, MIDDEN2, MIDDEN, DONKER, ramen=(3, 3), deur=(1.0, 0.6, 1.1), lichtjes=True)  # kantoor
-    sc.blok(9.0, 4.6, 0, 3.0, 3.0, 1.6, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(1, 3)); sc.bord(8.8, 4.5, "P")        # parkeergarage
+    sc.vlak(9.0, 4.6, 3.0, 3.0, GROND2); _bomen(sc, [(9.8, 5.4), (11.2, 6.6)], 0.45, 1.2)             # plein
     sc.vlak(0.4, 9.0, 11.4, 3.0, GROEN2)                                                                         # park vooraan; in- en uitrit blijven vrij
     sc.blok(4.4, 8.9, 0, 3.4, 2.3, 4.4, LICHT2, MIDDEN2, DONKER2, ramen=(4, 3), lichtjes=True, deur=(1.0, 0.8, 1.3), deur_anim=True)   # toren vooraan met entree
     sc.vlak(3.9, 11.2, 4.2, 1.0, GROND2)                                                                          # stoep voor de entree
     _bomen(sc, [(1.6, 9.8), (2.8, 11.2), (1.2, 11.8), (9.4, 9.8), (11.0, 10.6), (9.8, 11.8)])
     sc.auto(8.0, 7.95, DONKER, klas="anim-auto")
-    sc.struik(3.1, 4.9); sc.struik(3.1, 5.6); sc.struik(0.7, 5.5)
     return sc.svg(444, 350, "Isometrische tekening van een zakendistrict met kantoortorens van glas, een plein met fontein en een parkeergarage")
 
 def zorg():
     """Zorg: ziekenhuis met rood kruis op de gevel en helikopterplatform, spoedeisende hulp, apotheek met groen kruis, jeugdinstelling met speelplein, huisartsenpost; de ambulance rijdt (cabine vooruit)."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#EDF6F2"); sc.vlak(0, 0, G, G, sc.grond)
     _weg_x(sc, 6.6); _weg_y(sc, 6.0, y0=0, y1=6.6); sc.zebra(6.0, 4.0, 1.0, 1.0, 4); sc.zebra(2.2, 6.6, 1.2, 1.0, 4); _aansluiting(sc, 6.6)
     for m in (0.5, 4.0, 8.5, 11.8): sc.lantaarn(m, 6.5)
-    sc.blok(0.4, 0.4, 0, 4.6, 3.4, 4.0, WIT_T, WIT_L, WIT_R, ramen=(4, 5))                                     # ziekenhuis, hoofdgebouw
-    sc.kruis_gevel(2.7, 3.8, 3.05, 1.6, 1.6, KRUIS_L, "links", klas="anim-gloed")                               # rood kruis, plat op de voorgevel
-    sc.dak_cirkel(2.7, 2.1, 4.0, 0.9, GRIJS_L, "#FFFFFF", "H")                                                 # helikopterplatform
+    sc.blok(0.4, 0.4, 0, 4.6, 3.4, 5.4, WIT_T, WIT_L, WIT_R, ramen=(5, 5))                                     # ziekenhuis, hoofdgebouw (hoogste punt)
+    sc.kruis_gevel(2.7, 3.8, 4.15, 1.6, 1.6, KRUIS_L, "links", klas="anim-gloed")                               # rood kruis, plat op de voorgevel
+    sc.dak_cirkel(2.7, 2.1, 5.4, 0.9, GRIJS_L, "#FFFFFF", "H"); sc.helikopter(2.5, 1.9, 5.4)             # helikopterplatform met helikopter
     sc.blok(0.4, 3.8, 0, 4.6, 1.9, 2.0, WIT_T, WIT_L, WIT_R, ramen=(1, 5), deur=(0.4, 1.3, 1.5))   # spoedeisende hulp met brede ingang
     sc.kruis_gevel(3.6, 5.7, 1.5, 0.5, 0.5, KRUIS_L)
     sc.bord(5.4, 5.9, "H", KRUIS_L)
     sc.blok(7.4, 0.4, 0, 2.6, 2.4, 1.8, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(0.4, 0.6, 1.1))               # apotheek
     sc.kruis_gevel(8.9, 2.8, 1.25, 0.6, 0.6, GROEN, "links", klas="anim-gloed")                                 # groen kruis
-    sc.blok(10.4, 0.4, 0, 1.6, 2.4, 2.6, LICHT2, MIDDEN2, DONKER2, ramen=(2, 2))                                # polikliniek
-    sc.blok(9.6, 3.6, 0, 2.4, 2.4, 1.6, LICHT2, MIDDEN2, DONKER2, ramen=(1, 3), deur=(0.9, 0.6, 1.0))           # jeugdinstelling
-    sc.vlak(7.2, 3.4, 2.2, 2.8, GROEN2); sc.schommel(7.6, 4.6); sc.ellips(8.6, 3.9, 0.35, 0.35, ZAND_T)          # speelplein met schommel en zandbak
+    sc.blok(10.4, 0.4, 0, 1.6, 2.4, 2.6, MINT_T, MINT_L, MINT_R, ramen=(2, 2))                                # polikliniek
+    sc.blok(9.6, 3.6, 0, 2.4, 2.4, 1.6, MINT_T, MINT_L, MINT_R, ramen=(1, 3), deur=(0.9, 0.6, 1.0))           # jeugdinstelling
+    sc.vlak(7.2, 3.4, 2.2, 2.8, GROEN2); _bomen(sc, [(7.8, 4.2), (8.8, 5.4)], 0.45, 1.2)                              # tuin
     sc.ambulance(0.2, 6.75)                                                                                    # de enige auto
     sc.vlak(0.4, 8.0, 11.4, 3.8, GROEN2)                                                                         # park vooraan; in- en uitrit blijven vrij
     sc.blok(3.4, 8.0, 0, 3.2, 2.4, 1.8, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(1.3, 0.6, 1.1), deur_anim=True)   # huisartsenpost met entree
     sc.vlak(3.0, 10.4, 3.8, 1.0, GROND2)                                                                          # pad voor de entree
-    sc.blok(6.9, 8.0, 0, 3.1, 2.6, 2.2, MIDDEN2, MIDDEN, DONKER, ramen=(2, 3), deur=(1.3, 0.6, 1.1))            # verpleeghuis
+    sc.blok(6.9, 8.0, 0, 3.1, 2.6, 2.2, MINT_T, MINT_L, MINT_R, ramen=(2, 3), deur=(1.3, 0.6, 1.1))            # verpleeghuis
     _bomen(sc, [(1.8, 8.8), (2.6, 10.6), (1.4, 11.7), (11.0, 8.9), (11.5, 10.6), (10.6, 11.7), (11.6, 3.0)])
     sc.struik(5.4, 4.2); sc.struik(5.4, 4.9); sc.struik(10.6, 8.6)
     return sc.svg(444, 350, "Isometrische tekening van een ziekenhuis met rood kruis en helikopterplatform, apotheek, jeugdinstelling en ambulance")
@@ -671,22 +719,23 @@ def onderwijs():
     """Onderwijs: Nederlandse basisschool. Bakstenen L-gebouw van twee lagen met grote ramen en een entree met luifel aan het schoolplein;
     gymzaal ernaast. Schoolplein met hekwerk, klimtoestel met glijbaan, schommel, zandbak, hinkelbaan, pannakooi en twee bomen;
     overdekte fietsenstalling; schoolzone met zebrapad aan de straat. De leerkracht gaat met een pas de school in."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#F5F1E6"); sc.vlak(0, 0, G, G, sc.grond)
     _weg_x(sc, 8.4); _aansluiting(sc, 8.4); sc.zebra(5.4, 8.4, 1.2, 1.0, 4)                                    # straat met zebrapad (schoolzone)
     sc.vlak(0.4, 7.7, 11.4, 0.7, GROND2)                                                                           # stoep langs de school
     for m in (0.6, 4.6, 8.2, 11.6): sc.lantaarn(m, 8.3)
     # schoolgebouw: L-vorm, twee lagen, baksteen
     sc.blok(0.4, 0.4, 0, 6.4, 2.2, 2.6, ROOD_T, ROOD_L, ROOD_R, ramen=(2, 6), deur=(3.4, 0.9, 1.3), deur_anim=True)   # hoofdvleugel met entree
-    sc.blok(3.55, 2.6, 1.35, 1.6, 0.45, 0.07, GRIJS_T, GRIJS_L, GRIJS_R)                                           # luifel boven de entree
+    sc.blok(3.55, 2.6, 1.35, 1.6, 0.45, 0.07, GEEL_T, GEEL_L, GEEL_R)                                           # gele luifel boven de entree
+    sc.blok(0.4, 2.58, 2.3, 6.4, 0.02, 0.18, GEEL_T, GEEL_L, GEEL_R); sc.blok(0.4, 5.18, 2.3, 1.8, 0.02, 0.18, GEEL_T, GEEL_L, GEEL_R)   # gele band onder de dakrand
     sc.blok(0.4, 2.6, 0, 1.8, 2.6, 2.6, ROOD_T, ROOD_L, ROOD_R, ramen=(2, 2))                                    # zijvleugel (L)
     sc.klok(1.3, 5.2, 2.05)                                                                                         # klok op de kopgevel
-    sc.blok(7.4, 0.4, 0, 4.4, 3.2, 3.0, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 4), dak="licht")                     # gymzaal
+    sc.blok(7.4, 0.4, 0, 4.4, 3.2, 2.0, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 4), dak="licht")                     # gymzaal, laag
     # schoolplein met hekwerk; het stuk voor de entree blijft vrij
     sc.vlak(2.4, 3.0, 5.2, 4.4, GROND2); sc.hek(2.4, 3.0, 5.2, 4.4)
     for i in range(3): sc.rechthoek_grond(2.8, 3.3 + i * 0.5, 0.5, 0.5)                                           # hinkelbaan
     sc.rechthoek_grond(2.55, 4.8, 0.5, 0.5); sc.rechthoek_grond(3.05, 4.8, 0.5, 0.5)
     sc.blok(5.6, 5.0, 0, 1.0, 1.0, 0.8, GEEL_T, GEEL_L, GEEL_R); sc.glijbaan(6.6, 5.3)                           # klimtoestel met glijbaan
-    sc.schommel(2.8, 5.6); sc.ellips(4.6, 6.6, 0.5, 0.4, ZAND_T)                                                  # schommel en zandbak
+    sc.schommel(2.8, 5.6, anim=True); sc.ellips(4.6, 6.6, 0.5, 0.4, ZAND_T)                                     # schommel (slingert) en zandbak
     _bomen(sc, [(3.0, 7.0), (7.0, 6.9)], 0.5, 1.4)
     # overdekte fietsenstalling
     sc.vlak(8.0, 4.0, 3.8, 1.6, GROND2)
@@ -696,27 +745,29 @@ def onderwijs():
     sc.bord(1.2, 7.9, "30", KRUIS_L)                                                                               # schoolzone
     # groen vooraan, in- en uitrit vrij
     sc.vlak(0.4, 9.6, 11.4, 2.4, GROEN2)
-    _bomen(sc, [(1.4, 10.6), (3.6, 11.4), (8.6, 11.2), (10.8, 10.4)], 0.5, 1.3)
-    sc.struik(6.0, 10.4); sc.struik(6.6, 10.6)
+    _bomen(sc, [(1.6, 10.8), (10.6, 10.6)], 0.5, 1.3)
     return sc.svg(444, 350, "Isometrische tekening van een basisschool met schoolplein, speeltoestellen, pannakooi, fietsenstalling en gymzaal, en een leerkracht die met een pas de school binnengaat")
 
 def vve():
     """VvE en vastgoed: woonstraat met appartementencomplex met balkons, rijtjeshuizen met puntdaken en voortuinen, garageboxen en twee-onder-een-kapwoningen; een schoorsteen rookt, één auto rijdt."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#EEF0F2"); sc.vlak(0, 0, G, G, sc.grond)
     sc.vlak(0, 4.4, G, 1.0, GROND2); sc.vlak(0, 6.4, G, 0.8, GROND2)                                           # stoepen
     _weg_x(sc, 5.4); sc.zebra(5.6, 5.4, 1.2, 1.0, 4); _aansluiting(sc, 5.4)
     for m in (1.0, 5.0, 9.0): sc.lantaarn(m, 4.5); sc.lantaarn(m + 2.0, 6.6)
-    sc.blok(0.4, 0.4, 0, 4.4, 3.0, 4.2, MIDDEN2, MIDDEN, DONKER, ramen=(4, 3), deur=(1.8, 0.7, 1.2))   # appartementencomplex
-    sc.balkons(0.4, 3.4, 1.3, 3, 3, 1.0, 1.05)
+    sc.blok(0.4, 0.4, 0, 4.4, 3.0, 4.2, ANTR_T, ANTR_L, ANTR_R, ramen=(4, 3), deur=(1.8, 0.7, 1.2))   # appartementencomplex, antraciet
+    sc.balkons(0.4, 3.4, 1.3, 3, 3, 1.0, 1.05, HOUT_L)
     sc.vlak(0.4, 3.5, 4.4, 0.9, GROEN2); _bomen(sc, [(1.0, 3.9), (4.2, 3.9)], 0.35, 0.9)
-    for i in range(5):                                                                                          # rijtjeshuizen met voortuin en heg
-        hx = 5.6 + i * 1.25; kl = (ROOD_T, ROOD_L, ROOD_R) if i % 2 == 0 else (WIT_T, WIT_L, WIT_R)
-        sc.huis(hx, 0.8, 1.15, 2.2, 1.7, kl, 0.6, "y", deur=(0.15, 0.4, 0.9), ramen=(2, 1), schoorsteen=(i == 1))
-        sc.vlak(hx, 3.0, 1.15, 1.4, GROEN2); sc.blok(hx, 4.2, 0, 1.15, 0.12, 0.35, GROEN2, GROEN, GROENDONKER)
-    rx, ry = sc.P(6.85 + 1.25 * 0.7 + 0.09, 0.8 + 0.77 + 0.09, 2.75)
-    sc.voeg((7.6, 1.5, 2.8, 8.0, 1.9, 3.6), f'<g class="anim-rook"><circle cx="{rx:.1f}" cy="{ry-4:.1f}" r="3.5" fill="#D5DBE1" opacity=".8"/><circle cx="{rx+3:.1f}" cy="{ry-10:.1f}" r="2.8" fill="#D5DBE1" opacity=".6"/></g>', pad=(4, 14, 8, 2))
-    sc.vlak(0.4, 7.2, 3.8, 3.2, GROEN2); sc.schommel(2.4, 8.6); sc.ellips(3.4, 7.9, 0.4, 0.4, ZAND_T)                  # speelveldje links vooraan (inrit blijft vrij)
-    for i in range(4): sc.blok(8.6 + i * 0.85, 7.8, 0, 0.8, 1.6, 0.9, GRIJS_T, GRIJS_L, GRIJS_R, deur=(0.1, 0.6, 0.7))   # garageboxen rechts (laag, uitrit blijft vrij)
+    sc.blok(5.6, 0.6, 0, 6.2, 2.4, 3.6, WIT_T, WIT_L, WIT_R, ramen=(3, 5))                                         # tweede appartementengebouw
+    sc.balkons(5.6, 3.0, 1.2, 2, 5, 0.95, 1.2, HOUT_L)
+    for _ in range(0):
+        pass
+        pass
+        pass
+    sc.vlak(0.4, 7.2, 3.8, 3.2, GROEN2); _bomen(sc, [(1.6, 8.4), (3.0, 9.4)], 0.5, 1.3)                            # groen links vooraan
+    sc.vlak(8.8, 7.4, 1.4, 2.4, "#6B7680")                                                                     # hellingbaan naar de parkeerkelder
+    sc.blok(8.8, 7.2, 0, 1.4, 0.2, 1.0, ANTR_T, ANTR_L, ANTR_R); sc.blok(10.2, 7.2, 0, 1.6, 2.6, 0.9, ANTR_T, ANTR_L, ANTR_R)
+    P = sc.P; r0, r1, r2, r3 = P(8.9, 7.4, 0.05), P(10.1, 7.4, 0.05), P(10.1, 7.4, 0.9), P(8.9, 7.4, 0.9)
+    sc.voeg((8.9, 7.4, 0, 10.1, 7.4, 0.9), _poly([r0, r1, r2, r3], "#1F2428") + f'<g class="anim-roldeur" style="transform-origin:{r3[0]:.1f}px {r3[1]:.1f}px">' + _poly([r0, r1, r2, r3], GRIJS_L) + "".join(f'<line x1="{P(8.9, 7.4, 0.1 + i * 0.12)[0]:.1f}" y1="{P(8.9, 7.4, 0.1 + i * 0.12)[1]:.1f}" x2="{P(10.1, 7.4, 0.1 + i * 0.12)[0]:.1f}" y2="{P(10.1, 7.4, 0.1 + i * 0.12)[1]:.1f}" stroke="{GRIJS_R}" stroke-width=".5"/>' for i in range(7)) + "</g>")   # roldeur parkeerkelder
     for i in range(2):                                                                                          # twee-onder-een-kap in het midden
         hx = 4.6 + i * 1.7
         sc.vlak(hx, 7.2, 1.6, 0.8, GROEN2); sc.blok(hx, 7.25, 0, 1.6, 0.1, 0.3, GROEN2, GROEN, GROENDONKER)
@@ -724,7 +775,6 @@ def vve():
     sc.vlak(0.4, 10.4, 11.4, 1.6, GROEN2); sc.vlak(3.4, 10.2, 3.0, 0.9, GROND2)                                # tuinpad voor de voordeur
     _bomen(sc, [(3.2, 11.2), (8.8, 11.5), (10.4, 11.0), (11.8, 6.9)], 0.45, 1.2)
     sc.auto(2.6, 5.55, LICHT, klas="anim-auto")
-    sc.struik(0.8, 4.7); sc.struik(5.2, 6.7)
     return sc.svg(444, 350, "Isometrische tekening van een woonstraat met appartementencomplex met balkons, rijtjeshuizen met puntdaken, garageboxen en twee-onder-een-kapwoningen")
 
 def verenigingen():
@@ -740,12 +790,11 @@ def verenigingen():
     for r in (1.7, 1.9, 2.1): sc.ellips(9.6, 2.3, r, r * 0.74, "none", "#FFFFFF", 0.6)
     for k in (0.4, 2.2):                                                                                        # tennisbanen met net
         sc.vlak(k, 5.2, 1.6, 2.6, "#D9865E"); sc.rechthoek_grond(k + 0.15, 5.35, 1.3, 2.3, "#FFFFFF", 0.7); sc.net(k + 0.1, 6.5, 1.4, "x")
-    sc.vlak(4.2, 5.2, 2.2, 2.6, "#C9CED0"); sc.rechthoek_grond(4.3, 5.3, 2.0, 2.4, "#FFFFFF", 0.7)               # basketbalveld
-    sc.ellips(5.3, 6.5, 0.4, 0.4, "none", "#FFFFFF", 0.7); sc.basket(5.3, 5.25); sc.basket(5.3, 7.75)
+    _bomen(sc, [(5.0, 6.0)], 0.5, 1.3)
     sc.blok(7.6, 5.0, 0, 3.4, 2.4, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(1.2, 0.6, 1.0), deur_anim=True)   # clubhuis
     sc.vlak(7.6, 7.4, 3.4, 0.6, ZAND_T); sc.vlag(11.5, 7.6, 2.4, LICHT)                                        # terras en clubvlag
     for i in range(5): sc.fiets(0.8 + i * 0.6, 9.4, DONKER)                                                    # fietsen langs het pad
-    sc.blok(3.6, 9.0, 0, 5.2, 2.8, 2.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(2.2, 0.7, 1.1))               # sporthal in het midden (in- en uitrit vrij)
+    sc.blok(3.6, 9.0, 0, 5.2, 2.8, 1.6, HOUT_T, HOUT_L, HOUT_R, ramen=(1, 4), deur=(2.2, 0.7, 1.1))               # houten kleedkamers
     _bomen(sc, [(2.2, 10.2), (1.4, 11.6), (10.0, 9.6), (11.4, 10.8), (10.2, 11.7), (11.8, 4.6), (6.9, 4.6)], 0.5, 1.3)
     sc.struik(11.4, 7.6); sc.struik(6.4, 4.6)
     return sc.svg(444, 350, "Isometrische tekening van een sportpark met voetbalveld, lichtmasten, atletiekbaan, tennisbanen, basketbalveld, clubhuis en sporthal")
@@ -754,53 +803,55 @@ def recreatie():
     """Recreatiepark in het bos: veel kleine huisjes met puntdak, luxe bungalows aan het water, meer met steiger, zwembad, speeltuin, receptie met slagboom; water beweegt, bomen wuiven, één auto rijdt het park op en de slagboom gaat open."""
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROEN2)
     sc.vlak(8.6, 0, 0.9, G, GROND2); _weg_x(sc, 5.0); sc.vlak(4.2, 0, 0.6, 5.0, GROND2); _aansluiting(sc, 5.0)   # lanen
-    sc.ellips(2.6, 8.9, 2.3, 1.9, LICHT); sc.groep("anim-water", lambda: sc.ellips(2.6, 8.9, 2.0, 1.6, GLAS2, z=0.02))   # meer
+    sc.ellips(2.8, 8.8, 2.6, 2.2, LICHT); sc.groep("anim-water", lambda: sc.ellips(2.8, 8.8, 2.3, 1.9, GLAS2, z=0.02))   # meer
+    P = sc.P; bx, by = P(2.4, 8.6, 0.02)
+    sc.voeg((1.9, 8.1, 0, 2.9, 9.1, 0.9), f'<g class="anim-boot"><ellipse cx="{bx:.1f}" cy="{by:.1f}" rx="7" ry="2.6" fill="{HOUT_L}"/><polygon points="{bx:.1f},{by-2:.1f} {bx:.1f},{by-17:.1f} {bx+8:.1f},{by-3:.1f}" fill="#FFFFFF" stroke="{GRIJS_R}" stroke-width=".4"/><polygon points="{bx-1:.1f},{by-3:.1f} {bx-1:.1f},{by-13:.1f} {bx-6:.1f},{by-3:.1f}" fill="{LICHT}"/></g>', pad=(9, 18, 9, 3))   # zeilbootje
     for i in range(5): sc.blok(4.6 + i * 0.3, 8.7, 0, 0.28, 0.5, 0.15, ZAND_T, ZAND_L, ZAND_R)                  # steiger
-    sc.ellips(1.4, 9.8, 0.35, 0.18, "#FFFFFF", DAK_L, 0.8, z=0.03)                                              # roeiboot
     def huisje(x, y, w=0.95, d=0.85, h=0.75, kl=(ZAND_T, ZAND_L, ZAND_R)):
-        sc.huis(x, y, w, d, h, kl, 0.5, "x", ramen=(1, 1))
-    for x, y in [(0.6, 0.6), (2.0, 0.6), (0.6, 2.0), (2.0, 2.0), (0.6, 3.4), (2.0, 3.4), (5.4, 0.6), (6.9, 0.6), (5.4, 2.0), (6.9, 2.0), (5.4, 3.4), (6.9, 3.4)]: huisje(x, y)
+        sc.huis(x, y, w, d, h, (HOUT_T, HOUT_L, HOUT_R), 0.5, "x", ramen=(1, 1))
+    for x, y in [(0.6, 0.6), (2.0, 0.6), (0.6, 2.4), (5.4, 0.6), (6.9, 0.6), (6.1, 2.4)]: huisje(x, y)                        # zes chalets
     for x, y in [(10.0, 0.6), (10.0, 2.4)]:                                                                      # bungalows aan de laan
         sc.huis(x, y, 1.6, 1.3, 1.0, (WIT_T, WIT_L, WIT_R), 0.45, "x", ramen=(1, 2)); sc.vlak(x, y + 1.3, 1.6, 0.5, ZAND_T)
     for x, y in [(6.2, 6.4), (6.2, 8.6)]:                                                                         # luxe bungalows aan het water, met terras en bubbelbad
         sc.huis(x, y, 2.0, 1.5, 1.1, (WIT_T, WIT_L, WIT_R), 0.4, "y", ramen=(1, 2)); sc.vlak(x - 0.9, y, 0.9, 1.5, ZAND_T); sc.ellips(x - 0.45, y + 0.75, 0.25, 0.25, GLAS2, LICHT, 1.2, z=0.03)
-    sc.vlak(9.8, 6.4, 2.0, 2.4, LICHT); sc.groep("anim-water", lambda: sc.vlak(10.0, 6.6, 1.6, 2.0, GLAS2, 0.02))   # zwembad
+    for nx, ny in [(10.2, 6.6), (11.2, 7.6), (10.4, 8.6), (11.5, 9.0)]: sc.naaldboom(nx, ny)
     sc.schommel(9.9, 9.5); sc.glijbaan(10.6, 10.3)                                                              # speeltuin
     sc.blok(6.0, 10.2, 0, 2.4, 1.2, 1.2, WIT_T, WIT_L, WIT_R, ramen=(1, 2), deur=(0.4, 0.5, 0.85), deur_anim=True)   # receptie bij de ingang
     sc.slagboom(8.4, 10.6, 1.4)
     sc.auto(8.75, 8.6, DONKER, klas="anim-auto-y-terug", lang=1.3, richting="-y")
-    _bomen(sc, [(3.6, 0.5), (3.6, 1.9), (3.6, 3.3), (0.5, 4.5), (8.0, 0.5), (8.0, 1.9), (8.0, 3.4), (11.9, 1.5), (11.9, 3.5), (10.6, 4.4), (3.4, 6.5), (0.6, 11.6), (5.2, 11.7), (11.7, 5.9), (4.6, 6.0), (9.4, 9.2), (11.8, 8.9)], 0.5, 1.4)
-    sc.struik(5.0, 8.4); sc.struik(4.8, 11.0); sc.struik(9.6, 5.4)
+    _bomen(sc, [(3.6, 0.5), (11.9, 1.5), (11.9, 3.5), (10.6, 4.4), (0.6, 11.6), (5.2, 11.7), (11.7, 5.9)], 0.5, 1.4)
+    for nx, ny in [(2.2, 2.4), (3.6, 2.4), (0.8, 4.2), (2.4, 4.2), (5.4, 4.0), (7.0, 4.0), (8.1, 1.8), (3.4, 6.2), (4.6, 6.0), (9.4, 9.6)]: sc.naaldboom(nx, ny)
     return sc.svg(444, 350, "Isometrische tekening van een recreatiepark met vakantiehuisjes, bungalows aan het water, zwembad, speeltuin en receptie met slagboom")
 
 def woningcorporatie():
     """Woningcorporaties: galerijflat met trappenhuis, portiekflat waar een huurder met een pas binnengaat, rij bergingen, wijkkantoor
     en de bus van de onderhoudsdienst; ondergrondse afvalcontainers. Eén auto rijdt."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#F3EEEA"); sc.vlak(0, 0, G, G, sc.grond)
     _weg_x(sc, 7.8); sc.zebra(5.4, 7.8, 1.2, 1.0, 4); _aansluiting(sc, 7.8)
     for m in (1.0, 4.5, 8.0, 11.5): sc.lantaarn(m, 7.7)
-    sc.blok(0.4, 0.4, 0, 5.4, 2.2, 4.2, ROOD_T, ROOD_L, ROOD_R, ramen=(4, 5), dak="zon")                          # galerijflat
-    for v in range(1, 4):                                                                                        # galerijen met borstwering
-        sc.blok(0.4, 2.6, v * 1.05, 5.4, 0.45, 0.07, GRIJS_T, GRIJS_L, GRIJS_R)
-        sc.blok(0.4, 3.02, v * 1.05 + 0.07, 5.4, 0.03, 0.34, WIT_T, WIT_L, WIT_R)
-    sc.blok(5.8, 0.8, 0, 1.0, 1.6, 4.8, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(5, 1))                                 # trappenhuis
-    sc.blok(7.4, 0.4, 0, 4.4, 2.6, 3.2, WIT_T, WIT_L, WIT_R, ramen=(3, 4), deur=(1.6, 0.8, 1.3), deur_anim=True)   # portiekflat
+    sc.blok(0.4, 0.4, 0, 5.4, 2.2, 5.2, ROOD_T, ROOD_L, ROOD_R, ramen=(5, 5))                                    # lange galerijflat
+    for v in range(1, 5):                                                                                        # galerijen met borstwering
+        sc.blok(0.4, 2.6, v * 1.04, 5.4, 0.45, 0.07, GRIJS_T, GRIJS_L, GRIJS_R)
+        sc.blok(0.4, 3.02, v * 1.04 + 0.07, 5.4, 0.03, 0.34, WIT_T, WIT_L, WIT_R)
+        for k, kl in enumerate((GEEL_L, ORANJE_L, GEEL_L, ORANJE_L)): sc.extra_deur(0.9 + k * 1.3, 2.6, v * 1.04 + 0.07, 0.45, 0.75, kl, None)
+        sc.lampjes([(0.7 + k * 1.3, 3.05, v * 1.04 + 0.95) for k in range(4)])
+    sc.blok(5.8, 0.8, 0, 1.0, 1.6, 5.8, ROOD_T, ROOD_L, ROOD_R, ramen=(6, 1))                                 # trappenhuis
+    sc.blok(7.4, 0.4, 0, 4.4, 2.6, 3.2, CREME_T, CREME_L, CREME_R, ramen=(3, 4), deur=(1.6, 0.8, 1.3), deur_anim=True)   # portiekflat
     sc.vlak(0.4, 3.6, 5.4, 0.6, GROND2); sc.vlak(7.4, 3.2, 4.4, 2.2, GROND2)                                      # stoep en voorplein portiekflat
-    sc.blok(0.4, 4.4, 0, 4.6, 2.4, 1.9, MIDDEN2, MIDDEN, DONKER, ramen=(1, 4), deur=(1.8, 0.7, 1.2))                 # wijkkantoor
+    sc.blok(0.4, 4.4, 0, 4.6, 2.4, 1.4, ROOD_T, ROOD_L, ROOD_R, ramen=(1, 4), deur=(1.8, 0.7, 1.1))                  # wijkkantoor, laag baksteen
     for i in range(5): sc.blok(7.5 + i * 0.85, 5.8, 0, 0.8, 1.1, 0.9, ZAND_T, ZAND_L, ZAND_R, deur=(0.15, 0.5, 0.75))  # bergingen (laag, voor de portiek langs)
-    sc.auto(5.7, 4.3, MIDDEN, lang=1.8, richting="y")                                                               # bus onderhoudsdienst (geparkeerd)
+    sc.auto(5.7, 4.3, GEEL_L, lang=1.8, richting="y")                                                               # bus onderhoudsdienst (geparkeerd)
     sc.vlak(0.4, 9.0, 3.6, 3.0, GROEN2); sc.vlak(8.4, 9.0, 3.6, 3.0, GROEN2)                                        # groen aan beide kanten (in- en uitrit vrij)
     sc.vlak(4.4, 9.0, 3.6, 3.0, GROND2)                                                                             # plein met ondergrondse containers
     for i in range(3): sc.cilinder(5.0 + i * 0.8, 10.0, 0.16, 0.38, GRIJS_T, GRIJS_R)                              # inworpzuilen ondergrondse containers
-    sc.schommel(1.2, 10.2)
     _bomen(sc, [(3.2, 9.6), (2.4, 11.4), (9.2, 9.8), (11.0, 10.6), (9.6, 11.6)], 0.5, 1.3)
     sc.struik(6.8, 3.9); sc.struik(7.2, 6.4)
-    sc.auto(1.2, 7.95, LICHT, klas="anim-auto")
+    sc.auto(1.2, 7.95, WIT_L, klas="anim-auto", lang=2.4)                                                             # verhuiswagen (huurderswissel)
     return sc.svg(444, 350, "Isometrische tekening van een woonwijk van een woningcorporatie met galerijflat, portiekflat, bergingen, wijkkantoor en een bus van de onderhoudsdienst")
 
 def industrie():
     """Industrie en logistiek: bedrijvenpark met productiehal met sheddak, silo's, schoorsteen, distributiecentrum met laaddocks, containerterrein, hekwerk met slagboom en portier; één vrachtwagen rijdt, heftruck pendelt, schoorsteen rookt."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#E7EAED"); sc.vlak(0, 0, G, G, sc.grond)
     _weg_y(sc, 5.6, 1.2); _weg_x(sc, 8.0, 1.0); sc.zebra(5.6, 8.0, 1.2, 1.0, 4); _aansluiting(sc, 8.0)
     for m in (0.3, 4.8, 8.0, 11.0): sc.lantaarn(m, 7.9)
     sc.blok(0.4, 0.4, 0, 4.6, 3.4, 2.2, GRIJS_T, GRIJS_L, GRIJS_R, deur=(0.4, 1.4, 1.6))                        # productiehal
@@ -811,16 +862,20 @@ def industrie():
     sc.blok(3.6, 3.9, 0, 0.5, 0.5, 4.6, GRIJS_T, GRIJS_L, GRIJS_R)                                              # schoorsteen
     rx, ry = sc.P(3.85, 4.15, 4.6)
     sc.voeg((3.6, 3.9, 4.6, 4.1, 4.4, 5.6), f'<g class="anim-rook"><circle cx="{rx:.1f}" cy="{ry-6:.1f}" r="5" fill="#D5DBE1" opacity=".8"/><circle cx="{rx+4:.1f}" cy="{ry-14:.1f}" r="4" fill="#D5DBE1" opacity=".6"/></g>', pad=(6, 22, 12, 2))
-    sc.cilinder(1.2, 4.6, 0.42, 3.0, GRIJS_T, GRIJS_L); sc.cilinder(2.3, 4.6, 0.42, 3.0, GRIJS_T, GRIJS_L)        # silo's
+    sc.cilinder(1.2, 4.6, 0.42, 4.0, GRIJS_T, GRIJS_L); sc.cilinder(2.3, 4.6, 0.42, 4.0, GRIJS_T, GRIJS_L)        # hoge silo's
     sc.blok(0.4, 5.4, 0, 3.0, 1.8, 1.4, WIT_T, WIT_L, WIT_R, ramen=(1, 3), deur=(0.8, 0.6, 1.0), deur_anim=True)   # kantoor met entree
     sc.vlak(0.2, 7.2, 4.8, 0.8, GROND2)                                                                          # stoep voor het kantoor
-    sc.blok(7.2, 0.4, 0, 4.6, 3.4, 2.8, MIDDEN2, MIDDEN, DONKER, ramen=(1, 4))                                  # distributiecentrum
-    for i in range(3): sc.blok(7.6 + i * 1.3, 3.8, 0, 0.9, 0.05, 1.1, DONKER, DONKER, DONKER)                    # laaddocks
+    sc.blok(7.2, 0.4, 0, 4.6, 3.4, 2.8, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(1, 4))                                  # distributiecentrum, golfplaat
+    for i in range(3): sc.blok(7.6 + i * 1.3, 3.8, 0, 0.9, 0.05, 1.1, GEEL_T, GEEL_L, GEEL_R)                    # gele dockdeuren
     sc.blok(7.2, 5.0, 0, 4.6, 2.4, 1.6, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(1, 4))                                # opslaghal
     sc.vlak(0.4, 9.4, 4.6, 2.4, GROND2)                                                                          # containerterrein
-    for i in range(3): sc.blok(2.3 + i * 0.95, 9.6, 0, 0.85, 0.85, 0.8, MIDDEN2, MIDDEN, DONKER)
+    for i, kl in enumerate(((ORANJE_T, ORANJE_L, ORANJE_R), (KRUIS_T, KRUIS_L, KRUIS_R), (ORANJE_T, ORANJE_L, ORANJE_R))): sc.blok(2.3 + i * 0.95, 9.6, 0, 0.85, 0.85, 0.8, *kl)
+    for px in (1.9, 5.3):                                                                                          # portaalkraan over het containerterrein
+        sc.blok(px, 9.4, 0, 0.12, 0.12, 2.4, GEEL_T, GEEL_L, GEEL_R); sc.blok(px, 10.6, 0, 0.12, 0.12, 2.4, GEEL_T, GEEL_L, GEEL_R)
+    sc.blok(1.9, 9.4, 2.4, 3.52, 0.12, 0.14, GEEL_T, GEEL_L, GEEL_R); sc.blok(1.9, 10.6, 2.4, 3.52, 0.12, 0.14, GEEL_T, GEEL_L, GEEL_R)
+    sc.groep("anim-loopkat", lambda: (sc.blok(2.4, 9.45, 2.2, 0.5, 1.3, 0.25, ORANJE_T, ORANJE_L, ORANJE_R), sc.blok(2.6, 10.05, 1.2, 0.04, 0.04, 1.0, WIEL, WIEL, WIEL)), rek=(0, 0, 2.6, 0))   # loopkat met kabel
     sc.heftruck(1.2, 9.7)
-    sc.blok(5.6, 9.4, 0, 4.0, 2.4, 1.6, WIT_T, WIT_L, WIT_R, ramen=(1, 4), deur=(0.5, 0.6, 1.0))                # expeditie (midden, uitrit blijft vrij)
+    for i in range(6): sc.blok(6.0 + i * 0.6, 9.2, 0, 0.1, 0.1, 0.5, GEEL_T, GEEL_L, GEEL_R)                               # gele afzetpaaltjes
     sc.auto(5.85, 1.0, GRIJS_R, klas="anim-auto-y", lang=2.6, richting="y")                                                     # de enige vrachtwagen
     _bomen(sc, [(10.4, 9.8), (11.6, 11.0), (10.6, 11.8), (5.2, 4.9)], 0.45, 1.2)
     sc.struik(10.4, 10.6); sc.struik(4.6, 7.8)
@@ -828,14 +883,14 @@ def industrie():
 
 def overheid():
     """Overheid: gemeentehuis met zuilen en klokkentoren, plein met drie Nederlandse vlaggen en fontein, Binnenhof-achtig gebouw met twee spitse torens en hofvijver, rechtbank en provinciehuis; vlaggen wapperen, één auto rijdt."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#F3EFE6"); sc.vlak(0, 0, G, G, sc.grond)
     _weg_x(sc, 7.8); _weg_y(sc, 6.2, y0=0, y1=7.8); sc.zebra(2.2, 7.8, 1.2, 1.0, 4); sc.zebra(6.2, 6.4, 1.0, 1.0, 4); _aansluiting(sc, 7.8)
     for m in (0.5, 4.0, 9.0, 11.8): sc.lantaarn(m, 7.7)
     sc.blok(0.4, 0.4, 0, 5.2, 3.0, 2.8, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 5), deur=(2.3, 0.7, 1.4))   # gemeentehuis
     sc.zuilen(0.7, 3.4, 6, 2.8, afstand=0.85); sc.blok(0.4, 3.4, 2.8, 5.2, 0.5, 0.25, ZAND_T, ZAND_L, ZAND_R)     # zuilengalerij met fries
-    sc.blok(2.5, 1.4, 2.8, 1.0, 1.0, 1.6, ZAND_T, ZAND_L, ZAND_R); sc.klok(3.0, 2.4, 3.9); sc.spits(2.5, 1.4, 4.4, 1.0, 1.0, 0.9)   # klokkentoren
+    sc.blok(2.5, 1.4, 2.8, 1.0, 1.0, 3.2, ZAND_T, ZAND_L, ZAND_R); sc.klok(3.0, 2.4, 5.4, 5.5); sc.spits(2.5, 1.4, 6.0, 1.0, 1.0, 1.1)   # hoge klokkentoren
     sc.vlak(0.4, 3.9, 5.2, 3.5, GROND2)                                                                          # plein
-    sc.ellips(1.6, 5.4, 0.7, 0.7, LICHT); sc.groep("anim-water", lambda: sc.ellips(1.6, 5.4, 0.48, 0.48, GLAS2, z=0.02))   # fontein
+    _bomen(sc, [(1.4, 5.0)], 0.45, 1.2)
     for fx in (3.2, 4.2, 5.2): sc.vlag(fx, 6.6, 2.6, nl=True)                                                    # drie Nederlandse vlaggen op het plein
     sc.blok(7.4, 0.4, 0, 4.4, 2.8, 2.3, ROOD_T, ROOD_L, ROOD_R, ramen=(2, 4), deur=(1.9, 0.7, 1.3))             # regeringsgebouw (Binnenhof-stijl)
     sc.dak(7.4, 0.4, 2.3, 4.4, 2.8, 0.7, "x", (DAK_T, DAK_L, DAK_R))
@@ -844,8 +899,8 @@ def overheid():
     sc.ellips(9.6, 5.3, 2.2, 1.2, LICHT); sc.groep("anim-water", lambda: sc.ellips(9.6, 5.3, 1.9, 0.95, GLAS2, z=0.02))   # hofvijver
     _bomen(sc, [(7.5, 6.9), (11.7, 6.9), (11.8, 3.9)], 0.4, 1.1)
     sc.vlak(0.4, 9.0, 3.4, 3.0, GROEN2); _bomen(sc, [(2.4, 9.6), (3.2, 11.0), (2.0, 11.7)])                    # park links vooraan (inrit blijft vrij)
-    sc.blok(4.2, 9.0, 0, 4.0, 2.2, 2.4, WIT_T, WIT_L, WIT_R, ramen=(2, 4), deur=(1.3, 0.8, 1.3), deur_anim=True)
-    for zx in (4.3, 4.9, 7.3, 7.9): sc.blok(zx, 11.2, 0, 0.22, 0.22, 2.4, WIT_T, WIT_T, WIT_L)                    # zuilen, entree vrij
+    sc.blok(4.2, 9.0, 0, 4.0, 2.2, 2.4, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 4), deur=(1.3, 0.8, 1.3), deur_anim=True)
+    for zx in (4.3, 4.9, 7.3, 7.9): sc.blok(zx, 11.2, 0, 0.22, 0.22, 2.4, ZAND_T, ZAND_T, ZAND_L)                    # zuilen, entree vrij
     sc.vlak(4.2, 11.2, 4.0, 0.9, GROND2)   # rechtbank (midden)
     sc.vlak(8.6, 9.0, 3.4, 3.0, GROEN2); _bomen(sc, [(9.6, 9.6), (11.0, 10.6), (9.8, 11.7)])                    # park rechts vooraan (uitrit blijft vrij)
     sc.auto(8.4, 7.95, DONKER, klas="anim-auto")
@@ -874,9 +929,9 @@ def retail():
     sc.vlak(0.4, 7.4, 3.4, 3.4, GROND2)                                                                          # parkeerplaats links vooraan (inrit blijft vrij)
     for i in range(5): sc.lijn_grond(0.6 + i * 0.75, 7.6, 0.6 + i * 0.75, 9.2, "#FFFFFF", 0.8)
     sc.bord(3.6, 7.5, "P")
-    for i in range(3): sc.blok(0.8 + i * 0.5, 9.9, 0.15, 0.35, 0.5, 0.35, GRIJS_T, GRIJS_L, GRIJS_R)             # winkelwagentjes
-    sc.blok(4.2, 7.4, 0, 5.4, 3.2, 2.2, MIDDEN2, MIDDEN, DONKER, ramen=(1, 5), deur=(0.6, 1.2, 1.4), deur_anim=True)   # supermarkt (midden, uitrit blijft vrij)
-    sc.blok(4.2, 7.4, 2.2, 5.4, 0.5, 0.45, LICHT2, LICHT, MIDDEN)                                                # naambord op de gevelrand
+    sc.blok(4.2, 7.4, 0, 5.4, 3.2, 2.2, CREME_T, CREME_L, CREME_R, ramen=(1, 5), deur=(0.6, 1.2, 1.4), deur_anim=True)   # supermarkt, crème
+    sc.blok(4.2, 7.4, 2.2, 5.4, 0.5, 0.45, KRUIS_T, KRUIS_L, KRUIS_R)                                             # rode band met naam
+    sc.vlaggenlijn(0.4, 11.8, 4.3, 2.3)                                                                        # vlaggenlijn boven de stoep
     sc.vlak(10.0, 7.4, 2.0, 3.4, GROEN2)
     sc.auto(0.4, 5.15, DONKER, klas="anim-auto", lang=1.8)                                                       # bestelbus
     _bomen(sc, [(2.0, 11.4), (10.6, 8.2), (11.4, 10.0), (10.4, 11.4), (0.6, 6.7)], 0.45, 1.2)
@@ -885,24 +940,28 @@ def retail():
 
 def hotel():
     """Hotels: hoteltoren met entree en luifel, restaurant met terras, parkeergarage, zwembad; een gast gaat met de kamerpas naar binnen."""
-    sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
+    sc = _nieuw("#F6F1EA"); sc.vlak(0, 0, G, G, sc.grond)
     _weg_x(sc, 7.8); _aansluiting(sc, 7.8); sc.zebra(4.4, 7.8, 1.2, 1.0, 4)
     for m in (0.6, 4.2, 8.6, 11.6): sc.lantaarn(m, 7.7)
-    sc.blok(3.6, 0.6, 0, 4.8, 2.8, 5.6, WIT_T, WIT_L, WIT_R, ramen=(6, 5), deur=(1.8, 0.9, 1.3), deur_anim=True, dak="zon")   # hoteltoren
+    sc.blok(3.6, 0.6, 0, 4.8, 2.8, 5.6, CHAMP_T, CHAMP_L, CHAMP_R, ramen=(6, 5), deur=(1.8, 0.9, 1.3), deur_anim=True)   # hoteltoren
+    P = sc.P
+    letters = "".join(f'<text class="anim-letter" style="animation-delay:{i * 0.5:.1f}s" transform="translate({P(4.25 + i * 0.82, 1.6, 5.66)[0]:.1f},{P(4.25 + i * 0.82, 1.6, 5.66)[1]:.1f}) skewY(30)" font-size="9.5" font-weight="800" fill="{GOUD}" font-family="Arial,sans-serif" text-anchor="middle">{c}</text>' for i, c in enumerate("HOTEL"))
+    sc.blok(3.8, 1.5, 5.6, 4.3, 0.1, 0.55, DONKER2, DONKER, DONKER); sc.voeg((3.8, 1.6, 5.6, 8.1, 1.6, 6.2), letters, pad=(6, 12, 6, 2))   # verlicht bord op het dak
     sc.blok(5.2, 3.4, 1.6, 1.9, 0.8, 0.08, DONKER2, DONKER, DONKER)                                                # luifel boven de entree
+    sc.vlak(5.3, 3.4, 1.0, 2.0, KRUIS_L)                                                                           # rode loper
     sc.blok(0.4, 1.0, 0, 2.8, 2.4, 1.6, ZAND_T, ZAND_L, ZAND_R, ramen=(1, 3))                                      # restaurant
     sc.vlak(0.4, 3.4, 2.8, 1.2, ZAND_T)                                                                            # terras
     for tx in (0.9, 2.2):
         a, b = sc.P(tx, 4.0, 0), sc.P(tx, 4.0, 1.0)
         sc.voeg((tx, 4.0, 0, tx, 4.0, 1.0), f'<line x1="{a[0]:.1f}" y1="{a[1]:.1f}" x2="{b[0]:.1f}" y2="{b[1]:.1f}" stroke="{PAAL}" stroke-width="1"/><ellipse cx="{b[0]:.1f}" cy="{b[1]:.1f}" rx="9" ry="4" fill="{LICHT}"/>', pad=(10, 5, 10, 2))
-    sc.blok(9.2, 0.6, 0, 2.6, 2.8, 2.0, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(2, 2)); sc.bord(11.9, 3.7, "P")         # parkeergarage
+    sc.vlak(9.2, 0.6, 2.6, 2.8, GROEN2); _bomen(sc, [(9.8, 1.4), (11.2, 2.8)], 0.5, 1.3)                          # hoteltuin
     sc.vlak(3.6, 3.4, 4.8, 4.4, GROND2)                                                                            # voorplein met oprit
-    sc.auto(7.0, 5.2, GEEL_L, lang=1.4)                                                                             # taxi, geparkeerd
     for fx in (4.0, 4.6): sc.vlag(fx, 5.6, 2.4, LICHT)
     sc.vlak(0.4, 9.0, 3.4, 3.0, GROEN2); sc.vlak(8.4, 9.0, 3.6, 3.0, GROEN2)                                        # groen (in- en uitrit vrij)
-    sc.vlak(4.2, 9.0, 3.8, 2.6, GROND2); sc.vlak(4.6, 9.3, 3.0, 2.0, LICHT); sc.groep("anim-water", lambda: sc.vlak(4.8, 9.5, 2.6, 1.6, GLAS2, 0.02))   # zwembad
+    sc.vlak(4.2, 9.0, 3.8, 2.6, ZAND_T); sc.vlak(4.6, 9.3, 3.0, 2.0, LICHT); sc.groep("anim-water", lambda: sc.vlak(4.8, 9.5, 2.6, 1.6, GLAS2, 0.02))   # zwembad met terras
+    for lx in (4.5, 5.3, 6.1, 6.9): sc.blok(lx, 11.4, 0, 0.6, 0.2, 0.1, "#FFFFFF", WIT_L, WIT_R)                          # ligbedden
     _bomen(sc, [(1.6, 9.8), (2.8, 11.2), (9.4, 9.8), (11.0, 10.8)], 0.5, 1.3)
-    sc.auto(1.0, 7.95, MIDDEN, klas="anim-auto")
+    sc.auto(1.0, 7.95, GEEL_L, klas="anim-auto")                                                                  # taxi
     return sc.svg(444, 350, "Isometrische tekening van een hotel met entree en luifel, restaurant met terras, parkeergarage en zwembad, en een gast die met een kamerpas binnengaat")
 
 def anders():
@@ -910,10 +969,11 @@ def anders():
     sc = _nieuw(); sc.vlak(0, 0, G, G, GROND)
     _weg_x(sc, 7.8); _aansluiting(sc, 7.8)
     for m in (0.6, 4.2, 8.6, 11.6): sc.lantaarn(m, 7.7)
-    sc.blok(0.4, 1.0, 0, 2.8, 2.6, 2.0, ZAND_T, ZAND_L, ZAND_R, ramen=(2, 2)); sc.dak(0.4, 1.0, 2.0, 2.8, 2.6, 0.8, "x")   # kleiner pand met zadeldak
-    sc.blok(3.8, 0.8, 0, 4.4, 3.0, 3.0, MIDDEN2, MIDDEN, DONKER, ramen=(3, 5), deur=(1.8, 0.9, 1.3), deur_anim=True)   # uw pand
-    sc.blok(8.8, 0.6, 0, 3.0, 3.2, 2.4, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(1, 3), dak="licht")                        # hal
-    sc.vlak(3.8, 3.8, 4.4, 1.2, GROND2)
+    sc.blok(0.4, 1.4, 0, 2.2, 2.2, 1.6, ZAND_T, ZAND_L, ZAND_R, ramen=(1, 2)); sc.dak(0.4, 1.4, 1.6, 2.2, 2.2, 0.7, "x")   # klein pand met zadeldak
+    sc.blok(3.2, 0.8, 0, 6.0, 3.0, 3.0, WIT_T, WIT_L, WIT_R, ramen=(2, 6), deur=(0.4, 0.9, 1.3), deur_anim=True)   # bedrijfsverzamelgebouw
+    for k, kl in enumerate((GEEL_L, KRUIS_L, GROEN)): sc.extra_deur(5.0 + k * 1.35, 3.8, 0, 0.7, 1.2, kl, 1.5 + k * 1.5)          # drie huurders, elk een eigen deur en lezer
+    sc.blok(9.8, 0.8, 0, 2.0, 2.4, 1.6, GRIJS_T, GRIJS_L, GRIJS_R, ramen=(1, 2))                                    # kleine hal
+    sc.vlak(3.2, 3.8, 6.0, 1.2, GROND2)
     sc.vlak(8.8, 4.4, 3.0, 2.6, GROND2)
     for i in range(5): sc.lijn_grond(9.0 + i * 0.6, 4.6, 9.0 + i * 0.6, 6.0, "#FFFFFF", 0.8)
     sc.auto(9.1, 4.65, DONKER, lang=1.3, richting="y"); sc.bord(11.9, 6.9, "P")
