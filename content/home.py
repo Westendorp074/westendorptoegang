@@ -3,7 +3,7 @@ hero met illustratie, sectorrij, wat wij plaatsen, hoe het werkt, video, waarom 
 from build import *
 
 def bouw():
-    titel = "Toegangscontrole in Twente en Oost-Nederland | Westendorp"   # beide regio's (Lars, 27-09-2026)
+    titel = "Toegangscontrole in Oost-Nederland | Westendorp"   # beide regio's (Lars, 27-09-2026)
     omschrijving = ("EVVA Xesar op bestaande deuren in Twente en Oost-Nederland. "
                     "Familiebedrijf sinds 1985. Gratis inventarisatie, storingsdienst dag en nacht.")
 
@@ -11,7 +11,7 @@ def bouw():
     # foto van Lars (23-09-2026); "Slotenspecialist" op de bus mag volgens check.py alleen op /over-ons/ genoemd worden, dus niet in de alt
     foto = beeld("westendorp-bedrijfsbus-lumen-enschede.jpg", "Bedrijfsbus van Westendorp geparkeerd voor het gebouw van Lumen in Enschede",
                  lazy=False, sizes="(min-width: 900px) 56vw, 100vw")   # zonder bijschrift (Lars, 23-09-2026)
-    hero_html = hero("Toegangscontrole voor bedrijven in Twente en Oost-Nederland",
+    hero_html = hero("Toegangscontrole voor bedrijven in Oost-Nederland",
         f"Sleutels die kwijtraken, cilinders die telkens vervangen moeten worden en geen overzicht wie waar naar binnen kan? "
         f"Wij regelen de toegang tot uw pand op de deuren die er al zitten: elektronisch van EVVA en mechanisch, uit één hand. "
         f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, alleen toegangscontrole.",
