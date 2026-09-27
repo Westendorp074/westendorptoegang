@@ -3,7 +3,7 @@ hero met illustratie, sectorrij, wat wij plaatsen, hoe het werkt, video, waarom 
 from build import *
 
 def bouw():
-    titel = "Toegangscontrole voor bedrijven in Twente | Westendorp"
+    titel = "Toegangscontrole in Twente en Oost-Nederland | Westendorp"   # beide regio's (Lars, 27-09-2026)
     omschrijving = ("EVVA Xesar op bestaande deuren in Twente en Oost-Nederland. "
                     "Familiebedrijf sinds 1985. Gratis inventarisatie, storingsdienst dag en nacht.")
 
