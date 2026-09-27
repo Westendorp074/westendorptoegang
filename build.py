@@ -390,15 +390,18 @@ def hero_badges():
     uit = DIST / "static" / "img" / "logo" / "partners"; uit.mkdir(parents=True, exist_ok=True)
     lijn = lambda d: f'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{d}</svg>'
     def icoon(naam, alt, reserve):
-        echt = next((map_ / f"{naam}.{e}" for e in ("svg", "png") if (map_ / f"{naam}.{e}").exists()), None)
+        echt = next((map_ / f"{n}.{e}" for n in (f"{naam}-wit", naam) for e in ("svg", "png") if (map_ / f"{n}.{e}").exists()), None)   # witte versie voor de donkere balk
         if not echt: return reserve, False
         shutil.copy(echt, uit / echt.name)
         from PIL import Image
-        bw, bh = (Image.open(echt).size if echt.suffix == ".png" else (100, 100))
+        if echt.suffix == ".png": bw, bh = Image.open(echt).size
+        else:
+            vb = re.search(r'viewBox="[\d.\s-]*?([\d.]+)\s+([\d.]+)"', echt.read_text(encoding="utf-8")); bw, bh = (round(float(vb.group(1))), round(float(vb.group(2)))) if vb else (100, 100)
         return f'<img src="/static/img/logo/partners/{echt.name}" alt="{esc(alt)}" width="{bw}" height="{bh}">', True
     pk, pk_echt = icoon("pkvw", "Politiekeurmerk Veilig Wonen", lijn('<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/>'))
     ev, ev_echt = icoon("evva", "EVVA", lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'))
-    items = [(pk, pk_echt, "PKVW-gecertificeerd"), (ev, ev_echt, "Officieel| EVVA Partner")]
+    items = [(pk, pk_echt, "Gecertificeerd" if pk_echt else "PKVW-gecertificeerd"),
+             (ev, ev_echt, "Officieel partner" if ev_echt else "Officieel| EVVA Partner")]   # het logo noemt de naam al
     tekst = lambda t: (f'<span class="keurbalk__lang">{esc(t.split("|")[0])} </span>{esc(t.split("|")[1].strip())}' if "|" in t else esc(t))
     return '<ul class="keurbalk">' + "".join(
         f'<li><span class="keurbalk__icoon{" keurbalk__icoon--logo" if echt else ""}">{i}</span><span>{tekst(t)}</span></li>' for i, echt, t in items) + "</ul>"
