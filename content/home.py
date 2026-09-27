@@ -3,15 +3,15 @@ hero met illustratie, sectorrij, wat wij plaatsen, hoe het werkt, video, waarom 
 from build import *
 
 def bouw():
-    titel = "Toegangscontrole voor bedrijven in Oost-Nederland"
-    omschrijving = ("Westendorp Toegangscontrole installeert EVVA Xesar, mechanische sluitsystemen en sluitplannen bij "
-                    "bedrijven en instellingen in Twente en Oost-Nederland.")
+    titel = "Toegangscontrole voor bedrijven in Twente | Westendorp"
+    omschrijving = ("EVVA Xesar op bestaande deuren in Twente en Oost-Nederland. "
+                    "Familiebedrijf sinds 1985. Gratis inventarisatie, storingsdienst dag en nacht.")
 
     # ---- hero: eigen foto als die er is, anders de isometrische scène ----
     # foto van Lars (23-09-2026); "Slotenspecialist" op de bus mag volgens check.py alleen op /over-ons/ genoemd worden, dus niet in de alt
     foto = beeld("westendorp-bedrijfsbus-lumen-enschede.jpg", "Bedrijfsbus van Westendorp geparkeerd voor het gebouw van Lumen in Enschede",
                  lazy=False, sizes="(min-width: 900px) 56vw, 100vw")   # zonder bijschrift (Lars, 23-09-2026)
-    hero_html = hero("Toegangscontrole voor bedrijven in Oost-Nederland",
+    hero_html = hero("Toegangscontrole voor bedrijven in Twente en Oost-Nederland",
         f"Sleutels die kwijtraken, cilinders die telkens vervangen moeten worden en geen overzicht wie waar naar binnen kan? "
         f"Wij regelen de toegang tot uw pand op de deuren die er al zitten: elektronisch van EVVA en mechanisch, uit één hand. "
         f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, alleen toegangscontrole.",
@@ -50,7 +50,7 @@ def bouw():
         kicker="Oplossingen")
 
     # ---- hoe het werkt ----
-    hoe = sectie("Hoe het werkt", stappen([
+    hoe = sectie("Toegangscontrole laten plaatsen in 4 stappen", stappen([
         ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs: deurtype, beslag, wie er doorheen moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else ''}, na uw aanvraag binnen {esc(REACTIE_AANVRAAG)} gepland."),
         ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, {esc(OFFERTE_BINNEN)}. Geen verrassingen achteraf."),
         ("Installatie", "Eigen monteurs, houten deuren frezen wij zelf in. De planning spreken wij per project met u af."),
@@ -70,7 +70,7 @@ def bouw():
         esc(PKVW),
         f"{PARTNER_TEKST[0].upper() + PARTNER_TEKST[1:]}: mechanisch en elektronisch van fabrikanten die wij kennen en die ons kennen.",
     ]
-    bewijs = sectie("Waarom Westendorp", '<div class="rooster"><div class="k7">' + lijst(feiten, klas="feiten") + '</div><div class="k5">'
+    bewijs = sectie("Waarom Westendorp", p(f"{esc(NAAM)} uit Enschede installeert EVVA Xesar, mechanische sluitsystemen en sluitplannen bij bedrijven en instellingen in Twente en Oost-Nederland, met eigen monteurs en een eigen werkplaats.") + '<div class="rooster"><div class="k7">' + lijst(feiten, klas="feiten") + '</div><div class="k5">'
         + feitenpaneel() + "</div></div>", wit=True, kicker="Waarom wij")
 
     # ---- duurzaamheid: alleen met feiten van Lars (CONFIG DUURZAAM) ----
@@ -85,25 +85,32 @@ def bouw():
 
     # ---- kennisbank: drie artikelen als opstap (Lars, 23-09-2026) ----
     from kennisbank import ARTIKELEN
+    kies = ["sleutel-kwijt-sluitplan", "skg-sterren-en-1303", "wat-is-een-sluitplan"]              # op zoekvraag (advies SEO-specialist, 27-09-2026)
+    titels = {slug: kop for slug, kop, *_ in ARTIKELEN}
     kennis = sectie("Uit de kennisbank",
-        '<div class="kolommen kolommen--3">' + "".join(f'<div><h3><a href="/kennisbank/{slug}/">{esc(kop)}</a></h3><p>{esc(sam)}</p><p><a class="meer" href="/kennisbank/{slug}/">Lees het artikel</a></p></div>'
-                                                      for slug, kop, sam, *_ in ARTIKELEN[:3]) + "</div>"
-        + p('<a class="meer" href="/kennisbank/">Alle artikelen</a>'), kicker="Kennisbank", wit=True)
+        '<ul class="kennislinks">' + "".join(f'<li><a href="/kennisbank/{k}/">{esc(titels[k])}</a></li>' for k in kies) + "</ul>"
+        + p('<a class="meer" href="/kennisbank/">Alle artikelen</a>'), kicker="Kennisbank")
 
     # ---- FAQ ----
     faq = [
         ("Wat kost toegangscontrole per deur?",
-         f"Dat hangt af van het deurtype, het systeem en de beveiligingseisen. Een elektronisch slot kost geplaatst {prijs('slot')}, {BTW_TEKST}; een EVVA AirKey-startpakket {prijs('airkey_start', False)}. {PRIJS_DISCLAIMER} Meer op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
-        ("Werkt elektronische toegangscontrole op onze bestaande deuren?",
-         "Meestal wel. Op de meeste binnendeuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur blijft. Houten deuren die een uitsparing nodig hebben, frezen wij in onze eigen werkplaats in. Stalen, aluminium en glazen deuren bekijken wij tijdens de inventarisatie."),
+         f"Een elektronisch slot kost geplaatst {prijs('slot')} per deur, {BTW_TEKST}. De uiteindelijke prijs hangt af van het deurtype en of de deur online of offline moet werken. "
+         f"De inventarisatie op locatie is gratis. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+        ("Kan toegangscontrole op bestaande deuren?",
+         "Ja. Op de meeste deuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur en het kozijn blijven. "
+         "Houten deuren die een uitsparing nodig hebben, frezen wij in onze eigen werkplaats in. Meer op <a href=\"/elektronische-sloten/\">elektronische sloten</a>."),
         ("Wat gebeurt er als een medewerker zijn pas kwijtraakt?",
-         "U blokkeert de pas in de software en geeft een nieuwe uit; de deuren en cilinders blijven zoals ze zijn. Bij een mechanisch sluitplan moet u bij een verloren hoofdsleutel vaak cilinders vervangen. Dat verschil is voor de meeste bedrijven de reden om over te stappen."),
+         "U blokkeert de pas in de software en geeft een nieuwe uit; deuren en cilinders blijven zitten. Bij een mechanisch sluitplan moet u na een verloren sleutel vaak cilinders vervangen. "
+         "Zie ook <a href=\"/kennisbank/sleutel-kwijt-sluitplan/\">sleutel kwijt van het sluitplan</a>."),
         ("Kan ik mijn telefoon als sleutel gebruiken?",
-         "Ja. De digitale sleutel staat in een app op de telefoon en werkt samen met passen, druppels en gewone sleutels in hetzelfde systeem. U stuurt een sleutel op afstand toe en trekt hem ook op afstand in, bijvoorbeeld met EVVA AirKey."),
-        ("Hoe snel kunnen jullie beginnen?",
-         f"Na uw aanvraag reageren wij binnen {esc(REACTIE_AANVRAAG)} en plannen wij de inventarisatie in. De offerte volgt {esc(OFFERTE_BINNEN)}; de installatiedatum spreken wij per project af."),
-        ("Werken jullie ook buiten Twente?",
-         f"Ja, {esc(WERKGEBIED_REGEL)}: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
+         "Ja. Met EVVA AirKey staat de sleutel in een app op de telefoon, en die werkt samen met passen, druppels en gewone sleutels. "
+         "U stuurt een sleutel op afstand toe en trekt hem net zo snel in. Meer over de mogelijkheden op <a href=\"/toegangscontrole/\">toegangscontrole</a>."),
+        ("Kan ik de pasjes zelf beheren?",
+         "Ja. Na de installatie geeft u zelf passen uit, blokkeert u ze en stelt u tijdsloten in. Wilt u het uit handen geven, dan beheren wij het systeem voor u; "
+         "overstappen tussen die twee kan altijd. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."),
+        ("Werken jullie in Enschede, Hengelo en Zwolle?",
+         f"Ja. Wij werken vanuit Enschede, {esc(WERKGEBIED_REGEL)}: heel Twente met onder meer Hengelo en Almelo, en ook Deventer, Zwolle, Zutphen, Doetinchem en Apeldoorn. "
+         "Alle plaatsen staan op <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
     # "Herkent u dit?": zes compacte tegels met icoon, het probleem als kop en in één regel wat er verandert (Lars, 23-09-2026)

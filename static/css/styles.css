@@ -67,6 +67,10 @@ section,.sectie{padding:var(--sectie) 0}
 .herken__icoon{flex:none;width:44px;height:44px;border-radius:12px;background:var(--bg);color:var(--kl);display:inline-flex;align-items:center;justify-content:center}
 .herken h3{margin:2px 0 4px;font-size:16px;line-height:1.3}
 .herken p{margin:0;font-size:15px;line-height:1.5;color:var(--inkt-zacht)}
+.kennislinks{list-style:none;margin:6px 0 18px;padding:0;display:grid;gap:10px}
+@media (min-width:800px){.kennislinks{grid-template-columns:repeat(3,1fr)}}
+.kennislinks a{display:block;height:100%;padding:16px 18px;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-left:3px solid var(--primair);border-radius:var(--straal);color:var(--kop);font-weight:600;text-decoration:none}
+.kennislinks a:hover{border-color:var(--primair);color:var(--primair)}
 .sectie--zacht{background:#EEF3F8;border-top:var(--lijndikte) solid #DCE5EE;border-bottom:var(--lijndikte) solid #DCE5EE}   /* lichtblauw-grijs uit het logoblauw, om en om met wit */
 /* groene accenten: alleen het duurzaamheidsblok en de Magtec-pagina */
 .sectie--groen{background:#F1F8F3;border-top:var(--lijndikte) solid #D6E9DC;border-bottom:var(--lijndikte) solid #D6E9DC}
