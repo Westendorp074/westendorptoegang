@@ -383,6 +383,22 @@ XESAR_VIDEO = "rAH27xzXeXI"   # EVVA Xesar, YouTube-kanaal van EVVA (Lars, 27-09
 XESAR_VIDEO_INFO = {"titel": "Xesar - het elektronische sluitsysteem van EVVA in één blik", "maker": "EVVA Sicherheitstechnologie",
                     "datum": "2024-07-04", "duur": "PT1M15S", "duur_tonen": "1:15"}
 
+def hero_badges():
+    """Zwevende badges over de herofoto (Lars, 27-09-2026): PKVW en EVVA-partner. Staat het echte logo in
+    static/img/logo/partners/pkvw.svg of .png, dan komt dat in de badge; anders een schildicoon in de huisstijl."""
+    map_ = STATIC / "img" / "logo" / "partners"
+    echt = next((map_ / f for f in ("pkvw.svg", "pkvw.png") if (map_ / f).exists()), None)
+    if echt:
+        uit = DIST / "static" / "img" / "logo" / "partners"; uit.mkdir(parents=True, exist_ok=True); shutil.copy(echt, uit / echt.name)
+        pkvw_icoon = f'<img src="/static/img/logo/partners/{echt.name}" alt="Politiekeurmerk Veilig Wonen" width="44" height="44">'
+    else:
+        pkvw_icoon = ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'
+                      '<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/></svg>')
+    slot = ('<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'
+            '<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.4"/></svg>')
+    return (f'<div class="badge badge--pkvw"><span class="badge__icoon">{pkvw_icoon}</span><span><strong>PKVW-gecertificeerd</strong><small>Politiekeurmerk Veilig Wonen</small></span></div>'
+            f'<div class="badge badge--evva"><span class="badge__icoon">{slot}</span><span><strong>Officieel EVVA Partner</strong><small>Xesar, AirKey en mechanisch</small></span></div>')
+
 def youtube(video_id, titel, ondertitel=""):
     """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,
     met het logo van Westendorp; het eindscherm verschijnt als de video klaar is (postMessage van de speler, zonder extra script)."""
