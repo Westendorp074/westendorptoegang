@@ -30,7 +30,12 @@ def bouw():
         ("Salto onderhoud", "/salto/", "Heeft u al een Salto-systeem? Nieuwe systemen plaatsen wij niet, maar onderhoud, storingen en uitbreiding van bestaande Salto-onderdelen doen wij regelmatig."),
     ]
     wat = sectie("Wat wij plaatsen",
-        '<div class="kolommen kolommen--4">' + "".join(f'<div><h3>{k}</h3><p>{t}</p><p><a class="meer" href="{u}">Meer over {k if k[0].isupper() and k.split()[0] in ("EVVA", "Salto") else k.lower()}</a></p></div>' for k, u, t in producten) + "</div>",
+        '<div class="kolommen kolommen--4">' + "".join(f'<div><h3>{k}</h3><p>{t}</p><p><a class="meer" href="{u}">Meer over {k if k[0].isupper() and k.split()[0] in ("EVVA", "Salto") else k.lower()}</a></p></div>' for k, u, t in producten) + "</div>"
+        + '<div class="rooster xesar-video"><div class="k5">' + label("Onze productlijn") + "<h3>EVVA Xesar in beeld</h3>"
+        + p("EVVA Xesar is het systeem dat wij het meest plaatsen: elektronische cilinders, beslag en wandlezers die u beheert in één overzichtelijke software. "
+            "Openen met pas, druppel of telefoon, en een verloren pas blokkeert u zelf. In deze video laat EVVA zien hoe het werkt.")
+        + '<p><a class="meer" href="/evva-xesar/">Meer over EVVA Xesar</a></p></div>'
+        + '<div class="k7">' + youtube(XESAR_VIDEO, "Zo werkt EVVA Xesar", "Toegangscontrole voor bedrijven en instellingen") + "</div></div>",
         kicker="Oplossingen")
 
     # ---- hoe het werkt ----

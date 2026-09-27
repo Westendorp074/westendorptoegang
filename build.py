@@ -377,6 +377,18 @@ def video(bestand, poster, alt, kop="Bekijk de video", onderschrift=None):
             f'<video controls preload="none" playsinline hidden width="1600" height="1067"><source src="/static/video/{bestand}" type="{mime}"></video>'
             f'{bijschrift}</figure>')
 
+XESAR_VIDEO = "rAH27xzXeXI"   # EVVA Xesar, YouTube-kanaal van EVVA (Lars, 27-09-2026; gebruik aangevraagd bij EVVA)
+
+def youtube(video_id, titel, ondertitel=""):
+    """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster in de huisstijl."""
+    speel = '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
+    return (f'<figure class="yt" data-yt="{esc(video_id)}" data-yt-titel="{esc(titel)}">'
+            f'<button type="button" class="yt__start" aria-label="Video afspelen: {esc(titel)}">'
+            f'<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
+            + (f'<span class="yt__sub">{esc(ondertitel)}</span>' if ondertitel else "") +
+            f'<span class="yt__knop">{speel}</span><span class="yt__hint">Afspelen via YouTube</span></button>'
+            f'<figcaption>Video: EVVA</figcaption></figure>')
+
 def kaart_svg():
     """Schematische kaart van het werkgebied: Enschede in het midden, een cirkel voor 60 minuten rijden, de plaatsen
     als punten op hun ligging (lengte- en breedtegraad, benaderd). Geen kaartdienst, geen externe request."""

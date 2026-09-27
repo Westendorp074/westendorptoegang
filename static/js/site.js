@@ -70,6 +70,19 @@
     });
   });
 
+  // ---------- YouTube op klik: pas na de klik de speler laden (youtube-nocookie) ----------
+  d.querySelectorAll('[data-yt]').forEach(function (fig) {
+    var knop = fig.querySelector('.yt__start'); if (!knop) return;
+    knop.addEventListener('click', function () {
+      var f = d.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + fig.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = fig.getAttribute('data-yt-titel') || 'Video';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
+      f.setAttribute('loading', 'lazy'); f.className = 'yt__speler';
+      knop.replaceWith(f); f.focus();
+    });
+  });
+
   // ---------- Kleine animaties: secties schuiven in beeld; uit bij prefers-reduced-motion ----------
   var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var blokken = d.querySelectorAll('.reveal');
