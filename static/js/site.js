@@ -77,7 +77,7 @@
     function speel() {
       if (f) f.remove();
       f = d.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + fig.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
+      f.src = 'https://www.youtube-nocookie.com/embed/' + fig.getAttribute('data-yt') + '?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
       f.title = fig.getAttribute('data-yt-titel') || 'Video';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
       f.className = 'yt__speler';
@@ -92,7 +92,8 @@
       if (!f || e.source !== f.contentWindow || !/youtube-nocookie\.com$/.test(new URL(e.origin).hostname)) return;
       var data; try { data = JSON.parse(e.data); } catch (x) { return; }
       var st = data && (data.event === 'onStateChange' ? data.info : data.info && data.info.playerState);
-      if (st === 0 && eind) { f.remove(); f = null; eind.hidden = false; }
+      if (st === 1) f.dataset.gespeeld = '1';
+      if (st === 0 && eind && f.dataset.gespeeld) { f.remove(); f = null; eind.hidden = false; knop.hidden = true; }
     });
   });
 

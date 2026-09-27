@@ -48,7 +48,7 @@ def bouw():
         "Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er nu niet is. Die frezen wij zelf in, in eigen beheer, zodat er geen deurenfabrikant tussen zit en de deur niet vervangen hoeft te worden. "
         f"Wat dat kost staat bij <a href=\"/kosten/\">kosten</a> (infrezen: {prijs('infrezen')})."))
 
-    drangers = sectie("Deurdrangers en deurautomaten", p(
+    drangers = sectie("Deurdrangers en deurautomaten", kop_id="deurdrangers", inhoud=p(
         f"Een elektronisch slot werkt alleen als de deur ook dichtvalt. Daarom leveren en stellen wij deurdrangers en deurautomaten van {esc(DEURDRANGERS)} af, "
         "en zijn wij door de fabrikant getraind in het afstellen ervan: sluitkracht, sluitsnelheid en eindslag afgestemd op de deur en op de brandwerende eisen. "
         "Bij een deurautomaat combineren wij de lezer met de automaat, zodat de deur na een geldige pas zelf opengaat."))

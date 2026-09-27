@@ -308,6 +308,27 @@ textarea{min-height:120px;resize:vertical}
 .adviseur .feiten{margin-top:16px;font-size:.95em}
 
 /* ---------- video ---------- */
+/* "Wat wij plaatsen": Xesar uitgelicht links, drie producten rechts (Lars, 27-09-2026) */
+.producten{display:grid;gap:18px}
+@media (min-width:1000px){.producten{grid-template-columns:7fr 5fr;align-items:stretch}}
+.product{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:24px 26px;border-top:3px solid var(--kl,var(--primair))}
+.product h3{margin:4px 0 8px}
+.product p{margin:0 0 12px}
+.product .product__knop{margin:14px 0 0}
+.product__label{display:inline-block;font-family:var(--font-kop);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--kl,var(--primair));background:var(--bg,#E4F1FC);padding:4px 8px;border-radius:4px}
+.product--uitgelicht{--kl:var(--primair);--bg:#E4F1FC;padding:28px 30px}
+.product--uitgelicht h3{font-size:var(--h2)}
+@media (min-width:900px){.product--uitgelicht h3{font-size:34px}}
+.product--uitgelicht .yt{margin-top:18px}
+.producten__rest{display:grid;gap:18px}
+.producten__rest .product{display:flex;gap:16px;align-items:flex-start}
+.product--tedee{--kl:#6C4FD1;--bg:#ECE7FB}
+.product--magtec{--kl:var(--signaal);--bg:#E1F4E8}
+.product--gu{--kl:#D9822B;--bg:#FCEEDD}
+.product figure.product__beeld{flex:0 0 96px;margin:0}
+.product figure.product__beeld img{aspect-ratio:1;object-fit:cover;border-radius:6px;width:96px}
+.sectie--wit .product{background:#F6F8FA}
+@media (max-width:599px){.producten__rest .product{flex-direction:column}.product,.product--uitgelicht{padding:20px}}
 /* EVVA Xesar-video onder "Wat wij plaatsen": poster in huisstijl, YouTube pas na klik (Lars, 27-09-2026) */
 .xesar-video{margin-top:48px;align-items:center}
 .xesar-video h3{font-size:var(--h3-d);margin:0 0 12px}
@@ -334,7 +355,7 @@ textarea{min-height:120px;resize:vertical}
 .yt{position:relative}
 .yt__eind{position:relative;aspect-ratio:16/9;border-radius:var(--straal);padding:28px 30px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   background:radial-gradient(120% 90% at 85% 20%,rgba(73,191,254,.35),transparent 55%),linear-gradient(135deg,#02295B 0%,#0B3A78 55%,#1B68C0 100%)}
-.yt__eind[hidden]{display:none}
+.yt [hidden]{display:none!important}
 .yt__eindtitel{font-family:var(--font-kop);font-size:clamp(22px,3vw,32px);font-weight:700;margin:0 0 6px}
 .yt__eindtekst{margin:0 0 18px;color:rgba(255,255,255,.8);max-width:40ch}
 .yt__eindknoppen{display:flex;flex-wrap:wrap;gap:10px;margin:0}

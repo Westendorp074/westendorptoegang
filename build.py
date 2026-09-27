@@ -397,7 +397,7 @@ def youtube(video_id, titel, ondertitel=""):
             f'{logo}<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
             + (f'<span class="yt__sub">{esc(ondertitel)}</span>' if ondertitel else "") +
             f'<span class="yt__knop">{speel}</span><span class="yt__knoptekst">Bekijk de video · {XESAR_VIDEO_INFO["duur_tonen"]}</span></button>'
-            f'{eind}<figcaption>Video: EVVA · {XESAR_VIDEO_INFO["duur_tonen"]} min</figcaption></figure>')
+            f'{eind}</figure>')
 
 def video_ld(pad, beschrijving):
     """VideoObject voor zoekmachines en AI-assistenten: echte gegevens van de video, thumbnail met het logo van Westendorp."""

@@ -22,20 +22,31 @@ def bouw():
         "Toegangscontrole per sector",
         "Elke sector heeft eigen deuren, gebruikers en regels. Kies de uwe en lees wat wij daar oplossen, van vijf deuren tot enkele honderden.")
 
-    # ---- wat we plaatsen ----
-    producten = [
-        ("EVVA Xesar", "/evva-xesar/", "Elektronische cilinders, beslag en wandlezers van de Oostenrijkse slotenfabrikant EVVA, ons hoofdmerk. Past op bestaande deuren; rechten beheert u in de software en een kwijtgeraakte pas blokkeert u zelf. " + f"Lijnen: {esc(MERKEN['xesar']['lijnen'])}."),
-        ("Motorcilinder", "/motorcilinder/", "De EVVA EMZY draait de nachtschoot zelf: op afstand of via een lezer de deur echt op slot en weer open, ook op een buitendeur of vluchtdeur."),
-        ("Sluitplan", "/sluitplan/", "Mechanisch, elektronisch of de overstap. Wie mag waar in, vastgelegd in één plan, met gecertificeerde cilinders waar de verzekeraar dat vraagt."),
-        ("Salto onderhoud", "/salto/", "Heeft u al een Salto-systeem? Nieuwe systemen plaatsen wij niet, maar onderhoud, storingen en uitbreiding van bestaande Salto-onderdelen doen wij regelmatig."),
+    # ---- wat we plaatsen: vier producten uitgelicht, Xesar groot met video (Lars, 27-09-2026) ----
+    magtec = beeld("magtec-cilinder-voorkant.jpg", "ABUS Magtec-profielcilinder, vooraanzicht", sizes="140px", klas="product__beeld", bron="ABUS")
+    rest = [
+        ("tedee", "Kleinschalige projecten", "Tedee Smart Lock",
+         "Een slim slot voor een paar deuren: u opent met de app op uw telefoon en geeft anderen tijdelijk toegang, zonder sleutels bij te maken. Handig voor kleine kantoren, praktijken en verhuurde ruimtes.",
+         "#aanvraag", "Vraag advies over Tedee", ""),
+        ("magtec", "Mechanisch en duurzaam", "ABUS Magtec cilindersloten",
+         "Mechanische cilinders met magneetcodering, SKG*** en in ons eigen sleutelprofiel. Loodvrij geproduceerd en met 46 procent minder CO₂-uitstoot dan een vergelijkbare cilinder.",
+         "/duurzaamheid/#magtec", "Meer over ABUS Magtec", magtec),
+        ("gu", "Grote projecten", "GU deurdrangers en deurautomaten",
+         "Een elektronisch slot werkt pas als de deur ook goed dichtvalt. Wij leveren en stellen deurdrangers en deurautomaten van GU af, afgestemd op de deur en op de eisen voor brandwerende deuren.",
+         "/elektronische-sloten/#deurdrangers", "Meer over deurdrangers", ""),
     ]
     wat = sectie("Wat wij plaatsen",
-        '<div class="kolommen kolommen--4">' + "".join(f'<div><h3>{k}</h3><p>{t}</p><p><a class="meer" href="{u}">Meer over {k if k[0].isupper() and k.split()[0] in ("EVVA", "Salto") else k.lower()}</a></p></div>' for k, u, t in producten) + "</div>"
-        + '<div class="rooster xesar-video"><div class="k5">' + label("Onze productlijn") + "<h3>EVVA Xesar in beeld</h3>"
-        + p("EVVA Xesar is het systeem dat wij het meest plaatsen: elektronische cilinders, beslag en wandlezers die u beheert in één overzichtelijke software. "
-            "Openen met pas, druppel of telefoon, en een verloren pas blokkeert u zelf. In deze video laat EVVA zien hoe het werkt.")
-        + '<p><a class="meer" href="/evva-xesar/">Meer over EVVA Xesar</a></p></div>'
-        + '<div class="k7">' + youtube(XESAR_VIDEO, "Xesar in één blik", "Het elektronische sluitsysteem van EVVA, geplaatst door Westendorp") + "</div></div>",
+        '<div class="producten">'
+        '<article class="product product--uitgelicht"><span class="product__label">Elektronisch · ons hoofdmerk</span><h3>EVVA Xesar</h3>'
+        + p("Elektronische cilinders, beslag en wandlezers die u beheert in één overzichtelijke software. Openen met pas, druppel of telefoon, "
+            "en een verloren pas blokkeert u zelf. Past op de deuren die er al zitten.")
+        + youtube(XESAR_VIDEO, "Xesar in één blik", "Het elektronische sluitsysteem van EVVA, geplaatst door Westendorp")
+        + '<p class="product__knop"><a class="meer" href="/evva-xesar/">Meer over EVVA Xesar</a></p></article>'
+        '<div class="producten__rest">' + "".join(
+            f'<article class="product product--{c}">{img}<div><span class="product__label">{esc(lab)}</span><h3>{esc(k)}</h3><p>{esc(t)}</p>'
+            f'<p class="product__knop"><a class="meer" href="{u}">{esc(kn)}</a></p></div></article>' for c, lab, k, t, u, kn, img in rest)
+        + "</div></div>"
+        + p('Ook: <a href="/motorcilinder/">motorcilinders</a>, <a href="/sluitplan/">sluitplannen</a> en <a href="/salto/">onderhoud van bestaande Salto-systemen</a>.'),
         kicker="Oplossingen")
 
     # ---- hoe het werkt ----
