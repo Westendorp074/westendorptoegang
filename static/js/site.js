@@ -73,13 +73,26 @@
   // ---------- YouTube op klik: pas na de klik de speler laden (youtube-nocookie) ----------
   d.querySelectorAll('[data-yt]').forEach(function (fig) {
     var knop = fig.querySelector('.yt__start'); if (!knop) return;
-    knop.addEventListener('click', function () {
-      var f = d.createElement('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + fig.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+    var eind = fig.querySelector('.yt__eind'), f = null;
+    function speel() {
+      if (f) f.remove();
+      f = d.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + fig.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=' + encodeURIComponent(location.origin);
       f.title = fig.getAttribute('data-yt-titel') || 'Video';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true;
-      f.setAttribute('loading', 'lazy'); f.className = 'yt__speler';
-      knop.replaceWith(f); f.focus();
+      f.className = 'yt__speler';
+      f.addEventListener('load', function () { f.contentWindow.postMessage(JSON.stringify({ event: 'listening' }), '*'); });
+      if (eind) eind.hidden = true;
+      knop.hidden = true; fig.insertBefore(f, eind || knop); f.focus();
+    }
+    knop.addEventListener('click', speel);
+    var opnieuw = fig.querySelector('.yt__opnieuw'); if (opnieuw) opnieuw.addEventListener('click', speel);
+    // eindscherm met logo als de video klaar is (speler meldt playerState 0)
+    window.addEventListener('message', function (e) {
+      if (!f || e.source !== f.contentWindow || !/youtube-nocookie\.com$/.test(new URL(e.origin).hostname)) return;
+      var data; try { data = JSON.parse(e.data); } catch (x) { return; }
+      var st = data && (data.event === 'onStateChange' ? data.info : data.info && data.info.playerState);
+      if (st === 0 && eind) { f.remove(); f = null; eind.hidden = false; }
     });
   });
 

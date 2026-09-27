@@ -320,12 +320,29 @@ textarea{min-height:120px;resize:vertical}
 .yt__merk{display:inline-block;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
 .yt__titel{display:block;font-family:var(--font-kop);font-size:clamp(22px,3vw,34px);font-weight:700;line-height:1.15;max-width:14ch}
 .yt__sub{display:block;margin-top:8px;font-size:15px;color:rgba(255,255,255,.78);max-width:30ch}
-.yt__knop{position:absolute;right:30px;bottom:26px;width:78px;height:78px;border-radius:50%;background:var(--accent);color:var(--kop);
-  display:flex;align-items:center;justify-content:center;padding-left:4px;box-shadow:0 0 0 12px rgba(73,191,254,.22);transition:transform .2s,box-shadow .2s}
-.yt__start:hover .yt__knop,.yt__start:focus-visible .yt__knop{transform:scale(1.06);box-shadow:0 0 0 16px rgba(73,191,254,.28)}
-.yt__hint{position:absolute;left:30px;bottom:22px;font-size:13px;color:rgba(255,255,255,.7)}
+/* grote witte afspeelknop met zachte puls: valt meteen op */
+.yt__knop{position:absolute;right:13%;top:50%;margin-top:-52px;width:104px;height:104px;border-radius:50%;background:#fff;color:#02295B;
+  display:flex;align-items:center;justify-content:center;padding-left:6px;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .2s}
+.yt__knop::before,.yt__knop::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(255,255,255,.55);animation:ytpuls 2.4s ease-out infinite}
+.yt__knop::after{animation-delay:1.2s}
+@keyframes ytpuls{from{transform:scale(.8);opacity:1}to{transform:scale(1.45);opacity:0}}
+.yt__start:hover .yt__knop,.yt__start:focus-visible .yt__knop{transform:scale(1.08)}
+.yt__knoptekst{position:absolute;right:13%;top:50%;margin-top:66px;transform:translateX(calc(50% - 52px));font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.yt__logo{display:flex;width:max-content;background:#fff;border-radius:6px;padding:7px 10px;margin-bottom:18px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.yt__logo img{height:26px;width:auto;max-width:none;aspect-ratio:auto;object-fit:contain;border-radius:0;display:block}
+.yt__merk{display:block}
+.yt{position:relative}
+.yt__eind{position:relative;aspect-ratio:16/9;border-radius:var(--straal);padding:28px 30px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  background:radial-gradient(120% 90% at 85% 20%,rgba(73,191,254,.35),transparent 55%),linear-gradient(135deg,#02295B 0%,#0B3A78 55%,#1B68C0 100%)}
+.yt__eind[hidden]{display:none}
+.yt__eindtitel{font-family:var(--font-kop);font-size:clamp(22px,3vw,32px);font-weight:700;margin:0 0 6px}
+.yt__eindtekst{margin:0 0 18px;color:rgba(255,255,255,.8);max-width:40ch}
+.yt__eindknoppen{display:flex;flex-wrap:wrap;gap:10px;margin:0}
+.yt__eind .knop--tweede{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
+@media (prefers-reduced-motion:reduce){.yt__knop::before,.yt__knop::after{animation:none;opacity:.5}}
 .yt figcaption{margin-top:8px}
-@media (max-width:699px){.yt__start{padding:20px}.yt__knop{width:56px;height:56px;right:20px;bottom:18px}.yt__hint{left:20px;bottom:14px}}
+@media (max-width:699px){.yt__start,.yt__eind{padding:18px}.yt__titel{max-width:11ch}.yt__sub{display:none}.yt__logo img{height:20px}.yt__logo{margin-bottom:10px}
+  .yt__knop{width:68px;height:68px;right:9%;margin-top:-34px}.yt__knoptekst{display:none}.yt__eindtekst{display:none}}
 .xesar-video>div{min-width:0}
 .video{margin:0}
 .video__start{display:block;position:relative;width:100%;padding:0;border:0;background:none;cursor:pointer;text-align:left}

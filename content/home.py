@@ -35,7 +35,7 @@ def bouw():
         + p("EVVA Xesar is het systeem dat wij het meest plaatsen: elektronische cilinders, beslag en wandlezers die u beheert in één overzichtelijke software. "
             "Openen met pas, druppel of telefoon, en een verloren pas blokkeert u zelf. In deze video laat EVVA zien hoe het werkt.")
         + '<p><a class="meer" href="/evva-xesar/">Meer over EVVA Xesar</a></p></div>'
-        + '<div class="k7">' + youtube(XESAR_VIDEO, "Zo werkt EVVA Xesar", "Toegangscontrole voor bedrijven en instellingen") + "</div></div>",
+        + '<div class="k7">' + youtube(XESAR_VIDEO, "Xesar in één blik", "Het elektronische sluitsysteem van EVVA, geplaatst door Westendorp") + "</div></div>",
         kicker="Oplossingen")
 
     # ---- hoe het werkt ----
@@ -134,5 +134,5 @@ def bouw():
                                                     f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in middelen_tegels) + "</ul>",
         kicker="Hybride")
     body = hero_html + herken + voor_wie + middelen + wat + hoe + video_blok + bewijs + duurzaam + kennis + werkgebied
-    schrijf("/", titel, omschrijving, body, faq=faq,
+    schrijf("/", titel, omschrijving, body, faq=faq, extra_ld=[video_ld("/", 'Korte video van EVVA over Xesar, het elektronische sluitsysteem met cilinders, beslag en wandlezers die u in één software beheert. Westendorp Toegangscontrole plaatst Xesar bij bedrijven en instellingen in Twente en Oost-Nederland.')],
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")

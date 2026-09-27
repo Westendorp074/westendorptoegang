@@ -60,7 +60,11 @@ def bouw():
         ("Doen jullie ook het beheer van Xesar?", "Wij leveren het systeem op, richten het in en leren u het beheer; wilt u het uit handen geven, dan beheren wij het voor u. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."),
     ]
 
-    body = hero("EVVA Xesar: elektronische toegangscontrole voor uw pand", intro, foto) + voorwie + lijnen + plusmin + specs + kosten
+    film = sectie("Xesar in één blik", '<div class="rooster xesar-video"><div class="k5">' + p(
+        "In ruim een minuut laat EVVA zien hoe Xesar werkt: elektronische cilinders en beslag op de deur, openen met pas, druppel of telefoon, "
+        "en alle rechten in één overzichtelijke software. Dat is precies wat wij bij u plaatsen, op de deuren die er al zitten.") + "</div>"
+        + '<div class="k7">' + youtube(XESAR_VIDEO, "Xesar in één blik", "Het elektronische sluitsysteem van EVVA, geplaatst door Westendorp") + "</div></div>", kicker="Video")
+    body = hero("EVVA Xesar: elektronische toegangscontrole voor uw pand", intro, foto) + film + voorwie + lijnen + plusmin + specs + kosten
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("EVVA Xesar", PAD)],
-            extra_ld=[service_ld(PAD, "EVVA Xesar toegangscontrole", omschrijving, merk="EVVA")],
+            extra_ld=[service_ld(PAD, "EVVA Xesar toegangscontrole", omschrijving, merk="EVVA"), video_ld(PAD, 'Korte video van EVVA over Xesar, het elektronische sluitsysteem met cilinders, beslag en wandlezers die u in één software beheert. Westendorp Toegangscontrole plaatst Xesar bij bedrijven en instellingen in Twente en Oost-Nederland.')],
             llms="EVVA Xesar: wat het is, voor wie, welke onderdelen wij leveren, sterke en zwakke punten, specificatietabel, kosten.")

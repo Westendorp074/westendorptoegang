@@ -379,15 +379,34 @@ def video(bestand, poster, alt, kop="Bekijk de video", onderschrift=None):
 
 XESAR_VIDEO = "rAH27xzXeXI"   # EVVA Xesar, YouTube-kanaal van EVVA (Lars, 27-09-2026; gebruik aangevraagd bij EVVA)
 
+# publieke gegevens van de video (oEmbed en videopagina, opgehaald 27-09-2026)
+XESAR_VIDEO_INFO = {"titel": "Xesar - het elektronische sluitsysteem van EVVA in één blik", "maker": "EVVA Sicherheitstechnologie",
+                    "datum": "2024-07-04", "duur": "PT1M15S", "duur_tonen": "1:15"}
+
 def youtube(video_id, titel, ondertitel=""):
-    """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster in de huisstijl."""
-    speel = '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
+    """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,
+    met het logo van Westendorp; het eindscherm verschijnt als de video klaar is (postMessage van de speler, zonder extra script)."""
+    speel = '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
+    logo = f'<span class="yt__logo"><img src="{_ASSETS["logo"]}" alt="{esc(NAAM)}" width="2053" height="647" loading="lazy"></span>'
+    eind = (f'<div class="yt__eind" hidden>{logo}<p class="yt__eindtitel">EVVA Xesar in uw pand?</p>'
+            f'<p class="yt__eindtekst">Wij plaatsen Xesar op uw bestaande deuren, van inventarisatie tot beheer.</p>'
+            f'<p class="yt__eindknoppen">{cta_knop("Plan een inventarisatie", "#aanvraag", "video-eind")}'
+            f'<button type="button" class="knop knop--tweede yt__opnieuw">Opnieuw bekijken</button></p></div>')
     return (f'<figure class="yt" data-yt="{esc(video_id)}" data-yt-titel="{esc(titel)}">'
-            f'<button type="button" class="yt__start" aria-label="Video afspelen: {esc(titel)}">'
-            f'<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
+            f'<button type="button" class="yt__start" aria-label="Video afspelen: {esc(titel)}, {XESAR_VIDEO_INFO["duur_tonen"]} minuut">'
+            f'{logo}<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
             + (f'<span class="yt__sub">{esc(ondertitel)}</span>' if ondertitel else "") +
-            f'<span class="yt__knop">{speel}</span><span class="yt__hint">Afspelen via YouTube</span></button>'
-            f'<figcaption>Video: EVVA</figcaption></figure>')
+            f'<span class="yt__knop">{speel}</span><span class="yt__knoptekst">Bekijk de video · {XESAR_VIDEO_INFO["duur_tonen"]}</span></button>'
+            f'{eind}<figcaption>Video: EVVA · {XESAR_VIDEO_INFO["duur_tonen"]} min</figcaption></figure>')
+
+def video_ld(pad, beschrijving):
+    """VideoObject voor zoekmachines en AI-assistenten: echte gegevens van de video, thumbnail met het logo van Westendorp."""
+    v = XESAR_VIDEO_INFO
+    return {"@type": "VideoObject", "@id": SITE + pad + "#xesar-video", "name": v["titel"], "description": beschrijving,
+            "thumbnailUrl": [SITE + "/static/img/evva-xesar-video-westendorp.jpg", f"https://i.ytimg.com/vi/{XESAR_VIDEO}/hqdefault.jpg"],
+            "uploadDate": v["datum"], "duration": v["duur"], "embedUrl": f"https://www.youtube-nocookie.com/embed/{XESAR_VIDEO}",
+            "contentUrl": f"https://www.youtube.com/watch?v={XESAR_VIDEO}", "inLanguage": "nl",
+            "author": {"@type": "Organization", "name": v["maker"]}, "publisher": {"@id": ORG_ID}, "isPartOf": {"@id": SITE + pad + "#webpage"}}
 
 def kaart_svg():
     """Schematische kaart van het werkgebied: Enschede in het midden, een cirkel voor 60 minuten rijden, de plaatsen
@@ -776,6 +795,8 @@ def assets():
     _ASSETS["icoon"] = f"/static/img/logo/icoon.{versie(icoon_bron)}.svg"; shutil.copy(icoon_bron, DIST / _ASSETS["icoon"].lstrip("/"))
     for extra in ["favicon.ico", "favicon.svg", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon.png", "android-chrome-192x192.png", "android-chrome-512x512.png"]:
         shutil.copy(STATIC / "img" / "logo" / "favicon" / extra, DIST / extra)          # favicon-set uit het logopakket, in de hoofdmap
+    thumb = STATIC / "img" / "evva-xesar-video-westendorp.jpg"
+    if thumb.exists(): shutil.copy(thumb, DIST / "static" / "img" / thumb.name)          # thumbnail van de Xesar-video, met logo
     shutil.copy(lb / "og-standaard-1200x630.png", DIST / "static" / "img" / OG_STANDAARD.lstrip("/").replace("static/img/", ""))
     (DIST / "manifest.webmanifest").write_text(json.dumps({"name": NAAM, "short_name": "Westendorp", "start_url": "/", "display": "browser",
         "background_color": "#FFFFFF", "theme_color": "#02295B", "icons": [{"src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png"},
