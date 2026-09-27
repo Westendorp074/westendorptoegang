@@ -396,8 +396,11 @@ def hero_badges():
                       '<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/></svg>')
     slot = ('<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'
             '<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.4"/></svg>')
-    return (f'<div class="badge badge--pkvw"><span class="badge__icoon">{pkvw_icoon}</span><span><strong>PKVW-gecertificeerd</strong><small>Politiekeurmerk Veilig Wonen</small></span></div>'
-            f'<div class="badge badge--evva"><span class="badge__icoon">{slot}</span><span><strong>Officieel EVVA Partner</strong><small>Xesar, AirKey en mechanisch</small></span></div>')
+    lijn = lambda d: f'<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{d}</svg>'
+    pk = pkvw_icoon if echt else lijn('<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/>')
+    items = [(pk, "PKVW-gecertificeerd"), (lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'), "Officieel| EVVA Partner")]   # familiebedrijf staat al boven de titel
+    tekst = lambda t: (f'<span class="keurbalk__lang">{esc(t.split("|")[0])} </span>{esc(t.split("|")[1].strip())}' if "|" in t else esc(t))
+    return '<ul class="keurbalk">' + "".join(f'<li><span class="keurbalk__icoon">{i}</span><span>{tekst(t)}</span></li>' for i, t in items) + "</ul>"
 
 def youtube(video_id, titel, ondertitel=""):
     """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,
