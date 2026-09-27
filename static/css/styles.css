@@ -337,7 +337,10 @@ textarea{min-height:120px;resize:vertical}
 .yt__start{position:relative;overflow:hidden;cursor:pointer;text-align:left;padding:28px 30px;color:#fff;
   background:radial-gradient(120% 90% at 85% 20%,rgba(73,191,254,.35),transparent 55%),linear-gradient(135deg,#02295B 0%,#0B3A78 55%,#1B68C0 100%);
   box-shadow:0 18px 40px rgba(2,41,91,.22)}
-.yt__start::after{content:"";position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border-radius:50%;border:26px solid rgba(255,255,255,.07)}
+.yt__start::after{content:none}
+.yt__watermerk{position:absolute;right:-6%;top:50%;height:130%;width:auto;max-width:none;transform:translateY(-50%);filter:brightness(0) invert(1);opacity:.07;pointer-events:none;aspect-ratio:auto!important;border-radius:0!important}
+.yt__logo,.yt__merk,.yt__titel,.yt__sub,.yt__eind>p{position:relative}
+.yt__eind{overflow:hidden}
 .yt__merk{display:inline-block;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
 .yt__titel{display:block;font-family:var(--font-kop);font-size:clamp(22px,3vw,34px);font-weight:700;line-height:1.15;max-width:14ch}
 .yt__sub{display:block;margin-top:8px;font-size:15px;color:rgba(255,255,255,.78);max-width:30ch}
@@ -349,9 +352,10 @@ textarea{min-height:120px;resize:vertical}
 @keyframes ytpuls{from{transform:scale(.8);opacity:1}to{transform:scale(1.45);opacity:0}}
 .yt__start:hover .yt__knop,.yt__start:focus-visible .yt__knop{transform:scale(1.08)}
 .yt__knoptekst{position:absolute;right:13%;top:50%;margin-top:66px;transform:translateX(calc(50% - 52px));font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;white-space:nowrap}
-.yt__logo{display:flex;width:max-content;background:#fff;border-radius:6px;padding:7px 10px;margin-bottom:18px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
-.yt__logo img{height:26px;width:auto;max-width:none;aspect-ratio:auto;object-fit:contain;border-radius:0;display:block}
+.yt__logo{display:flex;width:max-content;margin-bottom:22px}
+.yt__logo img{height:40px;filter:brightness(0) invert(1);width:auto;max-width:none;aspect-ratio:auto;object-fit:contain;border-radius:0;display:block}
 .yt__merk{display:block}
+@media (max-width:699px){.yt__logo img{height:28px}}
 .yt{position:relative}
 .yt__eind{position:relative;aspect-ratio:16/9;border-radius:var(--straal);padding:28px 30px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   background:radial-gradient(120% 90% at 85% 20%,rgba(73,191,254,.35),transparent 55%),linear-gradient(135deg,#02295B 0%,#0B3A78 55%,#1B68C0 100%)}

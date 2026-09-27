@@ -388,13 +388,14 @@ def youtube(video_id, titel, ondertitel=""):
     met het logo van Westendorp; het eindscherm verschijnt als de video klaar is (postMessage van de speler, zonder extra script)."""
     speel = '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>'
     logo = f'<span class="yt__logo"><img src="{_ASSETS["logo"]}" alt="{esc(NAAM)}" width="2053" height="647" loading="lazy"></span>'
-    eind = (f'<div class="yt__eind" hidden>{logo}<p class="yt__eindtitel">EVVA Xesar in uw pand?</p>'
+    watermerk = f'<img class="yt__watermerk" src="{_ASSETS["icoon"]}" alt="" aria-hidden="true" width="495" height="647" loading="lazy">'
+    eind = (f'<div class="yt__eind" hidden>{watermerk}{logo}<p class="yt__eindtitel">EVVA Xesar in uw pand?</p>'
             f'<p class="yt__eindtekst">Wij plaatsen Xesar op uw bestaande deuren, van inventarisatie tot beheer.</p>'
             f'<p class="yt__eindknoppen">{cta_knop("Plan een inventarisatie", "#aanvraag", "video-eind")}'
             f'<button type="button" class="knop knop--tweede yt__opnieuw">Opnieuw bekijken</button></p></div>')
     return (f'<figure class="yt" data-yt="{esc(video_id)}" data-yt-titel="{esc(titel)}">'
             f'<button type="button" class="yt__start" aria-label="Video afspelen: {esc(titel)}, {XESAR_VIDEO_INFO["duur_tonen"]} minuut">'
-            f'{logo}<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
+            f'{watermerk}{logo}<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
             + (f'<span class="yt__sub">{esc(ondertitel)}</span>' if ondertitel else "") +
             f'<span class="yt__knop">{speel}</span><span class="yt__knoptekst">Bekijk de video · {XESAR_VIDEO_INFO["duur_tonen"]}</span></button>'
             f'{eind}</figure>')
