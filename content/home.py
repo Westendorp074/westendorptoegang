@@ -124,15 +124,17 @@ def bouw():
         return (f'<symbol id="{id_}" viewBox="0 0 495 647"><path style="fill:{ring}" d="{ICO[0]}"/>'
                 f'<path style="fill:{binnen}" d="{ICO[1]}"/><path style="fill:{w}" d="{ICO[2]}"/></symbol>')
 
-    # "Herkent u dit?": één donker checklist-paneel — probleem doorgestreept, oplossing eronder (ontwerp B, Lars 28-09-2026)
-    tegels = [("Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
-              ("Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
-              ("Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
-              ("Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar; bij vertrek trekt u hem in."),
-              ("Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
-              ("Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
-    vink = ('<span class="herken__vink"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" '
-            'stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 7"/></svg></span>')
+    # "Herkent u dit?": één donker checklist-paneel met de lijniconen per knelpunt (ontwerp B; streep en vinkjes weg, Lars 28-09-2026)
+    IC = {'sleutel': '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/>', 'oog': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', 'regel': '<path d="M4 6h10M4 12h16M4 18h8"/><circle cx="17" cy="6" r="2"/><circle cx="15" cy="18" r="2"/>', 'klok': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', 'euro': '<path d="M17 6.5A7 7 0 1 0 17 17.5M4 10h9M4 14h9"/>', 'blad': '<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14zM5 19l7-7"/>'}
+    tegels = [("sleutel", "Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
+              ("oog", "Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
+              ("regel", "Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
+              ("klok", "Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar; bij vertrek trekt u hem in."),
+              ("euro", "Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
+              ("blad", "Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
+    def ikoon(i):
+        return ('<span class="herken__vink"><svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="none" '
+                f'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>')
     patroon_herken = ('<svg class="herkenpaneel__patroon" viewBox="0 0 420 460" aria-hidden="true">'
                       + icoon_symbool("ico-herken", "#3E82D6", "#1B68C0", "#8AD6FF")
                       + "".join(f'<use href="#ico-herken" x="{10 + k * 44}" y="{8 + r * 50}" width="30" height="39"/>' for r in range(5) for k in range(9))
@@ -140,7 +142,7 @@ def bouw():
     herken = sectie("Herkent u dit?",
         f'<div class="herkenpaneel">{patroon_herken}'
         '<p class="herkenpaneel__status"><i></i>Zes knelpunten &middot; zes keer opgelost</p>'
-        '<ul class="herken">' + "".join(f'<li>{vink}<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for k, t in tegels) + "</ul>"
+        '<ul class="herken">' + "".join(f'<li>{ikoon(i)}<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
         '<p class="acties acties--kaart"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a>'
         '<a class="meer" href="/service-en-beheer/">Service en beheer</a></p></div>', kicker="Waarom toegangscontrole")
     # ---- Duurzaamheid en Waarom Westendorp als twee donkere kaarten naast elkaar (voorbeeld Salto, Lars 28-09-2026) ----
