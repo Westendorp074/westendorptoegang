@@ -294,6 +294,117 @@ def feiten_groen():
 def label(tekst):
     return f'<span class="label">{esc(tekst)}</span>'
 
+def chat_widget():
+    """Contactwidget rechtsonder (Lars, 28-09-2026, naar Leadinfo-voorbeeld van een concurrent maar dan eigen bouw):
+    geen externe chatdienst, geen tracking, geen cookies. Eigen <style> en <script> zodat de budgetten van
+    site.css (40 KB) en site.js (15 KB) onaangetast blijven; de foto's laden pas als het paneel opengaat."""
+    stijl = """<style>
+.wchat{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font)}
+.wchat__knop{position:relative;width:60px;height:60px;border:0;border-radius:50%;background:var(--primair-donker);color:#fff;cursor:pointer;box-shadow:0 10px 28px rgba(2,41,91,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.wchat__knop:hover{transform:scale(1.06)}
+.wchat__knop .wchat__led{position:absolute;right:2px;top:2px;width:13px;height:13px;border-radius:50%;border:2.5px solid #fff}
+.wchat--open .wchat__pict-chat,.wchat__pict-kruis{display:none}
+.wchat--open .wchat__pict-kruis{display:block}
+.wchat__hint{position:absolute;right:72px;bottom:12px;white-space:nowrap;background:#fff;color:var(--inkt);border:var(--lijndikte) solid var(--lijn);border-radius:10px;padding:9px 14px;font-size:14px;box-shadow:0 10px 26px rgba(20,35,46,.14);opacity:0;pointer-events:none;transform:translateX(6px);transition:opacity .3s,transform .3s}
+.wchat--hint .wchat__hint{opacity:1;transform:none}
+.wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn)}
+.wchat__kop{display:flex;gap:12px;align-items:center;background:var(--primair-donker);color:#fff;padding:14px 16px}
+.wchat__fotos{display:flex;flex:none}
+.wchat__fotos img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #fff;background:#fff}
+.wchat__fotos img+img{margin-left:-12px}
+.wchat__naam{margin:0;font-family:var(--font-kop);font-size:15px;font-weight:700}
+.wchat__statustekst{margin:2px 0 0;display:flex;gap:7px;align-items:center;font-size:12.5px;color:#B9CBE2}
+.wchat__led,.wchat__statustekst i{width:8px;height:8px;border-radius:50%;background:#3DBE7A;flex:none}
+.wchat--dicht .wchat__led,.wchat--dicht .wchat__statustekst i{background:#8AD6FF}
+.wchat__sluit{margin-left:auto;flex:none;width:32px;height:32px;border:0;border-radius:8px;background:rgba(255,255,255,.12);color:#fff;font-size:19px;line-height:1;cursor:pointer}
+.wchat__sluit:hover{background:rgba(255,255,255,.22)}
+.wchat__welkom{margin:14px 16px 4px;background:var(--papier);border:var(--lijndikte) solid var(--lijn);border-radius:12px 12px 12px 3px;padding:11px 14px;font-size:14.5px;line-height:1.5;color:var(--inkt)}
+.wchat__acties{display:grid;gap:8px;padding:12px 16px 4px;margin:0}
+.wchat__actie{display:flex;gap:10px;align-items:center;border:var(--lijndikte) solid var(--lijn-2);border-radius:10px;background:#fff;padding:11px 13px;font:600 14px/1.3 var(--font);color:var(--inkt);text-decoration:none;cursor:pointer;text-align:left;transition:border-color .15s,background .15s}
+.wchat__actie:hover{border-color:var(--primair);background:#F4F9FE}
+.wchat__actie svg{flex:none;color:var(--primair)}
+.wchat__actie--bel{background:var(--accent);border-color:var(--accent);color:var(--kop)}
+.wchat__actie--bel svg{color:var(--kop)}
+.wchat__actie--bel:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.wchat__form{display:none;padding:4px 16px 0}
+.wchat--terugbel .wchat__form{display:block}
+.wchat--terugbel .wchat__acties,.wchat--terugbel .wchat__welkom{display:none}
+.wchat__form label{display:block;font:600 13px/1.4 var(--font);color:var(--inkt);margin:10px 0 4px}
+.wchat__form input{width:100%;box-sizing:border-box;border:var(--lijndikte) solid var(--lijn-2);border-radius:8px;padding:10px 12px;font:400 15px/1.4 var(--font);background:var(--papier)}
+.wchat__form input:focus{outline:var(--focus);outline-offset:1px}
+.wchat__form .knopregel{display:flex;gap:8px;margin-top:12px}
+.wchat__form button{flex:1;border:0;border-radius:8px;padding:11px 12px;font:700 13px/1 var(--font-kop);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.wchat__verstuur{background:var(--accent);color:var(--kop)}
+.wchat__terug{background:#fff;border:var(--lijndikte) solid var(--lijn-2)!important;color:var(--inkt)}
+.wchat__formstatus{margin:10px 0 0;font-size:13.5px;line-height:1.45;color:var(--inkt)}
+.wchat__formstatus.goed{color:var(--signaal)}
+.wchat__voet{margin:10px 16px 14px;font-size:12px;color:var(--inkt-zacht)}
+@media (max-width:480px){.wchat{right:12px;bottom:12px}.wchat__paneel{bottom:70px}}
+@media (prefers-reduced-motion:reduce){.wchat *{transition:none!important}}
+</style>"""
+    telefoon_svg = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8 7 15 15 15l2-4-4-2-2 2c-3-1-6-4-7-7l2-2-2-4z"/></svg>'
+    kalender_svg = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>'
+    terug_svg = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8 7 15 15 15l2-4-4-2-2 2c-3-1-6-4-7-7l2-2-2-4z"/><path d="M14 6h7M17.5 2.5v7"/></svg>'
+    mail_svg = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
+    chat_svg = '<svg class="wchat__pict-chat" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2.2-3.3A8 8 0 1 1 21 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg>'
+    kruis_svg = '<svg class="wchat__pict-kruis" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+    script = """<script>(function(){
+var w=document.querySelector('[data-wchat]');if(!w)return;
+var knop=w.querySelector('.wchat__knop'),paneel=w.querySelector('.wchat__paneel');
+var uur=new Date().getHours(),dag=new Date().getDay();
+var open=dag>=1&&dag<=5&&uur>=8&&uur<17;
+w.classList.toggle('wchat--dicht',!open);
+w.querySelector('[data-wchat-status]').textContent=open?'Nu bereikbaar':'Bereikbaar ma t/m vr 08:00–17:00';
+w.querySelector('[data-wchat-groet]').textContent=(uur<12?'Goedemorgen!':uur<18?'Goedemiddag!':'Goedenavond!')+' Waarmee kunnen wij u helpen?';
+function zet(o){w.classList.toggle('wchat--open',o);paneel.hidden=!o;knop.setAttribute('aria-expanded',o);
+  knop.setAttribute('aria-label',o?'Sluit contactvenster':'Contact opnemen');
+  if(o){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien','1')}catch(e){}}}
+knop.addEventListener('click',function(){zet(paneel.hidden)});
+w.querySelector('.wchat__sluit').addEventListener('click',function(){zet(false);knop.focus()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!paneel.hidden){zet(false);knop.focus()}});
+var g=false;try{g=!!localStorage.getItem('wchat-gezien')}catch(e){}
+if(!g){setTimeout(function(){if(paneel.hidden)w.classList.add('wchat--hint');
+  setTimeout(function(){w.classList.remove('wchat--hint')},9000)},5000)}
+var vorm=w.querySelector('[data-wchat-form]'),status=w.querySelector('.wchat__formstatus');
+w.querySelector('[data-wchat-terugbel]').addEventListener('click',function(){w.classList.add('wchat--terugbel');vorm.querySelector('input').focus()});
+w.querySelector('.wchat__terug').addEventListener('click',function(){w.classList.remove('wchat--terugbel')});
+vorm.addEventListener('submit',function(e){e.preventDefault();
+  var C=window.WT_CONFIG||{},naam=vorm.naam.value.trim(),tel=vorm.telefoon.value.trim();
+  if(!naam||!tel){status.textContent='Vul uw naam en telefoonnummer in.';return}
+  status.textContent='Versturen…';
+  fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({access_key:C.web3formsKey,subject:'Terugbelverzoek via de website',from_name:naam,naam:naam,telefoon:tel,pagina:location.pathname,botcheck:''})})
+  .then(function(r){if(!r.ok)throw 0;vorm.querySelector('.knopregel').hidden=true;
+    status.className='wchat__formstatus goed';
+    status.textContent='Dank u, '+naam+'. '+(dag>=1&&dag<=5&&uur>=8&&uur<16?'Wij bellen u vandaag terug.':'Wij bellen u op de eerstvolgende werkdag terug.')})
+  .catch(function(){status.textContent='Versturen lukte niet. Bel ons gerust: TEL_TONEN.'})});
+})()</script>"""
+    script = script.replace("TEL_TONEN", TEL_TONEN)
+    return (f'<div class="wchat" data-wchat>{stijl}'
+            f'<div class="wchat__paneel" id="wchat-paneel" role="dialog" aria-label="Contact opnemen" hidden>'
+            f'<div class="wchat__kop"><span class="wchat__fotos">'
+            f'<img src="/static/img/adviseur-nick-800.webp" alt="" width="42" height="42" loading="lazy"></span>'
+            f'<div><p class="wchat__naam">Nick — {esc(NAAM)}</p>'
+            f'<p class="wchat__statustekst"><i></i><span data-wchat-status>Bereikbaar</span></p></div>'
+            f'<button type="button" class="wchat__sluit" aria-label="Sluiten">&#215;</button></div>'
+            f'<p class="wchat__welkom" data-wchat-groet>Waarmee kunnen wij u helpen?</p>'
+            f'<div class="wchat__acties">'
+            f'<a class="wchat__actie wchat__actie--bel" href="tel:{esc(TEL_LINK)}">{telefoon_svg}Bel {esc(TEL_TONEN)}</a>'
+            f'<a class="wchat__actie" href="/contact/#aanvraag">{kalender_svg}Plan een gratis inventarisatie</a>'
+            f'<button type="button" class="wchat__actie" data-wchat-terugbel>{terug_svg}Bel mij terug</button>'
+            f'<a class="wchat__actie" href="mailto:{esc(MAIL)}">{mail_svg}Mail {esc(MAIL)}</a></div>'
+            f'<form class="wchat__form" data-wchat-form novalidate>'
+            f'<label for="wchat-naam">Uw naam</label><input id="wchat-naam" name="naam" type="text" autocomplete="name" required>'
+            f'<label for="wchat-tel">Uw telefoonnummer</label><input id="wchat-tel" name="telefoon" type="tel" autocomplete="tel" inputmode="tel" required>'
+            f'<div class="knopregel"><button type="button" class="wchat__terug">Terug</button>'
+            f'<button type="submit" class="wchat__verstuur">Bel mij terug</button></div>'
+            f'<p class="wchat__formstatus" role="status" aria-live="polite"></p></form>'
+            f'<p class="wchat__voet">Geen chatbot: u krijgt Nick zelf.</p></div>'
+            f'<span class="wchat__hint" aria-hidden="true">Vraag over toegangscontrole?</span>'
+            f'<button type="button" class="wchat__knop" aria-expanded="false" aria-controls="wchat-paneel" aria-label="Contact opnemen">'
+            f'{chat_svg}{kruis_svg}<i class="wchat__led" aria-hidden="true"></i></button>'
+            f'{script}</div>')
+
 def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=None):
     """Kop van elke pagina: label, H1, answer-first alinea, CTA; rechts een foto of een illustratie."""
     rechts_inhoud = foto_html or (f'<div class="hero__illustratie">{illustratie}</div>' if illustratie else "")
@@ -814,6 +925,7 @@ def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=
         "og_beeld": SITE + (og_beeld or (beelden[0][0] if beelden else OG_STANDAARD)),
         "css": _ASSETS["css"], "js": _ASSETS["js"], "icoon": _ASSETS["icoon"], "tag": tag_html(), "jsonld": ld_script(graph),
         "header": header(pad), "body": volledige_body, "footer": footer(), "consent": consent_html(),
+        "chat": "" if noindex else chat_widget(),
         "config_js": json.dumps({"tagActief": TAG_ACTIEF, "web3formsKey": WEB3FORMS_KEY, "adsLabelForm": ADS_LABEL_FORM,
                                  "adsLabelTel": ADS_LABEL_TEL, "cta": CTA, "mail": MAIL}, ensure_ascii=False),
     }
