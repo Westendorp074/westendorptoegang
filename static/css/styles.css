@@ -155,41 +155,26 @@ section,.sectie{padding:var(--sectie) 0}
 /* hero met foto (Lars, 23-09-2026): schuine snede, lichtblauw vlak erachter dat iets gekanteld is, bijschrift als zwevend kaartje met groene led */
 .hero--foto{overflow:hidden}
 .hero__foto{position:relative}
-/* keurbalk over de herofoto: donker glas, dunne lijnen; foto zoomt heel langzaam (Lars, 27-09-2026) */
 .hero__foto figure{overflow:hidden}
 .hero__foto figure img{animation:kenburns 24s ease-in-out infinite alternate;transform-origin:60% 50%}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
-.keurbalk{position:absolute;z-index:3;left:12%;right:0;bottom:0;margin:0;padding:14px 26px;align-items:center;list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;
   background:rgba(10,22,38,.58);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-top:1px solid rgba(255,255,255,.14);
   color:#fff;font-family:var(--font-kop);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.keurbalk li{display:flex;align-items:center;gap:9px;margin:0;white-space:nowrap}
-.keurbalk li+li{padding-left:20px;border-left:1px solid rgba(255,255,255,.22)}
-.keurbalk__icoon{display:inline-flex;opacity:.9}
-.keurbalk__icoon--logo{opacity:1}
 /* PKVW-keurmerk: groot zegel in de echte kleuren, linksboven over de foto */
 .keurmerk{position:absolute;z-index:4;top:-18px;left:2%;display:flex;background:#fff;border-radius:14px;padding:12px;
   box-shadow:0 16px 36px rgba(2,41,91,.20),0 2px 6px rgba(2,41,91,.08)}
 .keurmerk img{width:104px;height:auto;aspect-ratio:auto;border-radius:0;display:block}
 
 @media (max-width:899px){.keurmerk{top:12px;left:12px;padding:8px 8px 7px;border-radius:10px}.keurmerk img{width:68px}.keurmerk span{display:none}}
-.keurbalk__icoon--logo img{height:32px;width:auto;max-width:none;aspect-ratio:auto;border-radius:0;display:block}
-@media (max-width:1199px){.keurbalk li>span:not(.keurbalk__icoon){display:none}.keurbalk{gap:8px 24px}.keurbalk li+li{padding-left:24px}}
-@media (max-width:899px){.keurbalk__icoon--logo img{height:28px}}
-@media (max-width:899px){.keurbalk{left:0;padding:11px 14px;gap:6px 14px;font-size:10.5px;bottom:52px;border-radius:0 0 var(--straal) var(--straal)}.keurbalk li+li{padding-left:14px}}
-@media (max-width:1199px){.keurbalk__lang{display:none}}
-@media (max-width:899px){.keurbalk{flex-wrap:nowrap}.keurbalk li:nth-child(3),.keurbalk__lang{display:none!important}.keurbalk li{white-space:nowrap}}
 @media (prefers-reduced-motion:reduce){.hero__foto figure img,.hero__foto::before{animation:none}}
 .hero__foto::before{content:"";position:absolute;left:-14px;right:-14px;top:12%;bottom:34px;background:var(--accent);opacity:.28;border-radius:var(--straal);transform:rotate(-2.5deg)}
 .hero__foto figure{position:relative;z-index:1;margin:0 0 52px}
 .hero__foto figure img{aspect-ratio:4/3;object-fit:cover;width:100%;display:block;border-radius:var(--straal)}
-.hero__foto figcaption{position:absolute;left:20px;bottom:-28px;max-width:calc(100% - 40px);background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:12px 16px 12px 40px;font-family:var(--font-kop);font-weight:600;font-size:.88em;line-height:1.35;color:var(--kop);box-shadow:0 10px 28px rgba(20,35,46,.12)}
-.hero__foto figcaption::before{content:"";position:absolute;left:16px;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--signaal-licht);box-shadow:0 0 0 4px rgba(61,190,122,.22)}
 @media (min-width:900px){
   .hero__foto{margin-right:min(0px,calc((var(--max) - 100vw) / 2))}
   .hero__foto::before{left:5%;right:-48px;top:9%;bottom:18px}
   .hero__foto figure{margin:0}
   .hero__foto figure img{clip-path:polygon(8% 0,100% 0,100% 100%,0 100%);border-radius:0}
-  .hero__foto figcaption{left:13%;bottom:26px}
 }
 
 /* ---------- illustraties en animatie ---------- */
@@ -463,7 +448,10 @@ textarea{min-height:120px;resize:vertical}
 @media (min-width:900px){.tweeluik{grid-template-columns:1fr 1fr}}
 .tweeluik__kaart{position:relative;overflow:hidden;min-height:540px;border-radius:12px;background:#02295B;color:#fff;display:flex;align-items:flex-end}
 .tweeluik__kaart--duurzaam{background:#0D3526}
-.tweeluik__patroon{position:absolute;pointer-events:none}
+.tweeluik__patroon{position:absolute;pointer-events:none;opacity:.32}
+.tweeluik__patroon--links{-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 78%);mask-image:linear-gradient(180deg,#000 30%,transparent 78%)}
+.tweeluik__patroon--rechts{-webkit-mask-image:linear-gradient(270deg,#000 40%,transparent 100%);mask-image:linear-gradient(270deg,#000 40%,transparent 100%)}
+@media (max-width:899px){.tweeluik__patroon{opacity:.2}}
 .tweeluik__patroon--links{left:0;top:0;width:62%;height:auto}
 .tweeluik__patroon--rechts{right:0;top:6%;width:30%;height:auto}
 .tweeluik__tekst{position:relative;padding:0 44px 44px;max-width:34em}
