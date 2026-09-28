@@ -474,3 +474,5 @@ textarea{min-height:120px;resize:vertical}
 .tweeluik__kaart--duurzaam .tweeluik__knop{background:#3DBE7A;color:#0B1F15}
 .tweeluik__knop:hover{filter:brightness(1.08)}
 @media (max-width:899px){.tweeluik__kaart{min-height:500px}.tweeluik__patroon--links{width:70%}.tweeluik__tekst{padding:0 24px 28px}.tweeluik__kaart--waarom .tweeluik__tekst{max-width:none}.tweeluik__patroon--rechts{width:42%;top:0;opacity:.55}}
+
+video.yt__speler{background:#000;object-fit:cover}

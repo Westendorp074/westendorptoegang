@@ -70,6 +70,27 @@
     });
   });
 
+  // ---------- Eigen videobestand: speelt direct op de site, zonder geluid tot de kijker het aanzet; eindscherm na afloop ----------
+  d.querySelectorAll('[data-video-src]').forEach(function (fig) {
+    var knop = fig.querySelector('.yt__start'), eind = fig.querySelector('.yt__eind'), v = null;
+    if (!knop) return;
+    function speel() {
+      if (!v) {
+        v = d.createElement('video');
+        v.src = fig.getAttribute('data-video-src'); v.className = 'yt__speler';
+        v.controls = true; v.muted = true; v.playsInline = true; v.preload = 'auto';
+        v.setAttribute('aria-label', fig.getAttribute('data-yt-titel') || 'Video');
+        v.addEventListener('ended', function () { v.hidden = true; if (eind) eind.hidden = false; });
+        fig.insertBefore(v, eind || null);
+      }
+      knop.hidden = true; if (eind) eind.hidden = true; v.hidden = false;
+      v.currentTime = 0; var p = v.play(); if (p && p.catch) p.catch(function () {});
+      v.focus();
+    }
+    knop.addEventListener('click', speel);
+    var opnieuw = fig.querySelector('.yt__opnieuw'); if (opnieuw) opnieuw.addEventListener('click', speel);
+  });
+
   // ---------- YouTube op klik: pas na de klik de speler laden (youtube-nocookie) ----------
   d.querySelectorAll('[data-yt]').forEach(function (fig) {
     var knop = fig.querySelector('.yt__start'); if (!knop) return;

@@ -435,6 +435,16 @@ def klantenbalk():
     return (f'<section class="klanten" aria-label="Organisaties waarvoor wij werken"><div class="wrap"><p class="klanten__kop">Zij gingen u voor</p></div>'
             f'<div class="klanten__band"><ul class="klanten__rij">{rij}</ul><ul class="klanten__rij" aria-hidden="true">{rij}</ul></div></section>')
 
+XESAR_BESTAND = "evva-xesar-in-een-blik.mp4"   # eigen videobestand in static/img/bron/; zodra dat er staat, speelt de video van de eigen site in plaats van YouTube
+
+def xesar_lokaal():
+    """Pad van het eigen videobestand op de site, of None. Kopieert het bestand naar dist/static/video/."""
+    bron = BRON / XESAR_BESTAND
+    if not bron.exists(): return None
+    uit = DIST / "static" / "video"; uit.mkdir(parents=True, exist_ok=True)
+    if not (uit / XESAR_BESTAND).exists(): shutil.copy(bron, uit / XESAR_BESTAND)
+    return f"/static/video/{XESAR_BESTAND}"
+
 def youtube(video_id, titel, ondertitel=""):
     """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,
     met het logo van Westendorp; het eindscherm verschijnt als de video klaar is (postMessage van de speler, zonder extra script)."""
@@ -445,7 +455,9 @@ def youtube(video_id, titel, ondertitel=""):
             f'<p class="yt__eindtekst">Wij plaatsen Xesar op uw bestaande deuren, van inventarisatie tot beheer.</p>'
             f'<p class="yt__eindknoppen">{cta_knop("Plan een inventarisatie", "#aanvraag", "video-eind")}'
             f'<button type="button" class="knop knop--tweede yt__opnieuw">Opnieuw bekijken</button></p></div>')
-    return (f'<figure class="yt" data-yt="{esc(video_id)}" data-yt-titel="{esc(titel)}">'
+    lokaal = xesar_lokaal()
+    bron_attr = f'data-video-src="{lokaal}"' if lokaal else f'data-yt="{esc(video_id)}"'
+    return (f'<figure class="yt" {bron_attr} data-yt-titel="{esc(titel)}">'
             f'<button type="button" class="yt__start" aria-label="Video afspelen: {esc(titel)}, {XESAR_VIDEO_INFO["duur_tonen"]} minuut">'
             f'{watermerk}{logo}<span class="yt__merk">EVVA Xesar</span><span class="yt__titel">{esc(titel)}</span>'
             + (f'<span class="yt__sub">{esc(ondertitel)}</span>' if ondertitel else "") +
@@ -454,11 +466,12 @@ def youtube(video_id, titel, ondertitel=""):
 
 def video_ld(pad, beschrijving):
     """VideoObject voor zoekmachines en AI-assistenten: echte gegevens van de video, thumbnail met het logo van Westendorp."""
-    v = XESAR_VIDEO_INFO
+    v = XESAR_VIDEO_INFO; lokaal = xesar_lokaal()
+    bronnen = ({"contentUrl": SITE + lokaal} if lokaal else
+               {"embedUrl": f"https://www.youtube-nocookie.com/embed/{XESAR_VIDEO}", "contentUrl": f"https://www.youtube.com/watch?v={XESAR_VIDEO}"})
     return {"@type": "VideoObject", "@id": SITE + pad + "#xesar-video", "name": v["titel"], "description": beschrijving,
             "thumbnailUrl": [SITE + "/static/img/evva-xesar-video-westendorp.jpg", f"https://i.ytimg.com/vi/{XESAR_VIDEO}/hqdefault.jpg"],
-            "uploadDate": v["datum"], "duration": v["duur"], "embedUrl": f"https://www.youtube-nocookie.com/embed/{XESAR_VIDEO}",
-            "contentUrl": f"https://www.youtube.com/watch?v={XESAR_VIDEO}", "inLanguage": "nl",
+            "uploadDate": v["datum"], "duration": v["duur"], **bronnen, "inLanguage": "nl",
             "author": {"@type": "Organization", "name": v["maker"]}, "publisher": {"@id": ORG_ID}, "isPartOf": {"@id": SITE + pad + "#webpage"}}
 
 def kaart_svg():
