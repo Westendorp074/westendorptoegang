@@ -56,7 +56,7 @@ section,.sectie{padding:var(--sectie) 0}
 /* "Herkent u dit?": één donker checklist-paneel — probleem doorgestreept, oplossing eronder (ontwerp B, Lars 28-09-2026) */
 .herkenpaneel{position:relative;overflow:hidden;background:var(--primair-donker);border-radius:12px;padding:32px 24px 28px;color:#fff;margin-top:16px}
 @media (min-width:900px){.herkenpaneel{padding:48px 56px 40px}}
-.herkenpaneel__patroon{position:absolute;right:-16px;top:-12px;width:44%;max-width:420px;height:auto;opacity:.24;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000 18%,transparent 62%),linear-gradient(270deg,#000 40%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,#000 18%,transparent 62%),linear-gradient(270deg,#000 40%,transparent 100%);mask-composite:intersect}
+.herkenpaneel__patroon{position:absolute;right:-16px;top:-12px;width:44%;max-width:420px;height:auto;opacity:.34;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000 22%,transparent 70%),linear-gradient(270deg,#000 40%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,#000 22%,transparent 70%),linear-gradient(270deg,#000 40%,transparent 100%);mask-composite:intersect}
 .herkenpaneel__status{position:relative;display:inline-flex;align-items:center;gap:10px;margin:0 0 8px;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8AD6FF;border:1px solid rgba(73,191,254,.35);border-radius:999px;padding:7px 14px}
 .herkenpaneel__status i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px 2px rgba(73,191,254,.55)}
 .herken{position:relative;max-width:none;list-style:none;margin:14px 0 0;padding:0;display:grid;column-gap:56px}
