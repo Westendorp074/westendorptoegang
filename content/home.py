@@ -128,6 +128,40 @@ def bouw():
         '<ul class="herken">' + "".join(f'<li><span class="herken__icoon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>'
                                         f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
         + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
-    body = hero_html + klantenbalk() + herken + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis   # hybride en werkgebied staan op /toegangscontrole/ en /werkgebied/ (Lars, 27-09-2026)
+    # ---- Duurzaamheid en Waarom Westendorp als twee donkere kaarten naast elkaar (voorbeeld Salto, Lars 28-09-2026) ----
+    def patroon_pijlen():
+        kleuren = ("#49BFFE", "#3DBE7A", "#7ADCA5", "#2FA56B")
+        uit = []
+        for r in range(13):
+            n = max(0, 16 - max(0, r - 7) * 3)                      # bovenaan volle rijen, onderaan een punt
+            start = max(0, (r - 8)) * 1.5
+            for k in range(n):
+                x = 14 + (start + k) * 40; y = 16 + r * 34
+                o = max(.25, 1 - k * 0.05)
+                uit.append(f'<path d="M{x:.0f} {y} l18 5 l-18 5" fill="none" stroke="{kleuren[r % 4]}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="{o:.2f}"/>')
+        return '<svg class="tweeluik__patroon tweeluik__patroon--links" viewBox="0 0 700 460" aria-hidden="true">' + "".join(uit) + "</svg>"
+    def patroon_sleutelgaten():
+        kleuren = ("#49BFFE", "#1B68C0", "#8AD6FF")
+        uit = []
+        for r in range(17):
+            for k in range(8):
+                x = 20 + k * 38; y = 18 + r * 42
+                o = max(.2, 1 - r * 0.045)
+                uit.append(f'<g transform="translate({x} {y})" opacity="{o:.2f}" fill="{kleuren[(k + r) % 3]}"><circle cx="9" cy="8" r="7"/><path d="M5 12h8l3 14H2z"/></g>')
+        return '<svg class="tweeluik__patroon tweeluik__patroon--rechts" viewBox="0 0 330 730" aria-hidden="true">' + "".join(uit) + "</svg>"
+    kaarten = [
+        ("duurzaam", patroon_pijlen(), "Duurzaamheid",
+         "Bij elektronische toegang vervangt u geen sloten meer als er een sleutel zoek is. Voor de mechanische deuren kiezen wij ABUS Magtec: loodvrij geproduceerd en met 46 procent minder CO₂-uitstoot.",
+         "/duurzaamheid/"),
+        ("waarom", patroon_sleutelgaten(), "Waarom Westendorp",
+         f"{esc(NAAM)} uit Enschede plaatst toegangscontrole bij organisaties in heel Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, "
+         "PKVW-gecertificeerde monteurs, een eigen werkplaats en een storingsdienst die dag en nacht bereikbaar is.",
+         "/over-ons/"),
+    ]
+    tweeluik = ('<section class="reveal tweeluik-sectie"><div class="wrap"><div class="tweeluik">' + "".join(
+        f'<article class="tweeluik__kaart tweeluik__kaart--{c}">{pat}<div class="tweeluik__tekst"><h2>{esc(k)}</h2><p>{t}</p>'
+        f'<a class="tweeluik__knop" href="{u}">Lees verder <span aria-hidden="true">›</span></a></div></article>' for c, pat, k, t, u in kaarten)
+        + "</div></div></section>")
+    body = hero_html + klantenbalk() + herken + voor_wie + wat + hoe + video_blok + tweeluik + kennis   # hybride en werkgebied staan op /toegangscontrole/ en /werkgebied/ (Lars, 27-09-2026)
     schrijf("/", titel, omschrijving, body, faq=faq, extra_ld=[video_ld("/", 'Korte video van EVVA over Xesar, het elektronische sluitsysteem met cilinders, beslag en wandlezers die u in één software beheert. Westendorp Toegangscontrole plaatst Xesar bij bedrijven en instellingen in Twente en Oost-Nederland.')],
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")
