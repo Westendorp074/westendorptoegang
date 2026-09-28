@@ -15,7 +15,7 @@ def bouw():
         f"Sleutels die kwijtraken, cilinders die telkens vervangen moeten worden en geen overzicht wie waar naar binnen kan? "
         f"Wij regelen de toegang tot uw pand op de deuren die er al zitten: elektronisch van EVVA en mechanisch, uit één hand. "
         f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}.",
-        foto_html=foto + hero_badges(), kicker=f"Familiebedrijf sinds {MOEDER_SINDS}")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
+        foto_html=foto.replace("</figure>", hero_badges() + "</figure>", 1), kicker=f"Familiebedrijf sinds {MOEDER_SINDS}")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
 
     # ---- sectoren: horizontale rij met illustraties ----
     voor_wie = sectorrij(SECTOREN_LIJST,
@@ -118,24 +118,33 @@ def bouw():
          "Alle plaatsen staan op <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
-    # "Herkent u dit?": zes compacte tegels met icoon, het probleem als kop en in één regel wat er verandert (Lars, 23-09-2026)
-    IC = {'sleutel': '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/>', 'oog': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>', 'regel': '<path d="M4 6h10M4 12h16M4 18h8"/><circle cx="17" cy="6" r="2"/><circle cx="15" cy="18" r="2"/>', 'klok': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', 'euro': '<path d="M17 6.5A7 7 0 1 0 17 17.5M4 10h9M4 14h9"/>', 'blad': '<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14zM5 19l7-7"/>'}
-    tegels = [("sleutel", "Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
-              ("oog", "Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
-              ("regel", "Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
-              ("klok", "Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar; bij vertrek trekt u hem in."),
-              ("euro", "Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
-              ("blad", "Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
-    herken = sectie("Herkent u dit?",
-        '<ul class="herken">' + "".join(f'<li><span class="herken__icoon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>'
-                                        f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
-        + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
-    # ---- Duurzaamheid en Waarom Westendorp als twee donkere kaarten naast elkaar (voorbeeld Salto, Lars 28-09-2026) ----
-    # patroon van het eigen icoon (sleutelgat met W), per kaart in eigen kleuren (Lars, 28-09-2026)
+    # patroon van het eigen icoon (sleutelgat met W), gedeeld door het herken-paneel en het tweeluik
     ICO = ['M475.08 219.5A229 229 0 1 0 161.87 457.39L148.59 506.57A17 17 0 0 0 165 528L330 528A17 17 0 0 0 346.41 506.57L325.06 427.5L289.85 427.5L307.8 494L187.2 494L198.76 451.17A17 17 0 0 0 187.57 430.56A195 195 0 1 1 440.83 219.5Z', 'M363.74 219.5A119 119 0 1 0 224.5 361.76L224.5 326.83A85 85 0 1 1 328.58 219.5ZM57.76 471.15L16.71 609.15A17 17 0 0 0 33 631L462 631A17 17 0 0 0 478.29 609.15L424.25 427.5L388.78 427.5L439.21 597L55.79 597L90.35 480.85Z', 'M237.5 252.29H279.52L300.01 327.85Q301.05 330.74 301.88 334.78Q302.7 338.82 303.53 342.75Q304.36 346.68 304.98 349.37H306.22Q306.64 347.1 307.15 344.2Q307.67 341.3 308.29 338.3Q308.91 335.3 309.53 332.61Q310.16 329.92 310.57 327.85L329.82 252.29H378.67L398.13 327.85Q398.75 330.54 399.58 334.37Q400.41 338.2 401.23 342.23Q402.06 346.27 402.68 349.37H403.93Q404.34 347.1 404.96 344.3Q405.58 341.51 406.31 338.51Q407.03 335.51 407.65 332.71Q408.27 329.92 408.89 327.85L429.18 252.29H467.89L426.28 394.5H379.71L357.77 311.08Q356.94 307.98 356.01 304.35Q355.07 300.73 354.45 297.21Q353.83 293.69 353.42 291.21H352.18Q351.76 294.11 350.93 297.73Q350.11 301.35 349.28 304.87Q348.45 308.39 347.83 311.08L326.09 394.5H278.9L237.5 252.29Z']
     def icoon_symbool(id_, ring, binnen, w):
         return (f'<symbol id="{id_}" viewBox="0 0 495 647"><path style="fill:{ring}" d="{ICO[0]}"/>'
                 f'<path style="fill:{binnen}" d="{ICO[1]}"/><path style="fill:{w}" d="{ICO[2]}"/></symbol>')
+
+    # "Herkent u dit?": één donker checklist-paneel — probleem doorgestreept, oplossing eronder (ontwerp B, Lars 28-09-2026)
+    tegels = [("Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
+              ("Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
+              ("Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
+              ("Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar; bij vertrek trekt u hem in."),
+              ("Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
+              ("Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
+    vink = ('<span class="herken__vink"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" '
+            'stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 7"/></svg></span>')
+    patroon_herken = ('<svg class="herkenpaneel__patroon" viewBox="0 0 420 460" aria-hidden="true">'
+                      + icoon_symbool("ico-herken", "#3E82D6", "#1B68C0", "#8AD6FF")
+                      + "".join(f'<use href="#ico-herken" x="{10 + k * 44}" y="{8 + r * 50}" width="30" height="39"/>' for r in range(5) for k in range(9))
+                      + "</svg>")
+    herken = sectie("Herkent u dit?",
+        f'<div class="herkenpaneel">{patroon_herken}'
+        '<p class="herkenpaneel__status"><i></i>Zes knelpunten &middot; zes keer opgelost</p>'
+        '<ul class="herken">' + "".join(f'<li>{vink}<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for k, t in tegels) + "</ul>"
+        '<p class="acties acties--kaart"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a>'
+        '<a class="meer" href="/service-en-beheer/">Service en beheer</a></p></div>', kicker="Waarom toegangscontrole")
+    # ---- Duurzaamheid en Waarom Westendorp als twee donkere kaarten naast elkaar (voorbeeld Salto, Lars 28-09-2026) ----
+    # patroon van het eigen icoon (sleutelgat met W), per kaart in eigen kleuren (Lars, 28-09-2026)
     def patroon_links():
         """Duurzaamheid: groene iconen linksboven, naar rechts en naar onderen uitlopend."""
         uit = [icoon_symbool("ico-groen", "#7ADCA5", "#3DBE7A", "#EAF7EF")]

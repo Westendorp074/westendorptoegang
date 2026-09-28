@@ -356,21 +356,21 @@ def zorg():
     sc.d.append(f'<rect x="{bx + 128}" y="{by - 6}" width="74" height="{bh + 6}" fill="none" stroke="#E1E8F0" stroke-width="1.5"/>')
     kx, ky = bx + 165, by + 52
     sc.r(kx - 11, ky - 34, 22, 68, ROOD, 3); sc.r(kx - 34, ky - 11, 68, 22, ROOD, 3)
-    sc.tekst(kx, by + 150, "ST&#160;ANTONIUS", 13, NAVY, 3, f'transform="rotate(90 {kx} {by + 150})"')
     sc.dak_installatie(bx + 18, by - 14); sc.dak_installatie(bx + 230, by - 8); sc.dak_leuning(bx + 2, bw - 6, by - 16)
+    sc.naambord(bx + 66, by + 46, "ST&#160;ANTONIUS", grootte=13, spatie=2)   # naambord op de gevel, goed leesbaar op kaartformaat
     sc.d.append(f'<line x1="{bx + 306}" y1="{by - 16}" x2="{bx + 306}" y2="{by - 58}" stroke="#8A9BAD" stroke-width="2.5"/>')
     sc.c(bx + 306, by - 60, 3, ROOD)
     # spoedpost met ambulancesluis
     vy = sc.pand(96, 190, 132, schaduwzijde=False)
     sc.ramen(110, vy + 16, 4, 1, 32, 24, 44)
-    sc.r(108, vy + 50, 128, 15, ROOD, 2); sc.tekst(172, vy + 61, "SPOEDPOST", 9.5, "#fff", 1)
+    sc.r(100, vy + 46, 144, 20, ROOD, 2); sc.tekst(172, vy + 61, "SPOEDPOST", 13, "#fff", 1.5)
     sc.r(140, vy + 78, 66, 54, "#B9C7D6", 3)
     for ly in range(int(vy + 82), int(vy + 128), 7):
         sc.r(143, ly, 60, 2.5, "#CBD7E3")
     sc.p(f"M130 {vy + 78} h86 l8 -12 h-102 z", NAVY)
     # entreeblok met hoofdingang
     ey = sc.pand(660, 240, 170); sc.ramen(674, ey + 16, 5, 1, 30, 22, 42)
-    sc.naambord(758, ey + 56, "HOOFDINGANG")
+    sc.naambord(758, ey + 58, "HOOFDINGANG", grootte=13)
     sc.entree(704, 108, 90, luifel=True, huid=0)
     # groen, lantaarns, weg
     sc.boom(52, 1.05, 0); sc.boom(278, .8, 1); sc.boom(630, .78, 2); sc.boom(956, 1.1, 1)
@@ -399,7 +399,7 @@ def woningcorporatie():
                 "".join(f'<circle cx="{bx + 102}" cy="{HOR - 57 + i * 5}" r="1.6" fill="#8595A6"/>' for i in range(4)))   # bellentableau
     # rechter woonblok, iets lager en lichter
     cx, cw, ch = 560, 330, 200; cy = sc.pand(cx, cw, ch, "url(#gevel)", dak="#5A4038")
-    sc.naambord(cx + 165, cy + 24, "DE&#160;SCHAKEL", grootte=11, spatie=3)
+    sc.naambord(cx + 165, cy + 26, "DE&#160;SCHAKEL", grootte=15, spatie=3)
     sc.ramen(cx + 22, cy + 38, 4, 3, 34, 26, 54, 52, kader="#E2E8EF")
     # kliko's en fietsen bij de flat
     for i, kk in enumerate(("#4E5A66", "#3F7A52", "#4E5A66")):
@@ -426,11 +426,9 @@ def overheid():
     bx, bw, bh = 400, 280, 240; by = sc.pand(bx, bw, bh, "url(#zand)", dak="#7A6A52")
     sc.r(bx + bw - 36, by, 36, bh, "#D8CCB4")
     sc.ramen(bx + 26, by + 30, 4, 1, 30, 40, 60, 62, kader="#FFFFFF")
-    sc.ramen(bx + 26, by + 92, 1, 1, 30, 40, kader="#FFFFFF")         # rij 2 alleen de buitenste ramen: het midden is voor naam en luifel
-    sc.ramen(bx + 206, by + 92, 1, 1, 30, 40, kader="#FFFFFF")
     for i in range(4):                                               # sluitstenen boven de ramen
         sc.p(f"M{bx + 22 + i * 60} {by + 28} h38 l-19 -10 z", "#D8CCB4")
-    sc.naambord(bx + bw / 2, by + 112, "GEMEENTEHUIS", vlak="#F7F2E6", tekstkleur="#6B5B41", grootte=11, spatie=3)
+    sc.naambord(bx + bw / 2, by + 112, "GEMEENTEHUIS", vlak="#F7F2E6", tekstkleur="#6B5B41", grootte=15, spatie=3)
     # toren met klok en vlag
     tx = bx + bw / 2 - 30
     sc.r(tx, by - 84, 60, 84, "url(#zand)"); sc.r(tx + 44, by - 84, 16, 84, "#D8CCB4")
@@ -464,7 +462,7 @@ def onderwijs():
     bx, bw, bh = 330, 360, 190; by = sc.pand(bx, bw, bh, "url(#baksteen)", dak="#5A4038")
     sc.r(bx + bw - 40, by, 40, bh, BAKSTEEN_D)
     sc.r(bx, by, bw, 34, "url(#gevel)")                               # witte band met naam
-    sc.tekst(bx + bw / 2, by + 22, "BS&#160;DE&#160;REGENBOOG", 13, NAVY, 2)
+    sc.tekst(bx + bw / 2, by + 24, "BS&#160;DE&#160;REGENBOOG", 16, NAVY, 2)
     for i, kl in enumerate(("#D8342B", "#E9B93A", "#3DBE7A", "#2B5BA6", "#8A5BA6")):
         sc.r(bx + bw / 2 - 57 + i * 24, by + 28, 16, 5, kl, 2)        # regenboogbalkje
     sc.ramen(bx + 22, by + 52, 7, 1, 36, 30, 46, kader=KOZIJN)
@@ -478,7 +476,7 @@ def onderwijs():
     gy = sc.pand(760, 170, 120, "url(#gevel)", dak="#5A4038", schaduwzijde=False)
     sc.glasband(772, gy + 18, 146, 20)
     sc.r(772, gy + 58, 146, 44, "#B9C7D6", 3)
-    sc.naambord(845, gy + 50, "GYMZAAL", grootte=8.5)
+    sc.naambord(845, gy + 52, "GYMZAAL", grootte=12)
     # schoolplein links met hek, hinkelpad en kinderen
     sc.r(60, HOR + 8, 250, 26, "#E0D6C8", 3)
     hek = "".join(f'<path d="M{70 + i * 16} {HOR + 8} v-26" />' for i in range(14))
@@ -514,7 +512,7 @@ def vve():
     # penthouselaag
     sc.r(bx + 40, by - 40, 200, 40, "url(#gevel)"); sc.r(bx + 40, by - 40, 200, 5, "#3A4652")
     sc.glasband(bx + 52, by - 32, 176, 22)
-    sc.naambord(bx + 48, by + 268, "PARKZICHT", vlak="#3A4652", grootte=9)
+    sc.naambord(bx + 56, by + 270, "PARKZICHT", vlak="#3A4652", grootte=12)
     # entree met intercom
     sc.entree(bx + 116, 84, 88, luifel=True, huid=1, jas="#5B4A68")
     sc.d.append(f'<rect x="{bx + 98}" y="{HOR - 64}" width="13" height="30" rx="2" fill="#EDF1F6" stroke="#8595A6" stroke-width="1.2"/>' +
@@ -542,7 +540,7 @@ def kantoren():
         sc.r(bx + 8 + i * 33, by + 4, 1.6, bh - 8, "#E4EDF5", 0, 'opacity=".65"')
     sc.r(bx + 104, by - 6, 72, bh + 6, "url(#gevel)")                 # witte kern
     sc.d.append(f'<rect x="{bx + 104}" y="{by - 6}" width="72" height="{bh + 6}" fill="none" stroke="#E1E8F0" stroke-width="1.5"/>')
-    sc.naambord(bx + 140, by + 66, "DE&#160;POORT", grootte=12)
+    sc.naambord(bx + 140, by + 68, "DE&#160;POORT", grootte=16)
     sc.dak_leuning(bx + 4, bw - 8, by - 14); sc.dak_installatie(bx + 190, by - 12)
     sc.d.append(f'<line x1="{bx + 30}" y1="{by - 16}" x2="{bx + 30}" y2="{by - 52}" stroke="#8A9BAD" stroke-width="2.5"/><circle cx="{bx + 30}" cy="{by - 54}" r="3" fill="{ROOD}"/>')
     # laag paviljoen met de entree
@@ -568,7 +566,7 @@ def industrie():
     for i in range(int(bw / 22)):
         sc.r(bx + 8 + i * 22, by + 8, 2, bh - 16, "#DDE4EC")
     sc.glasband(bx + 20, by + 22, bw - 40, 18)
-    sc.naambord(bx + bw / 2, by + 70, "HAL&#160;3", vlak="#54616E", grootte=13, spatie=4)
+    sc.naambord(bx + bw / 2, by + 74, "HAL&#160;3", vlak="#54616E", grootte=20, spatie=5)
     # roldeur die opengaat, met heftruck ernaast
     sc.r(bx + 60, HOR - 110, 96, 110, "#37475A", 2)
     sc.d.append(f'<g class="sb-roldeur"><rect x="{bx + 63}" y="{HOR - 107}" width="90" height="107" fill="#B9C7D6"/>' +
@@ -621,7 +619,7 @@ def retail():
     winkels = (("BAKKERIJ", "#E9B93A", "#8A5A3C"), ("MODE", "#8A5BA6", "#54636F"), ("BLOEMEN", "#3F7A52", "#C9705F"))
     for i, (naam, kleur, accent) in enumerate(winkels):
         wx = bx + 12 + i * 156
-        sc.r(wx, by + 92, 144, 22, "#F6F8FA", 2); sc.tekst(wx + 72, by + 107, naam, 10.5, accent, 2)
+        sc.r(wx, by + 90, 144, 24, "#F6F8FA", 2); sc.tekst(wx + 72, by + 107, naam, 13, accent, 2)
         sc.r(wx + 4, by + 118, 136, bh - 210 + 92, GLAS_D, 2)
         sc.r(wx + 4, by + 118, 136, 14, GLAS)
         # luifel met strepen
@@ -648,7 +646,7 @@ def retail():
     py2 = sc.pand(720, 150, 150, schaduwzijde=False)
     sc.ramen(734, py2 + 18, 2, 1, 34, 26, 60)
     sc.entree(742, 70, 74, luifel=False, bord=None, huid=0, jas="#C9705F")
-    sc.naambord(777, HOR - 84, "PERSONEEL", grootte=7.5, spatie=1.5)
+    sc.naambord(777, HOR - 82, "PERSONEEL", grootte=11, spatie=1.5)
     sc.boom(60, 1.0, 0); sc.boom(968, .95, 1)
     sc.lantaarn(196); sc.lantaarn(660); sc.fietsenrek(884, 3)
     sc.weg(zebra=88)
@@ -661,12 +659,12 @@ def verenigingen():
     bx, bw, bh = 420, 330, 150; by = sc.pand(bx, bw, bh, "url(#gevel)", dak="#3A4652")
     sc.p(f"M{bx - 8} {by - 12} q{bw / 2 + 8} -74 {bw + 16} 0 z", "#54616E")
     sc.glasband(bx + 20, by + 24, bw - 40, 20)
-    sc.naambord(bx + bw / 2, by + 76, "SPORTHAL", vlak="#3A4652", grootte=11, spatie=3)
+    sc.naambord(bx + bw / 2, by + 78, "SPORTHAL", vlak="#3A4652", grootte=15, spatie=3)
     sc.r(bx + 130, HOR - 64, 70, 64, "#B9C7D6", 2)
     # clubhuis met terras en de entree
     cy = sc.pand(120, 240, 120, dak="#3F7A52")
     sc.glasband(134, cy + 16, 56, 20)
-    sc.naambord(172, cy + 74, "SV&#160;OOSTRUM", vlak="#3F7A52", grootte=9, spatie=1.5)
+    sc.naambord(154, cy + 76, "SV&#160;OOSTRUM", vlak="#3F7A52", grootte=12, spatie=1.5)
     sc.entree(220, 82, 78, luifel=True, huid=3, jas="#3F7A52")
     sc.d.append(f'<rect x="132" y="{HOR - 44}" width="40" height="44" rx="2" fill="{GLAS_D}"/><rect x="132" y="{HOR - 44}" width="40" height="10" fill="{GLAS}"/>')
     # scorebord
@@ -704,7 +702,7 @@ def hotel():
                 sc.d.append(f'<g fill="none" stroke="#8A7A5A" stroke-width="1.5"><path d="M{wx - 3} {wy + 30} h38"/>' +
                             "".join(f'<path d="M{wx + 1 + k * 6} {wy + 18} v12"/>' for k in range(6)) + "</g>")
     sc.r(bx + 58, by + 2, 204, 21, "#FFFFFF", 3, 'opacity=".88"')
-    sc.tekst(bx + bw / 2, by + 17, "HOTEL&#160;DE&#160;KROON", 12, "#54432F", 3)
+    sc.tekst(bx + bw / 2, by + 18, "HOTEL&#160;DE&#160;KROON", 14, "#54432F", 2)
     for i, vx in enumerate((bx + 60, bx + 150, bx + 240)):
         sc.vlag(vx, by - 2, 40, ("#8B2D2D", None, "#37536F")[i] if i != 1 else None)
     # luifel over de entree
@@ -712,7 +710,7 @@ def hotel():
     sc.d.append(f'<path d="M{bx + 96} {HOR - 92} h128 l14 -22 h-156 z" fill="#8B2D2D"/>'
                 f'<path d="M{bx + 96} {HOR - 92} h128 v6 h-128 z" fill="#6E2222"/>' +
                 "".join(f'<path d="M{bx + 100 + i * 18} {HOR - 92} l3 6 h-7 l3 -6 z" fill="#F6E7C8"/>' for i in range(8)) +
-                f'<text x="{bx + 160}" y="{HOR - 99}" font-family="Arial,sans-serif" font-size="10" font-weight="800" letter-spacing="4" fill="#F6E7C8" text-anchor="middle">HOTEL</text>')
+                f'<text x="{bx + 160}" y="{HOR - 99}" font-family="Arial,sans-serif" font-size="12" font-weight="800" letter-spacing="5" fill="#F6E7C8" text-anchor="middle">HOTEL</text>')
     # bagagekar bij de entree
     kx = bx + 50
     sc.el(kx + 15, HOR + 6, 18, 3, SCHADUW)
@@ -723,7 +721,7 @@ def hotel():
     # laag restaurantdeel links
     ry = sc.pand(130, 170, 130, dak="#54432F", schaduwzijde=False)
     sc.glasband(142, ry + 20, 146, 24)
-    sc.naambord(215, ry + 78, "BRASSERIE", vlak="#54432F", tekstkleur="#F6E7C8", grootte=9)
+    sc.naambord(215, ry + 80, "BRASSERIE", vlak="#54432F", tekstkleur="#F6E7C8", grootte=12)
     for tx in (150, 250):                                             # terras met parasols
         sc.d.append(f'<ellipse cx="{tx + 18}" cy="{HOR + 24}" rx="22" ry="3.5" fill="{SCHADUW}"/>'
                     f'<path d="M{tx - 6} {HOR - 12} q24 -18 48 0 z" fill="#8B2D2D"/><path d="M{tx - 6} {HOR - 12} h48 l-5 4 h-38 z" fill="#6E2222"/>'
@@ -742,9 +740,9 @@ def recreatie():
     bx, bw, bh = 300, 250, 130; by = sc.pand(bx, bw, bh, dak="#7A6250")
     sc.p(f"M{bx - 16} {by - 12} h{bw + 32} l-52 -58 h-{bw - 72} z", "#8A6B4F")
     sc.p(f"M{bx - 16} {by - 12} h{bw + 32} l-8 -10 h-{bw + 16} z", "#755539")
-    sc.naambord(bx + bw / 2, by - 30, "DE&#160;VELUWEHOF", vlak="#5F4C3D", tekstkleur="#F8F1E0", grootte=11)
+    sc.naambord(bx + bw / 2, by - 28, "DE&#160;VELUWEHOF", vlak="#5F4C3D", tekstkleur="#F8F1E0", grootte=14)
     sc.glasband(bx + 16, by + 20, 100, 22)
-    sc.naambord(bx + 158, by + 36, "RECEPTIE", vlak="#5F4C3D", tekstkleur="#F8F1E0", grootte=8.5)
+    sc.naambord(bx + 162, by + 38, "RECEPTIE", vlak="#5F4C3D", tekstkleur="#F8F1E0", grootte=11)
     sc.entree(bx + 118, 82, 80, luifel=False, huid=0, jas="#3F7A52")
     # chalets
     for i, cx in enumerate((640, 800)):
@@ -781,14 +779,14 @@ def anders():
     # kantoorvilla
     by = sc.pand(140, 200, 190, dak="#3A4652")
     sc.ramen(158, by + 22, 3, 2, 34, 30, 60, 58, kader="#E2E8EF")
-    sc.naambord(240, by + 152, "KANTOOR", vlak="#3A4652", grootte=9)
+    sc.naambord(240, by + 154, "KANTOOR", vlak="#3A4652", grootte=12)
     # bedrijfspand met de entree
     bx, bw, bh = 420, 300, 240; my = sc.pand(bx, bw, bh)
     for rij in range(3):
         sc.glasband(bx + 16, my + 24 + rij * 46, bw - 32)
     sc.r(bx + 108, my - 6, 66, bh + 6, "url(#gevel)")
     sc.d.append(f'<rect x="{bx + 108}" y="{my - 6}" width="66" height="{bh + 6}" fill="none" stroke="#E1E8F0" stroke-width="1.5"/>')
-    sc.naambord(bx + 141, my + 64, "ENTREE", grootte=10, spatie=3)
+    sc.naambord(bx + 141, my + 66, "ENTREE", grootte=13, spatie=3)
     sc.entree(bx + 96, 90, 88, luifel=True, huid=2, jas=BLAUW)
     sc.dak_leuning(bx + 4, bw - 8, my - 14)
     # werkplaats met kleine roldeur
@@ -797,7 +795,7 @@ def anders():
     sc.r(818, HOR - 74, 74, 74, "#37475A", 2)
     sc.d.append(f'<g class="sb-roldeur"><rect x="{821}" y="{HOR - 71}" width="68" height="71" fill="#B9C7D6"/>' +
                 "".join(f'<rect x="821" y="{HOR - 68 + i * 9}" width="68" height="3" fill="#CBD7E3"/>' for i in range(8)) + "</g>")
-    sc.naambord(870, wy + 52, "WERKPLAATS", vlak="#5A4038", grootte=8, spatie=1.5)
+    sc.naambord(870, wy + 54, "WERKPLAATS", vlak="#5A4038", grootte=11, spatie=1.5)
     sc.heg(120, 110); sc.heg(664, 78)
     sc.boom(60, 1.0, 0); sc.boom(390, .85, 2); sc.boom(950, 1.0, 1)
     sc.lantaarn(360); sc.lantaarn(740)
