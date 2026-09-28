@@ -302,7 +302,7 @@ def chat_widget():
     gezicht = DIST / "static" / "img" / "nick-gezicht-160.webp"
     if not gezicht.exists():
         from PIL import Image
-        Image.open(BRON / "adviseur-nick.jpg").crop((210, 30, 590, 410)).resize((160, 160), Image.LANCZOS).save(gezicht, "WEBP", quality=84)
+        Image.open(BRON / "adviseur-nick.jpg").crop((125, 15, 735, 625)).resize((160, 160), Image.LANCZOS).save(gezicht, "WEBP", quality=84)
     stijl = """<style>
 .wchat{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font)}
 .wchat__knop{position:relative;width:60px;height:60px;border:0;border-radius:50%;background:var(--primair-donker);color:#fff;cursor:pointer;box-shadow:0 10px 28px rgba(2,41,91,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
@@ -315,7 +315,7 @@ def chat_widget():
 .wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn)}
 .wchat__kop{display:flex;gap:12px;align-items:center;background:var(--primair-donker);color:#fff;padding:14px 16px}
 .wchat__fotos{display:flex;flex:none}
-.wchat__fotos img{width:58px;height:58px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;background:#fff}
+.wchat__fotos img{width:74px;height:74px;border-radius:50%;object-fit:cover;border:3px solid #fff;background:#fff}
 .wchat__fotos img+img{margin-left:-12px}
 .wchat__naam{margin:0;font-family:var(--font-kop);font-size:15px;font-weight:700}
 .wchat__statustekst{margin:2px 0 0;display:flex;gap:7px;align-items:center;font-size:12.5px;color:#B9CBE2}
@@ -388,7 +388,7 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
     return (f'<div class="wchat" data-wchat>{stijl}'
             f'<div class="wchat__paneel" id="wchat-paneel" role="dialog" aria-label="Contact opnemen" hidden>'
             f'<div class="wchat__kop"><span class="wchat__fotos">'
-            f'<img src="/static/img/nick-gezicht-160.webp" alt="" width="58" height="58" loading="lazy"></span>'
+            f'<img src="/static/img/nick-gezicht-160.webp" alt="" width="74" height="74" loading="lazy"></span>'
             f'<div><p class="wchat__naam">Nick — {esc(NAAM)}</p>'
             f'<p class="wchat__statustekst"><i></i><span data-wchat-status>Bereikbaar</span></p></div>'
             f'<button type="button" class="wchat__sluit" aria-label="Sluiten">&#215;</button></div>'
