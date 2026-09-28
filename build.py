@@ -410,10 +410,30 @@ def hero_badges():
         from PIL import Image
         zb, zh = Image.open(zegel_bron).size
         zegel = (f'<div class="keurmerk"><img src="/static/img/logo/partners/{zegel_bron.name}" alt="Politiekeurmerk Veilig Wonen, erkend" width="{zb}" height="{zh}">'
-                 f'<span>PKVW-gecertificeerde monteurs</span></div>')
+                 '</div>')
     tekst = lambda t: (f'<span class="keurbalk__lang">{esc(t.split("|")[0])} </span>{esc(t.split("|")[1].strip())}' if "|" in t else esc(t))
-    return zegel + '<ul class="keurbalk">' + "".join(
-        f'<li><span class="keurbalk__icoon{" keurbalk__icoon--logo" if echt else ""}">{i}</span>' + (f'<span>{tekst(t)}</span>' if t else "") + '</li>' for i, echt, t in items) + "</ul>"
+    return zegel   # partnerlogo's niet meer in de hero (Lars, 28-09-2026); PKVW-zegel blijft
+
+def klantenbalk():
+    """Bewegende balk met logo's van organisaties waarvoor wij werken (Lars, 28-09-2026). Leest static/img/logo/klanten/
+    (svg of png; bestandsnaam = naam van de organisatie, bijvoorbeeld applus-hengelo.png). Alleen logo's met toestemming
+    van de klant plaatsen. Zonder bestanden wordt het blok weggelaten."""
+    map_ = STATIC / "img" / "logo" / "klanten"
+    bestanden = sorted(p for p in map_.glob("*") if p.suffix.lower() in (".svg", ".png", ".webp")) if map_.exists() else []
+    if not bestanden: return ""
+    uit = DIST / "static" / "img" / "logo" / "klanten"; uit.mkdir(parents=True, exist_ok=True)
+    from PIL import Image
+    items = []
+    for f in bestanden:
+        shutil.copy(f, uit / f.name)
+        if f.suffix.lower() == ".svg":
+            vb = re.search(r'viewBox="[\d.\s-]*?([\d.]+)\s+([\d.]+)"', f.read_text(encoding="utf-8")); bw, bh = (round(float(vb.group(1))), round(float(vb.group(2)))) if vb else (160, 60)
+        else: bw, bh = Image.open(f).size
+        naam = f.stem.replace("-", " ").title()
+        items.append(f'<li><img src="/static/img/logo/klanten/{f.name}" alt="{esc(naam)}" width="{bw}" height="{bh}" loading="lazy"></li>')
+    rij = "".join(items)
+    return (f'<section class="klanten" aria-label="Organisaties waarvoor wij werken"><div class="wrap"><p class="klanten__kop">Zij gingen u voor</p></div>'
+            f'<div class="klanten__band"><ul class="klanten__rij">{rij}</ul><ul class="klanten__rij" aria-hidden="true">{rij}</ul></div></section>')
 
 def youtube(video_id, titel, ondertitel=""):
     """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,

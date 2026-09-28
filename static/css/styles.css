@@ -167,10 +167,10 @@ section,.sectie{padding:var(--sectie) 0}
 .keurbalk__icoon{display:inline-flex;opacity:.9}
 .keurbalk__icoon--logo{opacity:1}
 /* PKVW-keurmerk: groot zegel in de echte kleuren, linksboven over de foto */
-.keurmerk{position:absolute;z-index:4;top:-18px;left:2%;display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border-radius:14px;padding:12px 12px 10px;
+.keurmerk{position:absolute;z-index:4;top:-18px;left:2%;display:flex;background:#fff;border-radius:14px;padding:12px;
   box-shadow:0 16px 36px rgba(2,41,91,.20),0 2px 6px rgba(2,41,91,.08)}
 .keurmerk img{width:104px;height:auto;aspect-ratio:auto;border-radius:0;display:block}
-.keurmerk span{font-family:var(--font-kop);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B4F9C;text-align:center;max-width:110px;line-height:1.25}
+
 @media (max-width:899px){.keurmerk{top:12px;left:12px;padding:8px 8px 7px;border-radius:10px}.keurmerk img{width:68px}.keurmerk span{display:none}}
 .keurbalk__icoon--logo img{height:32px;width:auto;max-width:none;aspect-ratio:auto;border-radius:0;display:block}
 @media (max-width:1199px){.keurbalk li>span:not(.keurbalk__icoon){display:none}.keurbalk{gap:8px 24px}.keurbalk li+li{padding-left:24px}}
@@ -445,3 +445,15 @@ textarea{min-height:120px;resize:vertical}
 .bevestigd{border-left:4px solid var(--signaal);padding:8px 0 8px 20px}
 .laatst{color:var(--inkt-zacht);font-size:.92em}
 .lijst-links{list-style:none;padding:0}
+
+/* bewegende balk met klantlogo's onder de hero (Lars, 28-09-2026) */
+.klanten{padding:34px 0 38px;border-bottom:var(--lijndikte) solid var(--lijn);background:var(--paneel);overflow:hidden}
+.klanten__kop{margin:0 auto 18px;max-width:none;text-align:center;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--inkt-zacht)}
+.klanten__band{display:flex;width:max-content;animation:klanten 40s linear infinite;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.klanten:hover .klanten__band{animation-play-state:paused}
+.klanten__rij{display:flex;align-items:center;gap:64px;margin:0;padding:0 32px;list-style:none}
+.klanten__rij li{margin:0}
+.klanten__rij img{height:40px;width:auto;max-width:170px;object-fit:contain;aspect-ratio:auto;border-radius:0;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
+.klanten__rij img:hover{filter:none;opacity:1}
+@keyframes klanten{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.klanten__band{animation:none;flex-wrap:wrap}}

@@ -128,6 +128,6 @@ def bouw():
         '<ul class="herken">' + "".join(f'<li><span class="herken__icoon"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>'
                                         f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
         + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
-    body = hero_html + herken + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis   # hybride en werkgebied staan op /toegangscontrole/ en /werkgebied/ (Lars, 27-09-2026)
+    body = hero_html + klantenbalk() + herken + voor_wie + wat + hoe + video_blok + bewijs + duurzaam + kennis   # hybride en werkgebied staan op /toegangscontrole/ en /werkgebied/ (Lars, 27-09-2026)
     schrijf("/", titel, omschrijving, body, faq=faq, extra_ld=[video_ld("/", 'Korte video van EVVA over Xesar, het elektronische sluitsysteem met cilinders, beslag en wandlezers die u in één software beheert. Westendorp Toegangscontrole plaatst Xesar bij bedrijven en instellingen in Twente en Oost-Nederland.')],
             llms="Wie wij zijn, voor welke sectoren wij werken, wat wij plaatsen (EVVA Xesar, motorcilinder, sluitplan; onderhoud van Salto), werkwijze in vier stappen, werkgebied.")
