@@ -155,19 +155,21 @@ def bouw():
                 uit.append(f'<use href="#ico-groen" x="{14 + k * 44}" y="{12 + r * 50}" width="30" height="39" opacity="{o:.2f}"/>')
         return '<svg class="tweeluik__patroon tweeluik__patroon--links" viewBox="0 0 600 460" aria-hidden="true">' + "".join(uit) + "</svg>"
     def patroon_rechts():
-        """Waarom Westendorp: iconen in de huiskleuren in een kolom rechts, naar onderen vervagend."""
+        """Waarom Westendorp: zelfde opzet als Duurzaamheid maar gespiegeld — blauwe iconen rechtsboven,
+        naar links en naar onderen uitlopend (Lars, 28-09-2026)."""
         uit = [icoon_symbool("ico-blauw", "#49BFFE", "#8AD6FF", "#FFFFFF")]
-        for r in range(14):
-            for k in range(6):
-                o = max(.15, 1 - r * 0.06)
-                uit.append(f'<use href="#ico-blauw" x="{14 + k * 44}" y="{10 + r * 50}" width="30" height="39" opacity="{o:.2f}"/>')
-        return '<svg class="tweeluik__patroon tweeluik__patroon--rechts" viewBox="0 0 280 720" aria-hidden="true">' + "".join(uit) + "</svg>"
+        for r in range(8):
+            n = max(0, 13 - max(0, r - 4) * 3)
+            for k in range(n):
+                o = max(.18, 1 - k * 0.07 - max(0, r - 4) * 0.05)
+                uit.append(f'<use href="#ico-blauw" x="{556 - k * 44}" y="{12 + r * 50}" width="30" height="39" opacity="{o:.2f}"/>')
+        return '<svg class="tweeluik__patroon tweeluik__patroon--rechts" viewBox="0 0 600 460" aria-hidden="true">' + "".join(uit) + "</svg>"
     kaarten = [
         ("duurzaam", patroon_links(), "Duurzaamheid",
-         "Bij elektronische toegang vervangt u geen sloten meer als er een sleutel zoek is. Voor de mechanische deuren kiezen wij ABUS Magtec: loodvrij geproduceerd en met 46 procent minder CO₂-uitstoot.",
+         "Bij elektronische toegang vervangt u geen sloten meer als er een sleutel zoek is. Voor de mechanische deuren kiezen wij ABUS Magtec: loodvrij geproduceerd en met 46 procent minder CO₂&#8209;uitstoot.",
          "/duurzaamheid/"),
         ("waarom", patroon_rechts(), "Waarom Westendorp",
-         f"{esc(NAAM)} uit Enschede plaatst toegangscontrole bij organisaties in heel Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, "
+         f"{esc(NAAM)} uit Enschede plaatst toegangscontrole bij organisaties in heel Oost-Nederland. "
          "PKVW-gecertificeerde monteurs, een eigen werkplaats en een storingsdienst die dag en nacht bereikbaar is.",
          "/over-ons/"),
     ]

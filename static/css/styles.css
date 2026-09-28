@@ -454,10 +454,10 @@ textarea{min-height:120px;resize:vertical}
 .tweeluik__kaart--duurzaam{background:#0D3526}
 .tweeluik__patroon{position:absolute;pointer-events:none;opacity:.32}
 .tweeluik__patroon--links{-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 78%);mask-image:linear-gradient(180deg,#000 30%,transparent 78%)}
-.tweeluik__patroon--rechts{-webkit-mask-image:linear-gradient(180deg,#000 15%,transparent 48%),linear-gradient(270deg,#000 40%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,#000 15%,transparent 48%),linear-gradient(270deg,#000 40%,transparent 100%);mask-composite:intersect}
+.tweeluik__patroon--rechts{-webkit-mask-image:linear-gradient(180deg,#000 22%,transparent 68%),linear-gradient(270deg,#000 42%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,#000 22%,transparent 68%),linear-gradient(270deg,#000 42%,transparent 100%);mask-composite:intersect}
 @media (max-width:899px){.tweeluik__patroon{opacity:.2}}
 .tweeluik__patroon--links{left:0;top:0;width:62%;height:auto}
-.tweeluik__patroon--rechts{right:0;top:6%;width:30%;height:auto}
+.tweeluik__patroon--rechts{right:0;top:0;width:62%;height:auto}
 .tweeluik__tekst{position:relative;padding:0 44px 44px;max-width:34em}
 
 .tweeluik__tekst h2{color:#fff;margin:0 0 14px;font-size:clamp(30px,3.4vw,44px)}
@@ -465,6 +465,6 @@ textarea{min-height:120px;resize:vertical}
 .tweeluik__knop{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--kop);text-decoration:none;font-family:var(--font-kop);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;border-radius:var(--straal-knop)}
 .tweeluik__kaart--duurzaam .tweeluik__knop{background:#7ADCA5;color:#0D3526}
 .tweeluik__knop:hover{filter:brightness(1.08)}
-@media (max-width:899px){.tweeluik__kaart{min-height:500px}.tweeluik__patroon--links{width:70%}.tweeluik__tekst{padding:0 24px 28px}.tweeluik__patroon--rechts{width:42%;top:0;opacity:.55}}
+@media (max-width:899px){.tweeluik__kaart{min-height:500px}.tweeluik__patroon--links{width:70%}.tweeluik__tekst{padding:0 24px 28px}.tweeluik__patroon--rechts{width:58%;top:0;opacity:.4}}
 
 video.yt__speler{background:#000;object-fit:cover}
