@@ -131,31 +131,33 @@ def bouw():
                                         f'<div><h3>{esc(k)}</h3><p>{esc(t)}</p></div></li>' for i, k, t in tegels) + "</ul>"
         + '<p class="acties acties--kaart" style="margin-top:24px"><a class="meer" href="/kosten/">Wat kost toegangscontrole</a><a class="meer" href="/service-en-beheer/">Service en beheer</a></p>', kicker="Waarom toegangscontrole")
     # ---- Duurzaamheid en Waarom Westendorp als twee donkere kaarten naast elkaar (voorbeeld Salto, Lars 28-09-2026) ----
-    def patroon_pijlen():
-        kleuren = ("#49BFFE", "#3DBE7A", "#7ADCA5", "#2FA56B")
-        uit = []
-        for r in range(13):
-            n = max(0, 16 - max(0, r - 7) * 3)                      # bovenaan volle rijen, onderaan een punt
-            start = max(0, (r - 8)) * 1.5
+    # patroon van het eigen icoon (sleutelgat met W), per kaart in eigen kleuren (Lars, 28-09-2026)
+    ICO = ['M475.08 219.5A229 229 0 1 0 161.87 457.39L148.59 506.57A17 17 0 0 0 165 528L330 528A17 17 0 0 0 346.41 506.57L325.06 427.5L289.85 427.5L307.8 494L187.2 494L198.76 451.17A17 17 0 0 0 187.57 430.56A195 195 0 1 1 440.83 219.5Z', 'M363.74 219.5A119 119 0 1 0 224.5 361.76L224.5 326.83A85 85 0 1 1 328.58 219.5ZM57.76 471.15L16.71 609.15A17 17 0 0 0 33 631L462 631A17 17 0 0 0 478.29 609.15L424.25 427.5L388.78 427.5L439.21 597L55.79 597L90.35 480.85Z', 'M237.5 252.29H279.52L300.01 327.85Q301.05 330.74 301.88 334.78Q302.7 338.82 303.53 342.75Q304.36 346.68 304.98 349.37H306.22Q306.64 347.1 307.15 344.2Q307.67 341.3 308.29 338.3Q308.91 335.3 309.53 332.61Q310.16 329.92 310.57 327.85L329.82 252.29H378.67L398.13 327.85Q398.75 330.54 399.58 334.37Q400.41 338.2 401.23 342.23Q402.06 346.27 402.68 349.37H403.93Q404.34 347.1 404.96 344.3Q405.58 341.51 406.31 338.51Q407.03 335.51 407.65 332.71Q408.27 329.92 408.89 327.85L429.18 252.29H467.89L426.28 394.5H379.71L357.77 311.08Q356.94 307.98 356.01 304.35Q355.07 300.73 354.45 297.21Q353.83 293.69 353.42 291.21H352.18Q351.76 294.11 350.93 297.73Q350.11 301.35 349.28 304.87Q348.45 308.39 347.83 311.08L326.09 394.5H278.9L237.5 252.29Z']
+    def icoon_symbool(id_, ring, binnen, w):
+        return (f'<symbol id="{id_}" viewBox="0 0 495 647"><path style="fill:{ring}" d="{ICO[0]}"/>'
+                f'<path style="fill:{binnen}" d="{ICO[1]}"/><path style="fill:{w}" d="{ICO[2]}"/></symbol>')
+    def patroon_links():
+        """Duurzaamheid: groene iconen linksboven, naar rechts en naar onderen uitlopend."""
+        uit = [icoon_symbool("ico-groen", "#7ADCA5", "#3DBE7A", "#EAF7EF")]
+        for r in range(8):
+            n = max(0, 13 - max(0, r - 4) * 3)
             for k in range(n):
-                x = 14 + (start + k) * 40; y = 16 + r * 34
-                o = max(.25, 1 - k * 0.05)
-                uit.append(f'<path d="M{x:.0f} {y} l18 5 l-18 5" fill="none" stroke="{kleuren[r % 4]}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="{o:.2f}"/>')
-        return '<svg class="tweeluik__patroon tweeluik__patroon--links" viewBox="0 0 700 460" aria-hidden="true">' + "".join(uit) + "</svg>"
-    def patroon_sleutelgaten():
-        kleuren = ("#49BFFE", "#1B68C0", "#8AD6FF")
-        uit = []
-        for r in range(17):
-            for k in range(8):
-                x = 20 + k * 38; y = 18 + r * 42
-                o = max(.2, 1 - r * 0.045)
-                uit.append(f'<g transform="translate({x} {y})" opacity="{o:.2f}" fill="{kleuren[(k + r) % 3]}"><circle cx="9" cy="8" r="7"/><path d="M5 12h8l3 14H2z"/></g>')
-        return '<svg class="tweeluik__patroon tweeluik__patroon--rechts" viewBox="0 0 330 730" aria-hidden="true">' + "".join(uit) + "</svg>"
+                o = max(.18, 1 - k * 0.07 - max(0, r - 4) * 0.05)
+                uit.append(f'<use href="#ico-groen" x="{14 + k * 44}" y="{12 + r * 50}" width="30" height="39" opacity="{o:.2f}"/>')
+        return '<svg class="tweeluik__patroon tweeluik__patroon--links" viewBox="0 0 600 460" aria-hidden="true">' + "".join(uit) + "</svg>"
+    def patroon_rechts():
+        """Waarom Westendorp: iconen in de huiskleuren in een kolom rechts, naar onderen vervagend."""
+        uit = [icoon_symbool("ico-blauw", "#49BFFE", "#8AD6FF", "#FFFFFF")]
+        for r in range(14):
+            for k in range(6):
+                o = max(.15, 1 - r * 0.06)
+                uit.append(f'<use href="#ico-blauw" x="{14 + k * 44}" y="{10 + r * 50}" width="30" height="39" opacity="{o:.2f}"/>')
+        return '<svg class="tweeluik__patroon tweeluik__patroon--rechts" viewBox="0 0 280 720" aria-hidden="true">' + "".join(uit) + "</svg>"
     kaarten = [
-        ("duurzaam", patroon_pijlen(), "Duurzaamheid",
+        ("duurzaam", patroon_links(), "Duurzaamheid",
          "Bij elektronische toegang vervangt u geen sloten meer als er een sleutel zoek is. Voor de mechanische deuren kiezen wij ABUS Magtec: loodvrij geproduceerd en met 46 procent minder CO₂-uitstoot.",
          "/duurzaamheid/"),
-        ("waarom", patroon_sleutelgaten(), "Waarom Westendorp",
+        ("waarom", patroon_rechts(), "Waarom Westendorp",
          f"{esc(NAAM)} uit Enschede plaatst toegangscontrole bij organisaties in heel Oost-Nederland. Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, "
          "PKVW-gecertificeerde monteurs, een eigen werkplaats en een storingsdienst die dag en nacht bereikbaar is.",
          "/over-ons/"),
