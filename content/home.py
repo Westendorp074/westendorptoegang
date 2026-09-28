@@ -26,16 +26,18 @@ def bouw():
     XITEMS = [('cilinder', 'Elektronische cilinder', 'Past in het bestaande slot. De knop met lezer ontgrendelt na een geldige pas, zonder aanpassing aan de deur.'), ('beslag', 'Elektronisch beslag', 'Kruk en lezer in één schild, voor binnendeuren die veel open en dicht gaan.'), ('wandlezer', 'Wandlezer', 'Naast de deur, voor elektrische sluitplaten, automatische deuren en slagbomen.'), ('hangslot', 'Hangslot', 'Voor hekken, containers en kasten: dezelfde passen en dezelfde rechten als de deuren.'), ('middelen', 'Pas en druppel', 'Eén pas of druppel per gebruiker voor alle Xesar-deuren. Een verloren pas blokkeert u zelf.'), ('software', 'Software en codeerstation', 'Rechten en tijdsloten beheren in de Xesar-software; passen coderen op het codeerstation.')]
     # ---- wat we plaatsen: vier producten uitgelicht, Xesar groot met video (Lars, 27-09-2026) ----
     magtec = beeld("magtec-cilinder-voorkant.jpg", "ABUS Magtec-profielcilinder, vooraanzicht", sizes="140px", klas="product__beeld", bron="ABUS")
+    tedee = beeld("tedee-smart-lock-op-deur.jpg", "Tedee Smart Lock op de cilinder van een deur met zwart deurbeslag", sizes="140px", klas="product__beeld", bron="Tedee")
+    gu = beeld("gu-inbouwdeurdranger-vts-735.jpg", "GU inbouwdeurdranger VTS 735 in het kozijn boven een deur", sizes="140px", klas="product__beeld", bron="GU")
     rest = [
         ("tedee", "Kleinschalige projecten", "Tedee Smart Lock",
          "Een slim slot voor een paar deuren: u opent met de app op uw telefoon en geeft anderen tijdelijk toegang, zonder sleutels bij te maken. Handig voor kleine kantoren, praktijken en verhuurde ruimtes.",
-         "#aanvraag", "Vraag advies over Tedee", ""),
+         "#aanvraag", "Vraag advies over Tedee", tedee),
         ("magtec", "Mechanisch en duurzaam", "ABUS Magtec cilindersloten",
          "Mechanische cilinders met magneetcodering, SKG*** en in ons eigen sleutelprofiel. Loodvrij geproduceerd en met 46 procent minder CO₂-uitstoot dan een vergelijkbare cilinder.",
          "/duurzaamheid/#magtec", "Meer over ABUS Magtec", magtec),
         ("gu", "Grote projecten", "GU deurdrangers en deurautomaten",
          "Een elektronisch slot werkt pas als de deur ook goed dichtvalt. Wij leveren en stellen deurdrangers en deurautomaten van GU af, afgestemd op de deur en op de eisen voor brandwerende deuren.",
-         "/elektronische-sloten/#deurdrangers", "Meer over deurdrangers", ""),
+         "/elektronische-sloten/#deurdrangers", "Meer over deurdrangers", gu),
     ]
     wat = sectie("Wat wij plaatsen",
         '<div class="producten">'
