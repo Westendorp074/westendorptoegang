@@ -301,8 +301,12 @@ def chat_widget():
     # strakke gezichtsuitsnede van Nick voor de widgetkop (uit de bronfoto, alleen hoofd en schouders)
     gezicht = DIST / "static" / "img" / "nick-gezicht-160.webp"
     if not gezicht.exists():
-        from PIL import Image
-        Image.open(BRON / "adviseur-nick.jpg").crop((32, 0, 886, 854)).resize((160, 160), Image.LANCZOS).save(gezicht, "WEBP", quality=84)
+        from PIL import Image, ImageStat, ImageFilter
+        foto = Image.open(BRON / "adviseur-nick.jpg").convert("RGB")
+        rand = tuple(int(v) for v in ImageStat.Stat(foto.crop((0, 0, foto.width, 12))).mean)   # kleur van de bovenrand
+        doek = Image.new("RGB", (int(foto.width * 1.22), int(foto.width * 1.22)), rand)
+        doek.paste(foto.resize((foto.width, foto.width)), ((doek.width - foto.width) // 2, doek.height - foto.width))
+        doek.resize((160, 160), Image.LANCZOS).save(gezicht, "WEBP", quality=84)
     stijl = """<style>
 .wchat{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font)}
 .wchat__knop{position:relative;width:60px;height:60px;border:0;border-radius:50%;background:var(--primair-donker);color:#fff;cursor:pointer;box-shadow:0 10px 28px rgba(2,41,91,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
