@@ -8,7 +8,7 @@ Regels (CLAUDE.md §1): een veld [[INVULLEN: ...]] blijft letterlijk staan tot L
 check.py faalt zolang zo'n veld in dist/ voorkomt; die pagina gaat niet live.
 """
 import sys, re, json, html, shutil, hashlib, pathlib, datetime, importlib
-import isometrie   # isometrische illustraties in code (richting Salto, Lars 22-09-2026)
+import straatbeeld   # vlakke straatscènes in code (richting dormakaba, Lars 28-09-2026); isometrie.py blijft staan als terugvaloptie
 sys.dont_write_bytecode = True
 # Contentmodules doen `from build import *`; zo krijgen ze deze draaiende module, niet een tweede kopie.
 sys.modules.setdefault("build", sys.modules[__name__])
@@ -303,49 +303,35 @@ def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=N
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
 
 ISO_CSS = """<style>
-.led{animation:led 1.8s ease-in-out infinite}@keyframes led{0%,100%{opacity:1}50%{opacity:.15}}
-.anim-auto,.anim-auto-y,.anim-auto-y-terug{animation:rijden 12s linear infinite}@keyframes rijden{0%{transform:translate(var(--x0),var(--y0));opacity:0}2%{opacity:1}98%{opacity:1}100%{transform:translate(var(--x1),var(--y1));opacity:0}}
-.anim-auto-2{animation:rijden 11s linear infinite 4s}
-.anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}@keyframes wapperen{from{transform:scaleX(1)}to{transform:scaleX(.78)}}
-.anim-gloed{animation:gloed 2.4s ease-in-out infinite}@keyframes gloed{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
-.anim-water{animation:water 3s ease-in-out infinite}@keyframes water{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,1px);filter:brightness(1.08)}}
-.anim-rook{animation:rook 3s ease-out infinite}@keyframes rook{0%{opacity:.8;transform:translate(0,0)}100%{opacity:0;transform:translate(6px,-18px)}}
-.anim-heftruck{animation:heftruck 5s ease-in-out infinite alternate}@keyframes heftruck{from{transform:translate(0,0)}to{transform:translate(-26px,15px)}}
-.anim-licht{animation:licht 9s ease-in-out infinite}.anim-licht-1{animation-delay:2s}.anim-licht-2{animation-delay:4.5s}.anim-licht-3{animation-delay:6.5s}
-@keyframes licht{0%,35%{fill:#BFE6FF}45%,85%{fill:#FFE49A}95%,100%{fill:#BFE6FF}}
-.anim-kraan{animation:kraan 14s ease-in-out infinite alternate}@keyframes kraan{from{transform:rotate(-25deg)}to{transform:rotate(30deg)}}
-.anim-boom{animation:wind 3.4s ease-in-out infinite alternate}.anim-boom-1{animation-delay:-1.2s}.anim-boom-2{animation-delay:-2.4s}@keyframes wind{from{transform:skewX(-2.5deg)}to{transform:skewX(2.5deg)}}
-.anim-slagboom{animation:slagboom 9s ease-in-out infinite}@keyframes slagboom{0%,10%{transform:rotate(0)}17%,38%{transform:rotate(-58deg)}45%,100%{transform:rotate(0)}}
-
-.anim-knipper{animation:knipper 1.6s steps(1) infinite}@keyframes knipper{0%,55%{opacity:1}56%,100%{opacity:.12}}
-.anim-zwaailicht{animation:knipper 1.4s steps(1) infinite}
-.anim-rotor{animation:rotor 20s linear infinite}@keyframes rotor{to{transform:rotate(360deg)}}
-.anim-wijzer{animation:rotor 60s linear infinite}
-.anim-lamp{animation:lamp 8s ease-in-out infinite;opacity:.25}@keyframes lamp{0%,100%{opacity:.25}20%,40%{opacity:1}}
-.anim-wimpel{animation:wimpel 2.6s ease-in-out infinite alternate}@keyframes wimpel{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
-.anim-roldeur{animation:roldeur 10s ease-in-out infinite}@keyframes roldeur{0%,30%{transform:scaleY(1)}45%,75%{transform:scaleY(.08)}90%,100%{transform:scaleY(1)}}
-.anim-letter{animation:letter 5s ease-in-out infinite}@keyframes letter{0%,100%{opacity:.55}15%,35%{opacity:1}}
-.anim-boot{animation:boot 12s ease-in-out infinite alternate}@keyframes boot{from{transform:translate(-8px,-4px)}to{transform:translate(12px,6px)}}
-.anim-loopkat{animation:loopkat 10s ease-in-out infinite alternate}@keyframes loopkat{from{transform:translate(0,0)}to{transform:translate(38px,22px)}}
-.anim-schommel{animation:schommel 2.8s ease-in-out infinite alternate}@keyframes schommel{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
-.led-beurt{animation:ledbeurt 6s infinite}@keyframes ledbeurt{0%,20%{fill:#D9362B}25%,50%{fill:#3DBE7A}55%,100%{fill:#D9362B}}
-.anim-fiets{animation:rijden 14s linear infinite}
-.anim-loop{animation:loop 8s linear infinite}@keyframes loop{0%{transform:translate(var(--ix),var(--iy));opacity:0}3%{opacity:1}18%,54%{transform:translate(0,0);opacity:1}70%{transform:translate(var(--dx),var(--dy));opacity:1}73%,100%{transform:translate(var(--dx),var(--dy));opacity:0}}
-.anim-arm{animation:arm 8s ease-in-out infinite}@keyframes arm{0%,20%{transform:rotate(var(--rust))}28%,42%{transform:rotate(0)}50%,100%{transform:rotate(var(--rust))}}
-.led-deur{animation:leddeur 8s infinite}@keyframes leddeur{0%,33%{fill:#D9362B}35%,80%{fill:#3DBE7A}84%,100%{fill:#D9362B}}
-.anim-deur{animation:deur 8s ease-in-out infinite}@keyframes deur{0%,40%{transform:scaleX(1)}50%,76%{transform:scaleX(.22)}88%,100%{transform:scaleX(1)}}
+.sb-wolk{animation:sbwolk 26s ease-in-out infinite alternate}.sb-wolk-1{animation-duration:34s;animation-delay:-9s}.sb-wolk-2{animation-duration:22s;animation-delay:-16s}@keyframes sbwolk{from{transform:translateX(0)}to{transform:translateX(24px)}}
+.sb-boom{transform-box:fill-box;transform-origin:50% 100%;animation:sbwind 3.6s ease-in-out infinite alternate}.sb-boom-1{animation-delay:-1.2s}.sb-boom-2{animation-delay:-2.4s}@keyframes sbwind{from{transform:skewX(-2deg)}to{transform:skewX(2deg)}}
+.sb-vlag{transform-box:fill-box;transform-origin:0 50%;animation:sbvlag 1.8s ease-in-out infinite alternate}@keyframes sbvlag{from{transform:scaleX(1) skewY(1.5deg)}to{transform:scaleX(.86) skewY(-1.5deg)}}
+.sb-rij{animation:sbrij var(--duur,17s) linear var(--wacht,0s) infinite}@keyframes sbrij{from{transform:translateX(-360px)}to{transform:translateX(1260px)}}
+.sb-rij-terug{animation:sbrijterug var(--duur,17s) linear var(--wacht,0s) infinite}@keyframes sbrijterug{from{transform:translateX(1260px)}to{transform:translateX(-360px)}}
+.sb-zwaai{animation:sbzwaai .9s steps(2) infinite}@keyframes sbzwaai{0%{opacity:1}50%{opacity:.5}}
+.sb-loop{animation:sbloop 10s ease-in-out infinite}@keyframes sbloop{0%{transform:translateX(var(--ix));opacity:0}4%{opacity:1}26%,56%{transform:translateX(0);opacity:1}58%{opacity:1}72%{transform:translateX(var(--dx));opacity:1}76%,100%{transform:translateX(var(--dx));opacity:0}}
+.sb-arm{transform-box:fill-box;transform-origin:92% 30%;animation:sbarm 10s ease-in-out infinite}@keyframes sbarm{0%,28%{transform:rotate(46deg)}34%,52%{transform:rotate(0)}60%,100%{transform:rotate(46deg)}}
+.led-deur{fill:#D9362B;animation:sbled 10s infinite}@keyframes sbled{0%,34%{fill:#D9362B}36%,80%{fill:#3DBE7A}84%,100%{fill:#D9362B}}
+.sb-pui-l{animation:sbpuil 10s ease-in-out infinite}@keyframes sbpuil{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(-26px)}86%,100%{transform:translateX(0)}}
+.sb-pui-r{animation:sbpuir 10s ease-in-out infinite}@keyframes sbpuir{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(26px)}86%,100%{transform:translateX(0)}}
+.sb-rook{animation:sbrook 3.2s ease-out infinite}.sb-rook-1{animation-delay:-1.1s}.sb-rook-2{animation-delay:-2.2s}@keyframes sbrook{0%{opacity:.7;transform:translate(0,0) scale(.7)}100%{opacity:0;transform:translate(10px,-34px) scale(1.25)}}
+.sb-roldeur{transform-box:fill-box;transform-origin:50% 0;animation:sbroldeur 12s ease-in-out infinite}@keyframes sbroldeur{0%,26%{transform:scaleY(1)}38%,66%{transform:scaleY(.12)}78%,100%{transform:scaleY(1)}}
+.sb-slagboom{transform-box:fill-box;transform-origin:6% 50%;animation:sbslagboom 12s ease-in-out infinite}@keyframes sbslagboom{0%,14%{transform:rotate(0)}24%,58%{transform:rotate(-56deg)}70%,100%{transform:rotate(0)}}
+.sb-lamp{animation:sblamp 8s ease-in-out infinite;opacity:.25}@keyframes sblamp{0%,100%{opacity:.25}20%,40%{opacity:1}}
+.sb-wijzer{transform-box:fill-box;transform-origin:50% 88%;animation:sbwijzer 60s linear infinite}@keyframes sbwijzer{to{transform:rotate(360deg)}}
+.sb-bal{animation:sbbal 1.6s cubic-bezier(.35,0,.65,1) infinite alternate}@keyframes sbbal{from{transform:translateY(0)}to{transform:translateY(-26px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>"""
 
 def iso_bestand(sleutel):
     """Schrijft de sectorscène als los SVG-bestand (met de animaties erin) en geeft een <img> terug; scheelt ~110 KB per pagina."""
     uit = DIST / "static" / "img" / "iso"; uit.mkdir(parents=True, exist_ok=True)
-    svg = isometrie.SECTOREN[sleutel]()
+    svg = straatbeeld.SECTOREN[sleutel]()
     svg = svg.replace('class="iso">', 'class="iso">' + ISO_CSS, 1)
     naam = f"{sleutel}.{hashlib.md5(svg.encode()).hexdigest()[:8]}.svg"   # versiehash: /static/ wordt lang gecachet, een nieuwe scène moet een nieuwe naam krijgen
     (uit / naam).write_text(svg, encoding="utf-8")
     alt = re.search(r'aria-label="([^"]+)"', svg).group(1)
-    return f'<img src="/static/img/iso/{naam}" alt="{alt}" width="444" height="350" loading="lazy" class="iso">'
+    return f'<img src="/static/img/iso/{naam}" alt="{alt}" width="444" height="284" loading="lazy" class="iso">'
 
 def sectorrij(items, kop, intro=None, kicker="Sectoren"):
     """Horizontaal scrollende rij met illustratie, kop, tekst en twee knoppen (Lars wil knoppen, geen tekstlinks): inventarisatie en meer informatie."""
