@@ -401,10 +401,18 @@ def hero_badges():
     pk, pk_echt = icoon("pkvw", "Politiekeurmerk Veilig Wonen", lijn('<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/>'))
     ev, ev_echt = icoon("evva", "EVVA", lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'))
     ab, ab_echt = icoon("abus", "ABUS", lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'))
-    items = [(pk, pk_echt, "" if pk_echt else "PKVW-gecertificeerd"), (ev, ev_echt, "" if ev_echt else "EVVA Partner"),
-             (ab, ab_echt, "" if ab_echt else "ABUS Partner")]   # drie logo's naast elkaar, zonder tekst (Lars, 28-09-2026)
+    items = [(ev, ev_echt, "" if ev_echt else "EVVA Partner"), (ab, ab_echt, "" if ab_echt else "ABUS Partner")]   # partners in de balk
+    # PKVW is een keurmerk, geen partner: groot en in de echte kleuren als zegel op de foto (Lars, 28-09-2026)
+    zegel_bron = map_ / "pkvw-zegel.png"
+    zegel = ""
+    if zegel_bron.exists():
+        shutil.copy(zegel_bron, uit / zegel_bron.name)
+        from PIL import Image
+        zb, zh = Image.open(zegel_bron).size
+        zegel = (f'<div class="keurmerk"><img src="/static/img/logo/partners/{zegel_bron.name}" alt="Politiekeurmerk Veilig Wonen, erkend" width="{zb}" height="{zh}">'
+                 f'<span>PKVW-gecertificeerde monteurs</span></div>')
     tekst = lambda t: (f'<span class="keurbalk__lang">{esc(t.split("|")[0])} </span>{esc(t.split("|")[1].strip())}' if "|" in t else esc(t))
-    return '<ul class="keurbalk">' + "".join(
+    return zegel + '<ul class="keurbalk">' + "".join(
         f'<li><span class="keurbalk__icoon{" keurbalk__icoon--logo" if echt else ""}">{i}</span>' + (f'<span>{tekst(t)}</span>' if t else "") + '</li>' for i, echt, t in items) + "</ul>"
 
 def youtube(video_id, titel, ondertitel=""):

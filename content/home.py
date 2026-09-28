@@ -14,7 +14,7 @@ def bouw():
     hero_html = hero("Toegangscontrole voor elke organisatie in Oost-Nederland",   # bedrijven, instellingen en overheden (Lars, 27-09-2026)
         f"Sleutels die kwijtraken, cilinders die telkens vervangen moeten worden en geen overzicht wie waar naar binnen kan? "
         f"Wij regelen de toegang tot uw pand op de deuren die er al zitten: elektronisch van EVVA en mechanisch, uit één hand. "
-        f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}, alleen toegangscontrole.",
+        f"Sterk in renovatie en bestaande panden, Twents familiebedrijf sinds {esc(MOEDER_SINDS)}.",
         foto_html=foto + hero_badges(), kicker=f"Familiebedrijf sinds {MOEDER_SINDS}")   # illustratie weg; hier komt een echte foto (Lars, 22-09-2026)
 
     # ---- sectoren: horizontale rij met illustraties ----

@@ -166,8 +166,14 @@ section,.sectie{padding:var(--sectie) 0}
 .keurbalk li+li{padding-left:20px;border-left:1px solid rgba(255,255,255,.22)}
 .keurbalk__icoon{display:inline-flex;opacity:.9}
 .keurbalk__icoon--logo{opacity:1}
+/* PKVW-keurmerk: groot zegel in de echte kleuren, linksboven over de foto */
+.keurmerk{position:absolute;z-index:4;top:-18px;left:2%;display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border-radius:14px;padding:12px 12px 10px;
+  box-shadow:0 16px 36px rgba(2,41,91,.20),0 2px 6px rgba(2,41,91,.08)}
+.keurmerk img{width:104px;height:auto;aspect-ratio:auto;border-radius:0;display:block}
+.keurmerk span{font-family:var(--font-kop);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B4F9C;text-align:center;max-width:110px;line-height:1.25}
+@media (max-width:899px){.keurmerk{top:12px;left:12px;padding:8px 8px 7px;border-radius:10px}.keurmerk img{width:68px}.keurmerk span{display:none}}
 .keurbalk__icoon--logo img{height:32px;width:auto;max-width:none;aspect-ratio:auto;border-radius:0;display:block}
-@media (max-width:1199px){.keurbalk li>span:last-child{display:none}.keurbalk{gap:8px 24px}.keurbalk li+li{padding-left:24px}}
+@media (max-width:1199px){.keurbalk li>span:not(.keurbalk__icoon){display:none}.keurbalk{gap:8px 24px}.keurbalk li+li{padding-left:24px}}
 @media (max-width:899px){.keurbalk__icoon--logo img{height:28px}}
 @media (max-width:899px){.keurbalk{left:0;padding:11px 14px;gap:6px 14px;font-size:10.5px;bottom:52px;border-radius:0 0 var(--straal) var(--straal)}.keurbalk li+li{padding-left:14px}}
 @media (max-width:1199px){.keurbalk__lang{display:none}}
