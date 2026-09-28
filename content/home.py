@@ -137,7 +137,7 @@ def bouw():
                 f'stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{IC[i]}</svg></span>')
     patroon_herken = ('<svg class="herkenpaneel__patroon" viewBox="0 0 420 460" aria-hidden="true">'
                       + icoon_symbool("ico-herken", "#3E82D6", "#1B68C0", "#8AD6FF")
-                      + "".join(f'<use href="#ico-herken" x="{10 + k * 44}" y="{8 + r * 50}" width="30" height="39"/>' for r in range(5) for k in range(9))
+                      + "".join(f'<use href="#ico-herken" x="{10 + k * 44}" y="{8 + r * 50}" width="30" height="39" opacity="{max(.12, 1 - (8 - k) * .09 - r * .12):.2f}"/>' for r in range(5) for k in range(9))
                       + "</svg>")
     herken = sectie("Herkent u dit?",
         f'<div class="herkenpaneel">{patroon_herken}'
