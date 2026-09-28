@@ -58,7 +58,7 @@ section,.sectie{padding:var(--sectie) 0}
 @media (min-width:900px){.herkenpaneel{padding:48px 56px 40px}}
 .herkenpaneel__patroon{position:absolute;right:-16px;top:-12px;width:44%;max-width:420px;height:auto;opacity:.4;pointer-events:none;-webkit-mask-image:linear-gradient(215deg,#000 15%,transparent 72%);mask-image:linear-gradient(215deg,#000 15%,transparent 72%)}
 .herkenpaneel__status{position:relative;display:inline-flex;align-items:center;gap:10px;margin:0 0 8px;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8AD6FF;border:1px solid rgba(73,191,254,.35);border-radius:999px;padding:7px 14px}
-.herkenpaneel__status i{width:8px;height:8px;border-radius:50%;background:var(--signaal-licht);box-shadow:0 0 8px 2px rgba(61,190,122,.55)}
+.herkenpaneel__status i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px 2px rgba(73,191,254,.55)}
 .herken{position:relative;max-width:none;list-style:none;margin:14px 0 0;padding:0;display:grid;column-gap:56px}
 @media (min-width:900px){.herken{grid-template-columns:1fr 1fr}}
 .herken li{display:flex;gap:16px;align-items:flex-start;padding:19px 0;border-top:1px solid rgba(255,255,255,.14);margin:0}
