@@ -129,7 +129,7 @@ def bouw():
     tegels = [("sleutel", "Sleutels raken kwijt", "Verloren pas blokkeren in de software; het slot blijft zitten."),
               ("oog", "Geen overzicht wie waar kan", "Per persoon ziet u welke deuren open mogen en wanneer."),
               ("regel", "Zelf beheren of uitbesteden", "U beheert zelf, of wij doen het voor u. Wisselen kan altijd."),
-              ("klok", "Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar; bij vertrek trekt u hem in."),
+              ("klok", "Tijd kwijt aan sleutelbeheer", "Een pas of digitale sleutel op de telefoon staat in minuten klaar."),
               ("euro", "Steeds weer kosten", "Een pas vervangen in plaats van cilinders en sleutels."),
               ("blad", "Onnodig vervangen", "Het hang- en sluitwerk blijft zitten; alleen de pas wisselt.")]
     def ikoon(i):
