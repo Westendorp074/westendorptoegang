@@ -326,8 +326,8 @@ textarea{min-height:120px;resize:vertical}
 
 /* ---------- video ---------- */
 /* "Wat wij plaatsen": Xesar uitgelicht links, drie producten rechts (Lars, 27-09-2026) */
-.producten{display:grid;gap:18px}
-@media (min-width:1000px){.producten{grid-template-columns:7fr 5fr;align-items:stretch}}
+.producten{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1000px){.producten{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:stretch}}
 .product{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:24px 26px;border-top:3px solid var(--kl,var(--primair))}
 .product h3{margin:4px 0 8px}
 .product p{margin:0 0 12px}
@@ -337,7 +337,7 @@ textarea{min-height:120px;resize:vertical}
 .product--uitgelicht h3{font-size:var(--h2)}
 @media (min-width:900px){.product--uitgelicht h3{font-size:34px}}
 .product--uitgelicht .yt{margin-top:18px}
-.producten__rest{display:grid;gap:18px}
+.producten__rest{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
 /* Xesar-lijn: productslider in het Xesar-blok (Lars, 28-09-2026) */
 .xlijn{margin-top:26px;padding-top:22px;border-top:var(--lijndikte) solid var(--lijn)}
 .xlijn__kop{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
@@ -353,6 +353,7 @@ textarea{min-height:120px;resize:vertical}
 .xprod h5{margin:0 0 6px;font-family:var(--font-kop);font-size:15px;color:var(--kop)}
 .xprod p{margin:0;font-size:14px;line-height:1.5;color:var(--inkt-zacht)}
 .producten__rest .product{display:flex;gap:16px;align-items:flex-start}
+.producten__rest .product>div{min-width:0}
 .product--tedee{--kl:#6C4FD1;--bg:#ECE7FB}
 .product--magtec{--kl:var(--signaal);--bg:#E1F4E8}
 .product--gu{--kl:#D9822B;--bg:#FCEEDD}
