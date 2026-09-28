@@ -110,7 +110,7 @@
 
   // ---------- Horizontale rij (sectoren): pijlen scrollen één kaart ----------
   d.querySelectorAll('[data-rij-scroll]').forEach(function (rij) {
-    var sectie = rij.closest('section'), knoppen = sectie.querySelectorAll('[data-rij]');
+    var sectie = rij.closest('[data-rij-groep]') || rij.closest('section'), knoppen = sectie.querySelectorAll('[data-rij]');
     function status() {
       var max = rij.scrollWidth - rij.clientWidth - 2;
       knoppen.forEach(function (b) {
@@ -120,7 +120,7 @@
     }
     knoppen.forEach(function (b) {
       b.addEventListener('click', function () {
-        var kaart = rij.querySelector('.kaart'); var stap = kaart ? kaart.getBoundingClientRect().width : 320;
+        var kaart = rij.querySelector('.kaart, .xprod'); var stap = kaart ? kaart.getBoundingClientRect().width + 12 : 320;
         rij.scrollBy({ left: stap * parseInt(b.getAttribute('data-rij'), 10), behavior: rustig ? 'auto' : 'smooth' });
       });
     });
@@ -141,7 +141,7 @@
       if (!bezig) return; bezig = false;
       if (gesleept) {
         rij.classList.remove('sleept');
-        var kaart = rij.querySelector('.kaart'), b = kaart ? kaart.getBoundingClientRect().width : 320;
+        var kaart = rij.querySelector('.kaart, .xprod'), b = kaart ? kaart.getBoundingClientRect().width + (kaart.classList.contains('xprod') ? 12 : 0) : 320;
         rij.scrollTo({ left: Math.round(rij.scrollLeft / b) * b, behavior: rustig ? 'auto' : 'smooth' });   // netjes op een kaart uitkomen
       }
     });

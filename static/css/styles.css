@@ -343,6 +343,20 @@ textarea{min-height:120px;resize:vertical}
 @media (min-width:900px){.product--uitgelicht h3{font-size:34px}}
 .product--uitgelicht .yt{margin-top:18px}
 .producten__rest{display:grid;gap:18px}
+/* Xesar-lijn: productslider in het Xesar-blok (Lars, 28-09-2026) */
+.xlijn{margin-top:26px;padding-top:22px;border-top:var(--lijndikte) solid var(--lijn)}
+.xlijn__kop{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.xlijn__kop h4{margin:0;font-family:var(--font-kop);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--inkt-zacht)}
+.xlijn__knoppen{margin:0;gap:8px}
+.xlijn__knoppen button{width:36px;height:36px;font-size:22px;line-height:1}
+.xlijn__rij{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.xlijn__rij::-webkit-scrollbar{display:none}
+@media (hover:hover) and (pointer:fine){.xlijn__rij{cursor:grab}}
+.xlijn__rij.sleept{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.xprod{flex:0 0 min(210px,78%);scroll-snap-align:start;background:var(--papier);border:var(--lijndikte) solid var(--lijn);border-radius:10px;padding:16px 16px 18px}
+.xprod__beeld{display:block;width:100%;height:auto;max-height:84px;color:var(--primair2,#1B68C0);background:linear-gradient(180deg,#EEF4FB,#E3EDF8);border-radius:8px;padding:8px;margin-bottom:12px}
+.xprod h5{margin:0 0 6px;font-family:var(--font-kop);font-size:15px;color:var(--kop)}
+.xprod p{margin:0;font-size:14px;line-height:1.5;color:var(--inkt-zacht)}
 .producten__rest .product{display:flex;gap:16px;align-items:flex-start}
 .product--tedee{--kl:#6C4FD1;--bg:#ECE7FB}
 .product--magtec{--kl:var(--signaal);--bg:#E1F4E8}
