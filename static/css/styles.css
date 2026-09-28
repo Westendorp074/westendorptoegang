@@ -363,12 +363,13 @@ textarea{min-height:120px;resize:vertical}
 .xprod__beeld{display:block;width:100%;height:auto;max-height:84px;color:var(--primair2,#1B68C0);background:linear-gradient(180deg,#EEF4FB,#E3EDF8);border-radius:8px;padding:8px;margin-bottom:12px}
 .xprod h5{margin:0 0 6px;font-family:var(--font-kop);font-size:15px;color:var(--kop)}
 .xprod p{margin:0;font-size:14px;line-height:1.5;color:var(--inkt-zacht)}
-.producten__rest .product{display:flex;gap:16px;align-items:flex-start}
+.producten__rest .product{display:flex;flex-direction:column;gap:14px}
 .product--tedee{--kl:#6C4FD1;--bg:#ECE7FB}
 .product--magtec{--kl:var(--signaal);--bg:#E1F4E8}
 .product--gu{--kl:#D9822B;--bg:#FCEEDD}
-.product figure.product__beeld{flex:0 0 96px;margin:0}
-.product figure.product__beeld img{aspect-ratio:1;object-fit:cover;border-radius:6px;width:96px}
+.product figure.product__beeld{margin:0}
+.product figure.product__beeld img{width:100%;aspect-ratio:16/7;object-fit:contain;background:#F2F4F7;border-radius:8px}
+.product--gu figure.product__beeld img{object-fit:cover}
 .sectie--wit .product{background:#F6F8FA}
 @media (max-width:599px){.producten__rest .product{flex-direction:column}.product,.product--uitgelicht{padding:20px}}
 /* EVVA Xesar-video onder "Wat wij plaatsen": poster in huisstijl, YouTube pas na klik (Lars, 27-09-2026) */
