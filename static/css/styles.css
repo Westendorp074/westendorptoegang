@@ -159,14 +159,14 @@ section,.sectie{padding:var(--sectie) 0}
 .hero__foto figure{overflow:hidden}
 .hero__foto figure img{animation:kenburns 24s ease-in-out infinite alternate;transform-origin:60% 50%}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
-.keurbalk{position:absolute;z-index:3;left:12%;right:0;bottom:0;margin:0;padding:14px 22px;list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;
+.keurbalk{position:absolute;z-index:3;left:12%;right:0;bottom:0;margin:0;padding:14px 26px;align-items:center;list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;
   background:rgba(10,22,38,.58);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-top:1px solid rgba(255,255,255,.14);
   color:#fff;font-family:var(--font-kop);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
 .keurbalk li{display:flex;align-items:center;gap:9px;margin:0;white-space:nowrap}
 .keurbalk li+li{padding-left:20px;border-left:1px solid rgba(255,255,255,.22)}
 .keurbalk__icoon{display:inline-flex;opacity:.9}
 .keurbalk__icoon--logo{opacity:1}
-.keurbalk__icoon--logo img{height:34px;width:auto;max-width:none;aspect-ratio:auto;border-radius:0;display:block}
+.keurbalk__icoon--logo img{height:32px;width:auto;max-width:none;aspect-ratio:auto;border-radius:0;display:block}
 @media (max-width:1199px){.keurbalk li>span:last-child{display:none}.keurbalk{gap:8px 24px}.keurbalk li+li{padding-left:24px}}
 @media (max-width:899px){.keurbalk__icoon--logo img{height:28px}}
 @media (max-width:899px){.keurbalk{left:0;padding:11px 14px;gap:6px 14px;font-size:10.5px;bottom:52px;border-radius:0 0 var(--straal) var(--straal)}.keurbalk li+li{padding-left:14px}}

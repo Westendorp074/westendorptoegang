@@ -400,11 +400,12 @@ def hero_badges():
         return f'<img src="/static/img/logo/partners/{echt.name}" alt="{esc(alt)}" width="{bw}" height="{bh}">', True
     pk, pk_echt = icoon("pkvw", "Politiekeurmerk Veilig Wonen", lijn('<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/>'))
     ev, ev_echt = icoon("evva", "EVVA", lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'))
-    items = [(pk, pk_echt, "Gecertificeerd" if pk_echt else "PKVW-gecertificeerd"),
-             (ev, ev_echt, "Officieel partner" if ev_echt else "Officieel| EVVA Partner")]   # het logo noemt de naam al
+    ab, ab_echt = icoon("abus", "ABUS", lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'))
+    items = [(pk, pk_echt, "" if pk_echt else "PKVW-gecertificeerd"), (ev, ev_echt, "" if ev_echt else "EVVA Partner"),
+             (ab, ab_echt, "" if ab_echt else "ABUS Partner")]   # drie logo's naast elkaar, zonder tekst (Lars, 28-09-2026)
     tekst = lambda t: (f'<span class="keurbalk__lang">{esc(t.split("|")[0])} </span>{esc(t.split("|")[1].strip())}' if "|" in t else esc(t))
     return '<ul class="keurbalk">' + "".join(
-        f'<li><span class="keurbalk__icoon{" keurbalk__icoon--logo" if echt else ""}">{i}</span><span>{tekst(t)}</span></li>' for i, echt, t in items) + "</ul>"
+        f'<li><span class="keurbalk__icoon{" keurbalk__icoon--logo" if echt else ""}">{i}</span>' + (f'<span>{tekst(t)}</span>' if t else "") + '</li>' for i, echt, t in items) + "</ul>"
 
 def youtube(video_id, titel, ondertitel=""):
     """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,
@@ -717,7 +718,7 @@ def adviseurblok():
     a = ADVISEUR
     feiten = [f"Reactie binnen {esc(REACTIE_AANVRAAG)}",
               "Inventarisatie op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
-              PARTNER_TEKST.capitalize(),
+              PARTNER_TEKST[0].upper() + PARTNER_TEKST[1:],
               f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}"]
     return f'''<div class="adviseur"><div class="adviseur__personen">{personen}</div>
 <p>Direct: <a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
