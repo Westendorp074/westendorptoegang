@@ -309,11 +309,11 @@ ISO_CSS = """<style>
 .sb-rij{animation:sbrij var(--duur,17s) linear var(--wacht,0s) infinite}@keyframes sbrij{from{transform:translateX(-360px)}to{transform:translateX(1260px)}}
 .sb-rij-terug{animation:sbrijterug var(--duur,17s) linear var(--wacht,0s) infinite}@keyframes sbrijterug{from{transform:translateX(1260px)}to{transform:translateX(-360px)}}
 .sb-zwaai{animation:sbzwaai .9s steps(2) infinite}@keyframes sbzwaai{0%{opacity:1}50%{opacity:.5}}
-.sb-loop{animation:sbloop 10s ease-in-out infinite}@keyframes sbloop{0%{transform:translateX(var(--ix));opacity:0}4%{opacity:1}26%,56%{transform:translateX(0);opacity:1}58%{opacity:1}72%{transform:translateX(var(--dx));opacity:1}76%,100%{transform:translateX(var(--dx));opacity:0}}
-.sb-arm{transform-box:fill-box;transform-origin:92% 30%;animation:sbarm 10s ease-in-out infinite}@keyframes sbarm{0%,28%{transform:rotate(46deg)}34%,52%{transform:rotate(0)}60%,100%{transform:rotate(46deg)}}
-.led-deur{fill:#D9362B;animation:sbled 10s infinite}@keyframes sbled{0%,34%{fill:#D9362B}36%,80%{fill:#3DBE7A}84%,100%{fill:#D9362B}}
-.sb-pui-l{animation:sbpuil 10s ease-in-out infinite}@keyframes sbpuil{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(-26px)}86%,100%{transform:translateX(0)}}
-.sb-pui-r{animation:sbpuir 10s ease-in-out infinite}@keyframes sbpuir{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(26px)}86%,100%{transform:translateX(0)}}
+.sb-loop{animation:sbloop 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbloop{0%{transform:translateX(var(--ix));opacity:0}4%{opacity:1}26%,56%{transform:translateX(0);opacity:1}58%{opacity:1}72%{transform:translateX(var(--dx));opacity:1}76%,100%{transform:translateX(var(--dx));opacity:0}}
+.sb-arm{transform-box:fill-box;transform-origin:92% 30%;animation:sbarm 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbarm{0%,28%{transform:rotate(-52deg)}34%,52%{transform:rotate(0)}60%,100%{transform:rotate(-52deg)}}
+.led-deur{fill:#D9362B;animation:sbled 10s var(--tempo,0s) infinite}@keyframes sbled{0%,34%{fill:#D9362B}36%,80%{fill:#3DBE7A}84%,100%{fill:#D9362B}}
+.sb-pui-l{animation:sbpuil 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbpuil{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(-26px)}86%,100%{transform:translateX(0)}}
+.sb-pui-r{animation:sbpuir 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbpuir{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(26px)}86%,100%{transform:translateX(0)}}
 .sb-rook{animation:sbrook 3.2s ease-out infinite}.sb-rook-1{animation-delay:-1.1s}.sb-rook-2{animation-delay:-2.2s}@keyframes sbrook{0%{opacity:.7;transform:translate(0,0) scale(.7)}100%{opacity:0;transform:translate(10px,-34px) scale(1.25)}}
 .sb-roldeur{transform-box:fill-box;transform-origin:50% 0;animation:sbroldeur 12s ease-in-out infinite}@keyframes sbroldeur{0%,26%{transform:scaleY(1)}38%,66%{transform:scaleY(.12)}78%,100%{transform:scaleY(1)}}
 .sb-slagboom{transform-box:fill-box;transform-origin:6% 50%;animation:sbslagboom 12s ease-in-out infinite}@keyframes sbslagboom{0%,14%{transform:rotate(0)}24%,58%{transform:rotate(-56deg)}70%,100%{transform:rotate(0)}}
