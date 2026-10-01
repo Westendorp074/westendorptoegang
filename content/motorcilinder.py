@@ -10,7 +10,7 @@ def bouw():
     intro = ("Een motorcilinder is een elektronische cilinder met een motor erin, die de nachtschoot van het slot zelf uitdraait en intrekt. "
              "De deur gaat dus echt op slot, niet alleen in de dag, en opent met een pas, een tag, de telefoon of op afstand. "
              "Wij plaatsen de EVVA EMZY, meestal op buitendeuren, vluchtdeuren en deuren met een meerpuntssluiting.")
-    foto = beeld("evva-emzy-product.jpg", "EVVA EMZY motorcilinder", onderschrift="EVVA EMZY motorcilinder op een glazen deur (beeld: EVVA)", bron="EVVA")
+    foto = beeld("evva-emzy-product.jpg", "EVVA EMZY motorcilinder", bron="EVVA")
 
     waarom = sectie("Waarom een motorcilinder en geen gewone elektronische cilinder", p(
         "Een gewone elektronische cilinder geeft de knop vrij; u moet de deur daarna zelf op slot draaien. In de praktijk gebeurt dat aan het eind van de dag niet altijd, "

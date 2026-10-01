@@ -9,7 +9,7 @@ def bouw():
     intro = ("Een elektronisch slot vervangt de sleutel door een pas, tag of telefoon en past op de meeste bestaande deuren. "
              "Er zijn vier soorten: elektronisch beslag, elektronische cilinder, motorcilinder en wandlezer met elektrische sluitplaat. "
              "Welke past, hangt af van de deur en van wat de deur moet doen.")
-    foto = beeld("elektronisch-beslag.jpg", "Elektronisch beslag op een houten binnendeur", onderschrift="EVVA Xesar elektronisch beslag (beeld: EVVA)", bron="EVVA")
+    foto = beeld("elektronisch-beslag.jpg", "Elektronisch beslag op een houten binnendeur", bron="EVVA")
 
     soorten = sectie("De vier soorten elektronische sloten", '<div class="kolommen kolommen--2">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
         ("Elektronisch beslag", "De deurkruk met lezer erin. Buiten draait de kruk pas mee na een geldige pas, binnen altijd. Op batterijen, geen kabel. De standaardkeuze voor binnendeuren in kantoren, scholen en zorg."),

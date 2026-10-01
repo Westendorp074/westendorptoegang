@@ -512,7 +512,7 @@ def hero_badges():
     ab, ab_echt = icoon("abus", "ABUS", lijn('<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'))
     items = [(ev, ev_echt, "" if ev_echt else "EVVA Partner"), (ab, ab_echt, "" if ab_echt else "ABUS Partner")]   # partners in de balk
     # PKVW is een keurmerk, geen partner: groot en in de echte kleuren als zegel op de foto (Lars, 28-09-2026)
-    zegel_bron = map_ / "pkvw-zegel.png"
+    zegel_bron = map_ / "pkvw-wit.png"   # officiële witte uitvoering; geen CSS-filter nodig (Lars, 01-10-2026)
     zegel = ""
     if zegel_bron.exists():
         shutil.copy(zegel_bron, uit / zegel_bron.name)

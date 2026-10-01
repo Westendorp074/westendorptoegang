@@ -10,7 +10,7 @@ def bouw():
     intro = ("EVVA Xesar is een elektronisch toegangscontrolesysteem van de Oostenrijkse slotenfabrikant EVVA, met cilinders, deurbeslag en wandlezers "
              "die op bestaande deuren passen. Het is het systeem dat wij het meest plaatsen: mechanisch en elektronisch van dezelfde fabrikant, "
              "en offline en online deuren in één beheeromgeving.")
-    foto = beeld("evva-xesar-product.jpg", "EVVA Xesar elektronische cilinder en beslag", onderschrift="Xesar-beslag in een kantooromgeving (beeld: EVVA)", bron="EVVA")
+    foto = beeld("evva-xesar-product.jpg", "EVVA Xesar elektronische cilinder en beslag", bron="EVVA")
 
     voorwie = sectie("Voor wie is Xesar geschikt", p(
         "Xesar past bij organisaties van een handvol tot enkele honderden deuren die hun toegang zelf willen beheren: kantoren, scholen, zorglocaties, verenigingen, "

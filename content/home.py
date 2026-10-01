@@ -57,8 +57,7 @@ def bouw():
         '<div class="producten__rest">' + "".join(
             f'<article class="product product--{c}">{img}<div><span class="product__label">{esc(lab)}</span><h3>{esc(k)}</h3><p>{esc(t)}</p>'
             f'<p class="product__knop"><a class="meer" href="{u}">{esc(kn)}</a></p></div></article>' for c, lab, k, t, u, kn, img in rest)
-        + "</div></div>"
-        + p('Ook: <a href="/motorcilinder/">motorcilinders</a>, <a href="/sluitplan/">sluitplannen</a> en <a href="/salto/">onderhoud van bestaande Salto-systemen</a>.'),
+        + "</div></div>",
         kicker="Oplossingen")
 
     # ---- hoe het werkt ----

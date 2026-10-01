@@ -8,7 +8,7 @@ def bouw():
     omschrijving = ("Wat een toegangscontrolesysteem is, wanneer het loont, offline of online, en hoe Westendorp het aanpakt van inventarisatie tot beheer.")
     intro = ("Een toegangscontrolesysteem vervangt de sleutel door een pas, tag of telefoon en legt per deur vast wie er "
              "wanneer in mag. Raakt iemand zijn pas kwijt, dan blokkeert u die in de software; de deur en het slot blijven zoals ze zijn.")
-    foto = beeld("toegangscontrole-lezer.jpg", "Wandlezer naast een kantoordeur", onderschrift="Toegang met een pas langs de Xesar-wandlezer (beeld: EVVA)", bron="EVVA")
+    foto = beeld("toegangscontrole-lezer.jpg", "Wandlezer naast een kantoordeur", bron="EVVA")
 
     wanneer = sectie("Wanneer loont toegangscontrole", p(
         "Een mechanisch sluitplan werkt prima zolang niemand een sleutel kwijtraakt en de organisatie niet verandert. "
