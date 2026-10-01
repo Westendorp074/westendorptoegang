@@ -316,8 +316,13 @@ def chat_widget():
 .wchat__knop .wchat__led{position:absolute;right:2px;top:2px;width:13px;height:13px;border-radius:50%;border:2.5px solid #fff}
 .wchat--open .wchat__pict-chat,.wchat__pict-kruis{display:none}
 .wchat--open .wchat__pict-kruis{display:block}
-.wchat__hint{position:absolute;right:72px;bottom:12px;white-space:nowrap;background:#fff;color:var(--inkt);border:var(--lijndikte) solid var(--lijn);border-radius:10px;padding:9px 14px;font-size:14px;box-shadow:0 10px 26px rgba(20,35,46,.14);opacity:0;pointer-events:none;transform:translateX(6px);transition:opacity .3s,transform .3s}
-.wchat--hint .wchat__hint{opacity:1;transform:none}
+.wchat__hint{position:absolute;right:0;bottom:74px;width:min(290px,calc(100vw - 40px));display:flex;gap:12px;align-items:flex-start;background:#fff;color:var(--inkt);border:var(--lijndikte) solid var(--lijn);border-radius:14px;padding:13px 34px 13px 13px;box-shadow:0 18px 44px rgba(2,41,91,.24),0 3px 9px rgba(2,41,91,.1);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .35s,transform .35s;cursor:pointer}
+.wchat--hint .wchat__hint{opacity:1;pointer-events:auto;transform:none}
+.wchat__hint img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--accent)}
+.wchat__hint strong{display:block;font-family:var(--font-kop);font-size:13.5px;margin-bottom:2px}
+.wchat__hint p{margin:0;font-size:13.5px;line-height:1.45;color:var(--inkt-zacht)}
+.wchat__hint-dicht{position:absolute;right:6px;top:6px;width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:var(--inkt-zacht);font-size:15px;line-height:1;cursor:pointer}
+.wchat__hint-dicht:hover{background:#EFEAE2}
 .wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn)}
 .wchat__kop{display:flex;gap:12px;align-items:center;background:var(--primair-donker);color:#fff;padding:14px 16px}
 .wchat__fotos{display:flex;flex:none}
@@ -373,9 +378,11 @@ function zet(o){w.classList.toggle('wchat--open',o);paneel.hidden=!o;knop.setAtt
 knop.addEventListener('click',function(){zet(paneel.hidden)});
 w.querySelector('.wchat__sluit').addEventListener('click',function(){zet(false);knop.focus()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!paneel.hidden){zet(false);knop.focus()}});
+var hint=w.querySelector('[data-wchat-hint]');
+w.querySelector('[data-wchat-hintgroet]').textContent=(uur<12?'Goedemorgen!':uur<18?'Goedemiddag!':'Goedenavond!')+' Waarmee kan ik u helpen?';
+hint.addEventListener('click',function(e){if(e.target.closest('.wchat__hint-dicht')){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien','1')}catch(err){};return}zet(true)});
 var g=false;try{g=!!localStorage.getItem('wchat-gezien')}catch(e){}
-if(!g){setTimeout(function(){if(paneel.hidden)w.classList.add('wchat--hint');
-  setTimeout(function(){w.classList.remove('wchat--hint')},9000)},5000)}
+if(!g){setTimeout(function(){if(paneel.hidden)w.classList.add('wchat--hint')},4500)}
 var vorm=w.querySelector('[data-wchat-form]'),status=w.querySelector('.wchat__formstatus');
 w.querySelector('[data-wchat-terugbel]').addEventListener('click',function(){w.classList.add('wchat--terugbel');vorm.querySelector('input').focus()});
 w.querySelector('.wchat__terug').addEventListener('click',function(){w.classList.remove('wchat--terugbel')});
@@ -411,7 +418,7 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
             f'<button type="submit" class="wchat__verstuur">Bel mij terug</button></div>'
             f'<p class="wchat__formstatus" role="status" aria-live="polite"></p></form>'
             f'<p class="wchat__voet">Geen chatbot: u krijgt Nick zelf.</p></div>'
-            f'<span class="wchat__hint" aria-hidden="true">Vraag over toegangscontrole?</span>'
+            f'<div class="wchat__hint" data-wchat-hint role="status"><img src="{gezicht}" alt="" width="46" height="46" loading="lazy">'f'<span><strong>Nick van {esc(NAAM)}</strong><p data-wchat-hintgroet>Waarmee kan ik u helpen?</p></span>'f'<button type="button" class="wchat__hint-dicht" aria-label="Melding sluiten">&#215;</button></div>'
             f'<button type="button" class="wchat__knop" aria-expanded="false" aria-controls="wchat-paneel" aria-label="Contact opnemen">'
             f'{chat_svg}{kruis_svg}<i class="wchat__led" aria-hidden="true"></i></button>'
             f'{script}</div>')
