@@ -302,12 +302,9 @@ def chat_widget():
     # versiehash in de naam: /static/ wordt lang gecachet, dus een nieuwe uitsnede moet een nieuwe naam krijgen
     if "gezicht" not in _ASSETS:
         import io
-        from PIL import Image, ImageStat
-        foto = Image.open(BRON / "adviseur-nick.jpg").convert("RGB")
-        rand = tuple(int(v) for v in ImageStat.Stat(foto.crop((0, 0, foto.width, 12))).mean)   # kleur van de bovenrand
-        doek = Image.new("RGB", (int(foto.width * 1.22), int(foto.width * 1.22)), rand)
-        doek.paste(foto.resize((foto.width, foto.width)), ((doek.width - foto.width) // 2, doek.height - foto.width))
-        buf = io.BytesIO(); doek.resize((160, 160), Image.LANCZOS).save(buf, "WEBP", quality=84)
+        from PIL import Image
+        foto = Image.open(BRON / "adviseur-nick.jpg").convert("RGB").crop((100, 0, 820, 720))   # hoofd, schouders en armen
+        buf = io.BytesIO(); foto.resize((160, 160), Image.LANCZOS).save(buf, "WEBP", quality=84)
         naam = f"nick-gezicht-{hashlib.md5(buf.getvalue()).hexdigest()[:8]}-160.webp"
         (DIST / "static" / "img" / naam).write_bytes(buf.getvalue())
         _ASSETS["gezicht"] = f"/static/img/{naam}"
