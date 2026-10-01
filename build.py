@@ -477,13 +477,14 @@ def video(bestand, poster, alt, kop="Bekijk de video", onderschrift=None):
         _ONTBREKEND.append(bestand if not bronpad.exists() else poster)
         return ""
     uit = DIST / "static" / "video"; uit.mkdir(parents=True, exist_ok=True)
-    shutil.copy(bronpad, uit / bestand)
+    videonaam = f"{bronpad.stem}-{hashlib.md5(bronpad.read_bytes()).hexdigest()[:8]}{bronpad.suffix}"   # /static/ wordt lang gecachet
+    shutil.copy(bronpad, uit / videonaam)
     mime = "video/webm" if bestand.endswith(".webm") else "video/mp4"
     poster_html = beeld(poster, alt, sizes="(min-width: 900px) 66vw, 100vw")
     bijschrift = f"<figcaption>{esc(onderschrift)}</figcaption>" if onderschrift else ""
     return (f'<figure class="video" data-video>'
             f'<button type="button" class="video__start" aria-label="{esc(kop)}">{poster_html}<span class="video__knop">{esc(kop)}</span></button>'
-            f'<video controls preload="none" playsinline hidden width="1600" height="1067"><source src="/static/video/{bestand}" type="{mime}"></video>'
+            f'<video controls preload="none" playsinline hidden width="1600" height="1067"><source src="/static/video/{videonaam}" type="{mime}"></video>'
             f'{bijschrift}</figure>')
 
 XESAR_VIDEO = "rAH27xzXeXI"   # EVVA Xesar, YouTube-kanaal van EVVA (Lars, 27-09-2026; gebruik aangevraagd bij EVVA)
@@ -551,8 +552,9 @@ def xesar_lokaal():
     bron = BRON / XESAR_BESTAND
     if not bron.exists(): return None
     uit = DIST / "static" / "video"; uit.mkdir(parents=True, exist_ok=True)
-    if not (uit / XESAR_BESTAND).exists(): shutil.copy(bron, uit / XESAR_BESTAND)
-    return f"/static/video/{XESAR_BESTAND}"
+    naam = f"{bron.stem}-{hashlib.md5(bron.read_bytes()).hexdigest()[:8]}{bron.suffix}"
+    if not (uit / naam).exists(): shutil.copy(bron, uit / naam)
+    return f"/static/video/{naam}"
 
 def youtube(video_id, titel, ondertitel=""):
     """YouTube op klik: tot de klik wordt niets van YouTube geladen (snel, geen cookies vooraf). Poster en eindscherm in de huisstijl,

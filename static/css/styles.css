@@ -217,7 +217,7 @@ section,.sectie{padding:var(--sectie) 0}
 .kaart__tekst{border-right:var(--lijndikte) solid var(--lijn)}
 .kaart:last-child .kaart__tekst{border-right:0}
 /* de wegen in de scènes lopen door van kaart naar kaart (Lars, 23-09-2026): beeldvakken raken elkaar, scheidingslijn alleen bij de tekst */
-.kaart__beeld{border-bottom:var(--lijndikte) solid var(--lijn);background:var(--paneel);padding:12px 0 0}
+.kaart__beeld{border-bottom:var(--lijndikte) solid var(--lijn);background:var(--paneel)}
 .kaart__beeld .iso{width:100%;height:auto}
 .kaart__tekst{padding:28px 28px 32px;display:flex;flex-direction:column;gap:12px;flex:1}
 .kaart__tekst h3{margin:0}
