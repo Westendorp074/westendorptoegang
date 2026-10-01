@@ -10,6 +10,19 @@ def bouw():
              "wanneer in mag. Raakt iemand zijn pas kwijt, dan blokkeert u die in de software; de deur en het slot blijven zoals ze zijn.")
     foto = beeld("toegangscontrole-lezer.jpg", "Wandlezer naast een kantoordeur", bron="EVVA")
 
+    # het virtuele netwerk in beeld: hoe het systeem door het pand werkt (Lars, 01-10-2026, belangrijk blok)
+    werking = sectie("Zo werkt het systeem door uw hele pand",
+        '<div class="rooster"><div class="k6">'
+        + beeld("virtueel-netwerk-toegangscontrole-kantoor.jpg",
+                "Toegangscontrolesysteem in een kantoorpand: lezers op de deuren, passen die toegangsupdates verspreiden en de beheersoftware met batterijstatus en veiligheidsstatus")
+        + '</div><div class="k6">'
+        + p("Op elke deur die meedoet zit een lezer: op de hoofdingang, de serverruimte, het magazijn of de vergaderzaal. "
+            "In de software geeft u per persoon aan welke deuren open mogen en wanneer; een nieuwe pas is in een minuut uitgegeven en een kwijtgeraakte net zo snel geblokkeerd.",
+            "De passen die rondgaan nemen wijzigingen en blokkeringen mee van deur naar deur — het virtuele netwerk. Zo blijven ook deuren zonder vaste verbinding actueel, "
+            "en ziet u in één scherm de batterijstatus van elk slot, wie er is geweigerd en of alles veilig staat. "
+            "Hoe dit er in de praktijk uitziet, bespreken wij bij de <a href=\"#aanvraag\">inventarisatie</a>.")
+        + "</div></div>", wit=True)
+
     wanneer = sectie("Wanneer loont toegangscontrole", p(
         "Een mechanisch sluitplan werkt prima zolang niemand een sleutel kwijtraakt en de organisatie niet verandert. "
         "In de praktijk ziet het er anders uit. Dit zijn de momenten waarop bedrijven ons bellen:") + lijst([
@@ -76,7 +89,7 @@ def bouw():
          f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Systemen van andere merken nemen wij ook over en breiden wij uit. Deurdrangers en deurautomaten van GU plaatsen en stellen wij zelf af; koppelingen met intercom, alarm of tijdregistratie bekijken wij in overleg."),
     ]
 
-    body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + wanneer + soorten + middelen + deuren + sectoren + aanpak
+    body = hero("Wat is een toegangscontrolesysteem en hoe pakken wij het aan", intro, foto) + werking + wanneer + soorten + middelen + deuren + sectoren + aanpak
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Toegangscontrole", PAD)],
             extra_ld=[service_ld(PAD, "Toegangscontrole", omschrijving)],
             llms="Wat een toegangscontrolesysteem is, wanneer het loont, offline/online/cloud vergeleken, identificatiemiddelen, bestaande deuren, per sector (overheid, zorg, VvE, industrie en logistiek, kantoren, retail, horeca, scholen, verenigingen, recreatieparken) wat past, onze aanpak in vier stappen.")

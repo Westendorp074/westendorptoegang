@@ -459,6 +459,7 @@ video.yt__speler{background:#000;object-fit:cover}
 
 /* schema's in de hero: geen zoomanimatie, niets afsnijden en geen uitloop buiten het scherm (Lars, 01-10-2026) */
 .hero__foto figure.schema img{animation:none;aspect-ratio:auto;object-fit:contain;background:#fff}
+@media (min-width:900px){.hero__foto figure.schema{margin-left:6%;margin-right:-6%}}
 @media (min-width:900px){.hero__foto:has(figure.schema){margin-right:0}}
 
 /* Xesar-systeemcarrousel: groot beeld links, titel en een zin rechts (Lars, 01-10-2026) */
