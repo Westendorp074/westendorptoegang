@@ -349,7 +349,7 @@ textarea{min-height:120px;resize:vertical}
 @media (hover:hover) and (pointer:fine){.xlijn__rij{cursor:grab}}
 .xlijn__rij.sleept{cursor:grabbing;scroll-snap-type:none;user-select:none}
 .xprod{flex:0 0 min(210px,78%);scroll-snap-align:start;background:var(--papier);border:var(--lijndikte) solid var(--lijn);border-radius:10px;padding:16px 16px 18px}
-.xprod__beeld{display:block;width:100%;height:132px;object-fit:cover;color:var(--primair2,#1B68C0);background:linear-gradient(180deg,#EEF4FB,#E3EDF8);border-radius:8px;padding:8px;margin-bottom:12px}
+.xprod__beeld{display:block;width:calc(100% + 32px);height:150px;object-fit:cover;margin:-16px -16px 12px;border-radius:9px 9px 0 0}
 .xprod h5{margin:0 0 6px;font-family:var(--font-kop);font-size:15px;color:var(--kop)}
 .xprod p{margin:0;font-size:14px;line-height:1.5;color:var(--inkt-zacht)}
 .producten__rest .product{display:flex;gap:16px;align-items:flex-start}
@@ -469,3 +469,6 @@ textarea{min-height:120px;resize:vertical}
 @media (max-width:899px){.tweeluik__kaart{min-height:500px}.tweeluik__patroon--links{width:70%}.tweeluik__tekst{padding:0 24px 28px}.tweeluik__patroon--rechts{width:58%;top:0;opacity:.4}}
 
 video.yt__speler{background:#000;object-fit:cover}
+
+/* montagevideo's compacter: niet beeldvullend (Lars, 01-10-2026) */
+.video{max-width:620px}
