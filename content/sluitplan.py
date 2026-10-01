@@ -9,7 +9,7 @@ def bouw():
     intro = ("Een sluitplan legt vast welke sleutel op welke deur past: de directeur overal, de schoonmaak alleen de kantoren, de monteur alleen de techniekruimte. "
              "Mechanisch werkt dat met gecertificeerde cilinders en sleutels die niet zomaar zijn na te maken; elektronisch met passen en software. "
              "Wij ontwerpen en leveren beide, en verzorgen de overstap van het een naar het ander.")
-    foto = beeld("sluitplan-cilinders.jpg", "Doorsnede van een EVVA 4KS-profielcilinder met sleutel", bron="EVVA")
+    foto = beeld("sluitplan-voorbeeld-hoofdsleutel-groepssleutels.jpg", "Voorbeeld van een sluitplan: de hoofdsleutel opent alle deuren, groepssleutels openen een groep deuren en individuele sleutels één cilinder")
 
     mech = sectie("Wanneer is een mechanisch sluitplan nog verstandig", p(
         "Bij weinig deuren, weinig wisselingen en geen behoefte aan logging blijft een mechanisch sluitplan de goedkoopste oplossing. "
