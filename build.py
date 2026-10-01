@@ -299,14 +299,19 @@ def chat_widget():
     geen externe chatdienst, geen tracking, geen cookies. Eigen <style> en <script> zodat de budgetten van
     site.css (40 KB) en site.js (15 KB) onaangetast blijven; de foto's laden pas als het paneel opengaat."""
     # strakke gezichtsuitsnede van Nick voor de widgetkop (uit de bronfoto, alleen hoofd en schouders)
-    gezicht = DIST / "static" / "img" / "nick-gezicht-160.webp"
-    if not gezicht.exists():
-        from PIL import Image, ImageStat, ImageFilter
+    # versiehash in de naam: /static/ wordt lang gecachet, dus een nieuwe uitsnede moet een nieuwe naam krijgen
+    if "gezicht" not in _ASSETS:
+        import io
+        from PIL import Image, ImageStat
         foto = Image.open(BRON / "adviseur-nick.jpg").convert("RGB")
         rand = tuple(int(v) for v in ImageStat.Stat(foto.crop((0, 0, foto.width, 12))).mean)   # kleur van de bovenrand
         doek = Image.new("RGB", (int(foto.width * 1.22), int(foto.width * 1.22)), rand)
         doek.paste(foto.resize((foto.width, foto.width)), ((doek.width - foto.width) // 2, doek.height - foto.width))
-        doek.resize((160, 160), Image.LANCZOS).save(gezicht, "WEBP", quality=84)
+        buf = io.BytesIO(); doek.resize((160, 160), Image.LANCZOS).save(buf, "WEBP", quality=84)
+        naam = f"nick-gezicht-{hashlib.md5(buf.getvalue()).hexdigest()[:8]}-160.webp"
+        (DIST / "static" / "img" / naam).write_bytes(buf.getvalue())
+        _ASSETS["gezicht"] = f"/static/img/{naam}"
+    gezicht = _ASSETS["gezicht"]
     stijl = """<style>
 .wchat{position:fixed;right:18px;bottom:18px;z-index:60;font-family:var(--font)}
 .wchat__knop{position:relative;width:60px;height:60px;border:0;border-radius:50%;background:var(--primair-donker);color:#fff;cursor:pointer;box-shadow:0 10px 28px rgba(2,41,91,.35);display:flex;align-items:center;justify-content:center;transition:transform .15s}
@@ -392,7 +397,7 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
     return (f'<div class="wchat" data-wchat>{stijl}'
             f'<div class="wchat__paneel" id="wchat-paneel" role="dialog" aria-label="Contact opnemen" hidden>'
             f'<div class="wchat__kop"><span class="wchat__fotos">'
-            f'<img src="/static/img/nick-gezicht-160.webp" alt="" width="74" height="74" loading="lazy"></span>'
+            f'<img src="{gezicht}" alt="" width="74" height="74" loading="lazy"></span>'
             f'<div><p class="wchat__naam">Nick — {esc(NAAM)}</p>'
             f'<p class="wchat__statustekst"><i></i><span data-wchat-status>Bereikbaar</span></p></div>'
             f'<button type="button" class="wchat__sluit" aria-label="Sluiten">&#215;</button></div>'
