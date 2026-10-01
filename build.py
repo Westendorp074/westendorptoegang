@@ -659,7 +659,9 @@ def _verwerk(bronpad):
             w2 = min(w, b0); h2 = round(h0 * w2 / b0)
             kopie = im.resize((w2, h2), Image.LANCZOS)
             wp = uit / f"{beeldnaam(bronpad)}-{w}.webp"
-            kopie.save(wp, "WEBP", quality=80, method=6)
+            # schema's met kleine tekst verdragen de standaardcompressie slecht: hogere kwaliteit (Lars, 01-10-2026)
+            tekstbeeld = bronpad.stem.startswith(("sluitplan-voorbeeld", "virtueel-netwerk"))
+            kopie.save(wp, "WEBP", quality=90 if tekstbeeld else 80, method=6)
             av = uit / f"{beeldnaam(bronpad)}-{w}.avif"
             try:
                 kopie.save(av, "AVIF", quality=60)
