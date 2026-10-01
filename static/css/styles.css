@@ -391,7 +391,7 @@ textarea{min-height:120px;resize:vertical}
 .yt{position:relative}
 .yt__eind{position:relative;aspect-ratio:16/9;border-radius:var(--straal);padding:28px 30px;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
   background:radial-gradient(120% 90% at 85% 20%,rgba(73,191,254,.35),transparent 55%),linear-gradient(135deg,#02295B 0%,#0B3A78 55%,#1B68C0 100%)}
-.yt [hidden]{display:none!important}
+.yt [hidden],.video [hidden]{display:none!important}
 .yt__eindtitel{font-family:var(--font-kop);font-size:clamp(22px,3vw,32px);font-weight:700;margin:0 0 6px}
 .yt__eindtekst{margin:0 0 18px;color:rgba(255,255,255,.8);max-width:40ch}
 .yt__eindknoppen{display:flex;flex-wrap:wrap;gap:10px;margin:0}
