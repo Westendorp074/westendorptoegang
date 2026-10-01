@@ -151,7 +151,7 @@ class Scene:
         self.r(x, y - 13, w, 2, "#9FB0C2")
 
     # ---- entree met paslezer en persoon die naar binnen loopt ----
-    def entree(self, x, w=108, h=90, luifel=True, bord=None, huid=0, jas=BLAUW):
+    def entree(self, x, w=108, h=90, luifel=True, bord=None, huid=0, jas=BLAUW, deur="schuif"):
         """Glazen schuifpui onderin een pand: pui die opengaat, lezer met led en een persoon die badget
         en naar binnen loopt (10s-cyclus, klassen in build.STRAAT_CSS)."""
         y = HOR - h
@@ -167,9 +167,15 @@ class Scene:
         self.r(x, y + 4, w, 22, GLAS)
         m = x + w / 2
         self.p(f"M{x + 6} {y + h - 2} l22 -52 l6 0 l-20 52 z", "#DFEBF6", 'opacity=".45"')   # glans, vóór hal en deuren
-        self.r(m - 26, y + 4, 52, h - 4, "#37536F")                 # donkere hal, zichtbaar als de pui opengaat
-        self.d.append(f'<g class="sb-pui-l"><rect x="{m - 26}" y="{y + 4}" width="26" height="{h - 4}" fill="{GLAS_D}" stroke="#E8EEF5" stroke-width="2"/></g>')
-        self.d.append(f'<g class="sb-pui-r"><rect x="{m}" y="{y + 4}" width="26" height="{h - 4}" fill="{GLAS_D}" stroke="#E8EEF5" stroke-width="2"/></g>')
+        self.r(m - 26, y + 4, 52, h - 4, "#37536F")                 # donkere hal, zichtbaar als de deur opengaat
+        if deur == "draai":
+            # gewone draaideur: één blad met raampje en kruk, scharnier links (om en om met de schuifpui, Lars 01-10-2026)
+            self.d.append(f'<g class="sb-draai"><rect x="{m - 26}" y="{y + 4}" width="52" height="{h - 4}" fill="#F6F8FA" stroke="#5F7A99" stroke-width="1.5"/>'
+                          f'<rect x="{m - 16}" y="{y + 12}" width="32" height="{max(18, h * .3):.0f}" rx="2" fill="{GLAS}"/>'
+                          f'<rect x="{m + 12}" y="{y + h / 2:.0f}" width="11" height="3" rx="1.5" fill="#54616E"/></g>')
+        else:
+            self.d.append(f'<g class="sb-pui-l"><rect x="{m - 26}" y="{y + 4}" width="26" height="{h - 4}" fill="{GLAS_D}" stroke="#E8EEF5" stroke-width="2"/></g>')
+            self.d.append(f'<g class="sb-pui-r"><rect x="{m}" y="{y + 4}" width="26" height="{h - 4}" fill="{GLAS_D}" stroke="#E8EEF5" stroke-width="2"/></g>')
         self.r(m - 27, y + 4, 54, h - 4, "none", 0, 'stroke="#5F7A99" stroke-width="1.5"')
         # lezer op zuiltje
         zx = x + w + 26
@@ -394,7 +400,7 @@ def woningcorporatie():
         for wx in (bx + 20, bx + 72, bx + 202, bx + 254):
             sc.d.append(f'<g fill="none" stroke="#54636F" stroke-width="1.6"><path d="M{wx - 3} {by + 24 + j * 56 + 28} h40"/>' +
                         "".join(f'<path d="M{wx + i * 5} {by + 24 + j * 56 + 14} v14"/>' for i in range(0, 9)) + "</g>")
-    sc.entree(bx + 112, 76, 84, luifel=False, huid=2, jas="#C9705F")
+    sc.entree(bx + 112, 76, 84, luifel=False, huid=2, jas="#C9705F", deur="draai")
     sc.d.append(f'<rect x="{bx + 96}" y="{HOR - 62}" width="12" height="26" rx="2" fill="#EDF1F6" stroke="#8595A6" stroke-width="1.2"/>' +
                 "".join(f'<circle cx="{bx + 102}" cy="{HOR - 57 + i * 5}" r="1.6" fill="#8595A6"/>' for i in range(4)))   # bellentableau
     # rechter woonblok, iets lager en lichter
@@ -471,7 +477,7 @@ def onderwijs():
     # kindertekeningen achter een paar ramen
     for wx, wy, kl in ((bx + 26, by + 118, "#E9B93A"), (bx + 118, by + 56, "#3DBE7A"), (bx + 252, by + 118, "#D8342B"), (bx + 302, by + 56, "#8A5BA6")):
         sc.r(wx + 6, wy + 8, 10, 12, kl, 1, 'opacity=".85"'); sc.c(wx + 24, wy + 12, 4, kl, 'opacity=".7"')
-    sc.entree(bx + 136, 88, 86, luifel=True, huid=0, jas="#3F7A52")
+    sc.entree(bx + 136, 88, 86, luifel=True, huid=0, jas="#3F7A52", deur="draai")
     # gymzaaltje rechts
     gy = sc.pand(760, 170, 120, "url(#gevel)", dak="#5A4038", schaduwzijde=False)
     sc.glasband(772, gy + 18, 146, 20)
@@ -546,7 +552,7 @@ def kantoren():
     # laag paviljoen met de entree
     ey = sc.pand(650, 230, 150)
     sc.glasband(662, ey + 18, 206)
-    sc.entree(692, 100, 88, luifel=True, bord="ONTVANGST", huid=2, jas="#37536F")
+    sc.entree(692, 100, 88, luifel=True, bord="ONTVANGST", huid=2, jas="#37536F", deur="draai")
     # laadpaal met elektrische auto voor de deur
     lx = 200
     sc.d.append(f'<ellipse cx="{lx + 5}" cy="{HOR + 34}" rx="7" ry="2.2" fill="{SCHADUW}"/><rect x="{lx}" y="{HOR - 4}" width="11" height="38" rx="2.5" fill="#3F9965"/>'
@@ -645,7 +651,7 @@ def retail():
     # personeelsingang met paslezer, rechts naast het blok
     py2 = sc.pand(720, 150, 150, schaduwzijde=False)
     sc.ramen(734, py2 + 18, 2, 1, 34, 26, 60)
-    sc.entree(742, 70, 74, luifel=False, bord=None, huid=0, jas="#C9705F")
+    sc.entree(742, 70, 74, luifel=False, bord=None, huid=0, jas="#C9705F", deur="draai")
     sc.naambord(777, HOR - 82, "PERSONEEL", grootte=11, spatie=1.5)
     sc.boom(60, 1.0, 0); sc.boom(968, .95, 1)
     sc.lantaarn(196); sc.lantaarn(660); sc.fietsenrek(884, 3)
@@ -706,7 +712,7 @@ def hotel():
     for i, vx in enumerate((bx + 60, bx + 150, bx + 240)):
         sc.vlag(vx, by - 2, 40, ("#8B2D2D", None, "#37536F")[i] if i != 1 else None)
     # luifel over de entree
-    sc.entree(bx + 116, 88, 92, luifel=False, huid=1, jas="#54432F")
+    sc.entree(bx + 116, 88, 92, luifel=False, huid=1, jas="#54432F", deur="draai")
     sc.d.append(f'<path d="M{bx + 96} {HOR - 92} h128 l14 -22 h-156 z" fill="#8B2D2D"/>'
                 f'<path d="M{bx + 96} {HOR - 92} h128 v6 h-128 z" fill="#6E2222"/>' +
                 "".join(f'<path d="M{bx + 100 + i * 18} {HOR - 92} l3 6 h-7 l3 -6 z" fill="#F6E7C8"/>' for i in range(8)) +
@@ -787,7 +793,7 @@ def anders():
     sc.r(bx + 108, my - 6, 66, bh + 6, "url(#gevel)")
     sc.d.append(f'<rect x="{bx + 108}" y="{my - 6}" width="66" height="{bh + 6}" fill="none" stroke="#E1E8F0" stroke-width="1.5"/>')
     sc.naambord(bx + 141, my + 66, "ENTREE", grootte=13, spatie=3)
-    sc.entree(bx + 96, 90, 88, luifel=True, huid=2, jas=BLAUW)
+    sc.entree(bx + 96, 90, 88, luifel=True, huid=2, jas=BLAUW, deur="draai")
     sc.dak_leuning(bx + 4, bw - 8, my - 14)
     # werkplaats met kleine roldeur
     wy = sc.pand(790, 160, 130, dak="#5A4038", schaduwzijde=False)

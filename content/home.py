@@ -27,7 +27,7 @@ def bouw():
     XFOTO = {'cilinder': 'evva-xesar-knopcilinder-vrijstaand.jpg', 'beslag': 'evva-xesar-beslag-vrijstaand.jpg',
              'wandlezer': 'evva-xesar-wandlezer-product.jpg', 'hangslot': 'evva-xesar-hangslot-vrijstaand.jpg',
              'middelen': 'evva-xesar-pas-en-druppel.jpg', 'software': 'evva-xesar-admin-kaart.jpg'}
-    XALT = {'cilinder': 'EVVA Xesar knopcilinder met zwarte leesknop, productfoto', 'beslag': 'EVVA Xesar elektronisch beslag met deurkrukken, productfoto',
+    XALT = {'cilinder': 'EVVA Xesar knopcilinder met zwarte leesknop op een witte deur', 'beslag': 'EVVA Xesar elektronisch langschildbeslag op een witte deur',
             'wandlezer': 'EVVA Xesar wandlezer, productfoto', 'hangslot': 'EVVA Xesar hangslot, productfoto',
             'middelen': 'EVVA Xesar toegangspassen met een zwarte en gele druppel', 'software': 'EVVA Xesar admin-kaart bij de beheersoftware'}
     XITEMS = [('cilinder', 'Elektronische cilinder', 'Past in het bestaande slot. De knop met lezer ontgrendelt na een geldige pas, zonder aanpassing aan de deur.'), ('beslag', 'Elektronisch beslag', 'Kruk en lezer in één schild, voor binnendeuren die veel open en dicht gaan.'), ('wandlezer', 'Wandlezer', 'Naast de deur, voor elektrische sluitplaten, automatische deuren en slagbomen.'), ('hangslot', 'Hangslot', 'Voor hekken, containers en kasten: dezelfde passen en dezelfde rechten als de deuren.'), ('middelen', 'Pas en druppel', 'Eén pas of druppel per gebruiker voor alle Xesar-deuren. Een verloren pas blokkeert u zelf.'), ('software', 'Software en codeerstation', 'Rechten en tijdsloten beheren in de Xesar-software; passen coderen op het codeerstation.')]

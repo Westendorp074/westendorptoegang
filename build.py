@@ -436,6 +436,7 @@ ISO_CSS = """<style>
 .led-deur{fill:#D9362B;animation:sbled 10s var(--tempo,0s) infinite}@keyframes sbled{0%,34%{fill:#D9362B}36%,80%{fill:#3DBE7A}84%,100%{fill:#D9362B}}
 .sb-pui-l{animation:sbpuil 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbpuil{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(-26px)}86%,100%{transform:translateX(0)}}
 .sb-pui-r{animation:sbpuir 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbpuir{0%,42%{transform:translateX(0)}52%,76%{transform:translateX(26px)}86%,100%{transform:translateX(0)}}
+.sb-draai{transform-box:fill-box;transform-origin:0 50%;animation:sbdraai 10s ease-in-out var(--tempo,0s) infinite}@keyframes sbdraai{0%,42%{transform:scaleX(1)}52%,76%{transform:scaleX(.14)}86%,100%{transform:scaleX(1)}}
 .sb-rook{animation:sbrook 3.2s ease-out infinite}.sb-rook-1{animation-delay:-1.1s}.sb-rook-2{animation-delay:-2.2s}@keyframes sbrook{0%{opacity:.7;transform:translate(0,0) scale(.7)}100%{opacity:0;transform:translate(10px,-34px) scale(1.25)}}
 .sb-roldeur{transform-box:fill-box;transform-origin:50% 0;animation:sbroldeur 12s ease-in-out infinite}@keyframes sbroldeur{0%,26%{transform:scaleY(1)}38%,66%{transform:scaleY(.12)}78%,100%{transform:scaleY(1)}}
 .sb-slagboom{transform-box:fill-box;transform-origin:6% 50%;animation:sbslagboom 12s ease-in-out infinite}@keyframes sbslagboom{0%,14%{transform:rotate(0)}24%,58%{transform:rotate(-56deg)}70%,100%{transform:rotate(0)}}
