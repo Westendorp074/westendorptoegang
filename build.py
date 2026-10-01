@@ -523,10 +523,11 @@ def hero_badges():
     zegel_bron = map_ / "pkvw-wit.png"   # officiële witte uitvoering; geen CSS-filter nodig (Lars, 01-10-2026)
     zegel = ""
     if zegel_bron.exists():
-        shutil.copy(zegel_bron, uit / zegel_bron.name)
+        zegelnaam = f"{zegel_bron.stem}-{hashlib.md5(zegel_bron.read_bytes()).hexdigest()[:8]}{zegel_bron.suffix}"   # /static/ wordt lang gecachet
+        shutil.copy(zegel_bron, uit / zegelnaam)
         from PIL import Image
         zb, zh = Image.open(zegel_bron).size
-        zegel = (f'<div class="keurmerk"><img src="/static/img/logo/partners/{zegel_bron.name}" alt="Politiekeurmerk Veilig Wonen, erkend" width="{zb}" height="{zh}">'
+        zegel = (f'<div class="keurmerk"><img src="/static/img/logo/partners/{zegelnaam}" alt="Politiekeurmerk Veilig Wonen, erkend" width="{zb}" height="{zh}">'
                  '</div>')
     tekst = lambda t: (f'<span class="keurbalk__lang">{esc(t.split("|")[0])} </span>{esc(t.split("|")[1].strip())}' if "|" in t else esc(t))
     return zegel   # partnerlogo's niet meer in de hero (Lars, 28-09-2026); PKVW-zegel blijft
