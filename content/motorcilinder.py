@@ -35,6 +35,17 @@ def bouw():
         ("Koppelingen", "Deurdrangers en deurautomaten van GU: ja, door ons afgesteld; intercom, alarm, tijdregistratie of lift: in overleg"),
     ], bijschrift="Specificaties EVVA EMZY motorcilinder") + p(f"Partnerstatus: {esc(m['partner'])}."))
 
+    # twee EVVA-video's: de EMZY zelf en AirKey voor bedrijven (telefoon als sleutel) — Lars, 01-10-2026
+    videos = sectie("Bekijk de EMZY en AirKey in actie",
+        '<div class="kolommen kolommen--2">'
+        + "<div>" + video("evva-emzy-motorcilinder-video.mp4", "evva-emzy-motorcilinder-video-poster.jpg",
+            "Productvideo van de EVVA EMZY motorcilinder", kop="EMZY in 1 minuut",
+            onderschrift="De EMZY motorcilinder in het kort (video: EVVA).") + "</div>"
+        + "<div>" + video("evva-airkey-zakelijk-video.mp4", "evva-airkey-zakelijk-video-poster.jpg",
+            "Video over EVVA AirKey voor bedrijven: de telefoon als sleutel", kop="AirKey voor bedrijven",
+            onderschrift="AirKey: de telefoon als sleutel, ook te combineren met de EMZY (video: EVVA).") + "</div>"
+        + "</div>")
+
     kosten = sectie("Wat kost een motorcilinder", p(
         f"Een EVVA EMZY kost geplaatst {prijs('emzy')}; een gewoon elektronisch slot {prijs('slot')}, {BTW_TEKST}. "
         f"{PRIJS_DISCLAIMER} Meer op <a href=\"/kosten/\">wat kost toegangscontrole</a>."), wit=True)
@@ -47,7 +58,15 @@ def bouw():
         ("Hoe verhoudt de EMZY zich tot een elektrische sluitplaat?", "Een elektrische sluitplaat geeft de dagschoot vrij en heeft een kabel nodig; de deur is dan alleen in de dag. De motorcilinder sluit de nachtschoot en werkt op batterijen. Voor een buitendeur die echt op slot moet, is de motorcilinder de betere keuze."),
     ]
 
-    body = hero("Motorcilinder: de deur die zichzelf op slot draait", intro, foto) + waarom + voorwie + specs + kosten
+    body = hero("Motorcilinder: de deur die zichzelf op slot draait", intro, foto) + waarom + voorwie + specs + videos + kosten
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Motorcilinder", PAD)],
-            extra_ld=[service_ld(PAD, "Motorcilinder EVVA EMZY", omschrijving, merk="EVVA")],
+            extra_ld=[service_ld(PAD, "Motorcilinder EVVA EMZY", omschrijving, merk="EVVA")] + [
+                {"@type": "VideoObject", "@id": SITE + PAD + "#" + naam, "name": kop_, "description": oms_,
+                 "contentUrl": SITE + f"/static/video/{naam}-{hashlib.md5((BRON / (naam + '.mp4')).read_bytes()).hexdigest()[:8]}.mp4",
+                 "thumbnailUrl": SITE + f"/static/img/{beeldnaam(BRON / (naam + '-poster.jpg'))}-800.webp",
+                 "uploadDate": "2026-10-01", "duration": duur_, "inLanguage": "en",
+                 "author": {"@type": "Organization", "name": "EVVA Sicherheitstechnologie"}, "publisher": {"@id": ORG_ID}}
+                for naam, kop_, oms_, duur_ in [
+                    ("evva-emzy-motorcilinder-video", "EVVA EMZY in 1 minuut", "Productvideo van de EVVA EMZY motorcilinder.", "PT1M5S"),
+                    ("evva-airkey-zakelijk-video", "EVVA AirKey voor bedrijven", "De telefoon als sleutel met EVVA AirKey, voor bedrijven.", "PT2M58S")]],
             llms="Motorcilinder EVVA EMZY: wat het is, waarom een motorcilinder, waar wij hem plaatsen, specificatietabel, kosten.")
