@@ -809,6 +809,50 @@ def anders():
     return sc.svg()
 
 
+def horeca():
+    sc = _basis("Tekening van een grand café met terras en een leveranciersingang met paslezer", tempo=8.9)
+    # grand café: baksteen met witte band, brede pui en gestreepte luifel
+    bx, bw, bh = 280, 330, 210; by = sc.pand(bx, bw, bh, "url(#baksteen)", dak="#5A4038")
+    sc.r(bx + bw - 38, by, 38, bh, BAKSTEEN_D)
+    sc.ramen(bx + 22, by + 20, 4, 1, 34, 28, 80, kader=KOZIJN)
+    sc.naambord(bx + bw / 2, by + 86, "GRAND&#160;CAFÉ", vlak="#8B2D2D", tekstkleur="#F6E7C8", grootte=14, spatie=3)
+    sc.r(bx + 14, by + 108, bw - 28, 14, GLAS, 2)                      # bovenlicht van de pui
+    sc.r(bx + 14, by + 126, bw - 28, bh - 126, GLAS_D, 2)              # cafépui
+    for i in range(5):
+        sc.r(bx + 14 + i * ((bw - 28) / 5), by + 108, 2, bh - 108, KOZIJN)
+    sc.p(f"M{bx + 24} {HOR - 4} l20 -48 l6 0 l-18 48 z", "#DFEBF6", 'opacity=".4"')
+    # gestreepte luifel over de hele pui
+    sc.d.append(f'<g><path d="M{bx + 6} {by + 104} h{bw - 12} l12 24 h-{bw + 12} z" fill="#8B2D2D"/>' +
+                "".join(f'<path d="M{bx + 10 + k * 30} {by + 104} l10 24 h-11 l-10 -24 z" fill="#fff" opacity=".5"/>' for k in range(int((bw - 20) / 30))) +
+                f'<path d="M{bx - 6} {by + 128} h{bw + 12} v5 h-{bw + 12} z" fill="#6E2222" opacity=".85"/></g>')
+    # terras: twee parasols met tafeltjes en een stoepbord
+    for tx in (300, 420):
+        sc.d.append(f'<ellipse cx="{tx + 18}" cy="{HOR + 24}" rx="22" ry="3.5" fill="{SCHADUW}"/>'
+                    f'<path d="M{tx - 6} {HOR - 12} q24 -18 48 0 z" fill="#8B2D2D"/><path d="M{tx - 6} {HOR - 12} h48 l-5 4 h-38 z" fill="#6E2222"/>'
+                    f'<rect x="{tx + 16.5}" y="{HOR - 12}" width="3" height="30" fill="#8595A6"/>'
+                    f'<rect x="{tx + 6}" y="{HOR + 8}" width="24" height="4" rx="2" fill="#7A6250"/><rect x="{tx + 16}" y="{HOR + 12}" width="4" height="10" fill="#5F4C3D"/>')
+    sc.d.append(f'<g><path d="M520 {HOR + 30} l7 -26 h14 l7 26" fill="none" stroke="#5F4C3D" stroke-width="2.5"/>'
+                f'<rect x="525" y="{HOR + 6}" width="18" height="20" rx="1.5" fill="#2B3A4A"/>'
+                f'<path d="M528 {HOR + 11} h12 M528 {HOR + 15} h12 M528 {HOR + 19} h8" stroke="#F6E7C8" stroke-width="1.4"/></g>')   # stoepbord
+    # leveranciersingang rechts: eigen deur met paslezer, fusten en kratten
+    ky = sc.pand(690, 180, 130, schaduwzijde=False)
+    sc.glasband(702, ky + 16, 156, 18)
+    sc.entree(716, 76, 78, luifel=True, bord="LEVERANCIERS", huid=3, jas="#8B2D2D", deur="draai")
+    for i, fx in enumerate((660, 676)):                                # bierfusten
+        sc.el(fx + 8, HOR + 2, 10, 2.5, SCHADUW)
+        sc.d.append(f'<rect x="{fx}" y="{HOR - 26}" width="17" height="26" rx="3" fill="#B7C1CB"/>'
+                    f'<rect x="{fx}" y="{HOR - 22}" width="17" height="3" fill="#8595A6"/><rect x="{fx}" y="{HOR - 10}" width="17" height="3" fill="#8595A6"/>')
+    sc.d.append(f'<rect x="648" y="{HOR - 38}" width="22" height="11" rx="1.5" fill="#C9705F"/><rect x="648" y="{HOR - 49}" width="22" height="11" rx="1.5" fill="#3F7A52"/>')  # kratten
+    # buurpand links
+    cy = sc.pand(90, 150, 170, dak="#3A4652", schaduwzijde=False)
+    sc.ramen(104, cy + 20, 2, 2, 34, 28, 56, 60, kader="#E2E8EF")
+    sc.boom(50, 1.0, 1); sc.boom(255, .8, 0); sc.boom(950, 1.05, 2)
+    sc.heg(560, 90); sc.heg(880, 90)
+    sc.lantaarn(590); sc.lantaarn(910)
+    sc.weg(zebra=120)
+    return sc.svg()
+
+
 SECTOREN = {
     "zorg": zorg,
     "woningcorporatie": woningcorporatie,  # was: _nog_niet("Tekening van een woongebouw"),
@@ -817,7 +861,8 @@ SECTOREN = {
     "vve": vve,  # was: _nog_niet("Tekening van een appartementengebouw"),
     "kantoren": kantoren,  # was: _nog_niet("Tekening van een kantoorgebouw"),
     "industrie": industrie,  # was: _nog_niet("Tekening van een bedrijfshal"),
-    "retail": retail,  # was: _nog_niet("Tekening van een winkelstraat"),
+    "retail": retail,
+    "horeca": horeca,  # was: _nog_niet("Tekening van een winkelstraat"),
     "verenigingen": verenigingen,  # was: _nog_niet("Tekening van een sportpark"),
     "hotel": hotel,  # was: _nog_niet("Tekening van een hotel"),
     "recreatie": recreatie,  # was: _nog_niet("Tekening van een vakantiepark"),

@@ -154,6 +154,9 @@ SECTOREN_LIJST = [
     ("retail", "Retail",
      "Winkels, supermarkten, winkelcentra en filiaalbedrijven: wisselend personeel, magazijn en kantoor achter de winkel, en meerdere vestigingen onder één toegangsbeheer. Een toegangspas per medewerker; een verloren pas blokkeert de filiaalmanager zelf.",
      "Elektronisch beslag op magazijn, kantoor en kluisruimte, een lezer op de personeelsingang, beheer per filiaal of centraal vanuit het hoofdkantoor."),
+    ("horeca", "Horeca",
+     "Restaurants, cafés, lunchzaken en cateraars: veel personeelswissels, een kelder of voorraadruimte met dure inkoop en leveranciers die vóór openingstijd binnen moeten. Een pas per medewerker in plaats van een sleutelbos; wie uit dienst gaat, blokkeert u dezelfde dag.",
+     "Elektronisch beslag op kantoor, kelder en voorraadruimte, een lezer op de personeelsingang met een tijdslot voor leveranciers, en beheer door de bedrijfsleider zelf."),
     ("verenigingen", "Sport & Verenigingen",
      "Sportparken, sporthallen, clubhuizen en buurthuizen met vrijwilligers en wisselende gebruikers: tijdsloten voor trainingen, avonden en weekenden, en een toegangspas die u intrekt als iemand stopt. Geen sleutelbos meer bij de kantinevrijwilliger.",
      "Een pas of tag per vrijwilliger met tijdslot, elektronische cilinders op clubhuis, kleedkamers en materiaalhok, beheer door één bestuurslid."),
@@ -861,7 +864,7 @@ def formulier(kort=False, kop="Plan een inventarisatie", intro=None):
 <div class="veld"><label for="f-email">E-mailadres</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-telefoon">Telefoonnummer</label><input id="f-telefoon" name="telefoon" type="tel" autocomplete="tel" inputmode="tel"><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-plaats">Plaats van het pand</label><input id="f-plaats" name="plaats" type="text" autocomplete="address-level2" required><span class="melding" aria-live="polite"></span></div>
-<div class="veld"><label for="f-pand">Type pand</label><select id="f-pand" name="type_pand">{_opties("type_pand", ["Kantoor", "School", "Zorg", "Appartementencomplex", "Vereniging of kerk", "Recreatiepark", "Bedrijfspand of magazijn", "Overheid", "Anders"])}</select></div>
+<div class="veld"><label for="f-pand">Type pand</label><select id="f-pand" name="type_pand">{_opties("type_pand", ["Kantoor", "School", "Zorg", "Appartementencomplex", "Vereniging of kerk", "Horeca", "Recreatiepark", "Bedrijfspand of magazijn", "Overheid", "Anders"])}</select></div>
 <div class="veld"><label for="f-deuren">Aantal deuren</label><select id="f-deuren" name="aantal_deuren">{_opties("aantal_deuren", ["1 tot 5", "6 tot 20", "21 tot 50", "Meer dan 50"])}</select></div>
 <div class="veld"><label for="f-situatie">Huidige situatie</label><select id="f-situatie" name="huidige_situatie">{_opties("huidige_situatie", ["Mechanisch sluitplan", "Losse sloten", "Elektronisch systeem van een ander merk", "Nieuwbouw"])}</select></div>
 <div class="veld breed"><label for="f-toelichting">Toelichting</label><span class="hint" id="f-toelichting-hint">Bijvoorbeeld: welke deuren, wat er nu niet werkt, wanneer u het geregeld wilt hebben.</span><textarea id="f-toelichting" name="toelichting" aria-describedby="f-toelichting-hint"></textarea></div>
