@@ -645,9 +645,9 @@ def _verwerk(bronpad):
                 continue
             w2 = min(w, b0); h2 = round(h0 * w2 / b0)
             kopie = im.resize((w2, h2), Image.LANCZOS)
-            wp = uit / f"{beeldnaam(bronpad.stem)}-{w}.webp"
+            wp = uit / f"{beeldnaam(bronpad)}-{w}.webp"
             kopie.save(wp, "WEBP", quality=80, method=6)
-            av = uit / f"{beeldnaam(bronpad.stem)}-{w}.avif"
+            av = uit / f"{beeldnaam(bronpad)}-{w}.avif"
             try:
                 kopie.save(av, "AVIF", quality=60)
                 if av.stat().st_size > wp.stat().st_size * 0.8:
@@ -659,12 +659,16 @@ def _verwerk(bronpad):
 _BEELDCACHE = {}
 _BEELDEN_PAGINA = []   # (url, alt, onderschrift, breedte, hoogte) van de pagina die nu gebouwd wordt; schrijf() leest en leegt dit
 
-def beeldnaam(stem):
-    """Bestandsnaam voor Google: kleine letters, koppeltekens, geen spaties, cijfers of camera-namen (IMG_1234)."""
+_BEELDHASH = {}
+def beeldnaam(bronpad):
+    """Bestandsnaam voor Google: kleine letters, koppeltekens, plus een korte inhoudshash. /static/ wordt lang
+    gecachet, dus een vervangen foto moet een nieuwe naam krijgen, anders blijven browsers de oude tonen (Lars, 01-10-2026)."""
     import unicodedata
-    n = unicodedata.normalize("NFKD", stem).encode("ascii", "ignore").decode().lower()
-    n = re.sub(r"[^a-z0-9]+", "-", n).strip("-")
-    return n or "foto"
+    n = unicodedata.normalize("NFKD", bronpad.stem).encode("ascii", "ignore").decode().lower()
+    n = re.sub(r"[^a-z0-9]+", "-", n).strip("-") or "foto"
+    if bronpad not in _BEELDHASH:
+        _BEELDHASH[bronpad] = hashlib.md5(bronpad.read_bytes()).hexdigest()[:8]
+    return f"{n}-{_BEELDHASH[bronpad]}"
 
 def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 40vw, 100vw", klas="", bron=None):
     """bron: maker van het beeld voor het schema (standaard Westendorp; fabrikantbeeld: bijv. 'ABUS')."""
@@ -676,7 +680,7 @@ def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 
     if bestand not in _BEELDCACHE:
         _BEELDCACHE[bestand] = _verwerk(bronpad)
     b0, h0, avif_ok = _BEELDCACHE[bestand]
-    stem = beeldnaam(bronpad.stem)
+    stem = beeldnaam(bronpad)
     maten = [w for w in _MATEN if w <= b0 or w == _MATEN[0]]
     w1 = maten[0]; h1 = round(h0 * min(w1, b0) / b0)
     srcset = lambda ext: ", ".join(f"/static/img/{stem}-{w}.{ext} {min(w, b0)}w" for w in maten)

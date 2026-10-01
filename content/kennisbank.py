@@ -229,7 +229,7 @@ ARTIKELEN = [
 def _video_ld(slug, naam, titel, omschrijving, duur):
     pad = f"{PAD}{slug}/"
     return {"@type": "VideoObject", "@id": SITE + pad + "#" + naam, "name": titel, "description": omschrijving,
-            "contentUrl": SITE + f"/static/video/{naam}.mp4", "thumbnailUrl": SITE + f"/static/img/{naam}-poster-800.webp",
+            "contentUrl": SITE + f"/static/video/{naam}.mp4", "thumbnailUrl": SITE + f"/static/img/{beeldnaam(BRON / (naam + '-poster.jpg'))}-800.webp",
             "uploadDate": "2026-10-01", "duration": duur, "inLanguage": "en",
             "author": {"@type": "Organization", "name": "EVVA Sicherheitstechnologie"}, "publisher": {"@id": ORG_ID},
             "isPartOf": {"@id": SITE + pad + "#webpage"}}
