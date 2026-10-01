@@ -165,7 +165,7 @@ section,.sectie{padding:var(--sectie) 0}
 .hero__foto figure img{animation:kenburns 24s ease-in-out infinite alternate;transform-origin:60% 50%}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
 /* PKVW-keurmerk: zegel op de linkeronderhoek van de herofoto, iets gedraaid als echt keurmerk */
-.keurmerk{position:absolute;z-index:4;right:16px;top:14px;display:flex}
+.keurmerk{position:absolute;z-index:4;right:calc(16px + max(0px, (var(--max) - 100vw) / 2));top:14px;display:flex}
 .hero__foto figure .keurmerk img{width:98px;height:auto;aspect-ratio:auto;object-fit:contain;border-radius:0;display:block;
   filter:drop-shadow(0 1px 4px rgba(2,24,48,.28))}
 
