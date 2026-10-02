@@ -546,12 +546,13 @@ def klantenbalk():
     from PIL import Image
     items = []
     for f in bestanden:
-        shutil.copy(f, uit / f.name)
+        hnaam = f"{f.stem}-{hashlib.md5(f.read_bytes()).hexdigest()[:8]}{f.suffix}"   # hash tegen de 1-jaarscache
+        shutil.copy(f, uit / hnaam)
         if f.suffix.lower() == ".svg":
             vb = re.search(r'viewBox="[\d.\s-]*?([\d.]+)\s+([\d.]+)"', f.read_text(encoding="utf-8")); bw, bh = (round(float(vb.group(1))), round(float(vb.group(2)))) if vb else (160, 60)
         else: bw, bh = Image.open(f).size
         naam = f.stem.replace("-", " ").title()
-        items.append(f'<li><img src="/static/img/logo/klanten/{f.name}" alt="{esc(naam)}" width="{bw}" height="{bh}" loading="lazy"></li>')
+        items.append(f'<li><img src="/static/img/logo/klanten/{hnaam}" alt="{esc("Logo " + naam)}" width="{bw}" height="{bh}" loading="lazy"></li>')
     rij = "".join(items)
     return (f'<section class="klanten" aria-label="Organisaties waarvoor wij werken"><div class="wrap"><p class="klanten__kop">Zij gingen u voor</p></div>'
             f'<div class="klanten__band"><ul class="klanten__rij">{rij}</ul><ul class="klanten__rij" aria-hidden="true">{rij}</ul></div></section>')
