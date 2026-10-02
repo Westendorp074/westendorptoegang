@@ -854,11 +854,77 @@ def footer():
 </div></footer>'''
 
 def consent_html():
+    """Cookie-dialoog midden in beeld, naar het voorbeeld van de Slotenspecialist-site (Lars, 02-10-2026):
+    logo + cookie-icoon, tabbladen Toestemming/Details/Over, schuifjes per categorie. Stijl en script inline,
+    net als de chatwidget, zodat de CSS- en JS-budgetten vrij blijven."""
     if not TAG_ACTIEF: return ""
-    return f'''<div class="consent" id="consent" hidden role="region" aria-label="Cookies"><div class="wrap">
-<p>Wij gebruiken cookies van Google om te zien hoe de site wordt gebruikt en of onze advertenties werken. Pas na uw toestemming. Meer in de <a href="/privacy/">privacyverklaring</a>.</p>
-<div class="knoppen"><button type="button" class="knop knop--tweede" data-consent="denied">Weigeren</button><button type="button" class="knop" data-consent="granted">Toestaan</button></div>
+    stijl = '''<style>
+.cmo{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(2,24,48,.55)}
+.cmo[hidden],.cmo [hidden]{display:none!important}
+.cmo__dialoog{background:#fff;border-radius:14px;box-shadow:0 24px 70px rgba(2,24,48,.35);max-width:620px;width:100%;max-height:min(92vh,660px);display:flex;flex-direction:column;overflow:hidden}
+.cmo__kop{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px 14px}
+.cmo__kop img{height:42px;width:auto}
+.cmo__koek{color:var(--primair);flex:none}
+.cmo__tabs{display:flex;border-bottom:var(--lijndikte) solid var(--lijn)}
+.cmo__tabs button{flex:1;background:none;border:0;border-bottom:3px solid transparent;font:inherit;font-family:var(--font-kop);font-weight:700;font-size:15px;color:var(--inkt-zacht);padding:11px 0;cursor:pointer}
+.cmo__tabs button.aan{color:var(--primair);border-bottom-color:var(--primair)}
+.cmo__paneel{padding:18px 24px 6px;overflow:auto}
+.cmo__paneel h2{font-family:var(--font-kop);font-size:18px;color:var(--kop);margin:0 0 8px}
+.cmo__paneel p{margin:0 0 12px;font-size:15px;line-height:1.55;max-width:none}
+.cmo__rij{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;padding:12px 0;border-top:var(--lijndikte) solid var(--lijn)}
+.cmo__rij:first-child{border-top:0}
+.cmo__rij b{display:block;color:var(--kop);font-weight:600}
+.cmo__rij span{font-size:13.5px;color:var(--inkt-zacht);display:block;max-width:44ch}
+.cmo__schakel{position:relative;width:46px;height:26px;flex:none;appearance:none;-webkit-appearance:none;background:var(--lijn-2);border:0;border-radius:999px;cursor:pointer;transition:background .2s;margin:3px 0 0}
+.cmo__schakel::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(2,24,48,.3)}
+.cmo__schakel:checked{background:var(--primair)}
+.cmo__schakel:checked::after{transform:translateX(20px)}
+.cmo__schakel:disabled{background:var(--signaal-licht);cursor:default}
+.cmo__voet{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:16px 24px 20px;border-top:var(--lijndikte) solid var(--lijn)}
+.cmo__stil{background:none;border:0;padding:0;font:inherit;font-size:13.5px;color:var(--inkt-zacht);text-decoration:underline;cursor:pointer}
+.cmo__knoppen{display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:520px){.cmo__kop img{height:32px}.cmo__voet{justify-content:center}.cmo__stil{order:2}}
+</style>'''
+    koek = ('<svg class="cmo__koek" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" '
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 13.1A9 9 0 1 1 10.9 3.2 4 4 0 0 0 15 8a4 4 0 0 0 5.8 5.1z"/>'
+            '<circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="13" cy="14" r="1" fill="currentColor"/>'
+            '<circle cx="8.5" cy="14.8" r="1" fill="currentColor"/></svg>')
+    html = f'''<div class="cmo" id="consent" hidden data-gedeeld><div class="cmo__dialoog" role="dialog" aria-modal="true" aria-label="Cookie-instellingen">
+<div class="cmo__kop"><img src="{_ASSETS["logo_licht"]}" alt="{esc(NAAM)}" width="2053" height="647">{koek}</div>
+<div class="cmo__tabs"><button type="button" class="aan" data-ctab="toestemming">Toestemming</button><button type="button" data-ctab="details">Details</button><button type="button" data-ctab="over">Over</button></div>
+<div class="cmo__paneel" data-cpaneel="toestemming"><h2>{esc(NAAM)} maakt gebruik van cookies</h2>
+<p>Wij gebruiken cookies en vergelijkbare technieken om te zien hoe de site wordt gebruikt en of onze advertenties werken. Noodzakelijke cookies staan altijd aan; de rest pas na uw keuze. Via Aanpassen kiest u per onderdeel. Meer over cookies en persoonsgegevens leest u in de <a href="/privacy/">privacyverklaring</a>.</p></div>
+<div class="cmo__paneel" data-cpaneel="details" hidden>
+<div class="cmo__rij"><div><b>Noodzakelijk</b><span>Voor het werken van de site, zoals het onthouden van deze cookie-keuze. Altijd actief.</span></div><input type="checkbox" class="cmo__schakel" checked disabled aria-label="Noodzakelijke cookies, altijd actief"></div>
+<div class="cmo__rij"><div><b>Statistiek</b><span>Google Analytics: meten welke pagina's worden bezocht, om de site te verbeteren.</span></div><input type="checkbox" class="cmo__schakel" id="c-stat" aria-label="Statistiekcookies"></div>
+<div class="cmo__rij"><div><b>Marketing</b><span>Google Ads: meten of onze advertenties tot een aanvraag of telefoontje leiden.</span></div><input type="checkbox" class="cmo__schakel" id="c-ads" aria-label="Marketingcookies"></div></div>
+<div class="cmo__paneel" data-cpaneel="over" hidden>
+<p>Deze instellingen horen bij westendorptoegang.nl van {esc(NAAM)}, onderdeel van {esc(RECHTSPERSOON)}. U kunt uw keuze altijd wijzigen via Cookie-instellingen onderaan elke pagina.</p>
+<p>Vragen over cookies of persoonsgegevens? Bel <a href="tel:{esc(TEL_LINK)}">{esc(TEL_TONEN)}</a> of mail <a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a>. Zie ook de <a href="/privacy/">privacyverklaring</a>.</p></div>
+<div class="cmo__voet"><button type="button" class="cmo__stil" data-cactie="weiger">Alleen noodzakelijke cookies</button>
+<div class="cmo__knoppen"><button type="button" class="knop knop--tweede" data-cactie="aanpassen">Aanpassen</button><button type="button" class="knop knop--tweede" data-cactie="opslaan" hidden>Selectie opslaan</button><button type="button" class="knop" data-cactie="alles">Alle cookies toestaan</button></div></div>
 </div></div>'''
+    script = '''<script>(function(){var w=document.getElementById('consent');if(!w)return;
+function lees(){try{return localStorage.getItem('consent')}catch(e){return null}}
+function bewaar(v){try{localStorage.setItem('consent',v)}catch(e){}}
+function update(st,ad){if(typeof gtag!=='function')return;gtag('consent','update',{analytics_storage:st?'granted':'denied',ad_storage:ad?'granted':'denied',ad_user_data:ad?'granted':'denied',ad_personalization:ad?'granted':'denied'})}
+var sStat=w.querySelector('#c-stat'),sAds=w.querySelector('#c-ads');
+var k=lees();if(k==='granted')update(1,1);else if(k==='stat')update(1,0);else if(k==='ads')update(0,1);
+if(!k)w.hidden=false;
+var ts=w.querySelectorAll('[data-ctab]'),ps=w.querySelectorAll('[data-cpaneel]');
+ts.forEach(function(t){t.addEventListener('click',function(){
+ts.forEach(function(x){x.classList.toggle('aan',x===t)});
+ps.forEach(function(p){p.hidden=p.getAttribute('data-cpaneel')!==t.getAttribute('data-ctab')});
+var det=t.getAttribute('data-ctab')==='details';
+w.querySelector('[data-cactie="aanpassen"]').hidden=det;w.querySelector('[data-cactie="opslaan"]').hidden=!det;})});
+function kies(v,st,ad){bewaar(v);update(st,ad);w.hidden=true}
+w.querySelector('[data-cactie="alles"]').addEventListener('click',function(){sStat.checked=sAds.checked=true;kies('granted',1,1)});
+w.querySelector('[data-cactie="weiger"]').addEventListener('click',function(){sStat.checked=sAds.checked=false;kies('denied',0,0)});
+w.querySelector('[data-cactie="aanpassen"]').addEventListener('click',function(){w.querySelector('[data-ctab="details"]').click()});
+w.querySelector('[data-cactie="opslaan"]').addEventListener('click',function(){var s=sStat.checked?1:0,a=sAds.checked?1:0;kies(s&&a?'granted':s?'stat':a?'ads':'denied',s,a)});
+document.querySelectorAll('[data-consent-open]').forEach(function(b){b.addEventListener('click',function(){var k=lees();sStat.checked=k==='granted'||k==='stat';sAds.checked=k==='granted'||k==='ads';w.querySelector('[data-ctab="toestemming"]').click();w.hidden=false})});
+})();</script>'''
+    return stijl + html + script
 
 def tag_html():
     if not TAG_ACTIEF: return ""
@@ -1002,6 +1068,8 @@ def assets():
         logo_bron, icoon_bron = lb / "logo-zwarte-achtergrond.svg", lb / "icoon-zwarte-achtergrond.svg"
     # versiehash in de bestandsnaam: /static/ wordt een jaar gecachet, dus een nieuw logo moet een nieuwe naam krijgen
     _ASSETS["logo"] = f"/static/img/logo/logo.{versie(logo_bron)}.svg"; shutil.copy(logo_bron, DIST / _ASSETS["logo"].lstrip("/"))
+    licht_bron = lb / "logo-standaard.svg"   # variant voor lichte achtergrond: cookie-dialoog
+    _ASSETS["logo_licht"] = f"/static/img/logo/logo-licht.{versie(licht_bron)}.svg"; shutil.copy(licht_bron, DIST / _ASSETS["logo_licht"].lstrip("/"))
     _ASSETS["icoon"] = f"/static/img/logo/icoon.{versie(icoon_bron)}.svg"; shutil.copy(icoon_bron, DIST / _ASSETS["icoon"].lstrip("/"))
     for extra in ["favicon.ico", "favicon.svg", "favicon-16x16.png", "favicon-32x32.png", "apple-touch-icon.png", "android-chrome-192x192.png", "android-chrome-512x512.png"]:
         shutil.copy(STATIC / "img" / "logo" / "favicon" / extra, DIST / extra)          # favicon-set uit het logopakket, in de hoofdmap

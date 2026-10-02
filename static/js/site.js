@@ -6,31 +6,9 @@
   d.documentElement.classList.add('js');
   var C = window.WT_CONFIG || {};   // uit build.py: {tagActief, web3formsKey, adsLabelForm, adsLabelTel}
 
-  // ---------- Toestemming (Consent Mode v2) ----------
-  // De Google-tag staat alleen in de pagina als er een ID in CONFIG staat. Zonder tag: geen balk, niets meten.
+  // ---------- Toestemming: de cookie-dialoog regelt zichzelf (inline script bij de html); hier alleen lezen ----------
   var heeftTag = typeof window.gtag === 'function';
-  var balk = d.getElementById('consent');
   function lees() { try { return localStorage.getItem('consent'); } catch (e) { return null; } }
-  function bewaar(v) { try { localStorage.setItem('consent', v); } catch (e) {} }
-  function zetConsent(v) {
-    if (!heeftTag) return;
-    var s = v === 'granted' ? 'granted' : 'denied';
-    gtag('consent', 'update', { ad_storage: s, ad_user_data: s, ad_personalization: s, analytics_storage: s });
-  }
-  function toonBalk() { if (balk) { balk.hidden = false; } }
-  function verbergBalk() { if (balk) { balk.hidden = true; } }
-  if (heeftTag && balk) {
-    var keuze = lees();
-    if (keuze === 'granted') zetConsent('granted');
-    if (!keuze) toonBalk();
-    balk.querySelectorAll('[data-consent]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var v = b.getAttribute('data-consent');
-        bewaar(v); zetConsent(v); verbergBalk();
-      });
-    });
-    d.querySelectorAll('[data-consent-open]').forEach(function (b) { b.addEventListener('click', toonBalk); });
-  }
   function mag() { return heeftTag && lees() === 'granted'; }
   function meet(naam, params) { if (mag()) { try { gtag('event', naam, params || {}); } catch (e) {} } }
 

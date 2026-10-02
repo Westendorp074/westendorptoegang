@@ -392,13 +392,6 @@ textarea{min-height:120px;resize:vertical}
 .voet .onderdeel p{margin:0 0 6px}
 .voet button{background:none;border:0;padding:0;font:inherit;color:var(--inkt);text-decoration:underline;cursor:pointer}
 
-/* ---------- consent ---------- */
-.consent{position:fixed;left:0;right:0;bottom:0;background:var(--paneel);border-top:var(--lijndikte) solid var(--lijn-2);padding:16px 0;z-index:60}
-.consent .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
-.consent p{margin:0;max-width:60ch;font-size:.95em}
-.consent .knoppen{display:flex;gap:8px;flex-wrap:wrap}
-.consent .knop{padding:10px 16px}
-
 /* ---------- bedankt, meta ---------- */
 .bevestigd{border-left:4px solid var(--signaal);padding:8px 0 8px 20px}
 .laatst{color:var(--inkt-zacht);font-size:.92em}
