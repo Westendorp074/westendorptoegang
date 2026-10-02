@@ -33,10 +33,10 @@ def bouw():
          "Xesar-tablet", "Met de Xesar-tablet configureren en onderhouden wij de deurcomponenten draadloos, zonder kabels door het pand."),
         ("evva-xesar-online-wandlezer.jpg", "EVVA Xesar online wandlezer met groene led",
          "Online wandlezer", "Biedt realtime inzicht, opent op afstand en verspreidt blokkeringen direct door het gebouw."),
-        ("schema:virtueel-netwerk-schema", "Schema van het virtuele netwerk: een uitgegeven pas neemt toegangsupdates mee van deur naar deur door het pand, een geblokkeerde pas wordt bij de serverruimte geweigerd en de beheersoftware toont de status van alle deuren",
-         "Virtueel netwerk", "De passen die in omloop zijn nemen updates en blokkeringen mee van deur naar deur; zo blijft ook een offline deur actueel."),
         ("evva-xesar-software.jpg", "De Xesar-beheersoftware op een beeldscherm",
          "Xesar-software", "Alle rechten, tijdsloten en deuren in \u00e9\u00e9n overzichtelijk beheer; wij richten de software in en dragen hem aan u over."),
+        ("schema:virtueel-netwerk-schema", "Schema van het virtuele netwerk: een uitgegeven pas neemt toegangsupdates mee van deur naar deur door het pand, een geblokkeerde pas wordt bij de serverruimte geweigerd en de beheersoftware toont de status van alle deuren",
+         "Virtueel netwerk", "De passen die in omloop zijn nemen updates en blokkeringen mee van deur naar deur; zo blijft ook een offline deur actueel."),
     ]
     # ---- wat we plaatsen: vier producten uitgelicht, Xesar groot met video (Lars, 27-09-2026) ----
     magtec = beeld("magtec-cilinder-voorkant.jpg", "ABUS Magtec-profielcilinder, vooraanzicht", sizes="140px", klas="product__beeld", bron="ABUS")
