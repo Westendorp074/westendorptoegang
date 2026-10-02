@@ -112,7 +112,7 @@ def bouw():
     # ---- FAQ ----
     faq = [
         ("Wat kost toegangscontrole per deur?",
-         f"Een elektronisch slot kost geplaatst {prijs('slot')} per deur, {BTW_TEKST}. De uiteindelijke prijs hangt af van het deurtype en of de deur online of offline moet werken. "
+         f"Een elektronisch slot (smart lock) kost geplaatst {prijs('slot')}, {BTW_TEKST}. De uiteindelijke prijs hangt af van het merk, het deurtype en of de deur online of offline moet werken. "
          f"De inventarisatie op locatie is gratis. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Kan toegangscontrole op bestaande deuren?",
          "Ja. Op de meeste deuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur en het kozijn blijven. "

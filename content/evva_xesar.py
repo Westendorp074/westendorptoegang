@@ -41,7 +41,7 @@ def bouw():
         ("Identificatie", "Pas, tag, telefoon"),
         ("Beheer", "Beheersoftware op eigen server of pc; passen bijwerken via updater of programmeerstation; online deuren direct"),
         ("Offline / online", "Beide, in één systeem"),
-        ("Voeding", "Batterij in cilinder en beslag; wandlezer op netvoeding"),
+        ("Voeding", "Batterij in cilinder en beslag; beslag ook leverbaar op netvoeding; wandlezer op netvoeding"),
         ("Deurtypes", "Hout, staal, aluminium en kunststof profiel; brandwerende deuren met gecertificeerde uitvoering"),
         ("Certificering", "SKG-gecertificeerd hang- en sluitwerk; EN 1634 (brandwerend) en EN 179 (nooduitgangen) waar van toepassing"),
         ("Uitbreidbaarheid", "Per deur, zonder de bestaande deuren aan te passen"),
@@ -49,7 +49,7 @@ def bouw():
     ], bijschrift="Specificaties EVVA Xesar"), wit=True)
 
     kosten = sectie("Wat kost een Xesar-traject", p(
-        f"Een elektronisch slot kost geplaatst {prijs('slot')}, {BTW_TEKST}; een Xesar-cilinder of -beslag {prijs('cilinder_xesar')}. "
+        f"De prijs van een Xesar-cilinder of -beslag is geplaatst {prijs('cilinder_xesar')}: hij hangt af van het deurtype, de uitvoering en het aantal deuren, {BTW_TEKST}. "
         f"Daar komt de beheersoftware bij. {PRIJS_DISCLAIMER} Rekenvoorbeelden voor een klein kantoor, een school en een zorglocatie staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."))
 
     faq = [

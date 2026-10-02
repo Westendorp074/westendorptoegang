@@ -84,7 +84,7 @@ def bouw():
         ("Kan ik rechten zelf beheren?",
          f"Ja. Na de installatie kunt u zelf passen uitgeven, blokkeren en tijdsloten instellen. Wilt u het liever uit handen geven, dan beheren wij het voor u."),
         ("Wat kost een toegangscontrolesysteem?",
-         f"Dat hangt af van het aantal deuren, het deurtype en of de deur offline of online moet zijn. Een elektronisch slot kost geplaatst {prijs('slot')}, {BTW_TEKST}. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+         f"Dat hangt af van het aantal deuren, het deurtype en of de deur offline of online moet zijn. Een elektronisch slot (smart lock) kost geplaatst {prijs('slot')}, {BTW_TEKST}. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Kunnen jullie een bestaand systeem van een ander merk uitbreiden?",
          f"Bestaande Salto-systemen onderhouden en breiden wij uit; zie <a href=\"/salto/\">Salto onderhoud</a>. Systemen van andere merken nemen wij ook over en breiden wij uit. Deurdrangers en deurautomaten van GU plaatsen en stellen wij zelf af; koppelingen met intercom, alarm of tijdregistratie bekijken wij in overleg."),
     ]

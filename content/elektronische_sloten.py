@@ -12,7 +12,7 @@ def bouw():
     foto = beeld("elektronisch-beslag.jpg", "Elektronisch beslag op een houten binnendeur", bron="EVVA")
 
     soorten = sectie("De vier soorten elektronische sloten", '<div class="kolommen kolommen--2">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
-        ("Elektronisch beslag", "De deurkruk met lezer erin. Buiten draait de kruk pas mee na een geldige pas, binnen altijd. Op batterijen, geen kabel. De standaardkeuze voor binnendeuren in kantoren, scholen en zorg."),
+        ("Elektronisch beslag", "De deurkruk met lezer erin. Buiten draait de kruk pas mee na een geldige pas, binnen altijd. Op batterijen, geen kabel nodig; ook leverbaar op netvoeding. De standaardkeuze voor binnendeuren in kantoren, scholen en zorg."),
         ("Elektronische cilinder", "Vervangt de mechanische cilinder in het bestaande slot; de rest van de deur blijft. Op batterijen. Geschikt als het beslag moet blijven, bij smalle deuren of bij kasten en hekken met een cilinderslot."),
         ("Motorcilinder", "Een cilinder met een motor die de nachtschoot zelf uitdraait en intrekt. De deur gaat dus echt op slot, niet alleen in de dag. Voor buitendeuren, vluchtdeuren en deuren die op afstand moeten openen. Zie <a href=\"/motorcilinder/\">motorcilinder</a>."),
         ("Wandlezer met elektrische sluitplaat", "De lezer zit naast de deur, de sluitplaat in het kozijn. Bekabeld en online: de receptie kan de deur op afstand openen en elke passage is direct zichtbaar. Voor entrees, slagbomen van derden en deuren met deurautomaat."),
@@ -29,7 +29,7 @@ def bouw():
         + p("Twijfelt u over een deur? Stuur een foto mee in het formulier onderaan, dan zeggen wij vooraf wat erop past."), wit=True)
 
     specs = sectie("Specificaties per soort", tabel([
-        ("Voeding", "Batterij", "Batterij", "Batterij, optioneel netvoeding", "Netvoeding (bekabeld)"),
+        ("Voeding", "Batterij, optioneel netvoeding", "Batterij", "Batterij, optioneel netvoeding", "Netvoeding (bekabeld)"),
         ("Verbinding", "Offline of draadloos online", "Offline of draadloos online", "Offline of online", "Online"),
         ("Vergrendeling", "Kruk buiten vrijloop, dagschoot", "Cilinder blokkeert", "Nachtschoot motorisch", "Sluitplaat geeft deur vrij"),
         ("Op afstand openen", "Alleen online-uitvoering", "Alleen online-uitvoering", "Ja", "Ja"),
