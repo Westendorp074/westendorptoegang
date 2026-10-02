@@ -788,7 +788,7 @@ DIENSTEN_NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Elektronische slot
                 ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"), ("Sluitplan", "/sluitplan/"),
                 ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/")]
 NAV = [("Toegangscontrole", "/toegangscontrole/"), ("Sectoren", "/toegangscontrole/#sectoren"), ("Elektronische sloten", "/elektronische-sloten/"),
-       ("Sluitplan", "/sluitplan/"), ("Kennisbank", "/kennisbank/"), ("Over ons", "/over-ons/"), ("Contact", "/contact/")]   # Kosten en Service in het uitklapmenu (Lars, 23-09-2026)
+       ("Sluitplan", "/sluitplan/"), ("Projecten", "/projecten/"), ("Kennisbank", "/kennisbank/"), ("Over ons", "/over-ons/"), ("Contact", "/contact/")]   # Kosten en Service in het uitklapmenu (Lars, 23-09-2026); Projecten vast bovenaan (Lars, 02-10-2026)
 SUBNAV = {"/over-ons/": [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaamheid/"), ("Beveiliging en certificaten", "/over-ons/#beveiliging")],
           "/toegangscontrole/": [("Wat is toegangscontrole", "/toegangscontrole/"), ("EVVA Xesar", "/evva-xesar/"), ("Motorcilinder", "/motorcilinder/"),
                                  ("Service en beheer", "/service-en-beheer/"), ("Salto onderhoud", "/salto/"), ("Wat kost het", "/kosten/")],
@@ -1050,7 +1050,7 @@ def sitemap_robots_llms():
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")
 
 CONTENT = ["home", "toegangscontrole", "elektronische_sloten", "evva_xesar", "motorcilinder", "sluitplan", "service_en_beheer",
-           "salto", "kosten", "kennisbank", "duurzaamheid", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
+           "salto", "kosten", "projecten", "kennisbank", "duurzaamheid", "werkgebied", "over_ons", "contact", "bedankt", "privacy"]   # volgorde = volgorde in llms.txt
 
 def main():
     assets()

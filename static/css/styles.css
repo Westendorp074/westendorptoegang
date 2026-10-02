@@ -485,6 +485,11 @@ tbody tr:hover>td,tbody tr:hover>th{background:rgba(27,104,192,.04)}
 /* focus op donkere vlakken in het lichtblauw, anders onzichtbaar */
 .herkenpaneel :focus-visible,.tweeluik__kaart :focus-visible,.yt :focus-visible{outline-color:var(--accent)}
 
+/* projectkaarten: foto tot de kaartrand, label met sector en plaats (Lars, 02-10-2026) */
+.projectkaart figure{margin:-28px -28px 18px}
+.projectkaart figure img{border-radius:var(--straal) var(--straal) 0 0}
+.projectkaart__meer{margin:16px 0 0}
+
 /* Xesar-systeemcarrousel: groot beeld links, titel en een zin rechts (Lars, 01-10-2026) */
 .xsys .xdia{flex:0 0 100%;scroll-snap-align:start;display:grid;gap:16px;align-items:center}
 @media (min-width:700px){.xsys .xdia{grid-template-columns:4fr 3fr;gap:26px}}
