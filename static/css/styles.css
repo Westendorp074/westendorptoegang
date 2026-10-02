@@ -420,7 +420,7 @@ textarea{min-height:120px;resize:vertical}
 .klanten:hover .klanten__band{animation-play-state:paused}
 .klanten__rij{display:flex;align-items:center;gap:64px;margin:0;padding:0 32px;list-style:none}
 .klanten__rij li{margin:0}
-.klanten__rij img{height:40px;width:auto;max-width:170px;object-fit:contain;aspect-ratio:auto;border-radius:0;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
+.klanten__rij img{height:58px;width:auto;max-width:240px;object-fit:contain;aspect-ratio:auto;border-radius:0;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
 .klanten__rij img:hover{filter:none;opacity:1}
 @keyframes klanten{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.klanten__band{animation:none;flex-wrap:wrap}}
