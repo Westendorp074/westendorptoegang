@@ -129,6 +129,17 @@
     blokken.forEach(function (b) { io.observe(b); });
   }
 
+  // ---------- Doorlopende animaties (logoslider, kenburns, afspeelknop) pauzeren buiten beeld ----------
+  if ('IntersectionObserver' in window) {
+    var zwaar = d.querySelectorAll('.klanten,.hero__foto,.yt');
+    if (zwaar.length) {
+      var pio = new IntersectionObserver(function (items) {
+        items.forEach(function (it) { it.target.classList.toggle('pauze', !it.isIntersecting); });
+      });
+      zwaar.forEach(function (z) { pio.observe(z); });
+    }
+  }
+
   // ---------- Horizontale rij (sectoren): pijlen scrollen één kaart ----------
   d.querySelectorAll('[data-rij-scroll]').forEach(function (rij) {
     var sectie = rij.closest('[data-rij-groep]') || rij.closest('section'), knoppen = sectie.querySelectorAll('[data-rij]');

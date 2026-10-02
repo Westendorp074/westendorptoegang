@@ -44,13 +44,12 @@ hr{border:0;border-top:var(--lijndikte) solid var(--lijn);margin:0}
 .rooster{display:grid;grid-template-columns:1fr;gap:24px}
 @media (min-width:900px){
   .rooster{grid-template-columns:repeat(12,1fr);gap:32px}
-  .k8{grid-column:span 8}.k7{grid-column:span 7}.k6{grid-column:span 6}.k5{grid-column:span 5}.k4{grid-column:span 4}.k3{grid-column:span 3}.k12{grid-column:span 12}
+  .k8{grid-column:span 8}.k7{grid-column:span 7}.k6{grid-column:span 6}.k5{grid-column:span 5}.k4{grid-column:span 4}.k3{grid-column:span 3}
 }
 .tekst{max-width:var(--meet)}
 section,.sectie{padding:var(--sectie) 0}
 @media (min-width:900px){section,.sectie{padding:104px 0}}
 .sectie--wit{background:var(--paneel);border-top:var(--lijndikte) solid var(--lijn);border-bottom:var(--lijndikte) solid var(--lijn)}
-.sectie--lijn{border-top:var(--lijndikte) solid var(--lijn)}
 .sectie--wit .kolommen>div,.sectie--wit .stappen li,.sectie--wit .paneel,.sectie--wit .faq,.sectie--wit table{background:#F6F8FA}   /* kaarten vallen niet weg op wit */
 /* "Herkent u dit?": compacte tegels met icoon (Lars, 23-09-2026) */
 /* "Herkent u dit?": één donker checklist-paneel — probleem doorgestreept, oplossing eronder (ontwerp B, Lars 28-09-2026) */
@@ -81,7 +80,6 @@ section,.sectie{padding:var(--sectie) 0}
 /* groene accenten: alleen het duurzaamheidsblok en de Magtec-pagina */
 .sectie--groen{background:#F1F8F3;border-top:var(--lijndikte) solid #D6E9DC;border-bottom:var(--lijndikte) solid #D6E9DC}
 .sectie--groen .label{color:var(--signaal)}
-.kolommen--groen>div{border-top:3px solid var(--signaal-licht)}
 .feitenpaneel--groen dt{color:var(--signaal)}
 .feitenpaneel--groen div{border-top:3px solid var(--signaal-licht)}
 .galerij>div{padding:12px}
@@ -115,7 +113,7 @@ section,.sectie{padding:var(--sectie) 0}
 .nav .heeft-sub{position:relative}
 .nav .heeft-sub>a{display:inline-flex;align-items:center;gap:5px}   /* pijltje rechts naast de tekst */
 .nav .heeft-sub>a svg{flex:none}
-.nav .sub{display:none;position:absolute;top:100%;left:-16px;min-width:230px;flex-direction:column;gap:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:8px 0;box-shadow:0 12px 28px rgba(20,35,46,.12);z-index:60}
+.nav .sub{display:none;position:absolute;top:100%;left:-16px;min-width:230px;flex-direction:column;gap:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:8px 0;box-shadow:var(--schaduw);z-index:60}
 .nav .sub a{display:block;padding:9px 16px;border:0;color:var(--kop)}
 .nav .sub a:hover{background:var(--papier);color:var(--primair)}
 .nav .heeft-sub:hover>.sub,.nav .heeft-sub:focus-within>.sub{display:flex}
@@ -157,15 +155,14 @@ section,.sectie{padding:var(--sectie) 0}
 .hero .intro{margin-top:20px}
 .hero__rechts .iso{width:100%;height:auto}
 .hero__rechts figure img{aspect-ratio:3/2;border-radius:var(--straal)}
-.hero__illustratie{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:16px}
 /* hero met foto (Lars, 23-09-2026): schuine snede, lichtblauw vlak erachter dat iets gekanteld is, bijschrift als zwevend kaartje met groene led */
 .hero--foto{overflow:hidden}
 .hero__foto{position:relative}
 .hero__foto figure{overflow:hidden}
 .hero__foto figure img{animation:kenburns 24s ease-in-out infinite alternate;transform-origin:60% 50%}
-@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.04)}}
 /* PKVW-keurmerk: zegel op de linkeronderhoek van de herofoto, iets gedraaid als echt keurmerk */
-.keurmerk{position:absolute;z-index:4;right:calc(16px + max(0px, (var(--max) - 100vw) / 2));top:14px;display:flex;background:#fff;border-radius:12px;padding:9px 11px;box-shadow:0 10px 26px rgba(2,24,48,.22)}
+.keurmerk{position:absolute;z-index:4;right:calc(16px + max(0px, (var(--max) - 100vw) / 2));top:14px;display:flex;background:#fff;border-radius:12px;padding:9px 11px;box-shadow:var(--schaduw)}
 .hero__foto figure .keurmerk img{width:88px;height:auto;aspect-ratio:auto;object-fit:contain;border-radius:0;display:block}
 
 @media (max-width:899px){.keurmerk{right:10px;top:10px;padding:6px 8px;border-radius:9px}.hero__foto figure .keurmerk img{width:56px}}
@@ -187,30 +184,24 @@ section,.sectie{padding:var(--sectie) 0}
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .js .reveal.in{opacity:1;transform:none}
 .hero .led{animation:none}   /* hero krijgt een echte foto; geen animatie daar (Lars, 22-09-2026) */
-/* sectorscènes: één bewegend element per scène; pauze zolang de sectie niet in beeld is */
-.anim-vlag{animation:wapperen 1.4s ease-in-out infinite alternate}
-.anim-water{animation:water 3s ease-in-out infinite}
-.anim-bal{animation:bal 2.2s ease-in-out infinite alternate}
-.anim-auto-y{animation:rijden-y 9s linear infinite 2s}
-@keyframes rijden-y{0%{transform:translate(58px,-34px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translate(-58px,34px);opacity:0}}
-.anim-licht{animation:licht 9s ease-in-out infinite}
-.anim-kraan{animation:kraan 14s ease-in-out infinite alternate}
-.reveal:not(.in) [class^="anim-"],.reveal:not(.in) [class*=" anim-"]{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none}.led{animation:none}}
+/* animaties gaan echt uit zodra het blok uit beeld is (klasse via IntersectionObserver in site.js) */
+.pauze *,.pauze ::before,.pauze ::after{animation-play-state:paused!important}
 
 /* ---------- sectorrij (horizontaal scrollend, zoals Salto) ---------- */
 .rij-kop{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:28px}
 .rij-knoppen{display:flex;gap:12px;margin-top:20px}
-.rij-knoppen button{width:48px;height:48px;border-radius:50%;border:0;background:#E6E6E9;cursor:pointer;color:var(--kop);display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
-.rij-knoppen button:hover{background:#D9D9DD}
-.rij-knoppen button[disabled]{background:#EFEFF1;color:#B8B8BD;cursor:default}
+.rij-knoppen button{width:48px;height:48px;border-radius:50%;border:var(--lijndikte) solid var(--lijn-2);background:var(--paneel);cursor:pointer;color:var(--kop);display:inline-flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,color .2s,transform .15s}
+.rij-knoppen button:hover{border-color:var(--primair);color:var(--primair)}
+.rij-knoppen button:active{transform:scale(.94)}
+.rij-knoppen button[disabled]{background:var(--papier);color:var(--lijn-2);border-color:var(--lijn);cursor:default}
 .rij{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);background:var(--paneel)}
 .rij::-webkit-scrollbar{height:8px}
 @media (hover:hover) and (pointer:fine){.rij{cursor:grab}.rij a,.rij button{cursor:pointer}}
 .rij.sleept{cursor:grabbing;scroll-snap-type:none;user-select:none}
 .rij img{-webkit-user-drag:none;user-select:none}
 .rij::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:4px}
-.kaart{flex:0 0 86%;scroll-snap-align:start;display:flex;flex-direction:column}
+.kaart{flex:0 0 86%;scroll-snap-align:start;display:flex;flex-direction:column;content-visibility:auto;contain-intrinsic-size:420px 560px}
 @media (min-width:700px){.kaart{flex-basis:44%}}
 @media (min-width:1100px){.kaart{flex-basis:33.333%}}
 .kaart__tekst{border-right:var(--lijndikte) solid var(--lijn)}
@@ -237,7 +228,7 @@ figcaption{font-size:.9em;color:var(--inkt-zacht);padding-top:8px}
 
 /* ---------- kolommen, stappen, tabellen, lijsten ---------- */
 .kolommen{display:grid;gap:24px}
-@media (min-width:700px){.kolommen--2{grid-template-columns:1fr 1fr}.kolommen--3{grid-template-columns:repeat(3,1fr)}.kolommen--4{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:700px){.kolommen--2{grid-template-columns:1fr 1fr}.kolommen--3{grid-template-columns:repeat(3,1fr)}}
 .kolommen>div{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}
 .kolommen h3{margin-top:0}
 .kolommen p:last-child{margin-bottom:0}
@@ -345,7 +336,7 @@ textarea{min-height:120px;resize:vertical}
 .yt__start,.yt__speler{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:var(--straal)}
 .yt__start{position:relative;overflow:hidden;cursor:pointer;text-align:left;padding:28px 30px;color:#fff;
   background:radial-gradient(120% 90% at 85% 20%,rgba(73,191,254,.35),transparent 55%),linear-gradient(135deg,#02295B 0%,#0B3A78 55%,#1B68C0 100%);
-  box-shadow:0 18px 40px rgba(2,41,91,.22)}
+  box-shadow:var(--schaduw)}
 .yt__start::after{content:none}
 .yt__watermerk{position:absolute;right:-6%;top:50%;height:130%;width:auto;max-width:none;transform:translateY(-50%);filter:brightness(0) invert(1);opacity:.07;pointer-events:none;aspect-ratio:auto!important;border-radius:0!important}
 .yt__logo,.yt__merk,.yt__titel,.yt__sub,.yt__eind>p{position:relative}
@@ -420,8 +411,8 @@ textarea{min-height:120px;resize:vertical}
 .klanten:hover .klanten__band{animation-play-state:paused}
 .klanten__rij{display:flex;align-items:center;gap:64px;margin:0;padding:0 32px;list-style:none}
 .klanten__rij li{margin:0}
-.klanten__rij img{height:58px;width:auto;max-width:240px;object-fit:contain;aspect-ratio:auto;border-radius:0;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
-.klanten__rij img:hover{filter:none;opacity:1}
+.klanten__rij img{height:58px;width:auto;max-width:240px;object-fit:contain;aspect-ratio:auto;border-radius:0;filter:grayscale(1);opacity:.7}
+@media (hover:hover){.klanten__rij img{transition:filter .3s,opacity .3s}.klanten__rij img:hover{filter:none;opacity:1}}
 @keyframes klanten{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.klanten__band{animation:none;flex-wrap:wrap}}
 
@@ -461,6 +452,38 @@ video.yt__speler{background:#000;object-fit:cover}
 .hero__foto figure.schema img{animation:none;aspect-ratio:auto;object-fit:contain;background:#fff}
 @media (min-width:900px){.hero__foto figure.schema{margin-left:6%;margin-right:-6%}}
 @media (min-width:900px){.hero__foto:has(figure.schema){margin-right:0}}
+
+/* ---------- beleving: één rustige bewegingstaal (specialistenronde, Lars 02-10-2026) ----------
+   hover/press .2s, binnenkomen .6s; alleen transform/opacity/kleur, reduced-motion dekt alles af. */
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+::selection{background:#CBE6FB}
+.knop,.meer,.tweeluik__knop,.bel,.menu-knop,.nav a,.voet a,.kennislinks a,input,select,textarea,.faq summary,a{transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s}
+.knop:hover{box-shadow:0 6px 16px rgba(2,41,91,.18)}
+.knop:active,.meer:active,.tweeluik__knop:active{transform:translateY(1px)}
+.knop--tweede:hover{border-color:var(--primair);color:var(--primair)}
+.meer::after{display:inline-block;transition:transform .2s}
+.meer:hover::after{transform:translateX(3px)}
+input:focus,select:focus,textarea:focus{border-color:var(--primair)}
+tbody tr:hover>td,tbody tr:hover>th{background:rgba(27,104,192,.04)}
+.faq summary:hover{color:var(--primair)}
+.faq summary::after{transition:transform .2s}
+.faq details[open] .antwoord{animation:ain .3s ease}
+@keyframes ain{from{opacity:0;transform:translateY(-4px)}}
+/* blokken binnen een sectie komen trapsgewijs mee met de reveal */
+.js .reveal:not(.in) :is(.stappen li,.kolommen>div){opacity:0;transform:translateY(14px)}
+.js .reveal.in :is(.stappen li,.kolommen>div){transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in :is(.stappen li,.kolommen>div):nth-child(2){transition-delay:.08s}
+.js .reveal.in :is(.stappen li,.kolommen>div):nth-child(3){transition-delay:.16s}
+.js .reveal.in :is(.stappen li,.kolommen>div):nth-child(4){transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){.js .reveal:not(.in) :is(.stappen li,.kolommen>div){opacity:1;transform:none}}
+/* galerijfoto's: zelfde taal als de hero, maar op aanraking */
+.galerij figure{overflow:hidden;border-radius:var(--straal)}
+.galerij figure img{transition:transform .5s ease}
+.galerij>div:hover img{transform:scale(1.03)}
+/* geen dubbele randlijn waar wit en zacht elkaar raken */
+.sectie--wit+.sectie--zacht,.sectie--zacht+.sectie--wit{border-top:0}
+/* focus op donkere vlakken in het lichtblauw, anders onzichtbaar */
+.herkenpaneel :focus-visible,.tweeluik__kaart :focus-visible,.yt :focus-visible{outline-color:var(--accent)}
 
 /* Xesar-systeemcarrousel: groot beeld links, titel en een zin rechts (Lars, 01-10-2026) */
 .xsys .xdia{flex:0 0 100%;scroll-snap-align:start;display:grid;gap:16px;align-items:center}

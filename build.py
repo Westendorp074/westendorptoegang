@@ -326,7 +326,9 @@ def chat_widget():
 .wchat__hint p{margin:0;font-size:13.5px;line-height:1.45;color:var(--inkt-zacht)}
 .wchat__hint-dicht{position:absolute;right:6px;top:6px;width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:var(--inkt-zacht);font-size:15px;line-height:1;cursor:pointer}
 .wchat__hint-dicht:hover{background:#EFEAE2}
-.wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn)}
+.wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn);transform-origin:bottom right;transition:opacity .25s,transform .25s,display .25s allow-discrete}
+.wchat__paneel[hidden]{opacity:0;transform:translateY(8px) scale(.98)}
+@starting-style{.wchat__paneel{opacity:0;transform:translateY(8px) scale(.98)}}
 .wchat__kop{display:flex;gap:12px;align-items:center;background:var(--primair-donker);color:#fff;padding:14px 16px}
 .wchat__fotos{display:flex;flex:none}
 .wchat__fotos img{width:74px;height:74px;border-radius:50%;object-fit:cover;border:3px solid #fff;background:#fff}
@@ -700,7 +702,7 @@ def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 
     maten = [w for w in _MATEN if w <= b0 or w == _MATEN[0]]
     w1 = maten[0]; h1 = round(h0 * min(w1, b0) / b0)
     srcset = lambda ext: ", ".join(f"/static/img/{stem}-{w}.{ext} {min(w, b0)}w" for w in maten)
-    laad = ' loading="lazy" decoding="async"' if lazy else ' fetchpriority="high"'
+    laad = ' loading="lazy" decoding="async"' if lazy else ' fetchpriority="high" decoding="async"'
     img = (f'<img src="/static/img/{stem}-{w1}.webp" srcset="{srcset("webp")}" sizes="{sizes}" '
            f'width="{min(w1, b0)}" height="{h1}" alt="{esc(alt)}"{laad}>')
     if avif_ok:
@@ -984,6 +986,7 @@ def assets():
     if DIST.exists(): leeg_dist()
     (DIST / "static" / "css").mkdir(parents=True, exist_ok=True); (DIST / "static" / "js").mkdir(parents=True, exist_ok=True)
     css = (STATIC / "css" / "tokens.css").read_text(encoding="utf-8") + "\n" + (STATIC / "css" / "styles.css").read_text(encoding="utf-8")
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)        # commentaar strippen: bron blijft leesbaar, dist blijft onder het budget
     css_naam = f"site.{hashlib.md5(css.encode()).hexdigest()[:8]}.css"
     (DIST / "static" / "css" / css_naam).write_text(css, encoding="utf-8")
     js_naam = f"site.{versie(STATIC / 'js' / 'site.js')}.js"
