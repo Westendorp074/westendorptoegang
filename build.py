@@ -420,7 +420,7 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
             f'<div class="knopregel"><button type="button" class="wchat__terug">Terug</button>'
             f'<button type="submit" class="wchat__verstuur">Bel mij terug</button></div>'
             f'<p class="wchat__formstatus" role="status" aria-live="polite"></p></form>'
-            f'<p class="wchat__voet">Geen chatbot: u krijgt Nick zelf.</p></div>'
+            f'<p class="wchat__voet">Geen chatbot: u krijgt Nick of een van onze medewerkers.</p></div>'
             f'<div class="wchat__hint" data-wchat-hint role="status"><img src="{gezicht}" alt="" width="46" height="46" loading="lazy">'f'<span><strong>Nick van {esc(NAAM)}</strong><p data-wchat-hintgroet>Waarmee kan ik u helpen?</p></span>'f'<button type="button" class="wchat__hint-dicht" aria-label="Melding sluiten">&#215;</button></div>'
             f'<button type="button" class="wchat__knop" aria-expanded="false" aria-controls="wchat-paneel" aria-label="Contact opnemen">'
             f'{chat_svg}{kruis_svg}<i class="wchat__led" aria-hidden="true"></i></button>'
