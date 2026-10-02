@@ -710,6 +710,17 @@ def beeld(bestand, alt, onderschrift=None, lazy=True, sizes="(min-width: 900px) 
         return f"<figure{kl}>{img}<figcaption>{esc(onderschrift)}</figcaption></figure>"
     return f"<figure{kl}>{img}</figure>"
 
+def schema_beeld(stam, alt, klas=""):
+    """Eigen vectorschema (SVG) uit static/img/schema/<stam>-<hash>.svg: haarscherp op elk scherm."""
+    bronpad = next((STATIC / "img" / "schema").glob(f"{stam}-*.svg"))
+    doel = DIST / "static" / "img" / "schema"
+    doel.mkdir(parents=True, exist_ok=True)
+    shutil.copy(bronpad, doel / bronpad.name)
+    kl = f' class="{klas}"' if klas else ""
+    _BEELDEN_PAGINA.append((f"/static/img/schema/{bronpad.name}", alt, None, 1240, 840, NAAM))
+    return (f'<figure{kl}><img src="/static/img/schema/{bronpad.name}" alt="{esc(alt)}" '
+            f'width="1240" height="840" loading="lazy" decoding="async"></figure>')
+
 # ---------- JSON-LD ----------
 ORG_ID = SITE + "/#organisatie"
 WEBSITE_ID = SITE + "/#website"

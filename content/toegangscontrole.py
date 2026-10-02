@@ -13,8 +13,8 @@ def bouw():
     # het virtuele netwerk in beeld: hoe het systeem door het pand werkt (Lars, 01-10-2026, belangrijk blok)
     werking = sectie("Zo werkt het systeem door uw hele pand",
         '<div class="rooster"><div class="k6">'
-        + beeld("virtueel-netwerk-toegangscontrole-kantoor.jpg",
-                "Toegangscontrolesysteem in een kantoorpand: lezers op de deuren, passen die toegangsupdates verspreiden en de beheersoftware met batterijstatus en veiligheidsstatus")
+        + schema_beeld("virtueel-netwerk-schema",
+                "Schema van een toegangscontrolesysteem in een kantoorpand: lezers op de deuren, een pas die toegangsupdates van deur naar deur meeneemt, een geblokkeerde pas die bij de serverruimte wordt geweigerd en de beheersoftware met de status van alle deuren")
         + '</div><div class="k6">'
         + p("Op elke deur die meedoet zit een lezer: op de hoofdingang, de serverruimte, het magazijn of de vergaderzaal. "
             "In de software geeft u per persoon aan welke deuren open mogen en wanneer; een nieuwe pas is in een minuut uitgegeven en een kwijtgeraakte net zo snel geblokkeerd.",

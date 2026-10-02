@@ -33,7 +33,7 @@ def bouw():
          "Xesar-tablet", "Met de Xesar-tablet configureren en onderhouden wij de deurcomponenten draadloos, zonder kabels door het pand."),
         ("evva-xesar-online-wandlezer.jpg", "EVVA Xesar online wandlezer met groene led",
          "Online wandlezer", "Biedt realtime inzicht, opent op afstand en verspreidt blokkeringen direct door het gebouw."),
-        ("virtueel-netwerk-toegangscontrole-kantoor.jpg", "Virtueel netwerk in een kantoor: passen verspreiden toegangsupdates en blokkeringen van deur naar deur, met batterijstatus en veiligheidsstatus in de beheersoftware",
+        ("schema:virtueel-netwerk-schema", "Schema van het virtuele netwerk: een uitgegeven pas neemt toegangsupdates mee van deur naar deur door het pand, een geblokkeerde pas wordt bij de serverruimte geweigerd en de beheersoftware toont de status van alle deuren",
          "Virtueel netwerk", "De passen die in omloop zijn nemen updates en blokkeringen mee van deur naar deur; zo blijft ook een offline deur actueel."),
         ("evva-xesar-software.jpg", "De Xesar-beheersoftware op een beeldscherm",
          "Xesar-software", "Alle rechten, tijdsloten en deuren in \u00e9\u00e9n overzichtelijk beheer; wij richten de software in en dragen hem aan u over."),
@@ -60,7 +60,7 @@ def bouw():
             "en een verloren pas blokkeert u zelf. Past op de deuren die er al zitten.")
         + youtube(XESAR_VIDEO, "Xesar in één blik", "Het elektronische sluitsysteem van EVVA, geplaatst door Westendorp")
         + '<p class="product__knop"><a class="meer" href="/evva-xesar/">Meer over EVVA Xesar</a></p>'
-        + '<div class="xlijn" data-rij-groep><div class="xlijn__kop"><h4>E\u00e9n systeem, vele mogelijkheden</h4><div class="rij-knoppen xlijn__knoppen"><button type="button" data-rij="-1" aria-label="Vorige">&#8249;</button><button type="button" data-rij="1" aria-label="Volgende">&#8250;</button></div></div><div class="xlijn__rij xsys" data-rij-scroll>' + "".join(f'<article class="xdia">{beeld(bst, alt, sizes="(min-width: 1000px) 32vw, 90vw", klas="xdia__beeld", bron=None if bst.startswith("virtueel") else "EVVA")}<div class="xdia__tekst"><h5>{esc(k)}</h5><p>{esc(t)}</p></div></article>' for bst, alt, k, t in XSYS) + '</div></div>' + '</article>'
+        + '<div class="xlijn" data-rij-groep><div class="xlijn__kop"><h4>E\u00e9n systeem, vele mogelijkheden</h4><div class="rij-knoppen xlijn__knoppen"><button type="button" data-rij="-1" aria-label="Vorige">&#8249;</button><button type="button" data-rij="1" aria-label="Volgende">&#8250;</button></div></div><div class="xlijn__rij xsys" data-rij-scroll>' + "".join(f'<article class="xdia">{schema_beeld(bst.split(":", 1)[1], alt, klas="xdia__beeld") if bst.startswith("schema:") else beeld(bst, alt, sizes="(min-width: 1000px) 32vw, 90vw", klas="xdia__beeld", bron="EVVA")}<div class="xdia__tekst"><h5>{esc(k)}</h5><p>{esc(t)}</p></div></article>' for bst, alt, k, t in XSYS) + '</div></div>' + '</article>'
         '<div class="producten__rest">' + "".join(
             f'<article class="product product--{c}">{img}<div><span class="product__label">{esc(lab)}</span><h3>{esc(k)}</h3><p>{esc(t)}</p>'
             f'<p class="product__knop"><a class="meer" href="{u}">{esc(kn)}</a></p></div></article>' for c, lab, k, t, u, kn, img in rest)
