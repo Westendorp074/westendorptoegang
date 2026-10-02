@@ -377,14 +377,14 @@ w.querySelector('[data-wchat-status]').textContent=open?'Nu bereikbaar':'Ma t/m 
 w.querySelector('[data-wchat-groet]').textContent=(uur<12?'Goedemorgen!':uur<18?'Goedemiddag!':'Goedenavond!')+' Waarmee kunnen wij u helpen?';
 function zet(o){w.classList.toggle('wchat--open',o);paneel.hidden=!o;knop.setAttribute('aria-expanded',o);
   knop.setAttribute('aria-label',o?'Sluit contactvenster':'Contact opnemen');
-  if(o){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien','1')}catch(e){}}}
+  if(o){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien',Date.now())}catch(e){}}}
 knop.addEventListener('click',function(){zet(paneel.hidden)});
 w.querySelector('.wchat__sluit').addEventListener('click',function(){zet(false);knop.focus()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!paneel.hidden){zet(false);knop.focus()}});
 var hint=w.querySelector('[data-wchat-hint]');
 w.querySelector('[data-wchat-hintgroet]').textContent=(uur<12?'Goedemorgen!':uur<18?'Goedemiddag!':'Goedenavond!')+' Waarmee kan ik u helpen?';
-hint.addEventListener('click',function(e){if(e.target.closest('.wchat__hint-dicht')){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien','1')}catch(err){};return}zet(true)});
-var g=false;try{g=!!localStorage.getItem('wchat-gezien')}catch(e){}
+hint.addEventListener('click',function(e){if(e.target.closest('.wchat__hint-dicht')){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien',Date.now())}catch(err){};return}zet(true)});
+var g=false;try{g=(Date.now()-(+localStorage.getItem('wchat-gezien')||0))<864e5}catch(e){}
 if(!g){setTimeout(function(){if(paneel.hidden)w.classList.add('wchat--hint')},4500)}
 var vorm=w.querySelector('[data-wchat-form]'),status=w.querySelector('.wchat__formstatus');
 w.querySelector('[data-wchat-terugbel]').addEventListener('click',function(){w.classList.add('wchat--terugbel');vorm.querySelector('input').focus()});
