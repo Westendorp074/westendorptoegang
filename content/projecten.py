@@ -65,7 +65,7 @@ def bouw():
         f'<div class="projectkaart">'
         + (beeld(foto, alt, sizes="(min-width: 700px) 46vw, 100vw") if foto else "")
         + f'<span class="product__label">{esc(sector)} · {esc(plaats)}</span><h3>{esc(kop)}</h3><p>{esc(tekst)}</p>'
-        + '<p class="projectkaart__meer"><a class="knop" href="#aanvraag">Plan een gratis inventarisatie</a></p>'
+        + '<p class="projectkaart__meer"><a class="knop knop--tweede" href="#aanvraag">Plan een gratis inventarisatie</a></p>'
         + "</div>"
         for anker, sector, plaats, kop, tekst, foto, alt in PROJECTEN)
     blok = sectie("Uitgelichte projecten", f'<div class="kolommen kolommen--2">{kaarten}</div>')
