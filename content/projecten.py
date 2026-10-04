@@ -86,6 +86,8 @@ def bouw():
          "Alleen met uw toestemming. Veel klanten vinden dat prima; sommige panden, zoals serverruimtes of zorglocaties, laten wij bewust weg."),
     ]
 
-    body = hero("Projecten: zo ziet ons werk eruit", intro) + blok + wie
+    herofoto = beeld("monteur-xesar-tablet-onderhoud-deur.jpg",
+                     "Monteur van Westendorp sluit de Xesar-tablet aan op het elektronische deurbeslag tijdens onderhoud bij een klant", lazy=False)
+    body = hero("Projecten: zo ziet ons werk eruit", intro, foto_html=herofoto) + blok + wie
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Projecten", PAD)],
             llms="Referentieprojecten per sector en plaats: wie wij al hielpen met toegangscontrole, sluitplannen en hang- en sluitwerk.")
