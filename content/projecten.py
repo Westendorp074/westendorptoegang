@@ -10,7 +10,7 @@ PROJECTEN = [
     ("zorg", "Zorg", "7 locaties", "Modern Care",
      "Zorginstelling met zeven locaties, één toegangsbeheer: wij plaatsten 33 deuren met EVVA Xesar en richtten de rechten per medewerker en per locatie in. "
      "Verandert er iets in het team, dan past de beheerder de pas aan in plaats van de cilinder; het geheel stond binnen twee weken.",
-     "", ""),
+     "project-modern-care.jpg", "Adviesgesprek aan tafel over toegangsbeheer bij een zorgorganisatie"),
     ("retail", "Retail", "2 vestigingen", "Bruna",
      "Twee Bruna-vestigingen stapten over van losse sleutels op EVVA AirKey: drie deuren met elektronische cilinders, geopend met telefoon of digitale sleutel. "
      "De leverancier en het schoonmaakbedrijf krijgen rechten met een tijdslot, en een vertrokken medewerker is met één klik geblokkeerd.",
@@ -65,7 +65,7 @@ def bouw():
         f'<div class="projectkaart">'
         + (beeld(foto, alt, sizes="(min-width: 700px) 46vw, 100vw") if foto else "")
         + f'<span class="product__label">{esc(sector)} · {esc(plaats)}</span><h3>{esc(kop)}</h3><p>{esc(tekst)}</p>'
-        + (f'<p class="projectkaart__meer"><a class="meer" href="/toegangscontrole/#sector-{anker}">Meer voor {esc(sector.lower())}</a></p>' if anker else "")
+        + '<p class="projectkaart__meer"><a class="knop" href="#aanvraag">Plan een gratis inventarisatie</a></p>'
         + "</div>"
         for anker, sector, plaats, kop, tekst, foto, alt in PROJECTEN)
     blok = sectie("Uitgelichte projecten", f'<div class="kolommen kolommen--2">{kaarten}</div>')
