@@ -187,7 +187,11 @@
     // "Een vraag of bericht sturen": pandvelden verbergen, plaats niet verplicht
     var onderwerp = f.elements.onderwerp;
     function vraagModus() { return !!(onderwerp && /vraag of bericht/i.test(onderwerp.value)); }
-    if (onderwerp) onderwerp.addEventListener('change', function () { f.classList.toggle('formulier--vraag', vraagModus()); });
+    if (onderwerp) onderwerp.addEventListener('change', function () {
+      f.classList.toggle('formulier--vraag', vraagModus());
+      var sub = f.querySelector('button[type=submit]');
+      if (sub) sub.textContent = vraagModus() ? sub.getAttribute('data-cta-vraag') : sub.getAttribute('data-cta-inv');
+    });
     var teksten = {
       naam: 'Vul uw naam in.',
       plaats: 'Vul de plaats van het pand in.',

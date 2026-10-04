@@ -937,11 +937,16 @@ gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personal
 def _opties(naam, items, leeg="Maak een keuze"):
     return f'<option value="">{leeg}</option>' + "".join(f'<option value="{esc(i)}">{esc(i)}</option>' for i in items)
 
-def formulier(kort=False, kop="Plan een inventarisatie", intro=None):
-    """Het ene formulier van de site (BRIEF §7). kort=True: zelfde velden, als blok onderaan een pagina."""
+def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="inventarisatie"):
+    """Het ene formulier van de site (BRIEF §7). kort=True: zelfde velden, als blok onderaan een pagina.
+    standaard="bericht": start als gewoon berichtformulier (pandvelden ingeklapt, knop Verstuur uw bericht)."""
+    bericht = standaard == "bericht"
     intro = intro or ("Vul het formulier in; " + esc(ADVISEUR_NAMEN) + " neemt contact met u op binnen " + esc(REACTIE_AANVRAAG) + ". Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor een inventarisatie ook de plaats van het pand.")
-    velden = f'''<form class="formulier" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
-<div class="veld breed"><label for="f-onderwerp">Waar gaat het om?</label><select id="f-onderwerp" name="onderwerp"><option>Inventarisatie of nieuw systeem</option><option>Een vraag of bericht sturen</option><option>Offerte aanvragen</option><option>Storing of onderhoud</option></select></div>
+    gekozen = "Een vraag of bericht sturen" if bericht else "Inventarisatie of nieuw systeem"
+    opties = "".join(f'<option{" selected" if o == gekozen else ""}>{o}</option>'
+                     for o in ["Inventarisatie of nieuw systeem", "Een vraag of bericht sturen", "Offerte aanvragen", "Storing of onderhoud"])
+    velden = f'''<form class="formulier{" formulier--vraag" if bericht else ""}" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
+<div class="veld breed"><label for="f-onderwerp">Waar gaat het om?</label><select id="f-onderwerp" name="onderwerp">{opties}</select></div>
 <div class="veld"><label for="f-naam">Naam</label><input id="f-naam" name="naam" type="text" autocomplete="name" required><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-bedrijf">Bedrijf of organisatie</label><input id="f-bedrijf" name="bedrijf" type="text" autocomplete="organization"></div>
 <div class="veld"><label for="f-email">E-mailadres</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"><span class="melding" aria-live="polite"></span></div>
@@ -953,7 +958,7 @@ def formulier(kort=False, kop="Plan een inventarisatie", intro=None):
 <div class="veld breed"><label for="f-toelichting">Toelichting of bericht</label><span class="hint" id="f-toelichting-hint">Bijvoorbeeld: welke deuren, wat er nu niet werkt, wanneer u het geregeld wilt hebben — of gewoon uw vraag.</span><textarea id="f-toelichting" name="toelichting" aria-describedby="f-toelichting-hint"></textarea></div>
 <div class="honing" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
 <input type="hidden" name="botcheck" value="">
-<div class="breed"><button class="knop" type="submit">{esc(CTA)}</button><p class="form-status" role="status" aria-live="polite"></p>
+<div class="breed"><button class="knop" type="submit" data-cta-inv="{esc(CTA)}" data-cta-vraag="Verstuur uw bericht">{"Verstuur uw bericht" if bericht else esc(CTA)}</button><p class="form-status" role="status" aria-live="polite"></p>
 <p class="zacht">Uw gegevens gebruiken wij alleen om contact met u op te nemen. Zie de <a href="/privacy/">privacyverklaring</a>.</p></div>
 </form>'''
     return f'''<section class="reveal" id="aanvraag" data-gedeeld><div class="wrap"><div class="rooster">
@@ -1015,12 +1020,12 @@ def afwisselen(html_body):
     return "".join(delen)
 
 def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=(), paginatype="WebPage",
-            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie"):
+            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie", formulier_standaard="inventarisatie"):
     """Schrijft dist/<pad>/index.html. pad begint en eindigt met een slash."""
     kruimelpad = kruimelpad or [("Home", "/")] + ([(titel.split(" | ")[0], pad)] if pad != "/" else [])
     kruimel_html = kruimels(kruimelpad) if pad != "/" else ""
     faq_html = faqblok(faq) if faq else ""
-    form_html = formulier(kop=formulier_kop) if met_formulier else ""
+    form_html = formulier(kop=formulier_kop, standaard=formulier_standaard) if met_formulier else ""
     volledige_body = kruimel_html + body + faq_html + form_html
     volledige_body = afwisselen(volledige_body)
     datum = _lastmod(pad, body)

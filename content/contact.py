@@ -22,5 +22,5 @@ def bouw():
     ]
     body = hero("Contact", intro, cta=False, extra=knoppen) + nap
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Contact", PAD)], paginatype="ContactPage",
-            formulier_kop="Stel uw vraag of plan een inventarisatie",
+            formulier_kop="Stuur ons een bericht", formulier_standaard="bericht",
             llms="Contactgegevens, bereikbaarheid en het aanvraagformulier voor een inventarisatie op locatie.")
