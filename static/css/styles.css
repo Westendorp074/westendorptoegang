@@ -226,8 +226,9 @@ figure img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--stra
 figcaption{font-size:.9em;color:var(--inkt-zacht);padding-top:8px}
 figure.vol img{aspect-ratio:auto}   /* volledige foto tonen, niets afsnijden */
 /* foto even hoog als de tekstkolom ernaast: vult de rij en kropt mee */
-figure.pashoog{height:100%}
-figure.pashoog img{height:100%;aspect-ratio:auto;object-fit:cover}
+figure.pashoog{height:100%;overflow:hidden}
+figure.pashoog picture{display:block;height:100%}
+figure.pashoog img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
 /* cijferblokken rekken mee tot de onderkant van de foto ernaast */
 .feitenpaneel--vul{height:100%;grid-auto-rows:1fr}
 .feitenpaneel--vul div{display:flex;flex-direction:column;justify-content:center}
