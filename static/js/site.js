@@ -184,13 +184,18 @@
   d.querySelectorAll('form[data-aanvraag]').forEach(function (f) {
     var start = Date.now();
     var status = f.querySelector('.form-status');
-    // "Een vraag of bericht sturen": pandvelden verbergen, plaats niet verplicht
+    // keuzeknoppen bovenaan: bericht sturen (pandvelden dicht, plaats niet verplicht) of inventarisatie
     var onderwerp = f.elements.onderwerp;
-    function vraagModus() { return !!(onderwerp && /vraag of bericht/i.test(onderwerp.value)); }
-    if (onderwerp) onderwerp.addEventListener('change', function () {
-      f.classList.toggle('formulier--vraag', vraagModus());
-      var sub = f.querySelector('button[type=submit]');
-      if (sub) sub.textContent = vraagModus() ? sub.getAttribute('data-cta-vraag') : sub.getAttribute('data-cta-inv');
+    function vraagModus() { return !!(onderwerp && /bericht/i.test(onderwerp.value)); }
+    var modusKnoppen = f.querySelectorAll('[data-fmodus]');
+    modusKnoppen.forEach(function (b) {
+      b.addEventListener('click', function () {
+        modusKnoppen.forEach(function (x) { x.classList.toggle('aan', x === b); });
+        if (onderwerp) onderwerp.value = b.getAttribute('data-fmodus') === 'bericht' ? 'Bericht of vraag' : 'Inventarisatie';
+        f.classList.toggle('formulier--vraag', vraagModus());
+        var sub = f.querySelector('button[type=submit]');
+        if (sub) sub.textContent = vraagModus() ? sub.getAttribute('data-cta-vraag') : sub.getAttribute('data-cta-inv');
+      });
     });
     var teksten = {
       naam: 'Vul uw naam in.',

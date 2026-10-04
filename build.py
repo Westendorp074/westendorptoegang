@@ -607,18 +607,31 @@ def kaart_svg():
                "Zutphen": (6.20, 52.14), "Doetinchem": (6.29, 51.96), "Apeldoorn": (5.97, 52.21)}
     cx, cy, schaal = 6.89, 52.22, 230          # px per graad lengte; breedtegraad gecorrigeerd met cos(52 graden), 0,62
     def xy(lon, lat): return 300 + (lon - cx) * schaal, 220 - (lat - cy) * schaal / 0.62
-    punten = []
+    ex, ey = xy(*ligging[PLAATS])
+    spaken, punten = [], []
     for naam, _, _, _ in WERKGEBIED:
-        if naam not in ligging: continue
+        if naam not in ligging or naam == PLAATS: continue
         x, y = xy(*ligging[naam])
-        anker = "end" if x < 300 else "start"; dx = -10 if x < 300 else 10
-        kleur = "#1B68C0" if naam == PLAATS else "#14232E"
-        punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="{6 if naam == PLAATS else 4}" fill="{kleur}"/>'
-                      f'<text x="{x + dx:.0f}" y="{y + 4:.0f}" text-anchor="{anker}" font-size="13" fill="#14232E">{esc(naam)}</text>')
-    return (f'<svg viewBox="0 0 600 440" width="600" height="440" role="img" aria-label="Schematische kaart van het werkgebied rond {esc(PLAATS)}" '
+        anker = "end" if x < 300 else "start"; dx = -11 if x < 300 else 11
+        spaken.append(f'<line x1="{ex:.0f}" y1="{ey:.0f}" x2="{x:.0f}" y2="{y:.0f}" stroke="#49BFFE" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".55"/>')
+        punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="5" fill="#fff" stroke="#1B68C0" stroke-width="2.5"/>'
+                      f'<text x="{x + dx:.0f}" y="{y + 4:.0f}" text-anchor="{anker}" font-size="13.5" font-weight="600" fill="#14232E">{esc(naam)}</text>')
+    regios = "".join(f'<text x="{x}" y="{y}" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="2.5" fill="#8A96A3">{r}</text>'
+                     for r, x, y in [("TWENTE", 420, 125), ("VECHTDAL", 128, 158), ("SALLAND", 120, 262),
+                                     ("VELUWE", 88, 330), ("ACHTERHOEK", 232, 392)])
+    return (f'<svg viewBox="0 0 600 470" width="600" height="470" role="img" aria-label="Schematische kaart van het werkgebied rond {esc(PLAATS)}" '
             f'xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block;font-family:inherit">'
-            f'<circle cx="300" cy="220" r="205" fill="#F2F4F6" stroke="#C9CED0"/>{"".join(punten)}'
-            f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ons kerngebied rond Enschede</text></svg>')
+            f'<defs><radialGradient id="wgz" cx="50%" cy="47%" r="55%"><stop offset="0" stop-color="#E4F1FC"/><stop offset=".65" stop-color="#EFF6FC"/><stop offset="1" stop-color="#F7FAFD"/></radialGradient></defs>'
+            f'<rect x="8" y="8" width="584" height="424" rx="14" fill="#FFFFFF" stroke="#E4DFD7"/>'
+            f'<circle cx="300" cy="220" r="196" fill="url(#wgz)"/>'
+            f'<circle cx="300" cy="220" r="196" fill="none" stroke="#1B68C0" stroke-width="1.5" stroke-dasharray="3 7" stroke-linecap="round" opacity=".55"/>'
+            f'<circle cx="300" cy="220" r="96" fill="none" stroke="#49BFFE" stroke-width="1.5" stroke-dasharray="3 7" stroke-linecap="round" opacity=".6"/>'
+            f'{"".join(spaken)}{regios}{"".join(punten)}'
+            f'<g transform="translate({ex:.0f} {ey:.0f})"><circle r="11" fill="#49BFFE" opacity=".3"/><circle r="7" fill="#1B68C0"/><circle r="2.6" fill="#fff"/></g>'
+            f'<text x="{ex + 15:.0f}" y="{ey + 5:.0f}" font-size="14.5" font-weight="800" fill="#02295B">{esc(PLAATS)}</text>'
+            f'<rect x="196" y="413" width="208" height="0" fill="none"/>'
+            f'<text x="300" y="418" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1.5" fill="#1B68C0">TOT ANDERHALF UUR RIJDEN VANUIT ENSCHEDE</text>'
+            f'<text x="300" y="456" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun werkelijke ligging</text></svg>')
 
 def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None, groen=False):
     kl = " ".join(k for k in ["reveal", "sectie--wit" if wit else "", "sectie--lijn" if lijn else "", "sectie--groen" if groen else ""] if k)
@@ -942,11 +955,9 @@ def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="
     standaard="bericht": start als gewoon berichtformulier (pandvelden ingeklapt, knop Verstuur uw bericht)."""
     bericht = standaard == "bericht"
     intro = intro or ("Vul het formulier in; " + esc(ADVISEUR_NAMEN) + " neemt contact met u op binnen " + esc(REACTIE_AANVRAAG) + ". Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor een inventarisatie ook de plaats van het pand.")
-    gekozen = "Een vraag of bericht sturen" if bericht else "Inventarisatie of nieuw systeem"
-    opties = "".join(f'<option{" selected" if o == gekozen else ""}>{o}</option>'
-                     for o in ["Inventarisatie of nieuw systeem", "Een vraag of bericht sturen", "Offerte aanvragen", "Storing of onderhoud"])
     velden = f'''<form class="formulier{" formulier--vraag" if bericht else ""}" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
-<div class="veld breed"><label for="f-onderwerp">Waar gaat het om?</label><select id="f-onderwerp" name="onderwerp">{opties}</select></div>
+<div class="breed fkeuze"><button type="button" class="fkeuze__knop{" aan" if not bericht else ""}" data-fmodus="inventarisatie">Plan een gratis inventarisatie</button><button type="button" class="fkeuze__knop{" aan" if bericht else ""}" data-fmodus="bericht">Stuur een bericht</button></div>
+<input type="hidden" name="onderwerp" value="{"Bericht of vraag" if bericht else "Inventarisatie"}">
 <div class="veld"><label for="f-naam">Naam</label><input id="f-naam" name="naam" type="text" autocomplete="name" required><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-bedrijf">Bedrijf of organisatie</label><input id="f-bedrijf" name="bedrijf" type="text" autocomplete="organization"></div>
 <div class="veld"><label for="f-email">E-mailadres</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"><span class="melding" aria-live="polite"></span></div>
@@ -1020,13 +1031,13 @@ def afwisselen(html_body):
     return "".join(delen)
 
 def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=(), paginatype="WebPage",
-            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie", formulier_standaard="inventarisatie"):
+            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie", formulier_standaard="inventarisatie", formulier_boven_faq=False):
     """Schrijft dist/<pad>/index.html. pad begint en eindigt met een slash."""
     kruimelpad = kruimelpad or [("Home", "/")] + ([(titel.split(" | ")[0], pad)] if pad != "/" else [])
     kruimel_html = kruimels(kruimelpad) if pad != "/" else ""
     faq_html = faqblok(faq) if faq else ""
     form_html = formulier(kop=formulier_kop, standaard=formulier_standaard) if met_formulier else ""
-    volledige_body = kruimel_html + body + faq_html + form_html
+    volledige_body = kruimel_html + body + (form_html + faq_html if formulier_boven_faq else faq_html + form_html)
     volledige_body = afwisselen(volledige_body)
     datum = _lastmod(pad, body)
     beelden = [b for b in _BEELDEN_PAGINA if "adviseur-" not in b[0]]; _BEELDEN_PAGINA.clear()   # adviseurfoto's tellen niet als paginabeeld
