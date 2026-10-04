@@ -23,7 +23,10 @@ def bouw():
     ], klas="feiten") + "</div></div>")
 
     # het ontstaansverhaal open op de pagina, naar het voorbeeld van de Slotenspecialist-site (Lars, 04-10-2026)
-    verhaal = sectie("Begonnen met sloten en sleutels, uitgegroeid tot toegangsspecialist", '<div class="rooster"><div class="k8">' + p(
+    duo = beeld("lars-en-nick-westendorp-achter-de-balie.jpg",
+                "Eigenaren Lars en Nick Westendorp, tweede generatie, achter de balie met de sleutelborden van het familiebedrijf",
+                onderschrift="Lars en Nick Westendorp, de tweede generatie")
+    verhaal = sectie("Begonnen met sloten en sleutels, uitgegroeid tot toegangsspecialist", '<div class="rooster"><div class="k7">' + p(
         f"Westendorp begon in {esc(MOEDER_SINDS)} in Hengelo met sleutels, sloten en beslag — een ambacht, geleerd met vijl en hand, niet met een laptop. "
         "Inmiddels staat de tweede generatie aan het roer en rijden onze monteurs dagelijks door heel Oost-Nederland.",
         "Toen bedrijven vroegen om sloten die met een pas opengaan, bleek ons ambacht het verschil: de elektronica is het makkelijke deel, de deur is het lastige. "
@@ -32,7 +35,7 @@ def bouw():
         "Wij zijn officieel partner van EVVA, ASSA ABLOY en ABUS, en EVVA schakelt ons zelf in voor projecten in de regio. " + PKVW,
         f"Wat in al die jaren hetzelfde bleef: een sleutel die past, een slot dat werkt, een toegang die klopt — of het nu om één voordeur gaat of om een sluitplan voor honderd deuren. "
         f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}; onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
-        + "</div></div>", wit=True, kicker="Hoe wij begonnen zijn")
+        + f'</div><div class="k5">{duo}</div></div>', wit=True, kicker="Hoe wij begonnen zijn")
 
     # vier waarden, genummerd zoals de stappen (eigen taal, B2B)
     waarden = sectie("Vier dingen die niet onderhandelbaar zijn", '<ol class="stappen">' + "".join(
