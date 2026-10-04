@@ -302,6 +302,8 @@ textarea{min-height:120px;resize:vertical}
 .fkeuze{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 4px}
 .fkeuze__knop{flex:1;min-width:210px;padding:13px 10px;border:var(--lijndikte) solid var(--lijn-2);border-radius:var(--straal-knop);background:var(--papier);font-family:var(--font-kop);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--inkt-zacht);cursor:pointer}
 .fkeuze__knop.aan{background:var(--accent);border-color:var(--accent);color:var(--kop)}
+.fkeuze__uitleg{margin:0 0 6px;font-size:14px;color:var(--inkt-zacht);max-width:none}
+@media (max-width:620px){.fkeuze{flex-direction:column}.fkeuze__knop{min-width:0;width:100%}}
 .adviseur{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}
 .adviseur__personen{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px}
 .adviseur__persoon figure{margin:0 0 8px}

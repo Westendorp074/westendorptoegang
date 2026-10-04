@@ -20,7 +20,9 @@ def bouw():
         ("Moet ik iets voorbereiden voor de inventarisatie?", "Handig zijn een plattegrond of deurenlijst, het huidige sluitplan of de sleutelkaart, en een idee van wie welke deuren moet kunnen openen. Heeft u dat niet, dan maken wij het samen ter plekke."),
         ("Kan ik een storing melden via dit formulier?", f"Voor storingen belt u liever direct: {tel()}. Het formulier is bedoeld voor nieuwe aanvragen en vragen zonder haast."),
     ]
-    body = hero("Contact", intro, cta=False, extra=knoppen) + nap
+    herofoto = beeld("westendorp-kantoor-hengelo.jpg",
+                     "Kantoor van Westendorp in Hengelo waar medewerkers aanvragen en planning verwerken", lazy=False)
+    body = hero("Contact", intro, foto_html=herofoto, cta=False, extra=knoppen) + nap
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Contact", PAD)], paginatype="ContactPage",
-            formulier_kop="Stuur een bericht of plan een inventarisatie", formulier_standaard="bericht", formulier_boven_faq=True,
+            formulier_kop="Stuur een bericht of plan een inventarisatie", formulier_standaard="bericht", formulier_boven_faq=True, formulier_keuze=True,
             llms="Contactgegevens, bereikbaarheid en het aanvraagformulier voor een inventarisatie op locatie.")

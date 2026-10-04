@@ -190,11 +190,13 @@
     var modusKnoppen = f.querySelectorAll('[data-fmodus]');
     modusKnoppen.forEach(function (b) {
       b.addEventListener('click', function () {
-        modusKnoppen.forEach(function (x) { x.classList.toggle('aan', x === b); });
+        modusKnoppen.forEach(function (x) { var aan = x === b; x.classList.toggle('aan', aan); x.setAttribute('aria-pressed', aan); });
         if (onderwerp) onderwerp.value = b.getAttribute('data-fmodus') === 'bericht' ? 'Bericht of vraag' : 'Inventarisatie';
         f.classList.toggle('formulier--vraag', vraagModus());
         var sub = f.querySelector('button[type=submit]');
         if (sub) sub.textContent = vraagModus() ? sub.getAttribute('data-cta-vraag') : sub.getAttribute('data-cta-inv');
+        var uitleg = f.querySelector('[data-fuitleg]');
+        if (uitleg) uitleg.textContent = vraagModus() ? uitleg.getAttribute('data-uitleg-bericht') : uitleg.getAttribute('data-uitleg-inv');
       });
     });
     var teksten = {

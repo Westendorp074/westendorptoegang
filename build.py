@@ -75,7 +75,7 @@ WERKGEBIED = [
     ("Doetinchem", "Achterhoek",None, None),
     ("Apeldoorn",  "Veluwe",    None, None),
 ]
-WERKGEBIED_REGEL = "heel Oost-Nederland, tot anderhalf uur rijden vanuit Enschede"   # Lars, 04-10-2026
+WERKGEBIED_REGEL = "heel Oost-Nederland, tot ruim een uur rijden vanuit Enschede"   # Lars, 04-10-2026
 # Rijtijd per plaats: bewust niet op de site (Lars, 21-09-2026).
 
 # Merken (INPUT §B4)
@@ -600,7 +600,7 @@ def video_ld(pad, beschrijving):
             "author": {"@type": "Organization", "name": v["maker"], "url": "https://www.evva.com"}, "publisher": {"@id": ORG_ID}, "isPartOf": {"@id": SITE + pad + "#webpage"}}
 
 def kaart_svg():
-    """Kaart van Nederland (vereenvoudigde contour) met het werkgebied: anderhalf uur rijden rond Enschede,
+    """Kaart van Nederland (vereenvoudigde contour) met het werkgebied: ruim een uur rijden rond Enschede,
     de plaatsen op hun echte ligging. Eigen vectorwerk; geen kaartdienst, geen externe request."""
     ligging = {"Enschede": (6.89, 52.22), "Hengelo": (6.79, 52.27), "Almelo": (6.66, 52.36), "Oldenzaal": (6.93, 52.31),
                "Haaksbergen": (6.74, 52.16), "Borne": (6.75, 52.30), "Deventer": (6.16, 52.25), "Zwolle": (6.09, 52.51),
@@ -622,7 +622,7 @@ def kaart_svg():
               ((5.65, 53.44), (6.00, 53.47)), ((6.13, 53.48), (6.30, 53.50))]
     def pad(punten): return "M" + " L".join(f"{xy(lo, la)[0]:.0f} {xy(lo, la)[1]:.0f}" for lo, la in punten) + " Z"
     eilanden = "".join(f'<line x1="{xy(*a)[0]:.0f}" y1="{xy(*a)[1]:.0f}" x2="{xy(*b)[0]:.0f}" y2="{xy(*b)[1]:.0f}" stroke="#CBD8E4" stroke-width="8" stroke-linecap="round"/>' for a, b in WADDEN)
-    r_anderhalf = 120 * (schaal / 0.62) / 111   # ongeveer 120 km rijden in anderhalf uur
+    r_anderhalf = 90 * (schaal / 0.62) / 111   # ongeveer 90 km rijden in ruim een uur
     ex, ey = xy(*ligging[PLAATS])
     kern = {"Hengelo", "Almelo", "Borne", "Oldenzaal", "Haaksbergen"}   # dicht op elkaar: stip zonder label, de tabel ernaast noemt ze
     labelplek = {"Zwolle": ("end", -10, 4), "Deventer": ("end", -10, -5), "Apeldoorn": ("end", -10, 10),
@@ -638,7 +638,7 @@ def kaart_svg():
             punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="4.5" fill="#fff" stroke="#1B68C0" stroke-width="2.5"/>'
                           f'<text x="{x + dx:.0f}" y="{y + dy:.0f}" text-anchor="{anker}" font-size="13" font-weight="600" fill="#14232E">{esc(naam)}</text>')
     ax, ay = xy(4.90, 52.37)   # Amsterdam als herkenningspunt, buiten het werkgebied
-    return (f'<svg viewBox="0 0 640 660" width="640" height="660" role="img" aria-label="Kaart van Nederland met het werkgebied rond {esc(PLAATS)}: tot anderhalf uur rijden" '
+    return (f'<svg viewBox="0 0 640 660" width="640" height="660" role="img" aria-label="Kaart van Nederland met het werkgebied rond {esc(PLAATS)}: tot ruim een uur rijden" '
             f'xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block;font-family:inherit">'
             f'<defs><clipPath id="nlclip"><path d="{pad(NL)}"/></clipPath></defs>'
             f'{eilanden}'
@@ -651,7 +651,7 @@ def kaart_svg():
             f'{"".join(punten)}'
             f'<g transform="translate({ex:.0f} {ey:.0f})"><circle r="11" fill="#49BFFE" opacity=".3"/><circle r="6.5" fill="#1B68C0"/><circle r="2.4" fill="#fff"/></g>'
             f'<text x="{ex + 14:.0f}" y="{ey + 5:.0f}" font-size="14.5" font-weight="800" fill="#02295B">{esc(PLAATS)}</text>'
-            f'<text x="320" y="614" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1.5" fill="#1B68C0">TOT ANDERHALF UUR RIJDEN VANUIT ENSCHEDE</text>'
+            f'<text x="320" y="614" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1.5" fill="#1B68C0">TOT RUIM EEN UUR RIJDEN VANUIT ENSCHEDE</text>'
             f'<text x="320" y="640" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: vereenvoudigde kaart, plaatsen op hun werkelijke ligging</text></svg>')
 
 def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None, groen=False):
@@ -971,14 +971,19 @@ gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personal
 def _opties(naam, items, leeg="Maak een keuze"):
     return f'<option value="">{leeg}</option>' + "".join(f'<option value="{esc(i)}">{esc(i)}</option>' for i in items)
 
-def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="inventarisatie"):
+UITLEG_INV = "Wij komen gratis bij u langs en nemen alle deuren door; vul daarvoor ook de plaats van het pand in."
+UITLEG_BERICHT = "Stel uw vraag of stuur een bericht; u krijgt binnen 1 werkdag antwoord van Nick of Lars."
+
+def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="inventarisatie", keuze=False):
     """Het ene formulier van de site (BRIEF §7). kort=True: zelfde velden, als blok onderaan een pagina.
-    standaard="bericht": start als gewoon berichtformulier (pandvelden ingeklapt, knop Verstuur uw bericht)."""
+    keuze=True (contactpagina): keuzeknoppen bericht/inventarisatie met uitlegregel; standaard="bericht" bepaalt de start."""
     bericht = standaard == "bericht"
     intro = intro or ("Vul het formulier in; " + esc(ADVISEUR_NAMEN) + " neemt contact met u op binnen " + esc(REACTIE_AANVRAAG) + ". Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor een inventarisatie ook de plaats van het pand.")
+    keuzebalk = (f'<div class="breed fkeuze"><button type="button" class="fkeuze__knop{" aan" if not bericht else ""}" data-fmodus="inventarisatie" aria-pressed="{str(not bericht).lower()}">Plan een gratis inventarisatie</button>'
+                 f'<button type="button" class="fkeuze__knop{" aan" if bericht else ""}" data-fmodus="bericht" aria-pressed="{str(bericht).lower()}">Stuur een bericht</button></div>'
+                 f'<p class="breed fkeuze__uitleg" data-fuitleg data-uitleg-inv="{esc(UITLEG_INV)}" data-uitleg-bericht="{esc(UITLEG_BERICHT)}" aria-live="polite">{esc(UITLEG_BERICHT if bericht else UITLEG_INV)}</p>') if keuze else ""
     velden = f'''<form class="formulier{" formulier--vraag" if bericht else ""}" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
-<div class="breed fkeuze"><button type="button" class="fkeuze__knop{" aan" if not bericht else ""}" data-fmodus="inventarisatie">Plan een gratis inventarisatie</button><button type="button" class="fkeuze__knop{" aan" if bericht else ""}" data-fmodus="bericht">Stuur een bericht</button></div>
-<input type="hidden" name="onderwerp" value="{"Bericht of vraag" if bericht else "Inventarisatie"}">
+{keuzebalk}<input type="hidden" name="onderwerp" value="{"Bericht of vraag" if bericht else "Inventarisatie"}">
 <div class="veld"><label for="f-naam">Naam</label><input id="f-naam" name="naam" type="text" autocomplete="name" required><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-bedrijf">Bedrijf of organisatie</label><input id="f-bedrijf" name="bedrijf" type="text" autocomplete="organization"></div>
 <div class="veld"><label for="f-email">E-mailadres</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"><span class="melding" aria-live="polite"></span></div>
@@ -1052,12 +1057,12 @@ def afwisselen(html_body):
     return "".join(delen)
 
 def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=(), paginatype="WebPage",
-            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie", formulier_standaard="inventarisatie", formulier_boven_faq=False):
+            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie", formulier_standaard="inventarisatie", formulier_boven_faq=False, formulier_keuze=False):
     """Schrijft dist/<pad>/index.html. pad begint en eindigt met een slash."""
     kruimelpad = kruimelpad or [("Home", "/")] + ([(titel.split(" | ")[0], pad)] if pad != "/" else [])
     kruimel_html = kruimels(kruimelpad) if pad != "/" else ""
     faq_html = faqblok(faq) if faq else ""
-    form_html = formulier(kop=formulier_kop, standaard=formulier_standaard) if met_formulier else ""
+    form_html = formulier(kop=formulier_kop, standaard=formulier_standaard, keuze=formulier_keuze) if met_formulier else ""
     volledige_body = kruimel_html + body + (form_html + faq_html if formulier_boven_faq else faq_html + form_html)
     volledige_body = afwisselen(volledige_body)
     datum = _lastmod(pad, body)
