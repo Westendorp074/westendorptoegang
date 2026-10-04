@@ -182,8 +182,8 @@ VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaal
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
 ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer; volledige namen en eigenaarschap (Lars, 04-10-2026)
-    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portret v2, staand 4:5 (23-09-2026)
-    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "lars-westendorp-eigenaar.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portretten van de fotoshoot 09-2026
+    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "nick-westendorp-eigenaar.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
 ]
 ADVISEUR = ADVISEURS[0]
 ADVISEUR_NAMEN = " of ".join(a["naam"].split()[0] for a in ADVISEURS)          # "Lars of Nick", voor lopende zinnen

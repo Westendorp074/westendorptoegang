@@ -23,9 +23,9 @@ def bouw():
     ], klas="feiten") + "</div></div>")
 
     # het ontstaansverhaal open op de pagina, naar het voorbeeld van de Slotenspecialist-site (Lars, 04-10-2026)
-    duo = beeld("lars-en-nick-westendorp-achter-de-balie.jpg",
-                "Eigenaren Lars en Nick Westendorp, tweede generatie, achter de balie met de sleutelborden van het familiebedrijf",
-                onderschrift="Lars en Nick Westendorp, de tweede generatie")
+    duo = beeld("westendorp-winkel-enschede-sleutelbalie.jpg",
+                "De balie van de Westendorp-winkel in Enschede, met de sleutelborden aan de wand en Nick Westendorp aan het werk",
+                onderschrift="Onze winkel en uitvalsbasis in Enschede", klas="vol")
     verhaal = sectie("Begonnen met sloten en sleutels, uitgegroeid tot toegangsspecialist", '<div class="rooster"><div class="k7">' + p(
         f"Westendorp begon in {esc(MOEDER_SINDS)} in Hengelo met sleutels, sloten en beslag — een ambacht, geleerd met vijl en hand, niet met een laptop. "
         "Inmiddels staat de tweede generatie aan het roer en rijden onze monteurs dagelijks door heel Oost-Nederland.",
@@ -46,14 +46,17 @@ def bouw():
             ("Twents en dichtbij", "Wij zijn opgegroeid in Twente en werken voor organisaties in Oost-Nederland. Bij een storing zijn wij er binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar."),
         ]) + "</ol>", kicker="Wat wij belangrijk vinden")
 
-    # cijfers in context
-    cijfers = sectie("Wat ruim veertig jaar vakmanschap oplevert", '<div class="rooster"><div class="k8"><dl class="feitenpaneel">' + "".join(
+    # cijfers in context, met de werkplaats ernaast
+    werkbank = beeld("westendorp-werkplaats-sleutelspecialist-werkbank.jpg",
+                     "Werkbank in de werkplaats van Westendorp, met ladekasten vol sleutel- en cilinderonderdelen en een monteur aan het werk",
+                     onderschrift="De werkplaats: hier worden cilinders gesteld en sleutels gemaakt", klas="vol")
+    cijfers = sectie("Wat ruim veertig jaar vakmanschap oplevert", '<div class="rooster"><div class="k7"><dl class="feitenpaneel">' + "".join(
         f"<div><dt>{esc(c)}</dt><dd>{esc(t)}</dd></div>" for c, t in [
             ("40+", "jaar ervaring met sloten en toegang in Twente"),
             ("2", "vestigingen: werkplaats Enschede en servicevestiging Hengelo"),
             ("300+", "zakelijke klanten in de regio, van gemeente tot winkelcentrum"),
             ("24/7", "storingsdienst: binnen 4 tot 12 uur ter plaatse, het hele jaar"),
-        ]) + "</dl></div></div>", wit=True, kicker="Cijfers in context")
+        ]) + f'</dl></div><div class="k5">{werkbank}</div></div>', wit=True, kicker="Cijfers in context")
 
     beveiliging_tekst = p(
         f"Wij zijn {esc(CERTIFICATEN)}. Dat betekent dat wij de systemen van deze fabrikanten mogen leveren en installeren en hun opleidingen hebben gevolgd.",
@@ -68,20 +71,25 @@ def bouw():
         ("beveiliging", "Beveiliging en certificaten", beveiliging_tekst), ("duurzaamheid", "Duurzaamheid", duurzaam_tekst)]))
     meer = sectie("Meer over ons", f'<div class="rooster"><div class="k8"><div class="faq">{uitklap}</div></div></div>', kicker="Uitklappen")
 
-    # persoonlijke citaten per adviseur, zoals op de Slotenspecialist-site (Lars, 04-10-2026)
-    CITAAT = {"Lars Westendorp": "Een slot dat klopt, geeft rust. Dat gun ik elke organisatie.",
-              "Nick Westendorp": "Goede toegang is meestal onzichtbaar. Pas als het niet klopt, voel je het."}
-    personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")
-        + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}, tweede generatie. Uw contactpersoon van inventarisatie tot beheer.<br>'
-        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p>'
-        + (f'<p class="zacht">&ldquo;{esc(CITAAT[a["naam"]])}&rdquo;</p>' if a["naam"] in CITAAT else "") + "</div>" for a in ADVISEURS)
-    team = sectie("Team", '<div class="rooster">' + personen + '<div class="k4"><h3>Monteurs</h3><p>Eigen, PKVW-gecertificeerde monteurs die zowel het mechanische als het elektronische deel doen, met ervaring in oudere panden. '
-        "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.</p></div></div>")
-
-    werkplaats = beeld("werkplaats-infrezen.jpg", "Houten deur wordt ingefreesd voor elektronisch beslag in de werkplaats van Westendorp", onderschrift=INV("onderschrift werkplaatsfoto"))
-    werk = sectie("Werkplaats en infrezen", '<div class="rooster"><div class="k7">' + p(
-        f"Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er niet is. Die frezen wij zelf in, in onze werkplaatsen in {esc(WERKPLAATS)}, zodat de deur niet vervangen hoeft te worden en er geen deurenfabrikant tussen zit. "
-        "Voor de klant betekent dat één partij voor deur, beslag en elektronica.") + f'</div><div class="k5">{werkplaats}</div></div>', wit=True)
+    # teamkaarten in de stijl van de Slotenspecialist-site: grote foto bovenin, naam, functieregel, tekst met citaat (Lars, 04-10-2026)
+    TEAMTEKST = {
+        "Lars Westendorp": "Tweede generatie. Gespecialiseerd in elektronische toegang en beveiligingsoplossingen, en betrokken bij de dagelijkse aansturing van Westendorp. “Een slot dat klopt, geeft rust. Dat gun ik elke organisatie.”",
+        "Nick Westendorp": "Tweede generatie. Verantwoordelijk voor zakelijke trajecten en sluitplan-ontwerp, en het aanspreekpunt voor onze grotere projecten. “Goede toegang is meestal onzichtbaar. Pas als het niet klopt, voel je het.”",
+    }
+    personen = "".join('<div class="teamkaart">'
+        + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 700px) 46vw, 100vw") if a["foto"] else "")
+        + f'<h3>{esc(a["naam"])}</h3><p class="zacht">Eigenaar &amp; {esc(a["functie"].replace("eigenaar en ", ""))}</p>'
+        + f'<p>{TEAMTEKST.get(a["naam"], "")}</p><p><a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div>' for a in ADVISEURS)
+    bus = beeld("westendorp-servicebus-montageteam.jpg",
+                "Monteur pakt gereedschap in een volledig ingerichte servicebus van Westendorp",
+                klas="vol")
+    breed = ('<div class="kolommen" style="margin-top:22px"><div><div class="rooster"><div class="k6"><h3>Onze monteurs en werkplaats</h3>'
+        + p("Eigen, PKVW-gecertificeerde monteurs doen zowel het mechanische als het elektronische deel, met ervaring in oudere panden. "
+            "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.",
+            f"Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er niet is. Die frezen wij zelf in, in onze werkplaatsen in {esc(WERKPLAATS)}, "
+            "zodat de deur niet vervangen hoeft te worden en er geen deurenfabrikant tussen zit. Eén partij voor deur, beslag en elektronica.")
+        + f'</div><div class="k6">{bus}</div></div></div></div>')
+    team = sectie("Twee vertrouwde gezichten, één vast team", '<div class="kolommen kolommen--2">' + personen + "</div>" + breed, kicker="Het team achter Westendorp")
 
     faq = [
         ("Zijn jullie een installateur of een leverancier?", "Beide. Wij leveren de onderdelen en installeren ze met eigen monteurs. Wij verkopen geen losse onderdelen zonder installatie."),
@@ -90,7 +98,7 @@ def bouw():
         ("Wat is de relatie met Westendorp Slotenspecialist?", f"Beide zijn onderdeel van {esc(RECHTSPERSOON)}. Westendorp Slotenspecialist bedient particulieren en autosleutels vanuit de winkels; {esc(NAAM)} bedient bedrijven en instellingen, op locatie."),
     ]
 
-    body = hero(f"Over {esc(NAAM)}", intro, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + werk + feiten + meer
+    body = hero(f"Over {esc(NAAM)}", intro, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + feiten + meer
     personen_ld = [{"@type": "Person", "@id": SITE + PAD + "#" + a["naam"].lower(), "name": a["naam"], "jobTitle": a["functie"], "telephone": a["tel_link"], "worksFor": {"@id": ORG_ID}} for a in ADVISEURS]
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Over ons", PAD)], paginatype="AboutPage", extra_ld=personen_ld,
             llms="Wie Westendorp Toegangscontrole is: ontstaan als slotenmakerij in 1985, tweede generatie, vier kernwaarden, cijfers, team met citaten, werkplaats, onderdeel van Westendorp Groep VOF.")
