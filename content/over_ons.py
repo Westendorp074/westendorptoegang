@@ -25,7 +25,7 @@ def bouw():
     # het ontstaansverhaal open op de pagina, naar het voorbeeld van de Slotenspecialist-site (Lars, 04-10-2026)
     duo = beeld("westendorp-winkel-enschede-sleutelbalie.jpg",
                 "De balie van de Westendorp-winkel in Enschede, met de sleutelborden aan de wand en Nick Westendorp aan het werk",
-                klas="vol")
+                klas="pashoog")
     verhaal = sectie("Begonnen met sloten en sleutels, uitgegroeid tot toegangsspecialist", '<div class="rooster"><div class="k7">' + p(
         f"Westendorp begon in {esc(MOEDER_SINDS)} in Hengelo met sleutels, sloten en beslag — een ambacht, geleerd met vijl en hand, niet met een laptop. "
         "Inmiddels staat de tweede generatie aan het roer en rijden onze monteurs dagelijks door heel Oost-Nederland.",
@@ -50,7 +50,7 @@ def bouw():
     werkbank = beeld("westendorp-werkplaats-sleutelspecialist-werkbank.jpg",
                      "Werkbank in de werkplaats van Westendorp, met ladekasten vol sleutel- en cilinderonderdelen en een monteur aan het werk",
                      klas="vol")
-    cijfers = sectie("Wat ruim veertig jaar vakmanschap oplevert", '<div class="rooster"><div class="k7"><dl class="feitenpaneel">' + "".join(
+    cijfers = sectie("Wat ruim veertig jaar vakmanschap oplevert", '<div class="rooster"><div class="k7"><dl class="feitenpaneel feitenpaneel--vul">' + "".join(
         f"<div><dt>{esc(c)}</dt><dd>{esc(t)}</dd></div>" for c, t in [
             ("40+", "jaar ervaring met sloten en toegang in Twente"),
             ("2", "vestigingen: werkplaats Enschede en servicevestiging Hengelo"),
@@ -98,7 +98,9 @@ def bouw():
         ("Wat is de relatie met Westendorp Slotenspecialist?", f"Beide zijn onderdeel van {esc(RECHTSPERSOON)}. Westendorp Slotenspecialist bedient particulieren en autosleutels vanuit de winkels; {esc(NAAM)} bedient bedrijven en instellingen, op locatie."),
     ]
 
-    body = hero(f"Over {esc(NAAM)}", intro, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + feiten + meer
+    herofoto = beeld("westendorp-bedrijfsbussen-onderweg.jpg",
+                     "Twee bedrijfsbussen van Westendorp rijdend over een weg in het Twentse buitengebied", lazy=False)
+    body = hero(f"Over {esc(NAAM)}", intro, foto_html=herofoto, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + feiten + meer
     personen_ld = [{"@type": "Person", "@id": SITE + PAD + "#" + a["naam"].lower(), "name": a["naam"], "jobTitle": a["functie"], "telephone": a["tel_link"], "worksFor": {"@id": ORG_ID}} for a in ADVISEURS]
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Over ons", PAD)], paginatype="AboutPage", extra_ld=personen_ld,
             llms="Wie Westendorp Toegangscontrole is: ontstaan als slotenmakerij in 1985, tweede generatie, vier kernwaarden, cijfers, team met citaten, werkplaats, onderdeel van Westendorp Groep VOF.")
