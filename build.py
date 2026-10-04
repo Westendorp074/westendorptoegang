@@ -75,7 +75,7 @@ WERKGEBIED = [
     ("Doetinchem", "Achterhoek",None, None),
     ("Apeldoorn",  "Veluwe",    None, None),
 ]
-WERKGEBIED_REGEL = "heel Oost-Nederland, daarbuiten in overleg"   # Lars, 04-10-2026: niet meer op rijtijd formuleren
+WERKGEBIED_REGEL = "heel Oost-Nederland, tot anderhalf uur rijden vanuit Enschede"   # Lars, 04-10-2026
 # Rijtijd per plaats: bewust niet op de site (Lars, 21-09-2026).
 
 # Merken (INPUT §B4)
