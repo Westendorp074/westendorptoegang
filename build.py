@@ -181,12 +181,12 @@ WERKPLAATS      = "Enschede en Hengelo"                              # Lars, 21-
 VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaalsestraat 553)"
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
-ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer; volledige namen en eigenaarschap (Lars, 04-10-2026)
-    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # originele blauwe Toegang-portretten (Lars, 04-10-2026: geen Slotenspecialist-portretten)
-    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+ADVISEURS = [  # volledige namen en eigenaarschap; Nick altijd als eerste (Lars, 04-10-2026)
+    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # originele blauwe Toegang-portretten
+    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
 ]
 ADVISEUR = ADVISEURS[0]
-ADVISEUR_NAMEN = " of ".join(a["naam"].split()[0] for a in ADVISEURS)          # "Lars of Nick", voor lopende zinnen
+ADVISEUR_NAMEN = " of ".join(a["naam"].split()[0] for a in ADVISEURS)          # "Nick of Lars", voor lopende zinnen
 
 # Conversie (INPUT §E)
 # Duurzaamheid (Lars, 22-09-2026): ABUS Magtec in eigen profiel; cijfers van ABUS/ClimatePartner, met bron op /duurzaamheid/.
@@ -203,7 +203,7 @@ CTA            = "Plan een gratis inventarisatie"                     # INPUT §
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = "50c899f1-e3b2-4bbe-b1b3-5dbd7c00ac7c"              # INPUT §E2 (Lars, 21-09-2026, incognito aangemaakt op info@); 3d5d8a2f… en 2fa6ec12… gingen naar autosleutel@
 FORM_MAILBOX   = MAIL                                               # INPUT §E2: aanname, zelfde als het algemene adres
-BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Lars of Nick belt u binnen 1 werkdag om uw situatie door te nemen "
+BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Nick of Lars belt u binnen 1 werkdag om uw situatie door te nemen "
                   "en de inventarisatie op locatie in te plannen. Daarna ontvangt u zo snel mogelijk een offerte met een vaste prijs per deur.")   # voorstel Claude, 21-09-2026
 GOOGLE_TAG_ID  = "AW-17596975114"                                   # INPUT §E3 (Lars, 21-09-2026), gedeeld met andere sites; conversielabels volgen
 ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie

@@ -15,7 +15,7 @@ def bouw():
         f"Werkgebied: {esc(WERKGEBIED_REGEL)}",
         "Merken: EVVA (mechanisch en elektronisch), ASSA ABLOY (mechanisch en elektronisch), ABUS (mechanisch); onderhoud van bestaande Salto-systemen",
         f"Eigen sleutelprofiel: {esc(EIGEN_PROFIEL)}, cilinders op naam en op voorraad",
-        "Eigenaren: Lars en Nick Westendorp, tweede generatie; eigen monteurs",
+        "Eigenaren: Nick en Lars Westendorp, tweede generatie; eigen monteurs",
         f"Werkplaats en uitrijbasis in {esc(WERKPLAATS)}; Hengelo is de servicevestiging met kantoor",
         f"Partner en opleiding: {esc(CERTIFICATEN)}",
         f"Deurdrangers en deurautomaten: {esc(DEURDRANGERS)}",
@@ -42,7 +42,7 @@ def bouw():
         f"<li><h3>{esc(k)}</h3><p>{esc(t)}</p></li>" for k, t in [
             ("Vakwerk boven alles", "Wij zijn toegangsspecialisten omdat we het vak liefhebben. Ook als een klus snel moet, frezen, stellen en testen wij zorgvuldig; de deur moet het over tien jaar nog doen."),
             ("Eerlijk over kosten", "U vindt bij ons vanaf-prijzen gewoon op de site en u hoort vooraf wat een project ongeveer kost. Verrassingen achteraf passen niet bij hoe wij werken."),
-            ("Eén aanspreekpunt", "Wie de inventarisatie doet, kent de deuren die de monteur later aantreft. U belt met Lars of Nick, niet met een servicedesk."),
+            ("Eén aanspreekpunt", "Wie de inventarisatie doet, kent de deuren die de monteur later aantreft. U belt met Nick of Lars, niet met een servicedesk."),
             ("Twents en dichtbij", "Wij zijn opgegroeid in Twente en werken voor organisaties in Oost-Nederland. Bij een storing zijn wij er binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar."),
         ]) + "</ol>", kicker="Wat wij belangrijk vinden")
 
