@@ -25,7 +25,7 @@ def bouw():
     # het ontstaansverhaal open op de pagina, naar het voorbeeld van de Slotenspecialist-site (Lars, 04-10-2026)
     duo = beeld("westendorp-winkel-enschede-sleutelbalie.jpg",
                 "De balie van de Westendorp-winkel in Enschede, met de sleutelborden aan de wand en Nick Westendorp aan het werk",
-                onderschrift="Onze winkel en uitvalsbasis in Enschede", klas="vol")
+                klas="vol")
     verhaal = sectie("Begonnen met sloten en sleutels, uitgegroeid tot toegangsspecialist", '<div class="rooster"><div class="k7">' + p(
         f"Westendorp begon in {esc(MOEDER_SINDS)} in Hengelo met sleutels, sloten en beslag — een ambacht, geleerd met vijl en hand, niet met een laptop. "
         "Inmiddels staat de tweede generatie aan het roer en rijden onze monteurs dagelijks door heel Oost-Nederland.",
@@ -49,7 +49,7 @@ def bouw():
     # cijfers in context, met de werkplaats ernaast
     werkbank = beeld("westendorp-werkplaats-sleutelspecialist-werkbank.jpg",
                      "Werkbank in de werkplaats van Westendorp, met ladekasten vol sleutel- en cilinderonderdelen en een monteur aan het werk",
-                     onderschrift="De werkplaats: hier worden cilinders gesteld en sleutels gemaakt", klas="vol")
+                     klas="vol")
     cijfers = sectie("Wat ruim veertig jaar vakmanschap oplevert", '<div class="rooster"><div class="k7"><dl class="feitenpaneel">' + "".join(
         f"<div><dt>{esc(c)}</dt><dd>{esc(t)}</dd></div>" for c, t in [
             ("40+", "jaar ervaring met sloten en toegang in Twente"),
