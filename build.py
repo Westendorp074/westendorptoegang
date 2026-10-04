@@ -840,7 +840,7 @@ def footer():
     btw = f"<p>Btw-nummer {esc(BTW)}.</p>" if BTW else ""
     profiel = f'<li><a href="{esc(GOOGLE_PROFIEL)}" rel="noopener">Google Bedrijfsprofiel</a></li>' if not placeholder(GOOGLE_PROFIEL) else ""
     linkedin = f'<li><a href="{esc(LINKEDIN)}" rel="noopener">LinkedIn</a></li>' if not placeholder(LINKEDIN) else ""
-    cookies = '<li><button type="button" data-consent-open>Cookie-instellingen</button></li>' if TAG_ACTIEF else ""
+    cookies = ""   # Cookie-instellingen-knop uit de footer (Lars, 04-10-2026)
     return f'''<footer class="voet"><div class="wrap">
 <div class="rooster">
 <div class="k3"><p class="voet__naam">{esc(NAAM)}</p><p>Elektronische toegangscontrole, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en Oost-Nederland.</p><p>{cta_knop(cta_id="footer")}</p></div>
