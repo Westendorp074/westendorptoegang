@@ -203,7 +203,7 @@ CTA            = "Plan een gratis inventarisatie"                     # INPUT §
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = "50c899f1-e3b2-4bbe-b1b3-5dbd7c00ac7c"              # INPUT §E2 (Lars, 21-09-2026, incognito aangemaakt op info@); 3d5d8a2f… en 2fa6ec12… gingen naar autosleutel@
 FORM_MAILBOX   = MAIL                                               # INPUT §E2: aanname, zelfde als het algemene adres
-BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Nick of Lars belt u binnen 1 werkdag om uw situatie door te nemen "
+BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Wij bellen u binnen 1 werkdag om uw situatie door te nemen "
                   "en de inventarisatie op locatie in te plannen. Daarna ontvangt u zo snel mogelijk een offerte met een vaste prijs per deur.")   # voorstel Claude, 21-09-2026
 GOOGLE_TAG_ID  = "AW-17596975114"                                   # INPUT §E3 (Lars, 21-09-2026), gedeeld met andere sites; conversielabels volgen
 ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie
@@ -972,13 +972,13 @@ def _opties(naam, items, leeg="Maak een keuze"):
     return f'<option value="">{leeg}</option>' + "".join(f'<option value="{esc(i)}">{esc(i)}</option>' for i in items)
 
 UITLEG_INV = "Wij komen gratis bij u langs en nemen alle deuren door; vul daarvoor ook de plaats van het pand in."
-UITLEG_BERICHT = "Stel uw vraag of stuur een bericht; u krijgt binnen 1 werkdag antwoord van Nick of Lars."
+UITLEG_BERICHT = "Stel uw vraag of stuur een bericht; u krijgt binnen 1 werkdag antwoord."
 
 def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="inventarisatie", keuze=False):
     """Het ene formulier van de site (BRIEF §7). kort=True: zelfde velden, als blok onderaan een pagina.
     keuze=True (contactpagina): keuzeknoppen bericht/inventarisatie met uitlegregel; standaard="bericht" bepaalt de start."""
     bericht = standaard == "bericht"
-    intro = intro or ("Vul het formulier in; " + esc(ADVISEUR_NAMEN) + " neemt contact met u op binnen " + esc(REACTIE_AANVRAAG) + ". Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor een inventarisatie ook de plaats van het pand.")
+    intro = intro or ("Vul het formulier in; wij nemen binnen " + esc(REACTIE_AANVRAAG) + " contact met u op. Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor een inventarisatie ook de plaats van het pand.")
     keuzebalk = (f'<div class="breed fkeuze"><button type="button" class="fkeuze__knop{" aan" if not bericht else ""}" data-fmodus="inventarisatie" aria-pressed="{str(not bericht).lower()}">Plan een gratis inventarisatie</button>'
                  f'<button type="button" class="fkeuze__knop{" aan" if bericht else ""}" data-fmodus="bericht" aria-pressed="{str(bericht).lower()}">Stuur een bericht</button></div>'
                  f'<p class="breed fkeuze__uitleg" data-fuitleg data-uitleg-inv="{esc(UITLEG_INV)}" data-uitleg-bericht="{esc(UITLEG_BERICHT)}" aria-live="polite">{esc(UITLEG_BERICHT if bericht else UITLEG_INV)}</p>') if keuze else ""
