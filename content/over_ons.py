@@ -22,12 +22,36 @@ def bouw():
         f"{esc(RECHTSPERSOON)}, KvK {esc(KVK)}",
     ], klas="feiten") + "</div></div>")
 
-    verhaal_tekst = p(
-        f"Westendorp is een Twents familiebedrijf dat sinds {esc(MOEDER_SINDS)} deuren, sloten en beslag doet in Enschede en Hengelo. Toen bedrijven vroegen om sloten die met een pas opengaan, bleek dat de deur en het beslag "
-        "het lastige deel zijn: past het beslag, sluit de deur nog goed, blijft de brandwerende deur goedgekeurd. De elektronica komt daar bovenop.",
-        f"Daarom is {esc(NAAM)} ontstaan: een eigen tak voor bedrijven en instellingen, met EVVA als hoofdmerk omdat die fabrikant mechanisch en elektronisch onder één dak maakt. Wij zijn officieel partner van EVVA, ASSA ABLOY en ABUS, en EVVA schakelt ons in voor bepaalde projecten. "
-        "Wat wij bieden is één adviseur van inventarisatie tot beheer, eigen monteurs binnen een uur rijden en een werkplaats waar wij houten deuren zelf infrezen. " + PKVW,
-        f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}. Onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
+    # het ontstaansverhaal open op de pagina, naar het voorbeeld van de Slotenspecialist-site (Lars, 04-10-2026)
+    verhaal = sectie("Begonnen met sloten en sleutels, uitgegroeid tot toegangsspecialist", '<div class="rooster"><div class="k8">' + p(
+        f"Westendorp begon in {esc(MOEDER_SINDS)} in Hengelo met sleutels, sloten en beslag — een ambacht, geleerd met vijl en hand, niet met een laptop. "
+        "Inmiddels staat de tweede generatie aan het roer en rijden onze monteurs dagelijks door heel Oost-Nederland.",
+        "Toen bedrijven vroegen om sloten die met een pas opengaan, bleek ons ambacht het verschil: de elektronica is het makkelijke deel, de deur is het lastige. "
+        "Past het beslag, sluit de deur nog goed, blijft de brandwerende deur goedgekeurd? Wie veertig jaar deuren doet, weet dat voordat de eerste cilinder besteld is.",
+        f"Daarom is {esc(NAAM)} ontstaan: de eigen zakelijke tak voor bedrijven en instellingen, met EVVA als hoofdmerk omdat die fabrikant mechanisch en elektronisch onder één dak maakt. "
+        "Wij zijn officieel partner van EVVA, ASSA ABLOY en ABUS, en EVVA schakelt ons zelf in voor projecten in de regio. " + PKVW,
+        f"Wat in al die jaren hetzelfde bleef: een sleutel die past, een slot dat werkt, een toegang die klopt — of het nu om één voordeur gaat of om een sluitplan voor honderd deuren. "
+        f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}; onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
+        + "</div></div>", wit=True, kicker="Hoe wij begonnen zijn")
+
+    # vier waarden, genummerd zoals de stappen (eigen taal, B2B)
+    waarden = sectie("Vier dingen die niet onderhandelbaar zijn", '<ol class="stappen">' + "".join(
+        f"<li><h3>{esc(k)}</h3><p>{esc(t)}</p></li>" for k, t in [
+            ("Vakwerk boven alles", "Wij zijn toegangsspecialisten omdat we het vak liefhebben. Ook als een klus snel moet, frezen, stellen en testen wij zorgvuldig; de deur moet het over tien jaar nog doen."),
+            ("Eerlijk over kosten", "U vindt bij ons vanaf-prijzen gewoon op de site en u hoort vooraf wat een project ongeveer kost. Verrassingen achteraf passen niet bij hoe wij werken."),
+            ("Eén aanspreekpunt", "Wie de inventarisatie doet, kent de deuren die de monteur later aantreft. U belt met Lars of Nick, niet met een servicedesk."),
+            ("Twents en dichtbij", "Wij zijn opgegroeid in Twente en werken voor organisaties in Oost-Nederland. Bij een storing zijn wij er binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar."),
+        ]) + "</ol>", kicker="Wat wij belangrijk vinden")
+
+    # cijfers in context
+    cijfers = sectie("Wat ruim veertig jaar vakmanschap oplevert", '<div class="rooster"><div class="k8"><dl class="feitenpaneel">' + "".join(
+        f"<div><dt>{esc(c)}</dt><dd>{esc(t)}</dd></div>" for c, t in [
+            ("40+", "jaar ervaring met sloten en toegang in Twente"),
+            ("2", "vestigingen: werkplaats Enschede en servicevestiging Hengelo"),
+            ("300+", "zakelijke klanten in de regio, van gemeente tot winkelcentrum"),
+            ("24/7", "storingsdienst: binnen 4 tot 12 uur ter plaatse, het hele jaar"),
+        ]) + "</dl></div></div>", wit=True, kicker="Cijfers in context")
+
     beveiliging_tekst = p(
         f"Wij zijn {esc(CERTIFICATEN)}. Dat betekent dat wij de systemen van deze fabrikanten mogen leveren en installeren en hun opleidingen hebben gevolgd.",
         "Voor mechanische sluitplannen voeren wij cilinders met SKG-certificering waar de verzekeraar dat vraagt; ABUS Magtec haalt SKG*** en het hoogste niveau op DIN EN 1303. "
@@ -38,12 +62,16 @@ def bouw():
         "Voor de mechanische deuren voeren wij standaard ABUS Magtec: loodvrij geproduceerd en met 46 procent minder broeikasgasemissies dan een conventionele cilinder, berekend door ClimatePartner. "
         "Alles daarover staat op <a href=\"/duurzaamheid/\">duurzaamheid</a>.")
     uitklap = "".join(f'<details id="{a}"{" open" if i == 0 else ""}><summary>{esc(k)}</summary><div class="antwoord">{t}</div></details>' for i, (a, k, t) in enumerate([
-        ("wie-zijn-wij", "Wie zijn wij als bedrijf", verhaal_tekst), ("beveiliging", "Beveiliging en certificaten", beveiliging_tekst), ("duurzaamheid", "Duurzaamheid", duurzaam_tekst)]))
-    verhaal = sectie("Meer over ons", f'<div class="rooster"><div class="k8"><div class="faq">{uitklap}</div></div></div>', wit=True, kicker="Uitklappen")
+        ("beveiliging", "Beveiliging en certificaten", beveiliging_tekst), ("duurzaamheid", "Duurzaamheid", duurzaam_tekst)]))
+    meer = sectie("Meer over ons", f'<div class="rooster"><div class="k8"><div class="faq">{uitklap}</div></div></div>', kicker="Uitklappen")
 
+    # persoonlijke citaten per adviseur, zoals op de Slotenspecialist-site (Lars, 04-10-2026)
+    CITAAT = {"Lars": "Een slot dat klopt, geeft rust. Dat gun ik elke organisatie.",
+              "Nick": "Goede toegang is meestal onzichtbaar. Pas als het niet klopt, voel je het."}
     personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")
-        + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}. Uw contactpersoon van inventarisatie tot beheer.<br>'
-        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p></div>' for a in ADVISEURS)
+        + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}, tweede generatie. Uw contactpersoon van inventarisatie tot beheer.<br>'
+        f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p>'
+        + (f'<p class="zacht">&ldquo;{esc(CITAAT[a["naam"]])}&rdquo;</p>' if a["naam"] in CITAAT else "") + "</div>" for a in ADVISEURS)
     team = sectie("Team", '<div class="rooster">' + personen + '<div class="k4"><h3>Monteurs</h3><p>Eigen, PKVW-gecertificeerde monteurs die zowel het mechanische als het elektronische deel doen, met ervaring in oudere panden. '
         "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.</p></div></div>")
 
@@ -59,7 +87,7 @@ def bouw():
         ("Wat is de relatie met Westendorp Slotenspecialist?", f"Beide zijn onderdeel van {esc(RECHTSPERSOON)}. Westendorp Slotenspecialist bedient particulieren en autosleutels vanuit de winkels; {esc(NAAM)} bedient bedrijven en instellingen, op locatie."),
     ]
 
-    body = hero(f"Over {esc(NAAM)}", intro) + feiten + verhaal + team + werk
+    body = hero(f"Over {esc(NAAM)}", intro, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + werk + feiten + meer
     personen_ld = [{"@type": "Person", "@id": SITE + PAD + "#" + a["naam"].lower(), "name": a["naam"], "jobTitle": a["functie"], "telephone": a["tel_link"], "worksFor": {"@id": ORG_ID}} for a in ADVISEURS]
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Over ons", PAD)], paginatype="AboutPage", extra_ld=personen_ld,
-            llms="Wie Westendorp Toegangscontrole is: feiten in het kort, ontstaan, team, werkplaats, onderdeel van Westendorp Groep VOF.")
+            llms="Wie Westendorp Toegangscontrole is: ontstaan als slotenmakerij in 1985, tweede generatie, vier kernwaarden, cijfers, team met citaten, werkplaats, onderdeel van Westendorp Groep VOF.")
