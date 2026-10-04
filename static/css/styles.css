@@ -296,6 +296,7 @@ textarea{min-height:120px;resize:vertical}
 .form-status.ok{color:var(--signaal)}
 .form-status.mis{color:var(--fout)}
 .honing{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+.formulier--vraag .veld--pand{display:none}
 .adviseur{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}
 .adviseur__personen{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px}
 .adviseur__persoon figure{margin:0 0 8px}

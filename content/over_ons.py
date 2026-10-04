@@ -100,7 +100,7 @@ def bouw():
 
     herofoto = beeld("westendorp-bedrijfsbus-enschede.jpg",
                      "Bedrijfsbus van Westendorp geparkeerd in een straat in Enschede", lazy=False)
-    body = hero(f"Over {esc(NAAM)}", intro, foto_html=herofoto, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + feiten + meer
+    body = hero(f"Over {esc(NAAM)}", intro, foto_html=herofoto, kicker=f"Familiebedrijf sinds {esc(MOEDER_SINDS)} · tweede generatie") + verhaal + waarden + team + cijfers + klantenbalk() + feiten + meer
     personen_ld = [{"@type": "Person", "@id": SITE + PAD + "#" + a["naam"].lower(), "name": a["naam"], "jobTitle": a["functie"], "telephone": a["tel_link"], "worksFor": {"@id": ORG_ID}} for a in ADVISEURS]
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Over ons", PAD)], paginatype="AboutPage", extra_ld=personen_ld,
             llms="Wie Westendorp Toegangscontrole is: ontstaan als slotenmakerij in 1985, tweede generatie, vier kernwaarden, cijfers, team met citaten, werkplaats, onderdeel van Westendorp Groep VOF.")

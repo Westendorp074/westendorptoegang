@@ -176,6 +176,10 @@
   d.querySelectorAll('form[data-aanvraag]').forEach(function (f) {
     var start = Date.now();
     var status = f.querySelector('.form-status');
+    // "Een vraag of bericht sturen": pandvelden verbergen, plaats niet verplicht
+    var onderwerp = f.elements.onderwerp;
+    function vraagModus() { return !!(onderwerp && /vraag of bericht/i.test(onderwerp.value)); }
+    if (onderwerp) onderwerp.addEventListener('change', function () { f.classList.toggle('formulier--vraag', vraagModus()); });
     var teksten = {
       naam: 'Vul uw naam in.',
       plaats: 'Vul de plaats van het pand in.',
@@ -195,7 +199,7 @@
       if (!naam.value.trim()) { zetFout(naam, teksten.naam); ok = false; eerste = eerste || naam; }
       if (!tel.value.trim() && !mail.value.trim()) { zetFout(tel, teksten.contact); ok = false; eerste = eerste || tel; }
       if (mail.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim())) { zetFout(mail, teksten.email); ok = false; eerste = eerste || mail; }
-      if (!plaats.value.trim()) { zetFout(plaats, teksten.plaats); ok = false; eerste = eerste || plaats; }
+      if (!vraagModus() && !plaats.value.trim()) { zetFout(plaats, teksten.plaats); ok = false; eerste = eerste || plaats; }
       if (eerste) eerste.focus();
       return ok;
     }
