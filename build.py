@@ -600,38 +600,59 @@ def video_ld(pad, beschrijving):
             "author": {"@type": "Organization", "name": v["maker"], "url": "https://www.evva.com"}, "publisher": {"@id": ORG_ID}, "isPartOf": {"@id": SITE + pad + "#webpage"}}
 
 def kaart_svg():
-    """Schematische kaart van het werkgebied: Enschede in het midden, een cirkel voor 60 minuten rijden, de plaatsen
-    als punten op hun ligging (lengte- en breedtegraad, benaderd). Geen kaartdienst, geen externe request."""
+    """Kaart van Nederland (vereenvoudigde contour) met het werkgebied: anderhalf uur rijden rond Enschede,
+    de plaatsen op hun echte ligging. Eigen vectorwerk; geen kaartdienst, geen externe request."""
     ligging = {"Enschede": (6.89, 52.22), "Hengelo": (6.79, 52.27), "Almelo": (6.66, 52.36), "Oldenzaal": (6.93, 52.31),
                "Haaksbergen": (6.74, 52.16), "Borne": (6.75, 52.30), "Deventer": (6.16, 52.25), "Zwolle": (6.09, 52.51),
                "Zutphen": (6.20, 52.14), "Doetinchem": (6.29, 51.96), "Apeldoorn": (5.97, 52.21)}
-    cx, cy, schaal = 6.89, 52.22, 230          # px per graad lengte; breedtegraad gecorrigeerd met cos(52 graden), 0,62
-    def xy(lon, lat): return 300 + (lon - cx) * schaal, 220 - (lat - cy) * schaal / 0.62
+    schaal = 120                                # px per graad lengte; breedtegraad gecorrigeerd met cos(52 graden), 0,62
+    def xy(lon, lat): return 16 + (lon - 3.2) * schaal, 20 + (53.60 - lat) * schaal / 0.62
+    # vereenvoudigde landsgrens, met de klok mee vanaf de Dollard
+    NL = [(7.21, 53.24), (6.93, 53.33), (6.83, 53.44), (6.44, 53.44), (6.19, 53.41), (5.90, 53.39), (5.55, 53.30),
+          (5.42, 53.19), (5.30, 53.07), (5.03, 52.94), (4.73, 52.96), (4.72, 52.86), (4.64, 52.60), (4.57, 52.44),
+          (4.48, 52.33), (4.40, 52.21), (4.05, 51.99),
+          (4.00, 51.83), (3.86, 51.74), (3.69, 51.70), (3.45, 51.54), (3.49, 51.41), (3.38, 51.27), (3.52, 51.25),
+          (3.80, 51.21), (4.24, 51.35), (4.67, 51.43), (5.03, 51.49), (5.10, 51.43), (5.24, 51.26), (5.56, 51.22),
+          (5.80, 51.16), (5.85, 51.03), (5.69, 50.76), (5.99, 50.75), (6.02, 50.98), (6.08, 51.17), (6.22, 51.36),
+          (5.95, 51.74), (6.17, 51.84), (6.41, 51.83), (6.72, 51.90), (6.83, 51.97), (7.07, 52.24), (6.99, 52.47),
+          (7.07, 52.64), (6.71, 52.65), (6.77, 52.80), (7.09, 52.86), (7.21, 53.01)]
+    MEER = [(5.04, 52.60), (5.06, 52.94), (5.28, 53.06), (5.60, 52.83), (5.72, 52.60), (5.55, 52.48), (5.20, 52.47)]
+    FLEVO = [(5.38, 52.55), (5.55, 52.65), (5.83, 52.59), (5.90, 52.47), (5.62, 52.37), (5.42, 52.42)]
+    WADDEN = [((4.75, 52.99), (4.88, 53.17)), ((4.90, 53.23), (5.09, 53.30)), ((5.17, 53.35), (5.55, 53.44)),
+              ((5.65, 53.44), (6.00, 53.47)), ((6.13, 53.48), (6.30, 53.50))]
+    def pad(punten): return "M" + " L".join(f"{xy(lo, la)[0]:.0f} {xy(lo, la)[1]:.0f}" for lo, la in punten) + " Z"
+    eilanden = "".join(f'<line x1="{xy(*a)[0]:.0f}" y1="{xy(*a)[1]:.0f}" x2="{xy(*b)[0]:.0f}" y2="{xy(*b)[1]:.0f}" stroke="#CBD8E4" stroke-width="8" stroke-linecap="round"/>' for a, b in WADDEN)
+    r_anderhalf = 120 * (schaal / 0.62) / 111   # ongeveer 120 km rijden in anderhalf uur
     ex, ey = xy(*ligging[PLAATS])
-    spaken, punten = [], []
+    kern = {"Hengelo", "Almelo", "Borne", "Oldenzaal", "Haaksbergen"}   # dicht op elkaar: stip zonder label, de tabel ernaast noemt ze
+    labelplek = {"Zwolle": ("end", -10, 4), "Deventer": ("end", -10, -5), "Apeldoorn": ("end", -10, 10),
+                 "Zutphen": ("end", -10, 14), "Doetinchem": ("end", -10, 10)}
+    punten = []
     for naam, _, _, _ in WERKGEBIED:
         if naam not in ligging or naam == PLAATS: continue
         x, y = xy(*ligging[naam])
-        anker = "end" if x < 300 else "start"; dx = -11 if x < 300 else 11
-        spaken.append(f'<line x1="{ex:.0f}" y1="{ey:.0f}" x2="{x:.0f}" y2="{y:.0f}" stroke="#49BFFE" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".55"/>')
-        punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="5" fill="#fff" stroke="#1B68C0" stroke-width="2.5"/>'
-                      f'<text x="{x + dx:.0f}" y="{y + 4:.0f}" text-anchor="{anker}" font-size="13.5" font-weight="600" fill="#14232E">{esc(naam)}</text>')
-    regios = "".join(f'<text x="{x}" y="{y}" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="2.5" fill="#8A96A3">{r}</text>'
-                     for r, x, y in [("TWENTE", 420, 125), ("VECHTDAL", 128, 158), ("SALLAND", 120, 262),
-                                     ("VELUWE", 88, 330), ("ACHTERHOEK", 232, 392)])
-    return (f'<svg viewBox="0 0 600 470" width="600" height="470" role="img" aria-label="Schematische kaart van het werkgebied rond {esc(PLAATS)}" '
+        if naam in kern:
+            punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="3.5" fill="#fff" stroke="#1B68C0" stroke-width="2.2"/>')
+        else:
+            anker, dx, dy = labelplek.get(naam, ("start", 10, 4))
+            punten.append(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="4.5" fill="#fff" stroke="#1B68C0" stroke-width="2.5"/>'
+                          f'<text x="{x + dx:.0f}" y="{y + dy:.0f}" text-anchor="{anker}" font-size="13" font-weight="600" fill="#14232E">{esc(naam)}</text>')
+    ax, ay = xy(4.90, 52.37)   # Amsterdam als herkenningspunt, buiten het werkgebied
+    return (f'<svg viewBox="0 0 640 660" width="640" height="660" role="img" aria-label="Kaart van Nederland met het werkgebied rond {esc(PLAATS)}: tot anderhalf uur rijden" '
             f'xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block;font-family:inherit">'
-            f'<defs><radialGradient id="wgz" cx="50%" cy="47%" r="55%"><stop offset="0" stop-color="#E4F1FC"/><stop offset=".65" stop-color="#EFF6FC"/><stop offset="1" stop-color="#F7FAFD"/></radialGradient></defs>'
-            f'<rect x="8" y="8" width="584" height="424" rx="14" fill="#FFFFFF" stroke="#E4DFD7"/>'
-            f'<circle cx="300" cy="220" r="196" fill="url(#wgz)"/>'
-            f'<circle cx="300" cy="220" r="196" fill="none" stroke="#1B68C0" stroke-width="1.5" stroke-dasharray="3 7" stroke-linecap="round" opacity=".55"/>'
-            f'<circle cx="300" cy="220" r="96" fill="none" stroke="#49BFFE" stroke-width="1.5" stroke-dasharray="3 7" stroke-linecap="round" opacity=".6"/>'
-            f'{"".join(spaken)}{regios}{"".join(punten)}'
-            f'<g transform="translate({ex:.0f} {ey:.0f})"><circle r="11" fill="#49BFFE" opacity=".3"/><circle r="7" fill="#1B68C0"/><circle r="2.6" fill="#fff"/></g>'
-            f'<text x="{ex + 15:.0f}" y="{ey + 5:.0f}" font-size="14.5" font-weight="800" fill="#02295B">{esc(PLAATS)}</text>'
-            f'<rect x="196" y="413" width="208" height="0" fill="none"/>'
-            f'<text x="300" y="418" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1.5" fill="#1B68C0">TOT ANDERHALF UUR RIJDEN VANUIT ENSCHEDE</text>'
-            f'<text x="300" y="456" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun werkelijke ligging</text></svg>')
+            f'<defs><clipPath id="nlclip"><path d="{pad(NL)}"/></clipPath></defs>'
+            f'{eilanden}'
+            f'<path d="{pad(NL)}" fill="#F4F7FA" stroke="#B9C7D6" stroke-width="2" stroke-linejoin="round"/>'
+            f'<path d="{pad(MEER)}" fill="#DCEBF8" stroke="#B9C7D6" stroke-width="1"/>'
+            f'<path d="{pad(FLEVO)}" fill="#F4F7FA" stroke="#B9C7D6" stroke-width="1"/>'
+            f'<circle cx="{ex:.0f}" cy="{ey:.0f}" r="{r_anderhalf:.0f}" fill="#49BFFE" opacity=".18" clip-path="url(#nlclip)"/>'
+            f'<circle cx="{ex:.0f}" cy="{ey:.0f}" r="{r_anderhalf:.0f}" fill="none" stroke="#1B68C0" stroke-width="1.6" stroke-dasharray="3 7" stroke-linecap="round" opacity=".6"/>'
+            f'<circle cx="{ax:.0f}" cy="{ay:.0f}" r="3.5" fill="#AEB9C4"/><text x="{ax - 9:.0f}" y="{ay + 4:.0f}" text-anchor="end" font-size="11.5" fill="#8A96A3">Amsterdam</text>'
+            f'{"".join(punten)}'
+            f'<g transform="translate({ex:.0f} {ey:.0f})"><circle r="11" fill="#49BFFE" opacity=".3"/><circle r="6.5" fill="#1B68C0"/><circle r="2.4" fill="#fff"/></g>'
+            f'<text x="{ex + 14:.0f}" y="{ey + 5:.0f}" font-size="14.5" font-weight="800" fill="#02295B">{esc(PLAATS)}</text>'
+            f'<text x="320" y="614" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1.5" fill="#1B68C0">TOT ANDERHALF UUR RIJDEN VANUIT ENSCHEDE</text>'
+            f'<text x="320" y="640" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: vereenvoudigde kaart, plaatsen op hun werkelijke ligging</text></svg>')
 
 def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None, groen=False):
     kl = " ".join(k for k in ["reveal", "sectie--wit" if wit else "", "sectie--lijn" if lijn else "", "sectie--groen" if groen else ""] if k)
