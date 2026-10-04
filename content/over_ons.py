@@ -12,10 +12,10 @@ def bouw():
     feiten = sectie("Feiten in het kort", '<div class="rooster"><div class="k8">' + lijst([
         f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}; elektronische toegangscontrole sinds {esc(TOEGANG_SINDS)}",
         f"Vestiging: {esc(STRAAT)}, {esc(POSTCODE)} {esc(PLAATS)}",
-        f"Werkgebied: {esc(WERKGEBIED_REGEL)}, heel Oost-Nederland",
+        f"Werkgebied: {esc(WERKGEBIED_REGEL)}",
         "Merken: EVVA (mechanisch en elektronisch), ASSA ABLOY (mechanisch en elektronisch), ABUS (mechanisch); onderhoud van bestaande Salto-systemen",
         f"Eigen sleutelprofiel: {esc(EIGEN_PROFIEL)}, cilinders op naam en op voorraad",
-        f"Adviseurs {esc(ADVISEUR_NAMEN.replace(' of ', ' en '))}, eigen monteurs",
+        "Eigenaren: Lars en Nick Westendorp, tweede generatie; eigen monteurs",
         f"Werkplaats en uitrijbasis in {esc(WERKPLAATS)}; Hengelo is de servicevestiging met kantoor",
         f"Partner en opleiding: {esc(CERTIFICATEN)}",
         f"Deurdrangers en deurautomaten: {esc(DEURDRANGERS)}",
@@ -66,8 +66,8 @@ def bouw():
     meer = sectie("Meer over ons", f'<div class="rooster"><div class="k8"><div class="faq">{uitklap}</div></div></div>', kicker="Uitklappen")
 
     # persoonlijke citaten per adviseur, zoals op de Slotenspecialist-site (Lars, 04-10-2026)
-    CITAAT = {"Lars": "Een slot dat klopt, geeft rust. Dat gun ik elke organisatie.",
-              "Nick": "Goede toegang is meestal onzichtbaar. Pas als het niet klopt, voel je het."}
+    CITAAT = {"Lars Westendorp": "Een slot dat klopt, geeft rust. Dat gun ik elke organisatie.",
+              "Nick Westendorp": "Goede toegang is meestal onzichtbaar. Pas als het niet klopt, voel je het."}
     personen = "".join('<div class="k4">' + (beeld(a["foto"], f"{a['naam']}, {a['functie']}", sizes="(min-width: 900px) 25vw, 50vw", klas="portret") if a["foto"] else "")
         + f'<h3>{esc(a["naam"])}</h3><p>{esc(a["functie"].capitalize())}, tweede generatie. Uw contactpersoon van inventarisatie tot beheer.<br>'
         f'<a href="tel:{esc(a["tel_link"])}">{esc(a["tel_tonen"])}</a></p>'

@@ -127,7 +127,7 @@ def bouw():
          "Ja. Na de installatie geeft u zelf passen uit, blokkeert u ze en stelt u tijdsloten in. Wilt u het uit handen geven, dan beheren wij het systeem voor u; "
          "overstappen tussen die twee kan altijd. Zie <a href=\"/service-en-beheer/\">service en beheer</a>."),
         ("Werken jullie in Enschede, Hengelo en Zwolle?",
-         f"Ja. Wij werken vanuit Enschede, {esc(WERKGEBIED_REGEL)}: heel Twente met onder meer Hengelo en Almelo, en ook Deventer, Zwolle, Zutphen, Doetinchem en Apeldoorn. "
+         "Ja. Wij werken vanuit Enschede in heel Oost-Nederland: heel Twente met onder meer Hengelo en Almelo, en ook Deventer, Zwolle, Zutphen, Doetinchem en Apeldoorn; daarbuiten in overleg. "
          "Alle plaatsen staan op <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 

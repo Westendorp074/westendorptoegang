@@ -75,7 +75,7 @@ WERKGEBIED = [
     ("Doetinchem", "Achterhoek",None, None),
     ("Apeldoorn",  "Veluwe",    None, None),
 ]
-WERKGEBIED_REGEL = "tot 60 minuten rijden vanaf Enschede"
+WERKGEBIED_REGEL = "heel Oost-Nederland, daarbuiten in overleg"   # Lars, 04-10-2026: niet meer op rijtijd formuleren
 # Rijtijd per plaats: bewust niet op de site (Lars, 21-09-2026).
 
 # Merken (INPUT §B4)
@@ -181,12 +181,12 @@ WERKPLAATS      = "Enschede en Hengelo"                              # Lars, 21-
 VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaalsestraat 553)"
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
-ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer
-    {"naam": "Lars", "functie": "adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portret v2, staand 4:5 (23-09-2026)
-    {"naam": "Nick", "functie": "adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+ADVISEURS = [  # Lars, 21-09-2026: twee adviseurs, zelfde nummer; volledige namen en eigenaarschap (Lars, 04-10-2026)
+    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # portret v2, staand 4:5 (23-09-2026)
+    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
 ]
 ADVISEUR = ADVISEURS[0]
-ADVISEUR_NAMEN = " of ".join(a["naam"] for a in ADVISEURS)          # "Lars of Nick"
+ADVISEUR_NAMEN = " of ".join(a["naam"].split()[0] for a in ADVISEURS)          # "Lars of Nick", voor lopende zinnen
 
 # Conversie (INPUT §E)
 # Duurzaamheid (Lars, 22-09-2026): ABUS Magtec in eigen profiel; cijfers van ABUS/ClimatePartner, met bron op /duurzaamheid/.
@@ -618,7 +618,7 @@ def kaart_svg():
     return (f'<svg viewBox="0 0 600 440" width="600" height="440" role="img" aria-label="Schematische kaart van het werkgebied rond {esc(PLAATS)}" '
             f'xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;display:block;font-family:inherit">'
             f'<circle cx="300" cy="220" r="205" fill="#F2F4F6" stroke="#C9CED0"/>{"".join(punten)}'
-            f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ongeveer 60 minuten rijden</text></svg>')
+            f'<text x="300" y="425" text-anchor="middle" font-size="12" fill="#4A5760">Schematisch: plaatsen op hun ligging, de cirkel is ons kerngebied rond Enschede</text></svg>')
 
 def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=None, groen=False):
     kl = " ".join(k for k in ["reveal", "sectie--wit" if wit else "", "sectie--lijn" if lijn else "", "sectie--groen" if groen else ""] if k)

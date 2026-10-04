@@ -5,8 +5,8 @@ PAD = "/werkgebied/"
 
 def bouw():
     titel = "Werkgebied: Twente en Oost-Nederland"
-    omschrijving = ("Westendorp Toegangscontrole werkt vanuit Enschede tot 60 minuten rijden: Twente, Salland, Achterhoek, Veluwe en Vechtdal. Rijtijd per plaats.")
-    intro = ("Wij werken vanuit Enschede en rijden tot 60 minuten. Dat is heel Twente en het grootste deel van Salland, de Achterhoek, de Veluwe en het Vechtdal. "
+    omschrijving = ("Westendorp Toegangscontrole werkt vanuit Enschede in heel Oost-Nederland: Twente, Salland, Achterhoek, Veluwe en Vechtdal; daarbuiten in overleg.")
+    intro = ("Wij werken vanuit Enschede in heel Oost-Nederland: Twente, Salland, de Achterhoek, de Veluwe en het Vechtdal; daarbuiten in overleg. "
              "Inventarisatie, installatie en service gebeuren altijd op locatie bij u; u hoeft nergens heen.")
 
     regios = {}
@@ -18,7 +18,7 @@ def bouw():
             n = f'<a href="{pad}">{esc(naam)}</a>' if pad else esc(naam)
             rijen.append((n, esc(regio)))
     lijst_html = sectie("Plaatsen per regio", '<div class="rooster"><div class="k7">' + tabel(rijen, kop=["Plaats", "Regio"], bijschrift="Werkgebied per plaats") +
-        p("Staat uw plaats er niet bij? Binnen de cirkel van 60 minuten komen wij overal; daarbuiten in overleg.") + '</div><div class="k5">' + kaart_svg() + "</div></div>")
+        p("Staat uw plaats er niet bij? In Oost-Nederland komen wij overal; daarbuiten in overleg.") + '</div><div class="k5">' + kaart_svg() + "</div></div>")
 
     hoe = sectie("Hoe wij op locatie werken", p(
         "De inventarisatie doen wij bij u in het pand: elke deur bekijken, meten en vastleggen. De installatie gebeurt met eigen monteurs vanuit Enschede; "
@@ -26,11 +26,11 @@ def bouw():
         f"Storingen: {esc(REACTIE_STORING)}, in het hele werkgebied."), wit=True)
 
     faq = [
-        ("Komen jullie ook buiten de 60 minuten?", "In overleg, bijvoorbeeld voor een tweede vestiging van een bestaande klant. Voor een eerste project houden wij de cirkel aan, omdat wij bij storingen snel ter plaatse willen zijn."),
+        ("Komen jullie ook buiten Oost-Nederland?", "In overleg, bijvoorbeeld voor een tweede vestiging van een bestaande klant. Voor een eerste project houden wij Oost-Nederland aan, omdat wij bij storingen snel ter plaatse willen zijn."),
         ("Hoe snel zijn jullie er bij een storing?", f"{esc(REACTIE_STORING).capitalize()}, in het hele werkgebied."),
         ("Werken jullie ook in Duitsland?", "Nee. Ons werkgebied is Oost-Nederland."),
     ]
 
     body = hero("Werkgebied: waar wij toegangscontrole plaatsen", intro) + lijst_html + hoe
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Werkgebied", PAD)],
-            llms="Werkgebied: tot 60 minuten rijden vanaf Enschede; plaatsen per regio; altijd op locatie.")
+            llms="Werkgebied: heel Oost-Nederland vanuit Enschede, daarbuiten in overleg; plaatsen per regio; altijd op locatie.")
