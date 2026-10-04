@@ -596,8 +596,8 @@ def video_ld(pad, beschrijving):
                {"embedUrl": f"https://www.youtube-nocookie.com/embed/{XESAR_VIDEO}", "contentUrl": f"https://www.youtube.com/watch?v={XESAR_VIDEO}"})
     return {"@type": "VideoObject", "@id": SITE + pad + "#xesar-video", "name": v["titel"], "description": beschrijving,
             "thumbnailUrl": [SITE + "/static/img/evva-xesar-video-westendorp.jpg", f"https://i.ytimg.com/vi/{XESAR_VIDEO}/hqdefault.jpg"],
-            "uploadDate": v["datum"], "duration": v["duur"], **bronnen, "inLanguage": "nl",
-            "author": {"@type": "Organization", "name": v["maker"]}, "publisher": {"@id": ORG_ID}, "isPartOf": {"@id": SITE + pad + "#webpage"}}
+            "uploadDate": v["datum"] + "T09:00:00+02:00", "duration": v["duur"], **bronnen, "inLanguage": "nl",
+            "author": {"@type": "Organization", "name": v["maker"], "url": "https://www.evva.com"}, "publisher": {"@id": ORG_ID}, "isPartOf": {"@id": SITE + pad + "#webpage"}}
 
 def kaart_svg():
     """Schematische kaart van het werkgebied: Enschede in het midden, een cirkel voor 60 minuten rijden, de plaatsen

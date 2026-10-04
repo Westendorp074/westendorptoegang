@@ -64,8 +64,8 @@ def bouw():
                 {"@type": "VideoObject", "@id": SITE + PAD + "#" + naam, "name": kop_, "description": oms_,
                  "contentUrl": SITE + f"/static/video/{naam}-{hashlib.md5((BRON / (naam + '.mp4')).read_bytes()).hexdigest()[:8]}.mp4",
                  "thumbnailUrl": SITE + f"/static/img/{beeldnaam(BRON / (naam + '-poster.jpg'))}-800.webp",
-                 "uploadDate": "2026-10-01", "duration": duur_, "inLanguage": "en",
-                 "author": {"@type": "Organization", "name": "EVVA Sicherheitstechnologie"}, "publisher": {"@id": ORG_ID}}
+                 "uploadDate": "2026-10-01T09:00:00+02:00", "duration": duur_, "inLanguage": "en",
+                 "author": {"@type": "Organization", "name": "EVVA Sicherheitstechnologie", "url": "https://www.evva.com"}, "publisher": {"@id": ORG_ID}}
                 for naam, kop_, oms_, duur_ in [
                     ("evva-emzy-motorcilinder-video", "EVVA EMZY in 1 minuut", "Productvideo van de EVVA EMZY motorcilinder.", "PT1M5S"),
                     ("evva-airkey-zakelijk-video", "EVVA AirKey voor bedrijven", "De telefoon als sleutel met EVVA AirKey, voor bedrijven.", "PT2M58S")]],
