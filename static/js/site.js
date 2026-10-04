@@ -170,6 +170,14 @@
     d.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && nav.classList.contains('open')) { knop.click(); knop.focus(); }
     });
+    // telefoonmenu: categorieën ingeklapt; tikken op de categorie klapt uit (Lars, 04-10-2026)
+    nav.querySelectorAll('.heeft-sub>a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        if (window.innerWidth >= 1200) return;
+        e.preventDefault();
+        a.parentElement.classList.toggle('open');
+      });
+    });
   }
 
   // ---------- Formulier (Web3Forms, honeypot, tijdscheck, echte foutmeldingen) ----------

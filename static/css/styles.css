@@ -123,8 +123,10 @@ section,.sectie{padding:var(--sectie) 0}
   .nav.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--donker);border-bottom:var(--lijndikte) solid var(--donker-lijn);padding:12px var(--goot) 20px;z-index:50}
   .nav.open ul{flex-direction:column;flex-wrap:wrap;gap:0;font-size:inherit}
   .nav.open a{display:block;padding:10px 0;border-bottom:var(--lijndikte) solid var(--donker-lijn)}
-  .nav.open .sub{display:flex;position:static;border:0;box-shadow:none;padding:0 0 0 16px;background:transparent;min-width:0}
-  .nav.open .heeft-sub>a svg{display:none}
+  .nav.open .sub{display:none;position:static;border:0;box-shadow:none;padding:0 0 0 16px;background:transparent;min-width:0}
+  .nav.open .heeft-sub.open .sub{display:flex}   /* op telefoon ingeklapt; tikken op de categorie klapt uit */
+  .nav.open .heeft-sub>a svg{transition:transform .2s}
+  .nav.open .heeft-sub.open>a svg{transform:rotate(180deg)}
 }
 @media (min-width:1200px){.nav{display:block}.menu-knop{display:none}}
 /* lichte header (test): wit vlak, zwart woordmerk, donkere navigatie */
