@@ -50,7 +50,9 @@ def bouw():
         ("Zijn er subsidies of fiscale regelingen?", "Voor toegangscontrole bestaat geen aparte subsidie. Als bedrijfsmiddel valt de investering onder de gewone afschrijving; overleg daarover met uw accountant, wij geven daar geen advies over."),
     ]
 
-    body = hero("Wat kost toegangscontrole", intro, extra=datum_html(datum_nl(VANDAAG))) + strook + bepaalt + voorbeelden + nietin + terugverdien
+    foto = beeld("evva-xesar-pas-en-druppel.jpg", "EVVA Xesar toegangspas en druppel: de sleutels van een elektronisch systeem",
+                 lazy=False, klas="vol", bron="EVVA")
+    body = hero("Wat kost toegangscontrole", intro, foto, extra=datum_html(datum_nl(VANDAAG))) + strook + bepaalt + voorbeelden + nietin + terugverdien
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Kosten", PAD)],
             extra_ld=[service_ld(PAD, "Toegangscontrole kosten", omschrijving)],
             llms="Vanaf-prijzen (elektronisch slot, AirKey-startpakket; overige op aanvraag), wat de prijs bepaalt, wat er niet in zit, terugverdientijd.")

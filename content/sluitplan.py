@@ -18,16 +18,20 @@ def bouw():
             'alt="Voorbeeld van een sluitplan: de hoofdsleutel opent alle deuren, groepssleutels openen een groep deuren en individuele sleutels één cilinder" '
             'width="1240" height="840" class="schema"></figure>')
 
-    mech = sectie("Wanneer is een mechanisch sluitplan nog verstandig", p(
+    mech = sectie("Wanneer is een mechanisch sluitplan nog verstandig", '<div class="rooster"><div class="k7">' + p(
         "Bij weinig deuren, weinig wisselingen en geen behoefte aan logging blijft een mechanisch sluitplan de goedkoopste oplossing. "
         "Ook binnen een elektronisch systeem blijven mechanische cilinders nuttig voor deuren die zelden opengaan: meterkasten, techniekruimtes, "
         "kasten en hekken. Welk mechanisch systeem het wordt, bepaalt uw wens: wij werken met EVVA, ABUS en ASSA ABLOY en zijn van alle drie officieel partner.",
-        "Een gecertificeerd sluitsysteem heeft een sleutelkaart: alleen wie die kaart toont, kan bij ons sleutels laten bijmaken. Dat is het verschil met losse sloten van de bouwmarkt."))
+        "Een gecertificeerd sluitsysteem heeft een sleutelkaart: alleen wie die kaart toont, kan bij ons sleutels laten bijmaken. Dat is het verschil met losse sloten van de bouwmarkt.")
+        + '</div><div class="k5">' + beeld("evva-4ks-cilinder-op-houten-deur.jpg",
+        "Mechanische EVVA-cilinder met beslag op een kantoordeur, onderdeel van een sluitplan", bron="EVVA") + "</div></div>")
 
-    profiel = sectie("Eigen sleutelprofiel: cilinders op naam, uit voorraad", p(
+    profiel = sectie("Eigen sleutelprofiel: cilinders op naam, uit voorraad", '<div class="rooster"><div class="k7">' + p(
         f"Wij hebben een eigen sleutelprofiel bij EVVA en bij ABUS: {esc(EIGEN_PROFIEL)}. Cilinders en sleutels in dat profiel staan op onze naam en liggen bij ons op voorraad. "
         "Voor u betekent dat: een nieuw sluitplan of een extra cilinder leveren wij uit eigen huis, in plaats van weken te wachten op de fabriek. "
-        "En een sleutel in ons profiel wordt alleen bij ons bijgemaakt, op vertoon van de sleutelkaart."), wit=True)
+        "En een sleutel in ons profiel wordt alleen bij ons bijgemaakt, op vertoon van de sleutelkaart.")
+        + '</div><div class="k5">' + beeld("westendorp-winkel-enschede-sleutelbalie.jpg",
+        "Sleutelborden met voorraad achter de balie van Westendorp in Enschede", klas="pashoog") + "</div></div>", wit=True)
 
     elek = sectie("Wanneer elektronisch", p(
         "Zodra er regelmatig iemand bijkomt of weggaat, sleutels zoekraken, of u wilt weten wie wanneer binnen was, wint elektronisch. "
@@ -50,11 +54,13 @@ def bouw():
         ("Beheer overdragen", "U krijgt de software en de instructie; oude sleutelkaarten worden afgesloten. Wilt u het beheer uit handen geven, dan doen wij het."),
     ]))
 
-    cert = sectie("Certificering, verzekering en beheer", p(
+    cert = sectie("Certificering, verzekering en beheer", '<div class="rooster"><div class="k7">' + p(
         "Verzekeraars vragen bij inbraakdekking vaak om gecertificeerd hang- en sluitwerk; welke klasse hangt af van het risico en de polis. "
         "Wij leveren cilinders en beslag met de bijbehorende certificaten en zetten de klasse in het sluitplan, zodat u het bij een controle kunt laten zien. "
         f"Certificaten van Westendorp zelf: {esc(CERTIFICATEN)}.",
-        "Het beheer van een mechanisch plan bestaat uit de sleutelkaart, de sleutelregistratie en het bijbestellen via ons. Bij een elektronisch plan doet u dat zelf in de software, of wij doen het voor u."), wit=True)
+        "Het beheer van een mechanisch plan bestaat uit de sleutelkaart, de sleutelregistratie en het bijbestellen via ons. Bij een elektronisch plan doet u dat zelf in de software, of wij doen het voor u.")
+        + '</div><div class="k5">' + beeld("evva-4ks-cilinder-doorsnede.jpg",
+        "Doorsnede van een gecertificeerde EVVA 4KS-cilinder met sleutel: het binnenwerk dat nabootsen vrijwel onmogelijk maakt", klas="vol", bron="EVVA") + "</div></div>", wit=True)
 
     faq = [
         ("Wat kost een mechanisch sluitplan?", f"Dat hangt af van het aantal cilinders en sleutels en van het systeem: prijs per cilinder {prijs('mech_cilinder', False)}. Cilinders in ons eigen profiel leveren wij uit voorraad. {PRIJS_DISCLAIMER} Zie <a href=\"/kosten/\">kosten</a>."),

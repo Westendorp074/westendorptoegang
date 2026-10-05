@@ -38,7 +38,9 @@ def bouw():
         ("Werken jullie ook aan Salto-systemen buiten Twente?", "Ja, in heel Oost-Nederland. Zie het <a href=\"/werkgebied/\">werkgebied</a>."),
     ]
 
-    body = hero("Salto onderhoud: storing, onderdelen en uitbreiding", intro) + wat + niet + specs
+    foto = beeld("westendorp-werkplaats-sleutelspecialist-werkbank.jpg",
+                 "Monteur van Westendorp aan de werkbank, waar sloten en cilinders worden gereviseerd", lazy=False)
+    body = hero("Salto onderhoud: storing, onderdelen en uitbreiding", intro, foto) + wat + niet + specs
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Salto onderhoud", PAD)],
             extra_ld=[service_ld(PAD, "Salto onderhoud", omschrijving, merk="Salto")], formulier_kop="Storing melden of uitbreiding aanvragen",
             llms="Onderhoud, storingen, onderdelen en uitbreiding van bestaande Salto-systemen; nieuwe systemen plaatst Westendorp in EVVA.")

@@ -11,7 +11,14 @@ def bouw():
              "Welke past, hangt af van de deur en van wat de deur moet doen.")
     foto = beeld("elektronisch-beslag.jpg", "Elektronisch beslag op een houten binnendeur", bron="EVVA")
 
-    soorten = sectie("De vier soorten elektronische sloten", '<div class="kolommen kolommen--2">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
+    SOORT_FOTO = {
+        "Elektronisch beslag": ("evva-xesar-beslag-op-kantoordeur.jpg", "EVVA Xesar elektronisch beslag op een kantoordeur"),
+        "Elektronische cilinder": ("evva-xesar-knopcilinder-op-deur.jpg", "EVVA Xesar elektronische knopcilinder op een kantoordeur"),
+        "Motorcilinder": ("evva-emzy-motorcilinder-op-deur.jpg", "EVVA EMZY motorcilinder op een buitendeur"),
+        "Wandlezer met elektrische sluitplaat": ("evva-xesar-wandlezer-naast-deur.jpg", "EVVA Xesar wandlezer naast een kantoordeur"),
+    }
+    soorten = sectie("De vier soorten elektronische sloten", '<div class="kolommen kolommen--2">' + "".join(
+        f'<div class="projectkaart">{beeld(SOORT_FOTO[k][0], SOORT_FOTO[k][1], sizes="(min-width: 700px) 46vw, 100vw", bron="EVVA")}<h3>{k}</h3><p>{t}</p></div>' for k, t in [
         ("Elektronisch beslag", "De deurkruk met lezer erin. Buiten draait de kruk pas mee na een geldige pas, binnen altijd. Op batterijen, geen kabel nodig; ook leverbaar op netvoeding. De standaardkeuze voor binnendeuren in kantoren, scholen en zorg."),
         ("Elektronische cilinder", "Vervangt de mechanische cilinder in het bestaande slot; de rest van de deur blijft. Op batterijen. Geschikt als het beslag moet blijven, bij smalle deuren of bij kasten en hekken met een cilinderslot."),
         ("Motorcilinder", "Een cilinder met een motor die de nachtschoot zelf uitdraait en intrekt. De deur gaat dus echt op slot, niet alleen in de dag. Voor buitendeuren, vluchtdeuren en deuren die op afstand moeten openen. Zie <a href=\"/motorcilinder/\">motorcilinder</a>."),
