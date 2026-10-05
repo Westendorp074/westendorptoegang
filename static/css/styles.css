@@ -227,10 +227,12 @@ figure{margin:0}
 figure img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--straal)}
 figcaption{font-size:.9em;color:var(--inkt-zacht);padding-top:8px}
 figure.vol img{aspect-ratio:auto}   /* volledige foto tonen, niets afsnijden */
-/* foto even hoog als de tekstkolom ernaast: vult de rij en kropt mee */
-figure.pashoog{height:100%;overflow:hidden}
-figure.pashoog picture{display:block;height:100%}
-figure.pashoog img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+/* foto exact even hoog als de tekstkolom ernaast: de foto-laag ligt absoluut in zijn kader en telt niet mee
+   voor de rijhoogte, dus de tekst bepaalt de hoogte en de foto kropt boven en onder mee */
+figure.pashoog{position:relative;height:100%;overflow:hidden;border-radius:var(--straal)}
+figure.pashoog picture,figure.pashoog img{position:absolute;inset:0;width:100%;height:100%}
+figure.pashoog img{aspect-ratio:auto;object-fit:cover}
+@media (max-width:899px){figure.pashoog{height:auto}figure.pashoog picture,figure.pashoog img{position:static;height:auto}}
 /* cijferblokken rekken mee tot de onderkant van de foto ernaast */
 .feitenpaneel--vul{height:100%;grid-auto-rows:1fr}
 .feitenpaneel--vul div{display:flex;flex-direction:column;justify-content:center}
