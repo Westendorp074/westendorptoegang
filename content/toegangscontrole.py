@@ -70,7 +70,7 @@ def bouw():
 
     sectoren = sectie("Toegangscontrole per sector",
         p("Per sector verschillen de deuren, de gebruikers en de regels. Dit is wat wij per sector tegenkomen en wat daar past; de inventarisatie op locatie bepaalt de uiteindelijke keuze.")
-        + '<div class="kolommen kolommen--2">' + "".join(
+        + '<div class="kolommen kolommen--3">' + "".join(
             f'<div class="projectkaart" id="sector-{s}"><figure>{iso_bestand(s)}</figure><h3>{esc(k)}</h3><p><strong>Voor:</strong> {t.split(":")[0].lower()}.</p><p><strong>Wat past:</strong> {w}</p><p class="acties acties--kaart">{cta_knop("Plan een inventarisatie", "#aanvraag", f"sector-{s}")}</p></div>'
             for s, k, t, w in SECTOREN_LIJST) + "</div>", kop_id="sectoren", kicker="Sectoren")
 
