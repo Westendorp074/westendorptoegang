@@ -18,13 +18,11 @@ def bouw():
             'alt="Voorbeeld van een sluitplan: de hoofdsleutel opent alle deuren, groepssleutels openen een groep deuren en individuele sleutels één cilinder" '
             'width="1240" height="840" class="schema"></figure>')
 
-    mech = sectie("Wanneer is een mechanisch sluitplan nog verstandig", '<div class="rooster"><div class="k7">' + p(
+    mech = sectie("Wanneer is een mechanisch sluitplan nog verstandig", p(
         "Bij weinig deuren, weinig wisselingen en geen behoefte aan logging blijft een mechanisch sluitplan de goedkoopste oplossing. "
         "Ook binnen een elektronisch systeem blijven mechanische cilinders nuttig voor deuren die zelden opengaan: meterkasten, techniekruimtes, "
         "kasten en hekken. Welk mechanisch systeem het wordt, bepaalt uw wens: wij werken met EVVA, ABUS en ASSA ABLOY en zijn van alle drie officieel partner.",
-        "Een gecertificeerd sluitsysteem heeft een sleutelkaart: alleen wie die kaart toont, kan bij ons sleutels laten bijmaken. Dat is het verschil met losse sloten van de bouwmarkt.")
-        + '</div><div class="k5">' + beeld("evva-4ks-cilinder-op-houten-deur.jpg",
-        "Mechanische EVVA-cilinder met beslag op een kantoordeur, onderdeel van een sluitplan", bron="EVVA") + "</div></div>")
+        "Een gecertificeerd sluitsysteem heeft een sleutelkaart: alleen wie die kaart toont, kan bij ons sleutels laten bijmaken. Dat is het verschil met losse sloten van de bouwmarkt."))
 
     profiel = sectie("Eigen sleutelprofiel: cilinders op naam, uit voorraad", '<div class="rooster"><div class="k7">' + p(
         f"Wij hebben een eigen sleutelprofiel bij EVVA en bij ABUS: {esc(EIGEN_PROFIEL)}. Cilinders en sleutels in dat profiel staan op onze naam en liggen bij ons op voorraad. "
