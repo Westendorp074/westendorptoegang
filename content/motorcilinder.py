@@ -39,11 +39,9 @@ def bouw():
     videos = sectie("Bekijk de EMZY en AirKey in actie",
         '<div class="kolommen kolommen--2">'
         + "<div>" + video("evva-emzy-motorcilinder-video.mp4", "evva-emzy-motorcilinder-video-poster.jpg",
-            "Productvideo van de EVVA EMZY motorcilinder", kop="EMZY in 1 minuut",
-            onderschrift="De EMZY motorcilinder in het kort (video: EVVA).") + "</div>"
+            "Productvideo van de EVVA EMZY motorcilinder", kop="EMZY in 1 minuut") + "</div>"
         + "<div>" + video("evva-airkey-zakelijk-video.mp4", "evva-airkey-zakelijk-video-poster.jpg",
-            "Video over EVVA AirKey voor bedrijven: de telefoon als sleutel", kop="AirKey voor bedrijven",
-            onderschrift="AirKey: de telefoon als sleutel, ook te combineren met de EMZY (video: EVVA).") + "</div>"
+            "Video over EVVA AirKey voor bedrijven: de telefoon als sleutel", kop="AirKey voor bedrijven") + "</div>"
         + "</div>")
 
     kosten = sectie("Wat kost een motorcilinder", p(

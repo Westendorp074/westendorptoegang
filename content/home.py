@@ -76,8 +76,7 @@ def bouw():
     ]), kicker="Werkwijze")
 
     # ---- video op klik (verschijnt zodra static/img/bron/hero-video.mp4 en hero-video-poster.jpg bestaan) ----
-    film = video("hero-video.mp4", "hero-video-poster.jpg", "Monteur van Westendorp plaatst elektronisch beslag op een deur",
-                 onderschrift=INV("onderschrift video: wat, waar, jaar"))
+    film = video("hero-video.mp4", "hero-video-poster.jpg", "Monteur van Westendorp plaatst elektronisch beslag op een deur")
     video_blok = sectie("Zo werkt het bij ons", '<div class="rooster"><div class="k8">' + film + "</div></div>", kicker="Video") if film else ""
 
     # ---- bewijs: feiten uit INPUT.md ----

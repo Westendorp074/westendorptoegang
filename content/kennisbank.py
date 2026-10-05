@@ -107,16 +107,13 @@ def _art_cilinder_monteren():
         ("Aanmelden in de software", "De cilinder wordt in de beheersoftware aan de deur gekoppeld; daarna bepalen de passen wie er doorheen mag en wanneer."),
     ]))
     + sectie("Xesar knopcilinder", video("evva-xesar-cilinder-monteren.mp4", "evva-xesar-cilinder-monteren-poster.jpg",
-        "Montage van een EVVA Xesar knopcilinder in een bestaand deurslot", kop="Bekijk de montage",
-        onderschrift="Montagevideo van EVVA: de Xesar knopcilinder.") + p(
+        "Montage van een EVVA Xesar knopcilinder in een bestaand deurslot", kop="Bekijk de montage") + p(
         "Dit is de meest geplaatste uitvoering: aan de buitenkant een knop met lezer, aan de binnenkant een vaste draaiknop. "
         "Meer over het systeem leest u op <a href=\"/evva-xesar/\">EVVA Xesar</a>."), wit=True)
     + sectie("Dubbele knopcilinder en AirKey", video("evva-xesar-dubbele-knopcilinder-monteren.mp4", "evva-xesar-dubbele-knopcilinder-monteren-poster.jpg",
-        "Montage van een EVVA Xesar dubbele knopcilinder met 4KS-mechaniek", kop="Dubbele knopcilinder",
-        onderschrift="Montagevideo van EVVA: de dubbele knopcilinder, met aan beide zijden een leesknop.")
+        "Montage van een EVVA Xesar dubbele knopcilinder met 4KS-mechaniek", kop="Dubbele knopcilinder")
     + video("evva-airkey-cilinder-monteren.mp4", "evva-airkey-cilinder-monteren-poster.jpg",
-        "Montage van een EVVA AirKey cilinder die met de telefoon wordt geopend", kop="AirKey-cilinder",
-        onderschrift="Montagevideo van EVVA: de AirKey-cilinder, te openen met telefoon of pas.") + p(
+        "Montage van een EVVA AirKey cilinder die met de telefoon wordt geopend", kop="AirKey-cilinder") + p(
         "De dubbele knopcilinder vraagt ook aan de binnenkant een geldige pas; die keuze maakt u per deur in het sluitplan. "
         "De AirKey-cilinder wordt op dezelfde manier gemonteerd, maar de sleutel staat in een app op de telefoon."))
     + sectie("Zelf doen of laten doen", p(
@@ -131,13 +128,11 @@ def _art_beslag_monteren():
         "Het bestaande schild en de kruk gaan eraf; het insteekslot en de cilinder blijven in de deur. Het elektronische beslag wordt met doorgaande bouten op dezelfde plaats gemonteerd, de lezer zit in het buitenschild. "
         "Na een geldige pas koppelt de buitenkruk enkele seconden aan het slot; daarna draait hij weer los. Aan de binnenkant werkt de kruk altijd, dus de vluchtroute blijft vrij."))
     + sectie("Beslag monteren", video("evva-xesar-beslag-monteren.mp4", "evva-xesar-beslag-monteren-poster.jpg",
-        "Montage van EVVA Xesar elektronisch beslag op een bestaande binnendeur", kop="Bekijk de montage",
-        onderschrift="Montagevideo van EVVA: het Xesar-beslag, van maatvoering tot batterijen.") + p(
+        "Montage van EVVA Xesar elektronisch beslag op een bestaande binnendeur", kop="Bekijk de montage") + p(
         "De video begint met de maatvoering op de meegeleverde boormal: de bevestigingspunten worden afgetekend op de bestaande gaten. "
         "Welke deuren geschikt zijn leest u op <a href=\"/elektronische-sloten/\">elektronische sloten</a>."), wit=True)
     + sectie("Deurkruk wisselen", video("evva-xesar-deurkruk-monteren.mp4", "evva-xesar-deurkruk-monteren-poster.jpg",
-        "Wisselen van de deurkruk op EVVA Xesar elektronisch beslag", kop="Deurkruk wisselen",
-        onderschrift="Montagevideo van EVVA: de kruk wisselen, bijvoorbeeld van rechts- naar linksdraaiend.") + p(
+        "Wisselen van de deurkruk op EVVA Xesar elektronisch beslag", kop="Deurkruk wisselen") + p(
         "Het beslag is omkeerbaar: dezelfde set past op links- en rechtsdraaiende deuren door de kruk om te zetten. Zo blijft één reserve-exemplaar op voorraad genoeg voor alle deuren."))
     + sectie("Waar wij op letten", lijst([
         "Doornmaat en krukhoogte van het bestaande slot bepalen welk beslag past; dat meten wij bij de inventarisatie.",
@@ -154,12 +149,10 @@ def _art_wandlezer_plaatsen():
         "Beslag en cilinders zitten op de deur zelf en werken op batterijen. Een wandlezer kiest u als de deur zelf niets elektronisch kan of mag dragen: glazen deuren, automatische schuifdeuren, draaideuren met deurautomaat, hekwerk, een slagboom of een lift. "
         "De lezer zit vast aan de wand, krijgt vaste voeding en stuurt het slot of de aandrijving aan. Voor buitendeuren combineren wij hem vaak met een <a href=\"/motorcilinder/\">motorcilinder</a>."))
     + sectie("Vierkante opbouwlezer", video("evva-xesar-wandlezer-vierkant-monteren.mp4", "evva-xesar-wandlezer-vierkant-monteren-poster.jpg",
-        "Montage van de vierkante EVVA Xesar wandlezer in opbouwuitvoering", kop="Bekijk de montage",
-        onderschrift="Montagevideo van EVVA: de vierkante opbouwlezer, op de wand gemonteerd.") + p(
+        "Montage van de vierkante EVVA Xesar wandlezer in opbouwuitvoering", kop="Bekijk de montage") + p(
         "De opbouwuitvoering wordt op de wand geschroefd en is de snelste keuze bij bestaande bouw: alleen de kabeldoorvoer is nodig."), wit=True)
     + sectie("Ronde inbouwlezer", video("evva-xesar-wandlezer-rond-monteren.mp4", "evva-xesar-wandlezer-rond-monteren-poster.jpg",
-        "Montage van de ronde EVVA Xesar wandlezer in een inbouwdoos", kop="Ronde inbouwlezer",
-        onderschrift="Montagevideo van EVVA: de ronde lezer in een standaard inbouwdoos.") + p(
+        "Montage van de ronde EVVA Xesar wandlezer in een inbouwdoos", kop="Ronde inbouwlezer") + p(
         "De ronde uitvoering valt in een standaard inbouwdoos en ligt vrijwel vlak met de wand; dat is de nette keuze bij nieuwbouw en renovatie waar toch al gefreesd wordt."))
     + sectie("Aansluiting en beheer", p(
         "Anders dan cilinders en beslag heeft een wandlezer bekabeling nodig: voeding en de aansturing van het slot. Die aanleg nemen wij mee in de planning, net als de koppeling in de software, waar de wandlezerdeur gewoon tussen de andere deuren staat. "
