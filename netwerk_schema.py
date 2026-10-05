@@ -99,7 +99,7 @@ d.append(deur(870, 225, "v"))                     # gang -> kantoor
 d.append(deur(870, 415, "v", led=ROOD))           # gang -> serverruimte, geweigerd
 
 # ---- route: van de pas, door de deuren, stoppend bij de geweigerde deur ----
-route = (f"M196 672 C 330 636 500 596 616 556 L620 500 "
+route = (f"M258 648 C 370 614 510 590 616 556 L620 500 "
          f"L620 330 C 620 272 582 240 530 232 L504 230 "
          f"M530 208 C 650 186 760 196 848 220 "
          f"M872 246 C 832 300 828 356 850 404")
@@ -116,18 +116,18 @@ d.append(f'<path d="M1000 528 C 1016 548 1036 562 1052 574" fill="none" stroke="
 LOGO = ['M475.08 219.5A229 229 0 1 0 161.87 457.39L148.59 506.57A17 17 0 0 0 165 528L330 528A17 17 0 0 0 346.41 506.57L325.06 427.5L289.85 427.5L307.8 494L187.2 494L198.76 451.17A17 17 0 0 0 187.57 430.56A195 195 0 1 1 440.83 219.5Z',
         'M363.74 219.5A119 119 0 1 0 224.5 361.76L224.5 326.83A85 85 0 1 1 328.58 219.5ZM57.76 471.15L16.71 609.15A17 17 0 0 0 33 631L462 631A17 17 0 0 0 478.29 609.15L424.25 427.5L388.78 427.5L439.21 597L55.79 597L90.35 480.85Z',
         'M237.5 252.29H279.52L300.01 327.85Q301.05 330.74 301.88 334.78Q302.7 338.82 303.53 342.75Q304.36 346.68 304.98 349.37H306.22Q306.64 347.1 307.15 344.2Q307.67 341.3 308.29 338.3Q308.91 335.3 309.53 332.61Q310.16 329.92 310.57 327.85L329.82 252.29H378.67L398.13 327.85Q398.75 330.54 399.58 334.37Q400.41 338.2 401.23 342.23Q402.06 346.27 402.68 349.37H403.93Q404.34 347.1 404.96 344.3Q405.58 341.51 406.31 338.51Q407.03 335.51 407.65 332.71Q408.27 329.92 408.89 327.85L429.18 252.29H467.89L426.28 394.5H379.71L357.77 311.08Q356.94 307.98 356.01 304.35Q355.07 300.73 354.45 297.21Q353.83 293.69 353.42 291.21H352.18Q351.76 294.11 350.93 297.73Q350.11 301.35 349.28 304.87Q348.45 308.39 347.83 311.08L326.09 394.5H278.9L237.5 252.29Z']
-d.append(f'<g transform="translate(150 690) rotate(-8)" filter="url(#zweef)">'
-         f'<rect x="-52" y="-74" width="104" height="148" rx="12" fill="#FFFFFF" stroke="{MUUR}" stroke-width="3"/>'
-         f'<g transform="translate(-26 -64) scale(0.105)">'
+d.append(f'<g transform="translate(168 682) rotate(-8)" filter="url(#zweef)">'
+         f'<rect x="-72" y="-100" width="144" height="200" rx="16" fill="#FFFFFF" stroke="{MUUR}" stroke-width="3.5"/>'
+         f'<g transform="translate(-37 -88) scale(0.15)">'
          f'<path fill="{LICHT}" d="{LOGO[0]}"/><path fill="{BLAUW}" d="{LOGO[1]}"/><path fill="{NAVY}" d="{LOGO[2]}"/></g>'
          # contactloos-symbool: drie bogen met stip, netjes gecentreerd onder het logo
-         f'<g fill="none" stroke="{LICHT}" stroke-width="5" stroke-linecap="round">'
-         f'<path d="M-6.4 49.5 A9 9 0 0 1 6.4 49.5"/>'
-         f'<path d="M-12 44 A17 17 0 0 1 12 44"/>'
-         f'<path d="M-17.7 38.3 A25 25 0 0 1 17.7 38.3"/></g>'
-         f'<circle cx="0" cy="56" r="3.5" fill="{LICHT}"/>'
+         f'<g fill="none" stroke="{LICHT}" stroke-width="6.5" stroke-linecap="round">'
+         f'<path d="M-8.5 64 A12 12 0 0 1 8.5 64"/>'
+         f'<path d="M-15.6 57 A22 22 0 0 1 15.6 57"/>'
+         f'<path d="M-22.6 50 A32 32 0 0 1 22.6 50"/></g>'
+         f'<circle cx="0" cy="73" r="4.5" fill="{LICHT}"/>'
          f'</g>')
-d.append(f'<circle cx="208" cy="622" r="17" fill="{GROEN}"/><path d="M200 622 l6 6 l11 -12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>')
+d.append(f'<circle cx="244" cy="592" r="20" fill="{GROEN}"/><path d="M234 592 l7 7 l14 -15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>')
 
 # ---- het scherm rechtsonder ----
 d.append(f'<g filter="url(#zweef)"><rect x="940" y="580" width="250" height="168" rx="10" fill="{NAVY}"/>'
@@ -151,7 +151,7 @@ def stap(x, y, n, t, anker="links"):
             f'<text x="{x + 28}" y="{y + 34}" font-family="{F}" font-size="21" font-weight="800" fill="#FFFFFF" text-anchor="middle">{n}</text>'
             f'<text x="{x + 54}" y="{y + 34}" font-family="{F}" font-size="23" font-weight="700" fill="{INKT}">{t}</text></g>')
 
-d.append(stap(236, 736, 1, "Pas uitgegeven"))
+d.append(stap(268, 742, 1, "Pas uitgegeven"))
 d.append(stap(690, 140, 2, "Updates reizen mee van deur naar deur", anker="midden"))
 d.append(stap(1142, 462, 3, "Geblokkeerde pas geweigerd", anker="rechts"))
 d.append(stap(926, 646, 4, "Alle deuren in één scherm", anker="rechts"))
