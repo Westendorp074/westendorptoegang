@@ -326,7 +326,7 @@ def chat_widget():
 .wchat__hint p{margin:0;font-size:13.5px;line-height:1.45;color:var(--inkt-zacht)}
 .wchat__hint-dicht{position:absolute;right:6px;top:6px;width:22px;height:22px;border:0;border-radius:6px;background:transparent;color:var(--inkt-zacht);font-size:15px;line-height:1;cursor:pointer}
 .wchat__hint-dicht:hover{background:#EFEAE2}
-.wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn);transform-origin:bottom right;transition:opacity .25s,transform .25s,display .25s allow-discrete}
+.wchat__paneel{position:absolute;right:0;bottom:74px;width:min(340px,calc(100vw - 36px));max-height:calc(100vh - 96px);overflow:auto;background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(2,41,91,.30),0 4px 12px rgba(2,41,91,.12);border:var(--lijndikte) solid var(--lijn);transform-origin:bottom right;transition:opacity .25s,transform .25s,display .25s allow-discrete}
 .wchat__paneel[hidden]{opacity:0;transform:translateY(8px) scale(.98)}
 @starting-style{.wchat__paneel{opacity:0;transform:translateY(8px) scale(.98)}}
 .wchat__kop{display:flex;gap:12px;align-items:center;background:var(--primair-donker);color:#fff;padding:14px 16px}

@@ -17,7 +17,7 @@ def bouw():
         "Motorcilinder": ("evva-emzy-motorcilinder-op-deur.jpg", "EVVA EMZY motorcilinder op een buitendeur"),
         "Wandlezer met elektrische sluitplaat": ("evva-xesar-wandlezer-naast-deur.jpg", "EVVA Xesar wandlezer naast een kantoordeur"),
     }
-    soorten = sectie("De vier soorten elektronische sloten", '<div class="kolommen kolommen--2">' + "".join(
+    soorten = sectie("De vier soorten elektronische sloten", '<div class="kolommen kolommen--2 veeg">' + "".join(
         f'<div class="projectkaart">{beeld(SOORT_FOTO[k][0], SOORT_FOTO[k][1], sizes="(min-width: 700px) 46vw, 100vw", bron="EVVA")}<h3>{k}</h3><p>{t}</p></div>' for k, t in [
         ("Elektronisch beslag", "De deurkruk met lezer erin. Buiten draait de kruk pas mee na een geldige pas, binnen altijd. Op batterijen, geen kabel nodig; ook leverbaar op netvoeding. De standaardkeuze voor binnendeuren in kantoren, scholen en zorg."),
         ("Elektronische cilinder", "Vervangt de mechanische cilinder in het bestaande slot; de rest van de deur blijft. Op batterijen. Geschikt als het beslag moet blijven, bij smalle deuren of bij kasten en hekken met een cilinderslot."),

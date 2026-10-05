@@ -173,7 +173,7 @@
     // telefoonmenu: categorieën ingeklapt; tikken op de categorie klapt uit (Lars, 04-10-2026)
     nav.querySelectorAll('.heeft-sub>a').forEach(function (a) {
       a.addEventListener('click', function (e) {
-        if (window.innerWidth >= 1200) return;
+        if (window.innerWidth >= 1280) return;
         e.preventDefault();
         a.parentElement.classList.toggle('open');
         a.blur();

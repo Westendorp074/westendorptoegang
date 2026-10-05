@@ -10,7 +10,7 @@ def bouw():
              "Wij verhelpen storingen, vervangen batterijen, breiden systemen uit en nemen het beheer van passen en rechten over als u dat wilt, "
              "voor onze eigen klanten en voor panden met een systeem van een andere installateur.")
 
-    wat = sectie("Wat wij doen", '<div class="kolommen kolommen--2">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
+    wat = sectie("Wat wij doen", '<div class="kolommen kolommen--2 veeg">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
         ("Storing", f"Deur gaat niet open of niet op slot, lezer reageert niet, software meldt een fout. Wij zijn er {esc(REACTIE_STORING)}."),
         ("Onderhoud", "Periodieke controle van beslag, cilinders, batterijen en software-updates, los of in een servicecontract."),
         ("Uitbreiding", "Extra deuren, een tweede vestiging, een wandlezer bij de nieuwe entree of de overstap van offline naar online deuren, binnen het bestaande systeem."),

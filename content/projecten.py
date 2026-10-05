@@ -68,7 +68,7 @@ def bouw():
         + '<p class="projectkaart__meer"><a class="knop knop--tweede" href="#aanvraag">Plan een gratis inventarisatie</a></p>'
         + "</div>"
         for anker, sector, plaats, kop, tekst, foto, alt in PROJECTEN)
-    blok = sectie("Uitgelichte projecten", f'<div class="kolommen kolommen--2">{kaarten}</div>')
+    blok = sectie("Uitgelichte projecten", f'<div class="kolommen kolommen--2 veeg">{kaarten}</div>')
 
     # organisaties waarvoor wij werken (zelfde namen als de logobalk op de homepagina)
     namen = ["Gemeente Enschede", "Gemeente Hengelo", "Gemeente Almelo", "Politie", "Lumen", "Prismare", "Modern Care",

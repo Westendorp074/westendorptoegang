@@ -19,7 +19,7 @@ h3{font-size:var(--h3);line-height:1.3}
 .intro,p.groot{font-size:var(--intro);line-height:1.55;max-width:58ch}
 @media (min-width:900px){.intro,p.groot{font-size:var(--intro-d)}}
 p,ul,ol,table,figure{margin:0 0 1.1em}
-p,li,dd,dt,figcaption{max-width:var(--meet)}
+p,li,dd,dt,figcaption{max-width:var(--meet);overflow-wrap:break-word}
 ul,ol{padding-left:1.25em}
 li{margin-bottom:.35em}
 a{color:var(--primair);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
@@ -42,7 +42,7 @@ hr{border:0;border-top:var(--lijndikte) solid var(--lijn);margin:0}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--goot)}
 @media (min-width:900px){.wrap{padding:0 32px}}
 .rooster{display:grid;grid-template-columns:1fr;gap:24px}
-.rooster>*{min-width:0}   /* lange woorden mogen de kolom niet oprekken (anders knipt de hero op telefoon) */
+.rooster>*,.kolommen>*{min-width:0}   /* lange woorden mogen de kolom niet oprekken (anders knipt de hero op telefoon) */
 @media (min-width:900px){
   .rooster{grid-template-columns:repeat(12,1fr);gap:32px}
   .k8{grid-column:span 8}.k7{grid-column:span 7}.k6{grid-column:span 6}.k5{grid-column:span 5}.k4{grid-column:span 4}.k3{grid-column:span 3}
@@ -65,7 +65,7 @@ section,.sectie{padding:var(--sectie) 0}
 .herken li:first-child{border-top:0}
 @media (min-width:900px){.herken li:nth-child(2){border-top:0}}
 .herken__vink{flex:none;margin-top:2px;width:42px;height:42px;border-radius:12px;border:1px solid rgba(73,191,254,.4);background:rgba(73,191,254,.12);color:#8AD6FF;display:inline-flex;align-items:center;justify-content:center;transition:box-shadow .25s,background .25s}
-.herken li:hover .herken__vink{background:rgba(73,191,254,.22);box-shadow:0 0 14px rgba(73,191,254,.45)}
+@media (hover:hover){.herken li:hover .herken__vink{background:rgba(73,191,254,.22);box-shadow:0 0 14px rgba(73,191,254,.45)}}
 .herken h3{margin:0 0 5px;font-size:16.5px;line-height:1.3;color:#fff}
 .herken p{margin:0;font-size:15.5px;line-height:1.5;color:rgba(255,255,255,.82)}
 .herkenpaneel .acties--kaart{position:relative;max-width:none;margin-top:28px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14)}
@@ -83,8 +83,6 @@ section,.sectie{padding:var(--sectie) 0}
 .sectie--groen .label{color:var(--signaal)}
 .feitenpaneel--groen dt{color:var(--signaal)}
 .feitenpaneel--groen div{border-top:3px solid var(--signaal-licht)}
-.galerij>div{padding:12px}
-.galerij figure img{aspect-ratio:3/2}
 
 /* ---------- paneel (kaart) ---------- */
 .paneel{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}
@@ -117,11 +115,11 @@ section,.sectie{padding:var(--sectie) 0}
 .nav .sub{display:none;position:absolute;top:100%;left:-16px;min-width:230px;flex-direction:column;gap:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:8px 0;box-shadow:var(--schaduw);z-index:60}
 .nav .sub a{display:block;padding:9px 16px;border:0;color:var(--kop)}
 .nav .sub a:hover{background:var(--papier);color:var(--primair)}
-@media (min-width:1200px){.nav .heeft-sub:hover>.sub,.nav .heeft-sub:focus-within>.sub{display:flex}}   /* alleen desktop: op telefoon hield focus-within het submenu open na dichtklappen */
+@media (min-width:1280px){.nav .heeft-sub:hover>.sub,.nav .heeft-sub:focus-within>.sub{display:flex}}   /* alleen desktop: op telefoon hield focus-within het submenu open na dichtklappen */
 .bel:hover,.menu-knop:hover{border-color:var(--op-donker)}
 .kop a:focus-visible,.kop button:focus-visible{outline-color:var(--link-donker)}
-@media (max-width:1199px){
-  .nav.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--donker);border-bottom:var(--lijndikte) solid var(--donker-lijn);padding:12px var(--goot) 20px;z-index:50}
+@media (max-width:1279px){
+  .nav.open{display:block;position:absolute;left:0;right:0;top:100%;background:var(--donker);border-bottom:var(--lijndikte) solid var(--donker-lijn);padding:12px var(--goot) 20px;z-index:70}
   .nav.open ul{flex-direction:column;flex-wrap:wrap;gap:0;font-size:inherit}
   .nav.open a{display:block;padding:10px 0;border-bottom:var(--lijndikte) solid var(--donker-lijn)}
   .nav.open .sub{display:none;position:static;border:0;box-shadow:none;padding:0 0 0 16px;background:transparent;min-width:0}
@@ -129,7 +127,7 @@ section,.sectie{padding:var(--sectie) 0}
   .nav.open .heeft-sub>a svg{transition:transform .2s}
   .nav.open .heeft-sub.open>a svg{transform:rotate(180deg)}
 }
-@media (min-width:1200px){.nav{display:block}.menu-knop{display:none}}
+@media (min-width:1280px){.nav{display:block}.menu-knop{display:none}}
 /* lichte header (test): wit vlak, zwart woordmerk, donkere navigatie */
 .kop--licht{background:var(--paneel);color:var(--kop);border-bottom:var(--lijndikte) solid var(--lijn)}
 .kop--licht .nav a{color:var(--kop)}
@@ -137,7 +135,7 @@ section,.sectie{padding:var(--sectie) 0}
 .kop--licht .bel,.kop--licht .menu-knop{color:var(--kop);border-color:var(--lijn-2)}
 .kop--licht .bel:hover,.kop--licht .menu-knop:hover{border-color:var(--kop)}
 .kop--licht a:focus-visible,.kop--licht button:focus-visible{outline-color:var(--primair)}
-@media (max-width:1199px){.kop--licht .nav.open{background:var(--paneel);border-bottom-color:var(--lijn)}.kop--licht .nav.open a{border-bottom-color:var(--lijn)}}
+@media (max-width:1279px){.kop--licht .nav.open{background:var(--paneel);border-bottom-color:var(--lijn)}.kop--licht .nav.open a{border-bottom-color:var(--lijn)}}
 
 /* ---------- knoppen ---------- */
 .knop{display:inline-block;background:var(--accent);color:var(--kop);text-decoration:none;padding:14px 22px;border-radius:var(--straal-knop);border:0;font-family:var(--font-kop);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;line-height:1.2}
@@ -165,7 +163,7 @@ section,.sectie{padding:var(--sectie) 0}
 .hero__foto figure img{animation:kenburns 24s ease-in-out infinite alternate;transform-origin:60% 50%}
 @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.04)}}
 /* PKVW-keurmerk: zegel op de linkeronderhoek van de herofoto, iets gedraaid als echt keurmerk */
-.keurmerk{position:absolute;z-index:4;right:calc(18px + max(0px, (var(--max) - 100vw) / 2));top:16px;display:flex}
+.keurmerk{position:absolute;z-index:4;right:18px;top:16px;display:flex}   /* figuur loopt boven 1440px zelf al tot de schermrand; rekenen met 100vw zette het zegel op 900-1439px naar het midden */
 .hero__foto figure .keurmerk img{width:96px;height:auto;aspect-ratio:auto;object-fit:contain;border-radius:0;display:block;filter:drop-shadow(0 2px 10px rgba(2,24,48,.5));clip-path:none!important;animation:none!important}
 
 @media (max-width:899px){.keurmerk{right:12px;top:12px}.hero__foto figure .keurmerk img{width:60px}}
@@ -226,6 +224,7 @@ section,.sectie{padding:var(--sectie) 0}
 /* ---------- beeld ---------- */
 figure{margin:0}
 figure img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--straal)}
+figure img.iso{aspect-ratio:auto;object-fit:fill}
 figcaption{font-size:.9em;color:var(--inkt-zacht);padding-top:8px}
 figure.vol img{aspect-ratio:auto}   /* volledige foto tonen, niets afsnijden */
 /* foto exact even hoog als de tekstkolom ernaast: de foto-laag ligt absoluut in zijn kader en telt niet mee
@@ -248,7 +247,8 @@ figure.pashoog img{aspect-ratio:auto;object-fit:cover}
 .kolommen p:last-child{margin-bottom:0}
 .kolommen+p{margin-top:32px}
 .stappen{list-style:none;padding:0;margin:0;counter-reset:stap;display:grid;gap:24px}
-@media (min-width:700px){.stappen{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:700px){.stappen{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.stappen{grid-template-columns:repeat(4,1fr)}}
 .stappen li{counter-increment:stap;margin:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}
 .stappen li::before{content:counter(stap,decimal-leading-zero);display:block;font-family:var(--font-kop);font-weight:700;font-size:40px;color:var(--primair);line-height:1;margin-bottom:16px;letter-spacing:-.02em}
 .stappen h3{font-size:var(--h3);margin-bottom:.4em}
@@ -270,7 +270,7 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .plaatsen ul{list-style:none;padding:0;margin:0}
 .plaatsen ul li{margin:0 0 4px}
 .feitenpaneel{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.feitenpaneel div{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:20px}
+.feitenpaneel div{min-width:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:20px}
 .feitenpaneel dt{font-family:var(--font-kop);font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.05;color:var(--primair);max-width:none}
 .feitenpaneel dd{margin:6px 0 0;color:var(--inkt-zacht);font-size:.92em;max-width:none}
 
@@ -421,7 +421,7 @@ textarea{min-height:120px;resize:vertical}
 .klanten{padding:34px 0 38px;border-bottom:var(--lijndikte) solid var(--lijn);background:var(--paneel);overflow:hidden}
 .klanten__kop{margin:0 auto 18px;max-width:none;text-align:center;font-family:var(--font-kop);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--inkt-zacht)}
 .klanten__band{display:flex;width:max-content;animation:klanten 40s linear infinite;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.klanten:hover .klanten__band{animation-play-state:paused}
+@media (hover:hover){.klanten:hover .klanten__band{animation-play-state:paused}}
 .klanten__rij{display:flex;align-items:center;gap:64px;margin:0;padding:0 32px;list-style:none}
 .klanten__rij li{margin:0}
 .klanten__rij img{height:58px;width:auto;max-width:240px;object-fit:contain;aspect-ratio:auto;border-radius:0;filter:grayscale(1);opacity:.7}
@@ -453,6 +453,14 @@ video.yt__speler{background:#000;object-fit:cover}
 
 /* montagevideo's compacter: niet beeldvullend (Lars, 01-10-2026) */
 .video{max-width:620px}
+
+/* blokken die bij elkaar horen worden op telefoon een veegbare rij (Lars, 05-10-2026):
+   kaartgrids van 3 of 4 kolommen, de stappen en alles met de klasse veeg */
+@media (max-width:699px){
+.kolommen--3,.kolommen--4,.stappen,.kolommen.veeg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:6px;scrollbar-width:none}
+.kolommen--3::-webkit-scrollbar,.kolommen--4::-webkit-scrollbar,.stappen::-webkit-scrollbar,.kolommen.veeg::-webkit-scrollbar{display:none}
+.kolommen--3>*,.kolommen--4>*,.stappen>li,.kolommen.veeg>*{flex:0 0 82%;scroll-snap-align:start}
+}
 
 /* productkaarten rechts: op telefoon en tablet een veegbare rij (Lars, 01-10-2026) */
 @media (max-width:999px){
@@ -492,10 +500,6 @@ tbody tr:hover>td,tbody tr:hover>th{background:rgba(27,104,192,.04)}
 .js .reveal.in :is(.stappen li,.kolommen>div):nth-child(3){transition-delay:.16s}
 .js .reveal.in :is(.stappen li,.kolommen>div):nth-child(4){transition-delay:.24s}
 @media (prefers-reduced-motion:reduce){.js .reveal:not(.in) :is(.stappen li,.kolommen>div){opacity:1;transform:none}}
-/* galerijfoto's: zelfde taal als de hero, maar op aanraking */
-.galerij figure{overflow:hidden;border-radius:var(--straal)}
-.galerij figure img{transition:transform .5s ease}
-.galerij>div:hover img{transform:scale(1.03)}
 /* geen dubbele randlijn waar wit en zacht elkaar raken */
 .sectie--wit+.sectie--zacht,.sectie--zacht+.sectie--wit{border-top:0}
 /* focus op donkere vlakken in het lichtblauw, anders onzichtbaar */
@@ -504,6 +508,7 @@ tbody tr:hover>td,tbody tr:hover>th{background:rgba(27,104,192,.04)}
 /* project- en teamkaarten: foto tot de kaartrand (Lars, 02/04-10-2026) */
 .projectkaart figure,.teamkaart figure{margin:-28px -28px 18px}
 .projectkaart figure img,.teamkaart figure img{border-radius:var(--straal) var(--straal) 0 0}
+.projectkaart figure img{object-position:50% 35%}
 .projectkaart__meer{margin:16px 0 0}
 .teamkaart figure img{aspect-ratio:1/1;object-position:50% 20%}
 .teamkaart h3{margin-bottom:2px}
@@ -512,6 +517,7 @@ tbody tr:hover>td,tbody tr:hover>th{background:rgba(27,104,192,.04)}
 /* Xesar-systeemcarrousel: groot beeld links, titel en een zin rechts (Lars, 01-10-2026) */
 .xsys .xdia{flex:0 0 100%;scroll-snap-align:start;display:grid;gap:16px;align-items:center}
 @media (min-width:700px){.xsys .xdia{grid-template-columns:4fr 3fr;gap:26px}}
-.xdia__beeld{width:100%;height:auto;border:var(--lijndikte) solid var(--lijn);border-radius:10px;background:#fff}
+.xdia__beeld{width:100%;height:auto;border:var(--lijndikte) solid var(--lijn);border-radius:10px;background:#fff;overflow:hidden}
+.xdia__beeld img{aspect-ratio:auto;object-fit:contain;border-radius:0}
 .xdia__tekst h5{margin:0 0 8px;font-family:var(--font-kop);font-size:19px;color:var(--kop)}
 .xdia__tekst p{margin:0;font-size:15px;line-height:1.55;color:var(--inkt-zacht)}
