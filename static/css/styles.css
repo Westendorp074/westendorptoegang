@@ -239,6 +239,9 @@ figure.pashoog img{aspect-ratio:auto;object-fit:cover}
 .feitenpaneel--vul div{display:flex;flex-direction:column;justify-content:center}
 .portret img{aspect-ratio:1}
 
+/* lijnicoontje boven kaartkoppen, zelfde taal als het herken-paneel */
+.ikoonvak{width:42px;height:42px;border-radius:12px;background:#E4F1FC;color:var(--primair);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+
 /* ---------- kolommen, stappen, tabellen, lijsten ---------- */
 .kolommen{display:grid;gap:24px}
 @media (min-width:700px){.kolommen--2{grid-template-columns:1fr 1fr}.kolommen--3{grid-template-columns:repeat(3,1fr)}.kolommen--4{grid-template-columns:1fr 1fr}}

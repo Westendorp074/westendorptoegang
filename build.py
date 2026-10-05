@@ -831,6 +831,30 @@ SUBNAV = {"/over-ons/": [("Over ons", "/over-ons/"), ("Duurzaamheid", "/duurzaam
 _ICOON_BEL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>'
 _ICOON_MENU = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
 
+# gedeelde lijniconen in de huisstijl (zelfde taal als het Herkent u dit?-paneel), voor kaartkoppen door de hele site
+IKONEN = {
+    "sleutel": '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/>',
+    "klok": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    "schuifjes": '<path d="M4 6h10M4 12h16M4 18h8"/><circle cx="17" cy="6" r="2"/><circle cx="15" cy="18" r="2"/>',
+    "bliksem": '<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>',
+    "moersleutel": '<path d="M14.5 6.5a4.5 4.5 0 0 0-6.1 5.6L3 17.5V21h3.5l5.4-5.4a4.5 4.5 0 0 0 5.6-6.1L14 13l-3-3z"/>',
+    "plus": '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+    "schild": '<path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/>',
+    "deur": '<rect x="6" y="3" width="12" height="18" rx="1"/><circle cx="15" cy="12" r="1" fill="currentColor"/>',
+    "deuren": '<rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/><circle cx="8" cy="12" r=".9" fill="currentColor"/><circle cx="19" cy="12" r=".9" fill="currentColor"/>',
+    "wifi": '<path d="M5 12a10 10 0 0 1 14 0M8 15a6 6 0 0 1 8 0"/><circle cx="12" cy="18" r="1.3" fill="currentColor"/>',
+    "telefoon": '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 5.5h3"/>',
+    "pas": '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M6 15h5"/>',
+    "druppel": '<path d="M12 3c3.5 4.5 6 7.5 6 10.5a6 6 0 0 1-12 0C6 10.5 8.5 7.5 12 3z"/><circle cx="12" cy="14" r="1.8"/>',
+    "code": '<rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/><circle cx="9" cy="15" r="1" fill="currentColor"/><circle cx="15" cy="15" r="1" fill="currentColor"/>',
+    "vinger": '<path d="M7 13a5 5 0 0 1 10 0v2a9 9 0 0 1-.8 4M10 13v3a7 7 0 0 0 .6 2.8M13 13v6"/><path d="M4.5 10.5a8.5 8.5 0 0 1 15 0"/>',
+    "pin": '<path d="M12 21s-6.5-5.5-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 15.5 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.3"/>',
+    "bel": '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+}
+def ikoon(naam):
+    return (f'<span class="ikoonvak" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" '
+            f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{IKONEN[naam]}</svg></span>')
+
 SUBNAV["/toegangscontrole/#sectoren"] = [(k, f"/toegangscontrole/#sector-{s}") for s, k, *_ in SECTOREN_LIJST]
 
 def header(pad):

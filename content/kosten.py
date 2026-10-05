@@ -16,13 +16,13 @@ def bouw():
     strook = sectie("Vanaf-prijzen", tabel(rijen, kop=["Situatie", "Prijs", "Eenheid"], bijschrift="Vanaf-prijzen toegangscontrole, excl. btw")
         + p(f"Alle bedragen {BTW_TEKST}, geplaatst. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}"))
 
-    bepaalt = sectie("Wat de prijs bepaalt", '<div class="kolommen kolommen--3">' + "".join(f"<div><h3>{k}</h3><p>{t}</p></div>" for k, t in [
-        ("Beveiligingseisen", "Een binnendeur naar een kantoor vraagt iets anders dan een medicijnruimte of een buitendeur; de klasse van het slot bepaalt de prijs."),
-        ("Aantal deuren", "De software en de inrichting zijn vaste kosten; per deur wordt het goedkoper naarmate er meer deuren zijn."),
-        ("Deurtype", "Een binnendeur met beslag is het goedkoopst; een buitendeur met meerpuntssluiting vraagt een motorcilinder, een glazen deur een wandlezer."),
-        ("Offline of online", "Offline deuren zijn goedkoper. Online betaalt u alleen waar u live inzicht of bediening op afstand nodig heeft."),
-        ("Beheer", "Zelf beheren kost niets extra; beheer door ons of een servicecontract zijn jaarlijkse kosten."),
-        ("Infrezen en bestaande situatie", "Houten deuren die een uitsparing nodig hebben: een vast bedrag per deur. Een bestaand EVVA-sluitplan of bruikbaar beslag drukt de prijs."),
+    bepaalt = sectie("Wat de prijs bepaalt", '<div class="kolommen kolommen--3">' + "".join(f"<div>{ikoon(i)}<h3>{k}</h3><p>{t}</p></div>" for i, k, t in [
+        ("schild", "Beveiligingseisen", "Een binnendeur naar een kantoor vraagt iets anders dan een medicijnruimte of een buitendeur; de klasse van het slot bepaalt de prijs."),
+        ("deuren", "Aantal deuren", "De software en de inrichting zijn vaste kosten; per deur wordt het goedkoper naarmate er meer deuren zijn."),
+        ("deur", "Deurtype", "Een binnendeur met beslag is het goedkoopst; een buitendeur met meerpuntssluiting vraagt een motorcilinder, een glazen deur een wandlezer."),
+        ("wifi", "Offline of online", "Offline deuren zijn goedkoper. Online betaalt u alleen waar u live inzicht of bediening op afstand nodig heeft."),
+        ("schuifjes", "Beheer", "Zelf beheren kost niets extra; beheer door ons of een servicecontract zijn jaarlijkse kosten."),
+        ("moersleutel", "Infrezen en bestaande situatie", "Houten deuren die een uitsparing nodig hebben: een vast bedrag per deur. Een bestaand EVVA-sluitplan of bruikbaar beslag drukt de prijs."),
     ]) + "</div>", wit=True)
 
     voorbeelden = sectie("Rekenvoorbeelden uit de praktijk", '<div class="kolommen kolommen--3">' + "".join(
