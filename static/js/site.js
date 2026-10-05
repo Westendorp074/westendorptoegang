@@ -176,6 +176,7 @@
         if (window.innerWidth >= 1200) return;
         e.preventDefault();
         a.parentElement.classList.toggle('open');
+        a.blur();
       });
     });
   }

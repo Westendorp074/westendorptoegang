@@ -116,7 +116,7 @@ section,.sectie{padding:var(--sectie) 0}
 .nav .sub{display:none;position:absolute;top:100%;left:-16px;min-width:230px;flex-direction:column;gap:0;background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:8px 0;box-shadow:var(--schaduw);z-index:60}
 .nav .sub a{display:block;padding:9px 16px;border:0;color:var(--kop)}
 .nav .sub a:hover{background:var(--papier);color:var(--primair)}
-.nav .heeft-sub:hover>.sub,.nav .heeft-sub:focus-within>.sub{display:flex}
+@media (min-width:1200px){.nav .heeft-sub:hover>.sub,.nav .heeft-sub:focus-within>.sub{display:flex}}   /* alleen desktop: op telefoon hield focus-within het submenu open na dichtklappen */
 .bel:hover,.menu-knop:hover{border-color:var(--op-donker)}
 .kop a:focus-visible,.kop button:focus-visible{outline-color:var(--link-donker)}
 @media (max-width:1199px){
