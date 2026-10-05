@@ -216,7 +216,7 @@ section,.sectie{padding:var(--sectie) 0}
 .kaart__tekst p{margin:0;flex:1}
 
 /* ---------- kruimelpad ---------- */
-.kruimels{font-size:.9em;padding:16px 0 0;color:var(--inkt-zacht)}
+.kruimels{font-size:.9em;padding-top:16px;color:var(--inkt-zacht)}   /* alleen padding-top: de zijgoot van .wrap moet blijven, anders raakt het pad op telefoon de schermrand */
 .kruimels ol{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 8px}
 .kruimels li{margin:0;max-width:none}
 .kruimels li+li::before{content:"/";margin-right:8px;color:var(--lijn-2)}
