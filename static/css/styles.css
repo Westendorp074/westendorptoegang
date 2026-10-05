@@ -457,16 +457,22 @@ video.yt__speler{background:#000;object-fit:cover}
 /* blokken die bij elkaar horen worden op telefoon een veegbare rij (Lars, 05-10-2026):
    kaartgrids van 3 of 4 kolommen, de stappen en alles met de klasse veeg */
 @media (max-width:699px){
-.kolommen--3,.kolommen--4,.stappen,.kolommen.veeg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:6px;scrollbar-width:none}
-.kolommen--3::-webkit-scrollbar,.kolommen--4::-webkit-scrollbar,.stappen::-webkit-scrollbar,.kolommen.veeg::-webkit-scrollbar{display:none}
+.kolommen--3,.kolommen--4,.stappen,.kolommen.veeg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:10px;scrollbar-width:thin}
+.kolommen--3::-webkit-scrollbar,.kolommen--4::-webkit-scrollbar,.stappen::-webkit-scrollbar,.kolommen.veeg::-webkit-scrollbar{height:6px}
+.kolommen--3::-webkit-scrollbar-thumb,.kolommen--4::-webkit-scrollbar-thumb,.stappen::-webkit-scrollbar-thumb,.kolommen.veeg::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:3px}
 .kolommen--3>*,.kolommen--4>*,.stappen>li,.kolommen.veeg>*{flex:0 0 82%;scroll-snap-align:start}
+/* wenkje: de rij schuift bij binnenkomst even aan, zodat je ziet dat er te vegen valt */
+.js .reveal.in :is(.kolommen--3,.kolommen--4,.stappen,.kolommen.veeg)>*:first-child{animation:veegwenk 1.1s ease .5s 1}
 }
+@keyframes veegwenk{0%,100%{transform:none}45%{transform:translateX(-22px)}}
 
 /* productkaarten rechts: op telefoon en tablet een veegbare rij (Lars, 01-10-2026) */
 @media (max-width:999px){
-.producten__rest{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:6px;scrollbar-width:none}
-.producten__rest::-webkit-scrollbar{display:none}
+.producten__rest{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding-bottom:10px;scrollbar-width:thin}
+.producten__rest::-webkit-scrollbar{height:6px}
+.producten__rest::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:3px}
 .producten__rest .product{flex:0 0 82%;scroll-snap-align:start}
+.js .reveal.in .producten__rest .product:first-child{animation:veegwenk 1.1s ease .5s 1}
 }
 
 /* herofoto zonder bijsnijden of zoom: volledige foto in eigen verhouding (Lars, 04-10-2026) */
