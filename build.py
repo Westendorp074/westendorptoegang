@@ -430,10 +430,13 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
 
 def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=None):
     """Kop van elke pagina: label, H1, answer-first alinea, CTA; rechts een foto of een illustratie."""
+    # een woord van 19+ tekens (zoals "toegangscontrolesysteem") kent de browser-woordafbreking niet;
+    # dan de kop iets kleiner zetten zodat het woord heel blijft, in plaats van kaal afbreken
+    kop_klas = ' class="kop--lang"' if max((len(w) for w in re.sub(r"<[^>]+>", "", h1).split()), default=0) >= 19 else ""
     rechts_inhoud = foto_html or (f'<div class="hero__illustratie">{illustratie}</div>' if illustratie else "")
     rechts = f'<div class="k6 hero__rechts{" hero__foto" if foto_html else ""}">{rechts_inhoud}</div>' if rechts_inhoud else ""
     kol = "k6" if rechts_inhoud else "k8"
-    return (f'<section class="hero{" hero--foto" if foto_html else ""}"><div class="wrap"><div class="rooster"><div class="{kol}">{label(kicker) if kicker else ""}<h1>{h1}</h1>'
+    return (f'<section class="hero{" hero--foto" if foto_html else ""}"><div class="wrap"><div class="rooster"><div class="{kol}">{label(kicker) if kicker else ""}<h1{kop_klas}>{h1}</h1>'
             f'<p class="intro">{intro}</p>{extra}{acties() if cta else ""}</div>{rechts}</div></div></section>')
 
 ISO_CSS = """<style>
