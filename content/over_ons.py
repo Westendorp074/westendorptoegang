@@ -34,7 +34,7 @@ def bouw():
         f"Daarom is {esc(NAAM)} ontstaan: de eigen zakelijke tak voor bedrijven en instellingen, met EVVA als hoofdmerk omdat die fabrikant mechanisch en elektronisch onder één dak maakt. "
         "Wij zijn officieel partner van EVVA, ASSA ABLOY en ABUS, en EVVA schakelt ons zelf in voor projecten in de regio. " + PKVW,
         f"Wat in al die jaren hetzelfde bleef: een sleutel die past, een slot dat werkt, een toegang die klopt — of het nu om één voordeur gaat of om een sluitplan voor honderd deuren. "
-        f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}; onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren en autosleutels; die markt bedient deze site niet.")
+        f"{esc(NAAM)} is onderdeel van {esc(RECHTSPERSOON)}; onder dezelfde VOF valt <a href=\"{MOEDER_URL}\" rel=\"noopener\">{esc(MOEDER)}</a>, met winkels in {esc(VESTIGINGEN_MOEDER)} voor particulieren; die markt bedient deze site niet.")
         + f'</div><div class="k5">{duo}</div></div>', wit=True, kicker="Hoe wij begonnen zijn")
 
     # vier waarden, genummerd zoals de stappen (eigen taal, B2B)
@@ -95,7 +95,7 @@ def bouw():
         ("Zijn jullie een installateur of een leverancier?", "Beide. Wij leveren de onderdelen en installeren ze met eigen monteurs. Wij verkopen geen losse onderdelen zonder installatie."),
         ("Voor welke bedrijven werken jullie?", "Alle bedrijven en instellingen die de toegang tot hun pand willen regelen: kantoren, zorg, onderwijs, VvE's, verenigingen, recreatieparken, industrie en overheid. Zie de <a href=\"/\">homepage</a> voor de situaties die wij het meest tegenkomen."),
         ("Kan ik langskomen om een systeem te bekijken?", "Wij komen naar u toe. Bij de inventarisatie op locatie nemen wij demonstratiemateriaal mee, zodat u beslag en cilinder in handen heeft op de deur waar het om gaat."),
-        ("Wat is de relatie met Westendorp Slotenspecialist?", f"Beide zijn onderdeel van {esc(RECHTSPERSOON)}. Westendorp Slotenspecialist bedient particulieren en autosleutels vanuit de winkels; {esc(NAAM)} bedient bedrijven en instellingen, op locatie."),
+        ("Wat is de relatie met Westendorp Slotenspecialist?", f"Beide zijn onderdeel van {esc(RECHTSPERSOON)}. Westendorp Slotenspecialist bedient particulieren vanuit de winkels; {esc(NAAM)} bedient bedrijven en instellingen, op locatie."),
     ]
 
     herofoto = beeld("westendorp-bedrijfsbus-enschede.jpg",
