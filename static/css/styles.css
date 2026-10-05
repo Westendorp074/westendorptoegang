@@ -10,7 +10,7 @@ body{margin:0;font-family:var(--font);font-size:var(--tekst);line-height:var(--r
 @media (min-width:900px){body{font-size:18px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-h1,h2,h3{font-family:var(--font-kop);color:var(--kop);font-weight:600;line-height:1.12;letter-spacing:-.01em;margin:0 0 .5em;text-wrap:balance}
+h1,h2,h3{font-family:var(--font-kop);color:var(--kop);font-weight:600;line-height:1.12;letter-spacing:-.01em;margin:0 0 .5em;text-wrap:balance;overflow-wrap:break-word;hyphens:auto}
 h1{font-size:var(--h1);line-height:1.05;letter-spacing:-.02em}
 h2{font-size:var(--h2)}
 h3{font-size:var(--h3);line-height:1.3}
@@ -42,6 +42,7 @@ hr{border:0;border-top:var(--lijndikte) solid var(--lijn);margin:0}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--goot)}
 @media (min-width:900px){.wrap{padding:0 32px}}
 .rooster{display:grid;grid-template-columns:1fr;gap:24px}
+.rooster>*{min-width:0}   /* lange woorden mogen de kolom niet oprekken (anders knipt de hero op telefoon) */
 @media (min-width:900px){
   .rooster{grid-template-columns:repeat(12,1fr);gap:32px}
   .k8{grid-column:span 8}.k7{grid-column:span 7}.k6{grid-column:span 6}.k5{grid-column:span 5}.k4{grid-column:span 4}.k3{grid-column:span 3}

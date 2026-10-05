@@ -38,11 +38,11 @@ KVK_ADRES     = "Wesseler-Nering 32, 7544 JC Enschede"              # inschrijfa
 PLAATS        = "Enschede"
 REGIO         = "Overijssel"
 LAT, LON      = 52.192259, 6.882859                                 # INPUT §A2 (Lars, 20-09-2026)
-TEL_TONEN     = "053 478 42 45"                                     # INPUT §A2, Lars chat 20-09-2026 (zelfde nummer als de hoofdsite)
-TEL_LINK      = "+31534784245"
+TEL_TONEN     = "074 247 05 43"                                     # kantoornummer (Lars, 05-10-2026), ma t/m vr 9:00-17:00
+TEL_LINK      = "+31742470543"
 MAIL          = "info@westendorpgroep.nl"                           # INPUT §A2 (Lars, 20-09-2026; in kleine letters geschreven)
-OPENING_TEKST = "dag en nacht, 7 dagen per week voor storingen; kantoor maandag tot en met vrijdag 08:00–17:00"   # Bedrijfsprofiel staat op 24/7 (Lars, 20-09-2026)
-KANTOORTIJD   = "maandag tot en met vrijdag 08:00–17:00"            # aanname INPUT §A2
+OPENING_TEKST = "dag en nacht, 7 dagen per week voor storingen; kantoor maandag tot en met vrijdag 09:00–17:00"   # Bedrijfsprofiel staat op 24/7 (Lars, 20-09-2026)
+KANTOORTIJD   = "maandag tot en met vrijdag 09:00–17:00"            # aanname INPUT §A2
 OPENING_SCHEMA = [(d, "00:00", "23:59") for d in ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")]   # gelijk aan het Bedrijfsprofiel: 24/7
 STORING_BUITEN_KANTOORTIJD = "dag en nacht bereikbaar, 7 dagen per week"   # INPUT §A2 (Lars, 20-09-2026)
 BEZOEKADRES   = "alleen op afspraak"                                # INPUT §A2 (Lars, 20-09-2026); inventarisatie altijd op locatie bij de klant
@@ -182,8 +182,8 @@ VESTIGINGEN_MOEDER = "Enschede (winkel, Wesselernering 32) en Hengelo (Oldenzaal
 
 # Adviseur (INPUT §C4): staat op elke pagina naast het formulier.
 ADVISEURS = [  # volledige namen en eigenaarschap; Nick altijd als eerste (Lars, 04-10-2026)
-    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},   # originele blauwe Toegang-portretten
-    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "053 478 42 45", "tel_link": "+31534784245"},
+    {"naam": "Nick Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-nick.jpg", "tel_tonen": "074 247 05 43", "tel_link": "+31742470543"},   # originele blauwe Toegang-portretten
+    {"naam": "Lars Westendorp", "functie": "eigenaar en adviseur toegangscontrole", "foto": "adviseur-lars.jpg", "tel_tonen": "074 247 05 43", "tel_link": "+31742470543"},
 ]
 ADVISEUR = ADVISEURS[0]
 ADVISEUR_NAMEN = " of ".join(a["naam"].split()[0] for a in ADVISEURS)          # "Nick of Lars", voor lopende zinnen
@@ -373,9 +373,9 @@ def chat_widget():
 var w=document.querySelector('[data-wchat]');if(!w)return;
 var knop=w.querySelector('.wchat__knop'),paneel=w.querySelector('.wchat__paneel');
 var uur=new Date().getHours(),dag=new Date().getDay();
-var open=dag>=1&&dag<=5&&uur>=8&&uur<17;
+var open=dag>=1&&dag<=5&&uur>=9&&uur<17;
 w.classList.toggle('wchat--dicht',!open);
-w.querySelector('[data-wchat-status]').textContent=open?'Nu bereikbaar':'Ma t/m vr 08:00–17:00';
+w.querySelector('[data-wchat-status]').textContent=open?'Nu bereikbaar':'Ma t/m vr 09:00–17:00';
 w.querySelector('[data-wchat-groet]').textContent=(uur<12?'Goedemorgen!':uur<18?'Goedemiddag!':'Goedenavond!')+' Waarmee kunnen wij u helpen?';
 function zet(o){w.classList.toggle('wchat--open',o);paneel.hidden=!o;knop.setAttribute('aria-expanded',o);
   knop.setAttribute('aria-label',o?'Sluit contactvenster':'Contact opnemen');
@@ -399,7 +399,7 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
     body:JSON.stringify({access_key:C.web3formsKey,subject:'Terugbelverzoek via de website',from_name:naam,naam:naam,telefoon:tel,pagina:location.pathname,botcheck:''})})
   .then(function(r){if(!r.ok)throw 0;vorm.querySelector('.knopregel').hidden=true;
     status.className='wchat__formstatus goed';
-    status.textContent='Dank u, '+naam+'. '+(dag>=1&&dag<=5&&uur>=8&&uur<16?'Wij bellen u vandaag terug.':'Wij bellen u op de eerstvolgende werkdag terug.')})
+    status.textContent='Dank u, '+naam+'. '+(dag>=1&&dag<=5&&uur>=9&&uur<16?'Wij bellen u vandaag terug.':'Wij bellen u op de eerstvolgende werkdag terug.')})
   .catch(function(){status.textContent='Versturen lukte niet. Bel ons gerust: TEL_TONEN.'})});
 })()</script>"""
     script = script.replace("TEL_TONEN", TEL_TONEN)
@@ -877,7 +877,7 @@ def footer():
     cookies = ""   # Cookie-instellingen-knop uit de footer (Lars, 04-10-2026)
     return f'''<footer class="voet"><div class="wrap">
 <div class="rooster">
-<div class="k3"><p class="voet__naam">{esc(NAAM)}</p><p>Elektronische toegangscontrole, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in Twente en Oost-Nederland.</p><p>{cta_knop(cta_id="footer")}</p></div>
+<div class="k3"><p class="voet__naam">{esc(NAAM)}</p><p>Elektronische toegangscontrole, mechanische sluitsystemen en sluitplannen voor bedrijven en instellingen in heel Oost-Nederland.</p><p>{cta_knop(cta_id="footer")}</p></div>
 <div class="k3"><h2>Diensten</h2><ul>{diensten}</ul></div>
 <div class="k3"><h2>Contact</h2><address><p>{esc(STRAAT)}<br>{esc(POSTCODE)} {esc(PLAATS)}</p>
 <p><a href="tel:{esc(TEL_LINK)}">{esc(TEL_TONEN)}</a><br><a href="mailto:{esc(MAIL)}">{esc(MAIL)}</a></p>
