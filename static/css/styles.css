@@ -240,7 +240,8 @@ figure.pashoog img{aspect-ratio:auto;object-fit:cover}
 
 /* ---------- kolommen, stappen, tabellen, lijsten ---------- */
 .kolommen{display:grid;gap:24px}
-@media (min-width:700px){.kolommen--2{grid-template-columns:1fr 1fr}.kolommen--3{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:700px){.kolommen--2{grid-template-columns:1fr 1fr}.kolommen--3{grid-template-columns:repeat(3,1fr)}.kolommen--4{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.kolommen--4{grid-template-columns:repeat(4,1fr)}}
 .kolommen>div{background:var(--paneel);border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);padding:28px}
 .kolommen h3{margin-top:0}
 .kolommen p:last-child{margin-bottom:0}
