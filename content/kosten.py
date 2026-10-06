@@ -11,7 +11,8 @@ def bouw():
              f"van uw pand; voor elk type bedrijf is er een passende uitvoering. Een EVVA AirKey-startpakket kost {prijs('airkey_start', False)}. {PRIJS_DISCLAIMER}")
     datum_html = lambda d: f'<p class="laatst">Laatst bijgewerkt: {esc(d)}</p>'
 
-    rijen = [(esc(oms), f"vanaf € {v}" if v else "op aanvraag", esc(een)) for oms, v, een in PRIJZEN.values()]
+    # mechanische cilinder niet in de prijzentabel (Lars, 06-10-2026); de sleutel blijft voor de zinnen op sluitplan
+    rijen = [(esc(oms), f"vanaf € {v}" if v else "op aanvraag", esc(een)) for sleutel, (oms, v, een) in PRIJZEN.items() if sleutel != "mech_cilinder"]
     rijen.append(("Inventarisatie op locatie", "zonder kosten" if INVENTARISATIE_GRATIS else INV("prijs inventarisatie"), ""))
     strook = sectie("Vanaf-prijzen", tabel(rijen, kop=["Situatie", "Prijs", "Eenheid"], bijschrift="Vanaf-prijzen toegangscontrole, excl. btw")
         + p(f"Alle bedragen {BTW_TEKST}. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}"))
