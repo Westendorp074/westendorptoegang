@@ -665,8 +665,9 @@ def sectie(kop, inhoud, wit=False, lijn=False, kop_id=None, extra="", kicker=Non
     return f'<section{kl}><div class="wrap">{kop_html}{inhoud}{extra}</div></section>'
 
 def stappen(items):
-    """Genummerde stappen (het is een volgorde): [(kop, tekst), ...]"""
-    return '<ol class="stappen">' + "".join(f"<li><h3>{k}</h3><p>{t}</p></li>" for k, t in items) + "</ol>"
+    """Genummerde stappen (het is een volgorde): [(kop, tekst), ...]; altijd met CTA eronder (Lars, 06-10-2026)."""
+    return ('<ol class="stappen">' + "".join(f"<li><h3>{k}</h3><p>{t}</p></li>" for k, t in items) + "</ol>"
+            + f'<p class="acties" data-gedeeld>{cta_knop(cta_id="stappen")}</p>')
 
 def faqblok(items, kop="Veelgestelde vragen"):
     binnen = "".join(f'<details><summary>{esc(v)}</summary><div class="antwoord">{a if a.startswith("<") else "<p>"+a+"</p>"}</div></details>' for v, a in items)
