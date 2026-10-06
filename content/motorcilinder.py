@@ -45,7 +45,7 @@ def bouw():
         + "</div>")
 
     kosten = sectie("Wat kost een motorcilinder", p(
-        f"Een EVVA EMZY kost geplaatst {prijs('emzy')}; een smart lock {prijs('slot')}, {BTW_TEKST}. "
+        f"Een EVVA EMZY kost {prijs('emzy')}; een smart lock {prijs('slot')}, {BTW_TEKST}. "
         f"{PRIJS_DISCLAIMER} Meer op <a href=\"/kosten/\">wat kost toegangscontrole</a>."), wit=True)
 
     faq = [

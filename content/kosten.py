@@ -14,7 +14,7 @@ def bouw():
     rijen = [(esc(oms), f"vanaf € {v}" if v else "op aanvraag", esc(een)) for oms, v, een in PRIJZEN.values()]
     rijen.append(("Inventarisatie op locatie", "zonder kosten" if INVENTARISATIE_GRATIS else INV("prijs inventarisatie"), ""))
     strook = sectie("Vanaf-prijzen", tabel(rijen, kop=["Situatie", "Prijs", "Eenheid"], bijschrift="Vanaf-prijzen toegangscontrole, excl. btw")
-        + p(f"Alle bedragen {BTW_TEKST}, geplaatst. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}"))
+        + p(f"Alle bedragen {BTW_TEKST}. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}"))
 
     bepaalt = sectie("Wat de prijs bepaalt", '<div class="kolommen kolommen--3">' + "".join(f"<div>{ikoon(i)}<h3>{k}</h3><p>{t}</p></div>" for i, k, t in [
         ("schild", "Beveiligingseisen", "Een binnendeur naar een kantoor vraagt iets anders dan een medicijnruimte of een buitendeur; de klasse van het slot bepaalt de prijs."),

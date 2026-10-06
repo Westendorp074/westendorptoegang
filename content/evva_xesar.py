@@ -49,7 +49,7 @@ def bouw():
     ], bijschrift="Specificaties EVVA Xesar"), wit=True)
 
     kosten = sectie("Wat kost een Xesar-traject", p(
-        f"De prijs van een Xesar-cilinder of -beslag is geplaatst {prijs('cilinder_xesar')}: hij hangt af van het deurtype, de uitvoering en het aantal deuren, {BTW_TEKST}. "
+        f"De prijs van een Xesar-cilinder is {prijs('cilinder_xesar')} en van Xesar-beslag {prijs('beslag')}: hij hangt af van het deurtype, de uitvoering en het aantal deuren, {BTW_TEKST}. "
         f"Daar komt de beheersoftware bij. {PRIJS_DISCLAIMER} Rekenvoorbeelden voor een klein kantoor, een school en een zorglocatie staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."))
 
     faq = [
