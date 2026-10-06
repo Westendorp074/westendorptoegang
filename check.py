@@ -156,7 +156,8 @@ def controleer_pagina(pad, tekst_html):
             if w in laag or w in tekst_html.lower(): fout(rel, f"'{w}' mag alleen op /over-ons/ voorkomen")
     for m in re.finditer(r"gratis", laag):
         omgeving = laag[max(0, m.start() - 80): m.end() + 80]
-        if "inventarisatie" not in omgeving: fout(rel, "'gratis' buiten de context van de inventarisatie")
+        # de Deurenscan is de naam van de gratis inventarisatie (Ads-plan, Lars 06-10-2026)
+        if "inventarisatie" not in omgeving and "deurenscan" not in omgeving: fout(rel, "'gratis' buiten de context van de inventarisatie of de Deurenscan")
     # noindex alleen op bedankt
     if P.noindex and rel not in ("/bedankt/", "/404.html"): fout(rel, "noindex op een pagina die geïndexeerd moet worden")
     if rel == "/bedankt/" and not P.noindex: fout(rel, "bedankt moet noindex zijn")

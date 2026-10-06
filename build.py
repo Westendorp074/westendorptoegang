@@ -199,12 +199,13 @@ DUURZAAM_ELEKTRONISCH = ("Geen sloten vervangen bij sleutelverlies",
     "Raakt bij een mechanisch sluitplan een sleutel kwijt, dan moeten cilinders worden vervangen en sleutels opnieuw gemaakt. Bij elektronische toegangscontrole blokkeert u de pas in de software; "
     "het slot blijft zitten. Er worden geen extra sleutels bijgemaakt en er wordt geen messing of staal verbruikt voor cilinders en sleutels die alleen nodig zijn omdat er een sleutel zoek is.")   # Lars, 23-09-2026
 HEADER_LICHT   = True   # witte header met zwart woordmerk (test, Lars 22-09-2026); False = antraciet met logo-zwarte-achtergrond
-CTA            = "Plan een gratis inventarisatie"                     # INPUT §E1 aanname
+CTA            = "Plan de gratis Deurenscan"                          # Hormozi-aanbod (Lars, 06-10-2026); zie Google Ads-plan sectie 13-15
 WHATSAPP       = ""                                                   # INPUT §E1 optioneel; leeg = geen WhatsApp
 WEB3FORMS_KEY  = "50c899f1-e3b2-4bbe-b1b3-5dbd7c00ac7c"              # INPUT §E2 (Lars, 21-09-2026, incognito aangemaakt op info@); 3d5d8a2f… en 2fa6ec12… gingen naar autosleutel@
 FORM_MAILBOX   = MAIL                                               # INPUT §E2: aanname, zelfde als het algemene adres
 BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Wij bellen u binnen 1 werkdag om uw situatie door te nemen "
-                  "en de inventarisatie op locatie in te plannen. Daarna ontvangt u zo snel mogelijk een offerte met een vaste prijs per deur.")   # voorstel Claude, 21-09-2026
+                  "en de Deurenscan op locatie in te plannen — wij bellen maximaal één keer, beslissen doet u in alle rust. Daarna ontvangt u zo snel "
+                  "mogelijk een offerte met een vaste prijs per deur, en die prijs is ook de prijs op de factuur.")   # garanties uit het Ads-plan (Lars, 06-10-2026)
 GOOGLE_TAG_ID  = "AW-17596975114"                                   # INPUT §E3 (Lars, 21-09-2026), gedeeld met andere sites; conversielabels volgen
 ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie
 ADS_LABEL_TEL  = ""
@@ -413,7 +414,7 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
             f'<p class="wchat__welkom" data-wchat-groet>Waarmee kunnen wij u helpen?</p>'
             f'<div class="wchat__acties">'
             f'<a class="wchat__actie wchat__actie--bel" href="tel:{esc(TEL_LINK)}">{telefoon_svg}Bel {esc(TEL_TONEN)}</a>'
-            f'<a class="wchat__actie" href="/contact/#aanvraag">{kalender_svg}Plan een gratis inventarisatie</a>'
+            f'<a class="wchat__actie" href="/contact/#aanvraag">{kalender_svg}Plan de gratis Deurenscan</a>'
             f'<button type="button" class="wchat__actie" data-wchat-terugbel>{terug_svg}Bel mij terug</button>'
             f'<a class="wchat__actie" href="mailto:{esc(MAIL)}">{mail_svg}Mail {esc(MAIL)}</a></div>'
             f'<form class="wchat__form" data-wchat-form novalidate>'
@@ -475,7 +476,7 @@ def sectorrij(items, kop, intro=None, kicker="Sectoren"):
     """Horizontaal scrollende rij met illustratie, kop, tekst en twee knoppen (Lars wil knoppen, geen tekstlinks): inventarisatie en meer informatie."""
     kaarten = "".join(
         f'<article class="kaart" id="sector-{sleutel}"><div class="kaart__beeld">{iso_bestand(sleutel)}</div>'
-        f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><p class="acties acties--kaart">{cta_knop("Plan een inventarisatie", "#aanvraag", f"sector-{sleutel}")}'
+        f'<div class="kaart__tekst"><h3>{esc(k)}</h3><p>{t}</p><p class="acties acties--kaart">{cta_knop("Plan de Deurenscan", "#aanvraag", f"sector-{sleutel}")}'
         f'{cta_knop("Meer info", f"/toegangscontrole/#sector-{sleutel}", f"sector-{sleutel}-info", "knop knop--tweede")}</p></div></article>'
         for sleutel, k, t, _ in items)
     pijl_l = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>'
@@ -581,7 +582,7 @@ def youtube(video_id, titel, ondertitel=""):
     watermerk = f'<img class="yt__watermerk" src="{_ASSETS["icoon"]}" alt="" aria-hidden="true" width="495" height="647" loading="lazy">'
     eind = (f'<div class="yt__eind" hidden>{watermerk}{logo}<p class="yt__eindtitel">EVVA Xesar in uw pand?</p>'
             f'<p class="yt__eindtekst">Wij plaatsen Xesar op uw bestaande deuren, van inventarisatie tot beheer.</p>'
-            f'<p class="yt__eindknoppen">{cta_knop("Plan een inventarisatie", "#aanvraag", "video-eind")}'
+            f'<p class="yt__eindknoppen">{cta_knop("Plan de Deurenscan", "#aanvraag", "video-eind")}'
             f'<button type="button" class="knop knop--tweede yt__opnieuw">Opnieuw bekijken</button></p></div>')
     lokaal = xesar_lokaal()
     bron_attr = f'data-video-src="{lokaal}"' if lokaal else f'data-yt="{esc(video_id)}"'
@@ -999,15 +1000,23 @@ gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personal
 def _opties(naam, items, leeg="Maak een keuze"):
     return f'<option value="">{leeg}</option>' + "".join(f'<option value="{esc(i)}">{esc(i)}</option>' for i in items)
 
-UITLEG_INV = "Wij komen gratis bij u langs en nemen alle deuren door; vul daarvoor ook de plaats van het pand in."
+UITLEG_INV = "Wij komen gratis bij u langs voor de Deurenscan en nemen alle deuren door; vul daarvoor ook de plaats van het pand in."
 UITLEG_BERICHT = "Stel uw vraag of stuur een bericht; u krijgt binnen 1 werkdag antwoord."
 
-def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="inventarisatie", keuze=False):
+def formulier(kort=False, kop="Plan de gratis Deurenscan", intro=None, standaard="inventarisatie", keuze=False):
     """Het ene formulier van de site (BRIEF §7). kort=True: zelfde velden, als blok onderaan een pagina.
     keuze=True (contactpagina): keuzeknoppen bericht/inventarisatie met uitlegregel; standaard="bericht" bepaalt de start."""
     bericht = standaard == "bericht"
-    intro = intro or ("Vul het formulier in; wij nemen binnen " + esc(REACTIE_AANVRAAG) + " contact met u op. Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor een inventarisatie ook de plaats van het pand.")
-    keuzebalk = (f'<div class="breed fkeuze"><button type="button" class="fkeuze__knop{" aan" if not bericht else ""}" data-fmodus="inventarisatie" aria-pressed="{str(not bericht).lower()}">Plan een gratis inventarisatie</button>'
+    intro = intro or ("Vul het formulier in; wij nemen binnen " + esc(REACTIE_AANVRAAG) + " contact met u op. Alleen naam en een telefoonnummer of e-mailadres zijn verplicht; voor de Deurenscan ook de plaats van het pand.")
+    # het aanbod boven het formulier (Hormozi-laag, Ads-plan sectie 13/15; Lars, 06-10-2026): wat de scan oplevert en de twee garanties
+    scanvak = ('<div class="scanvak"><p class="scanvak__kop">De Deurenscan, gratis en bij u op locatie</p><ul>'
+               '<li>Deur-voor-deur overzicht: welk slot, welk beslag, wie erdoor moet</li>'
+               '<li>De sleutelrisico’s zwart op wit: welke sleutels zweven er</li>'
+               '<li>Prijsindicatie per deur, ter plekke</li>'
+               '<li>Advies welke deuren offline kunnen en welke online moeten</li></ul>'
+               '<p class="scanvak__garantie">De prijs per deur in de offerte is de prijs op de factuur. En na de scan bellen wij maximaal '
+               'één keer; beslissen doet u in alle rust.</p></div>')
+    keuzebalk = (f'<div class="breed fkeuze"><button type="button" class="fkeuze__knop{" aan" if not bericht else ""}" data-fmodus="inventarisatie" aria-pressed="{str(not bericht).lower()}">Plan de gratis Deurenscan</button>'
                  f'<button type="button" class="fkeuze__knop{" aan" if bericht else ""}" data-fmodus="bericht" aria-pressed="{str(bericht).lower()}">Stuur een bericht</button></div>'
                  f'<p class="breed fkeuze__uitleg" data-fuitleg data-uitleg-inv="{esc(UITLEG_INV)}" data-uitleg-bericht="{esc(UITLEG_BERICHT)}" aria-live="polite">{esc(UITLEG_BERICHT if bericht else UITLEG_INV)}</p>') if keuze else ""
     velden = f'''<form class="formulier{" formulier--vraag" if bericht else ""}" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
@@ -1027,7 +1036,7 @@ def formulier(kort=False, kop="Plan een inventarisatie", intro=None, standaard="
 <p class="zacht">Uw gegevens gebruiken wij alleen om contact met u op te nemen. Zie de <a href="/privacy/">privacyverklaring</a>.</p></div>
 </form>'''
     return f'''<section class="reveal" id="aanvraag" data-gedeeld><div class="wrap"><div class="rooster">
-<div class="k8">{label("Contact")}<h2>{esc(kop)}</h2><p class="tekst">{intro}</p>{velden}</div>
+<div class="k8">{label("Contact")}<h2>{esc(kop)}</h2><p class="tekst">{intro}</p>{scanvak}{velden}</div>
 <div class="k4">{adviseurblok()}</div>
 </div></div></section>'''
 
@@ -1085,7 +1094,7 @@ def afwisselen(html_body):
     return "".join(delen)
 
 def schrijf(pad, titel, omschrijving, body, kruimelpad=None, faq=None, extra_ld=(), paginatype="WebPage",
-            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan een inventarisatie", formulier_standaard="inventarisatie", formulier_boven_faq=False, formulier_keuze=False):
+            noindex=False, llms="", og_beeld=None, met_formulier=True, formulier_kop="Plan de gratis Deurenscan", formulier_standaard="inventarisatie", formulier_boven_faq=False, formulier_keuze=False):
     """Schrijft dist/<pad>/index.html. pad begint en eindigt met een slash."""
     kruimelpad = kruimelpad or [("Home", "/")] + ([(titel.split(" | ")[0], pad)] if pad != "/" else [])
     kruimel_html = kruimels(kruimelpad) if pad != "/" else ""
@@ -1124,6 +1133,7 @@ def assets():
     (DIST / "static" / "css").mkdir(parents=True, exist_ok=True); (DIST / "static" / "js").mkdir(parents=True, exist_ok=True)
     css = (STATIC / "css" / "tokens.css").read_text(encoding="utf-8") + "\n" + (STATIC / "css" / "styles.css").read_text(encoding="utf-8")
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)        # commentaar strippen: bron blijft leesbaar, dist blijft onder het budget
+    css = re.sub(r"\s*\n\s*", "", css).replace(";}", "}")  # regeleindes en laatste puntkomma's weg: zelfde CSS, minder bytes
     css_naam = f"site.{hashlib.md5(css.encode()).hexdigest()[:8]}.css"
     (DIST / "static" / "css" / css_naam).write_text(css, encoding="utf-8")
     js_naam = f"site.{versie(STATIC / 'js' / 'site.js')}.js"

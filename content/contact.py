@@ -24,5 +24,5 @@ def bouw():
                      "Kantoor van Westendorp in Hengelo waar medewerkers aanvragen en planning verwerken", lazy=False, klas="vol")
     body = hero("Contact", intro, foto_html=herofoto, cta=False, extra=knoppen) + nap
     schrijf(PAD, titel, omschrijving, body, faq=faq, kruimelpad=[("Home", "/"), ("Contact", PAD)], paginatype="ContactPage",
-            formulier_kop="Stuur een bericht of plan een inventarisatie", formulier_standaard="bericht", formulier_boven_faq=True, formulier_keuze=True,
+            formulier_kop="Stuur een bericht of plan de Deurenscan", formulier_standaard="bericht", formulier_boven_faq=True, formulier_keuze=True,
             llms="Contactgegevens, bereikbaarheid en het aanvraagformulier voor een inventarisatie op locatie.")
