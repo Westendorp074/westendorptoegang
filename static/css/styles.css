@@ -199,13 +199,14 @@ section,.sectie{padding:var(--sectie) 0}
 .rij-knoppen button:hover{border-color:var(--primair);color:var(--primair)}
 .rij-knoppen button:active{transform:scale(.94)}
 .rij-knoppen button[disabled]{background:var(--papier);color:var(--lijn-2);border-color:var(--lijn);cursor:default}
-.rij{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);background:var(--paneel)}
+.rij{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#fff transparent;border:var(--lijndikte) solid var(--lijn);border-radius:var(--straal);background:var(--paneel)}
 .rij::-webkit-scrollbar{height:8px}
 @media (hover:hover) and (pointer:fine){.rij{cursor:grab}.rij a,.rij button{cursor:pointer}}
 .rij.sleept{cursor:grabbing;scroll-snap-type:none;user-select:none}
 .rij img{-webkit-user-drag:none;user-select:none}
-.rij::-webkit-scrollbar-thumb{background:var(--lijn-2);border-radius:4px}
+.rij::-webkit-scrollbar-thumb{background:#fff;border-radius:4px}
 .kaart{flex:0 0 86%;scroll-snap-align:start;display:flex;flex-direction:column;content-visibility:auto;contain-intrinsic-size:420px 560px}
+.kaart+.kaart{margin-left:-1px}   /* subpixel-naadje tussen de scènes dichtgedrukt: elke kaart valt 1px over de vorige */
 @media (min-width:700px){.kaart{flex-basis:44%}}
 @media (min-width:1100px){.kaart{flex-basis:33.333%}}
 .kaart__tekst{border-right:var(--lijndikte) solid var(--lijn)}
