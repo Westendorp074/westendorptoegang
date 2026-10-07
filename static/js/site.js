@@ -9,8 +9,10 @@
   // ---------- Toestemming: de cookie-dialoog regelt zichzelf (inline script bij de html); hier alleen lezen ----------
   var heeftTag = typeof window.gtag === 'function';
   function lees() { try { return localStorage.getItem('consent'); } catch (e) { return null; } }
-  function mag() { return heeftTag && lees() === 'granted'; }
-  function meet(naam, params) { if (mag()) { try { gtag('event', naam, params || {}); } catch (e) {} } }
+  // 'granted' = alles; 'stat' = alleen statistiek; 'ads' = alleen marketing (keuze via Aanpassen)
+  function magStat() { var k = lees(); return heeftTag && (k === 'granted' || k === 'stat'); }
+  function magAds() { var k = lees(); return heeftTag && (k === 'granted' || k === 'ads'); }
+  function meet(naam, params) { if (magStat()) { try { gtag('event', naam, params || {}); } catch (e) {} } }
 
   // ---------- Conversie op de bedanktpagina, één keer per bezoek ----------
   if (/^\/bedankt\/?$/.test(location.pathname)) {
@@ -18,7 +20,7 @@
     try { al = sessionStorage.getItem('form_submit') === '1'; sessionStorage.setItem('form_submit', '1'); } catch (e) {}
     if (!al) {
       meet('form_submit', { page_path: location.pathname });
-      if (C.adsLabelForm && mag()) { try { gtag('event', 'conversion', { send_to: C.adsLabelForm }); } catch (e) {} }
+      if (C.adsLabelForm && magAds()) { try { gtag('event', 'conversion', { send_to: C.adsLabelForm }); } catch (e) {} }
     }
   }
 
@@ -29,7 +31,7 @@
     var href = a.getAttribute('href') || '';
     if (href.indexOf('tel:') === 0) {
       meet('tel_click', { page_path: location.pathname });
-      if (C.adsLabelTel && mag()) { try { gtag('event', 'conversion', { send_to: C.adsLabelTel }); } catch (er) {} }
+      if (C.adsLabelTel && magAds()) { try { gtag('event', 'conversion', { send_to: C.adsLabelTel }); } catch (er) {} }
     } else if (href.indexOf('https://wa.me/') === 0) {
       meet('whatsapp_click', { page_path: location.pathname });
     } else if (a.hasAttribute('data-cta')) {

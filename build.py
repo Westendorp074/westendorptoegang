@@ -206,9 +206,9 @@ FORM_MAILBOX   = MAIL                                               # INPUT §E2
 BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per e-mail. Wij bellen u binnen 1 werkdag om uw situatie door te nemen "
                   "en de Deurenscan op locatie in te plannen — wij bellen maximaal één keer, beslissen doet u in alle rust. Daarna ontvangt u zo snel "
                   "mogelijk een offerte met een vaste prijs per deur, en die prijs is ook de prijs op de factuur.")   # garanties uit het Ads-plan (Lars, 06-10-2026)
-GOOGLE_TAG_ID  = "AW-17596975114"                                   # INPUT §E3 (Lars, 21-09-2026), gedeeld met andere sites; conversielabels volgen
-ADS_LABEL_FORM = ""                                                   # INPUT §E3, "AW-xxx/label"; leeg = geen Ads-conversie
-ADS_LABEL_TEL  = ""
+GOOGLE_TAG_ID  = "AW-18496323003"                                   # eigen Ads-account Westendorp Toegang (aangemaakt 07-10-2026, los van winkel/autosleutels)
+ADS_LABEL_FORM = "AW-18496323003/Am1gCJaqqJQdELv73fNE"              # conversieactie "Aanvraag (formulier)", telt één per klik
+ADS_LABEL_TEL  = "AW-18496323003/U2XDCJyqqJQdELv73fNE"              # conversieactie "Telefoonklik", telt elke
 SC_VERIFICATIE = "cP27EjU-ymEGxRVvGIe0oJR3uFC-TVVEizK6w0S-oP0"      # INPUT §E3 Search Console (Lars, 21-09-2026)
 BING_VERIFICATIE = ""                                                 # INPUT §E3 optioneel
 UET_TAG        = ""                                                   # INPUT §E3 optioneel
@@ -399,6 +399,9 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
   fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify({access_key:C.web3formsKey,subject:'Terugbelverzoek via de website',from_name:naam,naam:naam,telefoon:tel,pagina:location.pathname,botcheck:''})})
   .then(function(r){if(!r.ok)throw 0;vorm.querySelector('.knopregel').hidden=true;
+    try{var cs=localStorage.getItem('consent');
+      if(typeof gtag==='function'&&(cs==='granted'||cs==='stat'))gtag('event','form_submit',{formulier:'terugbel'});
+      if(C.adsLabelForm&&typeof gtag==='function'&&(cs==='granted'||cs==='ads'))gtag('event','conversion',{send_to:C.adsLabelForm});}catch(err){}
     status.className='wchat__formstatus goed';
     status.textContent='Dank u, '+naam+'. '+(dag>=1&&dag<=5&&uur>=9&&uur<16?'Wij bellen u vandaag terug.':'Wij bellen u op de eerstvolgende werkdag terug.')})
   .catch(function(){status.textContent='Versturen lukte niet. Bel ons gerust: TEL_TONEN.'})});
