@@ -1139,8 +1139,12 @@ def assets():
     css = re.sub(r"\s*\n\s*", "", css).replace(";}", "}")  # regeleindes en laatste puntkomma's weg: zelfde CSS, minder bytes
     css_naam = f"site.{hashlib.md5(css.encode()).hexdigest()[:8]}.css"
     (DIST / "static" / "css" / css_naam).write_text(css, encoding="utf-8")
-    js_naam = f"site.{versie(STATIC / 'js' / 'site.js')}.js"
-    shutil.copy(STATIC / "js" / "site.js", DIST / "static" / "js" / js_naam)
+    js = (STATIC / "js" / "site.js").read_text(encoding="utf-8")
+    # volledige commentaarregels en inspringing strippen (bron blijft leesbaar, dist onder het budget);
+    # alleen hele regels, zodat '//' binnen strings (zoals https://) ongemoeid blijft
+    js = "\n".join(r.strip() for r in js.splitlines() if not r.lstrip().startswith("//") and r.strip())
+    js_naam = f"site.{hashlib.md5(js.encode()).hexdigest()[:8]}.js"
+    (DIST / "static" / "js" / js_naam).write_text(js, encoding="utf-8")
     _ASSETS["css"], _ASSETS["js"] = f"/static/css/{css_naam}", f"/static/js/{js_naam}"
     shutil.copytree(STATIC / "font", DIST / "static" / "font", dirs_exist_ok=True)
     logo_uit = DIST / "static" / "img" / "logo"; logo_uit.mkdir(parents=True, exist_ok=True)

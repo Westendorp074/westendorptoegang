@@ -37,6 +37,15 @@
     } else if (a.hasAttribute('data-cta')) {
       meet('cta_click', { page_path: location.pathname, cta: a.getAttribute('data-cta') });
     }
+    // sprong naar het formulier: inhoud boven het anker laadt pas tijdens het scrollen, waardoor je te hoog
+    // uitkomt; na de soepele scroll één keer stil bijsturen zodat de kop echt bovenaan staat
+    if (href === '#aanvraag' && d.getElementById('aanvraag')) {
+      e.preventDefault();
+      var doel = d.getElementById('aanvraag');
+      doel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function () { doel.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 800);
+      setTimeout(function () { doel.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 1400);
+    }
   });
 
   // ---------- Video op klik: nooit autoplay, pas laden na de klik ----------
