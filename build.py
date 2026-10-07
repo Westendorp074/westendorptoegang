@@ -872,7 +872,7 @@ def header(pad):
     return f'''<header class="kop{' kop--licht' if HEADER_LICHT else ''}"><div class="wrap">
 <a class="logo" href="/" aria-label="{esc(NAAM)}, naar de homepage"><img src="{_ASSETS["logo"]}" alt="{esc(NAAM)}" width="2053" height="647"></a>
 <nav class="nav" id="nav" aria-label="Hoofdmenu"><ul>{items}</ul></nav>
-<div class="kop__acties"><a class="knop kop__cta" href="#aanvraag" data-cta="header">Gratis Deurenscan</a><a class="bel" href="tel:{esc(TEL_LINK)}" aria-label="Bel {esc(NAAM)}, {esc(TEL_TONEN)}">{_ICOON_BEL}<span>{esc(TEL_TONEN)}</span></a>
+<div class="kop__acties"><a class="bel" href="tel:{esc(TEL_LINK)}" aria-label="Bel {esc(NAAM)}, {esc(TEL_TONEN)}">{_ICOON_BEL}<span>{esc(TEL_TONEN)}</span></a>
 <button class="menu-knop" id="menu-knop" type="button" aria-expanded="false" aria-controls="nav">{_ICOON_MENU}<span>Menu</span></button></div>
 </div></header>'''
 

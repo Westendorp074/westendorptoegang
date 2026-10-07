@@ -99,8 +99,6 @@ section,.sectie{padding:var(--sectie) 0}
 .logo svg,.logo img{height:48px;width:auto}
 @media (min-width:900px){.logo svg,.logo img{height:60px}.kop .wrap{min-height:96px}}
 .kop__acties{display:flex;align-items:center;gap:8px}
-.kop__cta{display:none;padding:10px 16px}
-@media (min-width:900px){.kop__cta{display:inline-flex}}
 .bel{display:inline-flex;align-items:center;gap:8px;color:var(--op-donker);text-decoration:none;font-weight:500;padding:8px 12px;border:var(--lijndikte) solid var(--op-donker-zacht);border-radius:var(--straal-knop);white-space:nowrap}
 .bel svg{width:18px;height:18px;flex-shrink:0}
 .bel span{display:none}
