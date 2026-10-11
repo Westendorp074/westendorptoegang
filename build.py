@@ -364,6 +364,10 @@ def chat_widget():
 .wchat__voet{margin:10px 16px 14px;font-size:12px;color:var(--inkt-zacht)}
 @media (max-width:480px){.wchat{right:12px;bottom:12px}.wchat__paneel{bottom:70px}}
 @media (prefers-reduced-motion:reduce){.wchat *,.mbalk{transition:none!important}}
+.fmeer summary{cursor:pointer;font-weight:600;color:var(--primair)}
+.fmeer summary span{font-weight:400;color:var(--inkt-zacht)}
+.fmeer__in{display:grid;gap:18px;margin-top:16px}
+@media (min-width:700px){.fmeer__in{grid-template-columns:repeat(3,1fr)}}
 .mbalk{display:none}
 @media (max-width:699px){.mbalk{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--lijn);box-shadow:0 -6px 20px rgba(2,41,91,.12);transform:translateY(110%);transition:transform .25s}
 .mbalk--aan{transform:none}
@@ -1042,9 +1046,11 @@ def formulier(kort=False, kop="Plan de gratis Deurenscan", intro=None, standaard
 <div class="veld"><label for="f-email">E-mailadres</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-telefoon">Telefoonnummer</label><input id="f-telefoon" name="telefoon" type="tel" autocomplete="tel" inputmode="tel"><span class="melding" aria-live="polite"></span></div>
 <div class="veld veld--pand"><label for="f-plaats">Plaats van het pand</label><input id="f-plaats" name="plaats" type="text" autocomplete="address-level2" required><span class="melding" aria-live="polite"></span></div>
-<div class="veld veld--pand"><label for="f-pand">Type pand</label><select id="f-pand" name="type_pand">{_opties("type_pand", ["Kantoor", "School", "Zorg", "Appartementencomplex", "Vereniging of kerk", "Horeca", "Recreatiepark", "Bedrijfspand of magazijn", "Overheid", "Anders"])}</select></div>
-<div class="veld veld--pand"><label for="f-deuren">Aantal deuren</label><select id="f-deuren" name="aantal_deuren">{_opties("aantal_deuren", ["1 tot 5", "6 tot 20", "21 tot 50", "Meer dan 50"])}</select></div>
-<div class="veld veld--pand"><label for="f-situatie">Huidige situatie</label><select id="f-situatie" name="huidige_situatie">{_opties("huidige_situatie", ["Mechanisch sluitplan", "Losse sloten", "Elektronisch systeem van een ander merk", "Nieuwbouw"])}</select></div>
+<details class="breed veld--pand fmeer"><summary>Meer over uw pand <span>(optioneel, dan komen wij beter voorbereid)</span></summary><div class="fmeer__in">
+<div class="veld"><label for="f-pand">Type pand</label><select id="f-pand" name="type_pand">{_opties("type_pand", ["Kantoor", "School", "Zorg", "Appartementencomplex", "Vereniging of kerk", "Horeca", "Recreatiepark", "Bedrijfspand of magazijn", "Overheid", "Anders"])}</select></div>
+<div class="veld"><label for="f-deuren">Aantal deuren</label><select id="f-deuren" name="aantal_deuren">{_opties("aantal_deuren", ["1 tot 5", "6 tot 20", "21 tot 50", "Meer dan 50"])}</select></div>
+<div class="veld"><label for="f-situatie">Huidige situatie</label><select id="f-situatie" name="huidige_situatie">{_opties("huidige_situatie", ["Mechanisch sluitplan", "Losse sloten", "Elektronisch systeem van een ander merk", "Nieuwbouw"])}</select></div>
+</div></details>
 <div class="veld breed"><label for="f-toelichting">Toelichting of bericht</label><span class="hint" id="f-toelichting-hint">Bijvoorbeeld: welke deuren, wat er nu niet werkt, wanneer u het geregeld wilt hebben — of gewoon uw vraag.</span><textarea id="f-toelichting" name="toelichting" aria-describedby="f-toelichting-hint"></textarea></div>
 <div class="honing" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
 <input type="hidden" name="botcheck" value="">
