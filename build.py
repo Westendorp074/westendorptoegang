@@ -209,7 +209,7 @@ BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per 
 GOOGLE_TAG_ID  = "AW-18496323003"                                   # eigen Ads-account Westendorp Toegang (aangemaakt 07-10-2026, los van winkel/autosleutels)
 ADS_LABEL_FORM = "AW-18496323003/Am1gCJaqqJQdELv73fNE"              # conversieactie "Aanvraag (formulier)", telt één per klik
 ADS_LABEL_TEL  = "AW-18496323003/U2XDCJyqqJQdELv73fNE"              # conversieactie "Telefoonklik", telt elke
-GA4_ID         = ""                                                 # Google Analytics 4 meet-ID (G-XXXXXXXXXX); leeg = geen Analytics, alleen de Ads-tag
+GA4_ID         = "G-C22DM4B953"                                               # Google Analytics 4 meet-ID (G-XXXXXXXXXX); leeg = geen Analytics, alleen de Ads-tag
 SC_VERIFICATIE = "cP27EjU-ymEGxRVvGIe0oJR3uFC-TVVEizK6w0S-oP0"      # INPUT §E3 Search Console (Lars, 21-09-2026)
 BING_VERIFICATIE = ""                                                 # INPUT §E3 optioneel
 UET_TAG        = ""                                                   # INPUT §E3 optioneel
