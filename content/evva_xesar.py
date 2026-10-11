@@ -15,7 +15,8 @@ def bouw():
     voorwie = sectie("Voor wie is Xesar geschikt", p(
         "Xesar past bij organisaties van een handvol tot enkele honderden deuren die hun toegang zelf willen beheren: kantoren, scholen, zorglocaties, verenigingen, "
         "recreatieparken en bedrijfspanden. Het sterkst is het waar al een mechanische cilinder zit: die wisselt u voor een Xesar-cilinder zonder aan de deur te komen.",
-        "Wilt u sommige deuren live zien en op afstand openen, dan zet u die online; de rest blijft offline en goedkoper. Bij nieuwbouw combineren wij Xesar met een mechanisch sluitplan van EVVA voor techniekruimtes en kasten."))
+        "Wilt u sommige deuren live zien en op afstand openen, dan zet u die online; de rest blijft offline en goedkoper. Bij nieuwbouw combineren wij Xesar met een mechanisch sluitplan van EVVA voor techniekruimtes en kasten.",
+        "Waar wij Xesar al hebben aangebracht, ziet u bij <a href=\"/projecten/\">uitgevoerde projecten</a>; het team dat het bij u doet, staat op <a href=\"/over-ons/\">over ons</a>."))
 
     lijnen = sectie("Welke Xesar-onderdelen wij leveren", p(f"Lijnen en versie: {esc(m['lijnen'])}.") + lijst([
         "Elektronische cilinders (dubbel, half, knop) voor binnen- en buitendeuren en voor hangsloten",

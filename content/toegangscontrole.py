@@ -62,9 +62,9 @@ def bouw():
         "daar hangt de oplossing af van het profiel en het bestaande slot. Meer over de soorten op <a href=\"/elektronische-sloten/\">elektronische sloten</a>."))
 
     aanpak = sectie("Hoe wij het aanpakken", stappen([
-        ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs en leggen per deur vast: type, beslag, wie erdoor moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else 'Tegen een vaste prijs'}; wij reageren binnen {esc(REACTIE_AANVRAAG)} op uw aanvraag."),
+        ("Inventarisatie op locatie", f"<a href=\"/over-ons/\">Nick of Lars</a> loopt alle deuren met u langs en legt per deur vast: type, beslag, wie erdoor moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else 'Tegen een vaste prijs'}; wij reageren binnen {esc(REACTIE_AANVRAAG)} op uw aanvraag."),
         ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, {esc(OFFERTE_BINNEN)}. Richtprijzen staan op de pagina <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
-        ("Installatie", "Eigen monteurs, mechanisch en elektronisch uit één hand. De planning en doorlooptijd spreken wij per project met u af."),
+        ("Installatie", "Eigen monteurs, mechanisch en elektronisch uit één hand. De planning en doorlooptijd spreken wij per project met u af; voorbeelden staan bij <a href=\"/projecten/\">uitgevoerde projecten</a>."),
         ("Beheer en service", f"Wij zetten het systeem in bedrijf en leren u het beheer, of wij beheren het voor u. Daarna: <a href=\"/service-en-beheer/\">service en beheer</a>."),
     ]), wit=True)
 

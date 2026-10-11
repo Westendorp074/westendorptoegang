@@ -7,7 +7,7 @@ def bouw():
     titel = "Wat kost toegangscontrole per deur"
     omschrijving = ("Vanaf-prijzen voor elektronische sloten en EVVA AirKey, wat de prijs bepaalt en wat er niet in zit. "
                     "Excl. btw, bijgewerkt door Westendorp Toegangscontrole.")
-    intro = (f"Een elektronisch slot (smart lock) kost geplaatst {prijs('slot')}, {BTW_TEKST}. Welk slot het wordt, hangt af van de deur en van de beveiligingseisen "
+    intro = (f"Toegangscontrole met een elektronische cilinder van EVVA Xesar kost {prijs('cilinder_xesar')}, {BTW_TEKST}. Welke uitvoering het wordt, hangt af van de deur en van de beveiligingseisen "
              f"van uw pand; voor elk type bedrijf is er een passende uitvoering. Een EVVA AirKey-startpakket kost {prijs('airkey_start', False)}. {PRIJS_DISCLAIMER}")
     datum_html = lambda d: f'<p class="laatst">Laatst bijgewerkt: {esc(d)}</p>'
 
@@ -15,7 +15,8 @@ def bouw():
     rijen = [(esc(oms), f"vanaf € {v}" if v else "op aanvraag", esc(een)) for sleutel, (oms, v, een) in PRIJZEN.items() if sleutel != "mech_cilinder"]
     rijen.append(("Inventarisatie op locatie", "zonder kosten" if INVENTARISATIE_GRATIS else INV("prijs inventarisatie"), ""))
     strook = sectie("Vanaf-prijzen", tabel(rijen, kop=["Situatie", "Prijs", "Eenheid"], bijschrift="Vanaf-prijzen toegangscontrole, excl. btw")
-        + p(f"Alle bedragen {BTW_TEKST}. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}"))
+        + p(f"Alle bedragen {BTW_TEKST}. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}",
+            "Wat dat in de praktijk oplevert, ziet u bij onze <a href=\"/projecten/\">uitgevoerde projecten</a>; wie er bij u langskomt, leest u op <a href=\"/over-ons/\">over ons</a>."))
 
     bepaalt = sectie("Wat de prijs bepaalt", '<div class="kolommen kolommen--3">' + "".join(f"<div>{ikoon(i)}<h3>{k}</h3><p>{t}</p></div>" for i, k, t in [
         ("schild", "Beveiligingseisen", "Een binnendeur naar een kantoor vraagt iets anders dan een medicijnruimte of een buitendeur; de klasse van het slot bepaalt de prijs."),
