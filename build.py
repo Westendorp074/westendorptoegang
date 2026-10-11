@@ -363,7 +363,14 @@ def chat_widget():
 .wchat__formstatus.goed{color:var(--signaal)}
 .wchat__voet{margin:10px 16px 14px;font-size:12px;color:var(--inkt-zacht)}
 @media (max-width:480px){.wchat{right:12px;bottom:12px}.wchat__paneel{bottom:70px}}
-@media (prefers-reduced-motion:reduce){.wchat *{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.wchat *,.mbalk{transition:none!important}}
+.mbalk{display:none}
+@media (max-width:699px){.mbalk{position:fixed;left:0;right:0;bottom:0;z-index:55;display:flex;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--lijn);box-shadow:0 -6px 20px rgba(2,41,91,.12);transform:translateY(110%);transition:transform .25s}
+.mbalk--aan{transform:none}
+.mbalk a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:var(--straal-knop);font:700 12.5px/1 var(--font-kop);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--kop)}
+.mbalk__bel{border:var(--lijndikte) solid var(--lijn-2)}
+.mbalk__scan{flex:1.6!important;background:var(--accent)}
+.mbalk--aan~.wchat,.wchat:has(~.mbalk--aan){bottom:74px}}
 </style>"""
     telefoon_svg = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8 7 15 15 15l2-4-4-2-2 2c-3-1-6-4-7-7l2-2-2-4z"/></svg>'
     kalender_svg = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>'
@@ -390,6 +397,9 @@ w.querySelector('[data-wchat-hintgroet]').textContent=(uur<12?'Goedemorgen!':uur
 hint.addEventListener('click',function(e){if(e.target.closest('.wchat__hint-dicht')){w.classList.remove('wchat--hint');try{localStorage.setItem('wchat-gezien',Date.now())}catch(err){};return}zet(true)});
 var g=false;try{g=(Date.now()-(+localStorage.getItem('wchat-gezien')||0))<864e5}catch(e){}
 if(!g&&matchMedia('(min-width:700px)').matches){setTimeout(function(){if(paneel.hidden)w.classList.add('wchat--hint')},4500)}
+var mb=document.querySelector('[data-mbalk]'),fa=document.getElementById('aanvraag');
+function balk(){var a=scrollY>500;if(a&&fa){var r=fa.getBoundingClientRect();a=r.top>innerHeight||r.bottom<0}mb.classList.toggle('mbalk--aan',a)}
+if(mb){addEventListener('scroll',balk,{passive:true});balk()}
 var vorm=w.querySelector('[data-wchat-form]'),status=w.querySelector('.wchat__formstatus');
 w.querySelector('[data-wchat-terugbel]').addEventListener('click',function(){w.classList.add('wchat--terugbel');vorm.querySelector('input').focus()});
 w.querySelector('.wchat__terug').addEventListener('click',function(){w.classList.remove('wchat--terugbel')});
@@ -430,8 +440,9 @@ vorm.addEventListener('submit',function(e){e.preventDefault();
             f'<p class="wchat__voet">Geen chatbot: u krijgt Nick of een van onze medewerkers.</p></div>'
             f'<div class="wchat__hint" data-wchat-hint role="status"><img src="{gezicht}" alt="" width="46" height="46" loading="lazy">'f'<span><strong>Nick van {esc(NAAM)}</strong><p data-wchat-hintgroet>Waarmee kan ik u helpen?</p></span>'f'<button type="button" class="wchat__hint-dicht" aria-label="Melding sluiten">&#215;</button></div>'
             f'<button type="button" class="wchat__knop" aria-expanded="false" aria-controls="wchat-paneel" aria-label="Contact opnemen">'
-            f'{chat_svg}{kruis_svg}<i class="wchat__led" aria-hidden="true"></i></button>'
-            f'{script}</div>')
+            f'{chat_svg}{kruis_svg}<i class="wchat__led" aria-hidden="true"></i></button></div>'
+            f'<div class="mbalk" data-mbalk><a class="mbalk__bel" href="tel:{esc(TEL_LINK)}" data-cta="balk-bel">{telefoon_svg}Bel</a>'
+            f'<a class="mbalk__scan" href="#aanvraag" data-cta="balk-scan">Gratis Deurenscan</a></div>{script}')
 
 def hero(h1, intro, foto_html="", cta=True, extra="", illustratie=None, kicker=None):
     """Kop van elke pagina: label, H1, answer-first alinea, CTA; rechts een foto of een illustratie."""

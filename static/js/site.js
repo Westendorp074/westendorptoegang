@@ -74,7 +74,7 @@
         meet('blok_gezien', { page_path: location.pathname, blok: it.target.getAttribute('data-blok') });
       });
     }, { threshold: 0.4 });
-    [['#aanvraag h2', 'formulier'], ['.scanvak', 'deurenscan'], ['table', 'prijzen'], ['.faq, details', 'faq']].forEach(function (b) {
+    [['#aanvraag h2', 'formulier'], ['.scanvak', 'deurenscan'], ['table', 'prijzen'], ['.faq', 'faq']].forEach(function (b) {
       var el = d.querySelector(b[0]);
       if (el) { el.setAttribute('data-blok', b[1]); kijk.observe(el); }
     });
