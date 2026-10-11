@@ -209,6 +209,7 @@ BEDANKT_TEKST  = ("Uw aanvraag is binnen. U ontvangt direct een bevestiging per 
 GOOGLE_TAG_ID  = "AW-18496323003"                                   # eigen Ads-account Westendorp Toegang (aangemaakt 07-10-2026, los van winkel/autosleutels)
 ADS_LABEL_FORM = "AW-18496323003/Am1gCJaqqJQdELv73fNE"              # conversieactie "Aanvraag (formulier)", telt één per klik
 ADS_LABEL_TEL  = "AW-18496323003/U2XDCJyqqJQdELv73fNE"              # conversieactie "Telefoonklik", telt elke
+GA4_ID         = ""                                                 # Google Analytics 4 meet-ID (G-XXXXXXXXXX); leeg = geen Analytics, alleen de Ads-tag
 SC_VERIFICATIE = "cP27EjU-ymEGxRVvGIe0oJR3uFC-TVVEizK6w0S-oP0"      # INPUT §E3 Search Console (Lars, 21-09-2026)
 BING_VERIFICATIE = ""                                                 # INPUT §E3 optioneel
 UET_TAG        = ""                                                   # INPUT §E3 optioneel
@@ -994,10 +995,11 @@ document.querySelectorAll('[data-consent-open]').forEach(function(b){b.addEventL
 
 def tag_html():
     if not TAG_ACTIEF: return ""
+    ga4 = f"gtag('config','{GA4_ID}');" if GA4_ID else ""
     return f'''<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}
 gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500}});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id={GOOGLE_TAG_ID}"></script>
-<script>gtag('js',new Date());gtag('config','{GOOGLE_TAG_ID}');</script>
+<script>gtag('js',new Date());gtag('config','{GOOGLE_TAG_ID}');{ga4}</script>
 '''
 
 def _opties(naam, items, leeg="Maak een keuze"):

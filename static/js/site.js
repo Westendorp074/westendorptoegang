@@ -45,8 +45,40 @@
       doel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setTimeout(function () { doel.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 800);
       setTimeout(function () { doel.scrollIntoView({ behavior: 'instant', block: 'start' }); }, 1400);
+    } else if (href === '#aanvraag') {
+      // pagina zonder formulier (privacy, bedankt, 404): de knop gaat naar het formulier op de contactpagina
+      e.preventDefault(); location.href = '/contact/#aanvraag';
     }
   });
+
+  // ---------- Formuliermeting: wie begint, en bij welk veld iemand afhaakt ----------
+  var fm = d.querySelector('#aanvraag form'), fBegonnen = false, fVeld = '', fKlaar = false;
+  if (fm) {
+    fm.addEventListener('focusin', function (e) {
+      if (!e.target.name) return;
+      fVeld = e.target.name;
+      if (!fBegonnen) { fBegonnen = true; meet('form_start', { page_path: location.pathname }); }
+    });
+    fm.addEventListener('submit', function () { fKlaar = true; });
+    window.addEventListener('pagehide', function () {
+      if (fBegonnen && !fKlaar) meet('form_afgehaakt', { page_path: location.pathname, veld: fVeld });
+    });
+  }
+
+  // ---------- Blokmeting: welke blokken een bezoeker echt in beeld krijgt (één keer per pagina) ----------
+  if ('IntersectionObserver' in window) {
+    var kijk = new IntersectionObserver(function (items) {
+      items.forEach(function (it) {
+        if (!it.isIntersecting) return;
+        kijk.unobserve(it.target);
+        meet('blok_gezien', { page_path: location.pathname, blok: it.target.getAttribute('data-blok') });
+      });
+    }, { threshold: 0.4 });
+    [['#aanvraag h2', 'formulier'], ['.scanvak', 'deurenscan'], ['table', 'prijzen'], ['.faq, details', 'faq']].forEach(function (b) {
+      var el = d.querySelector(b[0]);
+      if (el) { el.setAttribute('data-blok', b[1]); kijk.observe(el); }
+    });
+  }
 
   // ---------- Video op klik: nooit autoplay, pas laden na de klik ----------
   d.querySelectorAll('[data-video]').forEach(function (fig) {
