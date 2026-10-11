@@ -235,7 +235,7 @@
     modusKnoppen.forEach(function (b) {
       b.addEventListener('click', function () {
         modusKnoppen.forEach(function (x) { var aan = x === b; x.classList.toggle('aan', aan); x.setAttribute('aria-pressed', aan); });
-        if (onderwerp) onderwerp.value = b.getAttribute('data-fmodus') === 'bericht' ? 'Bericht of vraag' : 'Inventarisatie';
+        if (onderwerp) onderwerp.value = b.getAttribute('data-fmodus') === 'bericht' ? 'Bericht of vraag' : 'Deurenscan';
         f.classList.toggle('formulier--vraag', vraagModus());
         var sub = f.querySelector('button[type=submit]');
         if (sub) sub.textContent = vraagModus() ? sub.getAttribute('data-cta-vraag') : sub.getAttribute('data-cta-inv');
@@ -283,7 +283,7 @@
       if (knopje) { knopje.disabled = true; knopje.textContent = 'Versturen…'; }
       var data = new FormData(f);
       data.append('access_key', C.web3formsKey);
-      data.append('subject', 'Inventarisatie-aanvraag via westendorptoegang.nl');
+      data.append('subject', 'Deurenscan-aanvraag via westendorptoegang.nl');
       data.append('from_name', 'westendorptoegang.nl');
       data.append('pagina', location.pathname);
       fetch('https://api.web3forms.com/submit', { method: 'POST', body: data, headers: { Accept: 'application/json' } })

@@ -13,9 +13,9 @@ def bouw():
 
     # mechanische cilinder niet in de prijzentabel (Lars, 06-10-2026); de sleutel blijft voor de zinnen op sluitplan
     rijen = [(esc(oms), f"vanaf € {v}" if v else "op aanvraag", esc(een)) for sleutel, (oms, v, een) in PRIJZEN.items() if sleutel != "mech_cilinder"]
-    rijen.append(("Inventarisatie op locatie", "zonder kosten" if INVENTARISATIE_GRATIS else INV("prijs inventarisatie"), ""))
+    rijen.append(("Deurenscan op locatie", "zonder kosten" if INVENTARISATIE_GRATIS else INV("prijs inventarisatie"), ""))
     strook = sectie("Vanaf-prijzen", tabel(rijen, kop=["Situatie", "Prijs", "Eenheid"], bijschrift="Vanaf-prijzen toegangscontrole, excl. btw")
-        + p(f"Alle bedragen {BTW_TEKST}. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de inventarisatie noemen. {PRIJS_DISCLAIMER}",
+        + p(f"Alle bedragen {BTW_TEKST}. Regels met 'op aanvraag' hangen zo sterk af van de deur en het aantal dat wij ze pas na de Deurenscan noemen. {PRIJS_DISCLAIMER}",
             "Wat dat in de praktijk oplevert, ziet u bij onze <a href=\"/projecten/\">uitgevoerde projecten</a>; wie er bij u langskomt, leest u op <a href=\"/over-ons/\">over ons</a>."))
 
     bepaalt = sectie("Wat de prijs bepaalt", '<div class="kolommen kolommen--3">' + "".join(f"<div>{ikoon(i)}<h3>{k}</h3><p>{t}</p></div>" for i, k, t in [
@@ -45,8 +45,8 @@ def bouw():
         "Meer over dat contrast op <a href=\"/sluitplan/\">sluitplan</a>."))
 
     faq = [
-        ("Waarom staan hier vanaf-prijzen en geen vaste prijzen?", "Omdat de deur en de beveiligingseis bepalen wat erop past. Twee kantoren met tien deuren kunnen verschillen in deurtype, beslag en of de buitendeur online moet. Na de inventarisatie krijgt u een offerte met een vaste prijs per deur."),
-        ("Is de inventarisatie echt zonder kosten?", "Ja, de inventarisatie op locatie is gratis en zonder verplichting." if INVENTARISATIE_GRATIS else INV("antwoord over kosten inventarisatie")),
+        ("Waarom staan hier vanaf-prijzen en geen vaste prijzen?", "Omdat de deur en de beveiligingseis bepalen wat erop past. Twee kantoren met tien deuren kunnen verschillen in deurtype, beslag en of de buitendeur online moet. Na de Deurenscan krijgt u een offerte met een vaste prijs per deur."),
+        ("Is de Deurenscan echt zonder kosten?", "Ja, de Deurenscan op locatie is gratis en zonder verplichting." if INVENTARISATIE_GRATIS else INV("antwoord over kosten inventarisatie")),
         ("Wat kost EVVA AirKey?", f"Een AirKey-startpakket kost {prijs('airkey_start', False)}, {BTW_TEKST}. Daarmee regelt u een of enkele deuren via de telefoon; uitbreiden kan per cilinder. Zie <a href=\"/evva-xesar/\">EVVA Xesar en AirKey</a>."),
         ("Kan ik in fasen betalen of plaatsen?", "Plaatsen in fasen kan altijd: eerst de buitendeur en de ruimtes met risico, later de rest, in hetzelfde systeem. Betaling per fase spreken wij in de offerte af."),
         ("Zijn er subsidies of fiscale regelingen?", "Voor toegangscontrole bestaat geen aparte subsidie. Als bedrijfsmiddel valt de investering onder de gewone afschrijving; overleg daarover met uw accountant, wij geven daar geen advies over."),

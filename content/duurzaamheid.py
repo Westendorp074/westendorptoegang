@@ -54,7 +54,7 @@ def bouw():
     faq = [
         ("Is een duurzame cilinder net zo veilig?", "Ja. Magtec is SKG***-gecertificeerd en haalt op alle vijf de categorieën van DIN EN 1303 het hoogste niveau. De lagere uitstoot komt uit grondstoffen en productie, niet uit een lichtere constructie."),
         ("Waar komt het cijfer van 46 procent vandaan?", "Van een levenscyclusberekening door ClimatePartner Deutschland GmbH in opdracht van ABUS (november en december 2022), volgens het GHG Protocol. Vergeleken is één Magtec-cilinder met één conventionele ABUS Vitess-cilinder; de gebruiksfase is niet meegerekend."),
-        ("Kan Magtec in mijn bestaande sluitplan?", "Bij een nieuw sluitplan of een uitbreiding in ons eigen profiel: ja, uit voorraad. Een bestaand plan van een ander systeem kan gefaseerd worden overgezet; dat bekijken wij bij de inventarisatie."),
+        ("Kan Magtec in mijn bestaande sluitplan?", "Bij een nieuw sluitplan of een uitbreiding in ons eigen profiel: ja, uit voorraad. Een bestaand plan van een ander systeem kan gefaseerd worden overgezet; dat bekijken wij bij de Deurenscan."),
     ]
 
     body = hero("Duurzaam sluiten: twee losse keuzes", intro, foto_hero, kicker="Duurzaamheid") + elektronisch + magtec_intro + cijfers + galerij + veilig + specs

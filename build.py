@@ -112,7 +112,7 @@ PRIJZEN = {
 }
 REKENVOORBEELDEN = []                                                # optioneel; leeg = blok weglaten
 INVENTARISATIE_GRATIS = True                                         # INPUT §B5 aanname
-PRIJS_DISCLAIMER = "Richtprijs, definitieve prijs na inventarisatie."
+PRIJS_DISCLAIMER = "Richtprijs, definitieve prijs na de Deurenscan."
 BTW_TEKST = "excl. btw"
 
 def prijs(sleutel, eenheid=True):
@@ -168,7 +168,7 @@ SECTOREN_LIJST = [
      "Toegang per boeking op huisjes en sanitairgebouwen, de slagboom of poort aan een lezer, beheer vanuit de receptie."),
     ("anders", "Anders",
      "Staat uw sector er niet bij, zoals een kerk, museum, laboratorium, datacenter of een pand dat nergens in past: dan kijken wij per pand wat er nodig is. Elk gebouw heeft deuren, gebruikers en sleutels die kwijtraken.",
-     "Dat bepalen wij samen bij de inventarisatie op locatie: van één elektronische cilinder tot een compleet systeem, op de deuren die er al zitten."),
+     "Dat bepalen wij samen bij de Deurenscan op locatie: van één elektronische cilinder tot een compleet systeem, op de deuren die er al zitten."),
 ]
 CERTIFICATEN = "officieel partner van EVVA, ASSA ABLOY en ABUS; monteurs PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen); getraind door EVVA en door GU voor deurdrangers en deurautomaten"   # INPUT §B9 (Lars, 20/21-09-2026)
 PKVW = "Onze monteurs zijn PKVW-gecertificeerd (Politiekeurmerk Veilig Wonen) en gespecialiseerd in het vernieuwen van oudere panden met toegangscontrole, zonder de bestaande deuren te vervangen."
@@ -585,7 +585,7 @@ def youtube(video_id, titel, ondertitel=""):
     logo = f'<span class="yt__logo"><img src="{_ASSETS["logo"]}" alt="{esc(NAAM)}" width="2053" height="647" loading="lazy"></span>'
     watermerk = f'<img class="yt__watermerk" src="{_ASSETS["icoon"]}" alt="" aria-hidden="true" width="495" height="647" loading="lazy">'
     eind = (f'<div class="yt__eind" hidden>{watermerk}{logo}<p class="yt__eindtitel">EVVA Xesar in uw pand?</p>'
-            f'<p class="yt__eindtekst">Wij plaatsen Xesar op uw bestaande deuren, van inventarisatie tot beheer.</p>'
+            f'<p class="yt__eindtekst">Wij plaatsen Xesar op uw bestaande deuren, van Deurenscan tot beheer.</p>'
             f'<p class="yt__eindknoppen">{cta_knop("Plan de Deurenscan", "#aanvraag", "video-eind")}'
             f'<button type="button" class="knop knop--tweede yt__opnieuw">Opnieuw bekijken</button></p></div>')
     lokaal = xesar_lokaal()
@@ -1025,7 +1025,7 @@ def formulier(kort=False, kop="Plan de gratis Deurenscan", intro=None, standaard
                  f'<button type="button" class="fkeuze__knop{" aan" if bericht else ""}" data-fmodus="bericht" aria-pressed="{str(bericht).lower()}">Stuur een bericht</button></div>'
                  f'<p class="breed fkeuze__uitleg" data-fuitleg data-uitleg-inv="{esc(UITLEG_INV)}" data-uitleg-bericht="{esc(UITLEG_BERICHT)}" aria-live="polite">{esc(UITLEG_BERICHT if bericht else UITLEG_INV)}</p>') if keuze else ""
     velden = f'''<form class="formulier{" formulier--vraag" if bericht else ""}" method="post" action="https://api.web3forms.com/submit" data-aanvraag novalidate>
-{keuzebalk}<input type="hidden" name="onderwerp" value="{"Bericht of vraag" if bericht else "Inventarisatie"}">
+{keuzebalk}<input type="hidden" name="onderwerp" value="{"Bericht of vraag" if bericht else "Deurenscan"}">
 <div class="veld"><label for="f-naam">Naam</label><input id="f-naam" name="naam" type="text" autocomplete="name" required><span class="melding" aria-live="polite"></span></div>
 <div class="veld"><label for="f-bedrijf">Bedrijf of organisatie</label><input id="f-bedrijf" name="bedrijf" type="text" autocomplete="organization"></div>
 <div class="veld"><label for="f-email">E-mailadres</label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"><span class="melding" aria-live="polite"></span></div>
@@ -1051,7 +1051,7 @@ def adviseurblok():
         f'<p class="naam">{esc(a["naam"])}</p><p class="functie">{esc(a["functie"].capitalize())}</p></div>' for a in ADVISEURS)
     a = ADVISEUR
     feiten = [f"Reactie binnen {esc(REACTIE_AANVRAAG)}",
-              "Inventarisatie op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
+              "Deurenscan op locatie" + (", zonder kosten" if INVENTARISATIE_GRATIS else ""),
               PARTNER_TEKST[0].upper() + PARTNER_TEKST[1:],
               f"Twents familiebedrijf sinds {esc(MOEDER_SINDS)}"]
     return f'''<div class="adviseur"><div class="adviseur__personen">{personen}</div>
@@ -1202,7 +1202,7 @@ def sitemap_robots_llms():
 - E-mail: {MAIL}
 - Adres: {STRAAT}, {POSTCODE} {PLAATS}
 - Bereikbaar: {OPENING_TEKST}
-- Bezoek aan de vestiging: {BEZOEKADRES}; inventarisatie altijd op locatie bij de klant
+- Bezoek aan de vestiging: {BEZOEKADRES}; Deurenscan altijd op locatie bij de klant
 """
     (DIST / "llms.txt").write_text(llms, encoding="utf-8")
     _LASTMOD_PAD.write_text(json.dumps(_LASTMOD, indent=1, ensure_ascii=False), encoding="utf-8")

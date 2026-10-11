@@ -15,7 +15,7 @@ def bouw():
 <p class="laatst">Laatst bijgewerkt: {esc(datum_nl(VANDAAG))}</p></div></div></div></section>
 <section><div class="wrap"><div class="rooster"><div class="k8">
 <h2>Aanvraagformulier</h2>
-<p>In het formulier vult u naam, bedrijf, e-mailadres, telefoonnummer, plaats, type pand, aantal deuren, huidige situatie en een toelichting in. Verplicht zijn alleen uw naam, plaats en een telefoonnummer of e-mailadres. Wij gebruiken deze gegevens om uw aanvraag te beantwoorden en een inventarisatie in te plannen. Grondslag: uitvoering van de overeenkomst of de stappen daarvoor op uw verzoek.</p>
+<p>In het formulier vult u naam, bedrijf, e-mailadres, telefoonnummer, plaats, type pand, aantal deuren, huidige situatie en een toelichting in. Verplicht zijn alleen uw naam, plaats en een telefoonnummer of e-mailadres. Wij gebruiken deze gegevens om uw aanvraag te beantwoorden en de Deurenscan in te plannen. Grondslag: uitvoering van de overeenkomst of de stappen daarvoor op uw verzoek.</p>
 <p>Het formulier wordt verstuurd via Web3Forms (Web3Forms, verwerker), dat het bericht doorstuurt naar onze mailbox {esc(FORM_MAILBOX)}. Web3Forms bewaart de inzending kort voor de bezorging. Wij bewaren uw aanvraag zolang nodig voor de afhandeling en daarna maximaal twee jaar voor eventuele vervolgvragen, tenzij er een overeenkomst uit voortkomt; dan gelden de bewaartermijnen van onze administratie.</p>
 <h2>Cookies en meting</h2>
 {meting}

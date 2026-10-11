@@ -5,7 +5,7 @@ from build import *
 def bouw():
     titel = "Toegangscontrole in Oost-Nederland | Westendorp"   # beide regio's (Lars, 27-09-2026)
     omschrijving = ("EVVA Xesar op bestaande deuren in Twente en Oost-Nederland. "
-                    "Familiebedrijf sinds 1985. Gratis inventarisatie, storingsdienst dag en nacht.")
+                    "Familiebedrijf sinds 1985. Gratis Deurenscan, storingsdienst dag en nacht.")
 
     # ---- hero: eigen foto als die er is, anders de isometrische scène ----
     # foto van Lars (23-09-2026); "Slotenspecialist" op de bus mag volgens check.py alleen op /over-ons/ genoemd worden, dus niet in de alt
@@ -69,7 +69,7 @@ def bouw():
 
     # ---- hoe het werkt ----
     hoe = sectie("Toegangscontrole laten plaatsen in 4 stappen", stappen([
-        ("Inventarisatie op locatie", f"Wij lopen alle deuren met u langs: deurtype, beslag, wie er doorheen moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else ''}, na uw aanvraag binnen {esc(REACTIE_AANVRAAG)} gepland."),
+        ("Deurenscan op locatie", f"Wij lopen alle deuren met u langs: deurtype, beslag, wie er doorheen moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else ''}, na uw aanvraag binnen {esc(REACTIE_AANVRAAG)} gepland."),
         ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, {esc(OFFERTE_BINNEN)}. Geen verrassingen achteraf."),
         ("Installatie", "Eigen monteurs, houten deuren frezen wij zelf in. De planning spreken wij per project met u af."),
         ("Beheer en service", f"U beheert pasjes en rechten zelf, of wij doen het voor u. Bij een storing zijn wij er {esc(REACTIE_STORING)}."),
@@ -112,7 +112,7 @@ def bouw():
     faq = [
         ("Wat kost toegangscontrole per deur?",
          f"Een elektronisch slot (smart lock) kost geplaatst {prijs('slot')}, {BTW_TEKST}. De uiteindelijke prijs hangt af van het merk, het deurtype en of de deur online of offline moet werken. "
-         f"De inventarisatie op locatie is gratis. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
+         f"De Deurenscan op locatie is gratis. Alle vanaf-prijzen staan op <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Kan toegangscontrole op bestaande deuren?",
          "Ja. Op de meeste deuren komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; de deur en het kozijn blijven. "
          "Houten deuren die een uitsparing nodig hebben, frezen wij in onze eigen werkplaats in. Meer op <a href=\"/elektronische-sloten/\">elektronische sloten</a>."),

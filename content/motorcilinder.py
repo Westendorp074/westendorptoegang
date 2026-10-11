@@ -52,7 +52,7 @@ def bouw():
         ("Wat gebeurt er bij een lege batterij of stroomuitval?", "De EMZY werkt op batterijen en meldt ruim van tevoren dat ze op raken. Is de batterij toch leeg, dan opent u met een noodvoeding tegen de cilinder of met de mechanische noodsleutel. Aan de binnenzijde blijft de deur altijd met de hand te openen."),
         ("Kan de deur op een vast tijdstip op slot?", "Ja. U stelt in de software een tijdschema in: bijvoorbeeld open van 08:00 tot 17:30 voor iedereen met pas, daarbuiten alleen voor beheerders. De motor sluit op het ingestelde tijdstip zelf af."),
         ("Is een motorcilinder toegestaan op een vluchtdeur?", "Ja, mits de vluchtrichting vrij blijft: aan de binnenzijde opent de deur altijd met de kruk of panieksluiting, ongeacht de stand van de motor. Wij stemmen dit af op de vluchtroute in uw pand."),
-        ("Past een motorcilinder in mijn bestaande slot?", "Meestal wel. De EMZY vervangt de cilinder in het bestaande slot; de deur en de meerpuntssluiting blijven. Bij een afwijkende cilindermaat of een oud slot bekijken wij het tijdens de inventarisatie."),
+        ("Past een motorcilinder in mijn bestaande slot?", "Meestal wel. De EMZY vervangt de cilinder in het bestaande slot; de deur en de meerpuntssluiting blijven. Bij een afwijkende cilindermaat of een oud slot bekijken wij het tijdens de Deurenscan."),
         ("Hoe verhoudt de EMZY zich tot een elektrische sluitplaat?", "Een elektrische sluitplaat geeft de dagschoot vrij en heeft een kabel nodig; de deur is dan alleen in de dag. De motorcilinder sluit de nachtschoot en werkt op batterijen. Voor een buitendeur die echt op slot moet, is de motorcilinder de betere keuze."),
     ]
 

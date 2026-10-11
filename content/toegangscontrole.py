@@ -5,7 +5,7 @@ PAD = "/toegangscontrole/"
 
 def bouw():
     titel = "Toegangscontrolesysteem voor uw pand"
-    omschrijving = ("Wat een toegangscontrolesysteem is, wanneer het loont, offline of online, en hoe Westendorp het aanpakt van inventarisatie tot beheer.")
+    omschrijving = ("Wat een toegangscontrolesysteem is, wanneer het loont, offline of online, en hoe Westendorp het aanpakt van Deurenscan tot beheer.")
     intro = ("Een toegangscontrolesysteem vervangt de sleutel door een pas, tag of telefoon en legt per deur vast wie er "
              "wanneer in mag. Raakt iemand zijn pas kwijt, dan blokkeert u die in de software; de deur en het slot blijven zoals ze zijn.")
     foto = beeld("toegangscontrole-lezer.jpg", "Wandlezer naast een kantoordeur", bron="EVVA")
@@ -20,7 +20,7 @@ def bouw():
             "In de software geeft u per persoon aan welke deuren open mogen en wanneer; een nieuwe pas is in een minuut uitgegeven en een kwijtgeraakte net zo snel geblokkeerd.",
             "De passen die rondgaan nemen wijzigingen en blokkeringen mee van deur naar deur — het virtuele netwerk. Zo blijven ook deuren zonder vaste verbinding actueel, "
             "en ziet u in één scherm de batterijstatus van elk slot, wie er is geweigerd en of alles veilig staat. "
-            "Hoe dit er in de praktijk uitziet, bespreken wij bij de <a href=\"#aanvraag\">inventarisatie</a>.")
+            "Hoe dit er in de praktijk uitziet, bespreken wij bij de <a href=\"#aanvraag\">Deurenscan</a>.")
         + "</div></div>", wit=True)
 
     wanneer = sectie("Wanneer loont toegangscontrole", p(
@@ -58,18 +58,18 @@ def bouw():
     deuren = sectie("Wat gebeurt er met onze bestaande deuren", p(
         "In de meeste gevallen niets ingrijpends. Op een binnendeur komt elektronisch beslag of een elektronische cilinder in plaats van het huidige slot; "
         "de deur, het kozijn en de scharnieren blijven. Op een buitendeur of vluchtdeur plaatsen wij een motorcilinder of een wandlezer met elektrische sluitplaat.",
-        "Houten deuren die een uitsparing nodig hebben voor beslag frezen wij zelf in, in eigen beheer. Stalen, aluminium en glazen deuren beoordelen wij tijdens de inventarisatie; "
+        "Houten deuren die een uitsparing nodig hebben voor beslag frezen wij zelf in, in eigen beheer. Stalen, aluminium en glazen deuren beoordelen wij tijdens de Deurenscan; "
         "daar hangt de oplossing af van het profiel en het bestaande slot. Meer over de soorten op <a href=\"/elektronische-sloten/\">elektronische sloten</a>."))
 
     aanpak = sectie("Hoe wij het aanpakken", stappen([
-        ("Inventarisatie op locatie", f"<a href=\"/over-ons/\">Nick of Lars</a> loopt alle deuren met u langs en legt per deur vast: type, beslag, wie erdoor moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else 'Tegen een vaste prijs'}; wij reageren binnen {esc(REACTIE_AANVRAAG)} op uw aanvraag."),
+        ("Deurenscan op locatie", f"<a href=\"/over-ons/\">Nick of Lars</a> loopt alle deuren met u langs en legt per deur vast: type, beslag, wie erdoor moet en wanneer. {'Zonder kosten' if INVENTARISATIE_GRATIS else 'Tegen een vaste prijs'}; wij reageren binnen {esc(REACTIE_AANVRAAG)} op uw aanvraag."),
         ("Advies met offerte", f"Eén voorstel met systeem, aantal deuren en prijs per deur, {esc(OFFERTE_BINNEN)}. Richtprijzen staan op de pagina <a href=\"/kosten/\">wat kost toegangscontrole</a>."),
         ("Installatie", "Eigen monteurs, mechanisch en elektronisch uit één hand. De planning en doorlooptijd spreken wij per project met u af; voorbeelden staan bij <a href=\"/projecten/\">uitgevoerde projecten</a>."),
         ("Beheer en service", f"Wij zetten het systeem in bedrijf en leren u het beheer, of wij beheren het voor u. Daarna: <a href=\"/service-en-beheer/\">service en beheer</a>."),
     ]), wit=True)
 
     sectoren = sectie("Toegangscontrole per sector",
-        p("Per sector verschillen de deuren, de gebruikers en de regels. Dit is wat wij per sector tegenkomen en wat daar past; de inventarisatie op locatie bepaalt de uiteindelijke keuze.")
+        p("Per sector verschillen de deuren, de gebruikers en de regels. Dit is wat wij per sector tegenkomen en wat daar past; de Deurenscan op locatie bepaalt de uiteindelijke keuze.")
         + '<div class="kolommen kolommen--4">' + "".join(
             f'<div class="projectkaart" id="sector-{s}"><figure>{iso_bestand(s)}</figure><h3>{esc(k)}</h3><p><strong>Voor:</strong> {t.split(":")[0].lower()}.</p><p><strong>Wat past:</strong> {w}</p><p class="acties acties--kaart">{cta_knop("Plan de Deurenscan", "#aanvraag", f"sector-{s}")}</p></div>'
             for s, k, t, w in SECTOREN_LIJST) + "</div>", kop_id="sectoren", kicker="Sectoren")

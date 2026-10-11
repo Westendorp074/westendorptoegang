@@ -42,7 +42,7 @@ def bouw():
         f"<li><h3>{esc(k)}</h3><p>{esc(t)}</p></li>" for k, t in [
             ("Vakwerk boven alles", "Wij zijn toegangsspecialisten omdat we het vak liefhebben. Ook als een klus snel moet, frezen, stellen en testen wij zorgvuldig; de deur moet het over tien jaar nog doen."),
             ("Eerlijk over kosten", "U vindt bij ons vanaf-prijzen gewoon op de site en u hoort vooraf wat een project ongeveer kost. Verrassingen achteraf passen niet bij hoe wij werken."),
-            ("Eén aanspreekpunt", "Wie de inventarisatie doet, kent de deuren die de monteur later aantreft. U belt met Nick of Lars, niet met een servicedesk."),
+            ("Eén aanspreekpunt", "Wie de Deurenscan doet, kent de deuren die de monteur later aantreft. U belt met Nick of Lars, niet met een servicedesk."),
             ("Twents en dichtbij", "Wij zijn opgegroeid in Twente en werken voor organisaties in Oost-Nederland. Bij een storing zijn wij er binnen 4 tot 12 uur, dag en nacht, 365 dagen per jaar."),
         ]) + "</ol>", kicker="Wat wij belangrijk vinden")
 
@@ -85,7 +85,7 @@ def bouw():
                 klas="vol")
     breed = ('<div class="kolommen" style="margin-top:22px"><div><div class="rooster"><div class="k6"><h3>Onze monteurs en werkplaats</h3>'
         + p("Eigen, PKVW-gecertificeerde monteurs doen zowel het mechanische als het elektronische deel, met ervaring in oudere panden. "
-            "Geen onderaannemers: wie de inventarisatie doet, kent de deuren die de monteur later aantreft.",
+            "Geen onderaannemers: wie de Deurenscan doet, kent de deuren die de monteur later aantreft.",
             f"Elektronisch beslag heeft in een houten deur vaak een uitsparing nodig die er niet is. Die frezen wij zelf in, in onze werkplaatsen in {esc(WERKPLAATS)}, "
             "zodat de deur niet vervangen hoeft te worden en er geen deurenfabrikant tussen zit. Eén partij voor deur, beslag en elektronica.")
         + f'</div><div class="k6">{bus}</div></div></div></div>')
@@ -94,7 +94,7 @@ def bouw():
     faq = [
         ("Zijn jullie een installateur of een leverancier?", "Beide. Wij leveren de onderdelen en installeren ze met eigen monteurs. Wij verkopen geen losse onderdelen zonder installatie."),
         ("Voor welke bedrijven werken jullie?", "Alle bedrijven en instellingen die de toegang tot hun pand willen regelen: kantoren, zorg, onderwijs, VvE's, verenigingen, recreatieparken, industrie en overheid. Zie de <a href=\"/\">homepage</a> voor de situaties die wij het meest tegenkomen."),
-        ("Kan ik langskomen om een systeem te bekijken?", "Wij komen naar u toe. Bij de inventarisatie op locatie nemen wij demonstratiemateriaal mee, zodat u beslag en cilinder in handen heeft op de deur waar het om gaat."),
+        ("Kan ik langskomen om een systeem te bekijken?", "Wij komen naar u toe. Bij de Deurenscan op locatie nemen wij demonstratiemateriaal mee, zodat u beslag en cilinder in handen heeft op de deur waar het om gaat."),
         ("Wat is de relatie met Westendorp Slotenspecialist?", f"Beide zijn onderdeel van {esc(RECHTSPERSOON)}. Westendorp Slotenspecialist bedient particulieren vanuit de winkels; {esc(NAAM)} bedient bedrijven en instellingen, op locatie."),
     ]
 

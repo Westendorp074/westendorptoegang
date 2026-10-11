@@ -7,7 +7,7 @@ def bouw():
     titel = "Werkgebied: Twente en Oost-Nederland"
     omschrijving = ("Westendorp Toegangscontrole werkt vanuit Enschede tot ruim een uur rijden: heel Oost-Nederland, van Twente tot Veluwe en Vechtdal.")
     intro = ("Wij werken vanuit Enschede en rijden tot ruim een uur: heel Oost-Nederland, van Twente en Salland tot de Achterhoek, de Veluwe en het Vechtdal. "
-             "Inventarisatie, installatie en service gebeuren altijd op locatie bij u; u hoeft nergens heen.")
+             "Deurenscan, installatie en service gebeuren altijd op locatie bij u; u hoeft nergens heen.")
 
     regios = {}
     for naam, regio, rijtijd, pad in WERKGEBIED:
@@ -21,7 +21,7 @@ def bouw():
         p("Staat uw plaats er niet bij? Tot ruim een uur rijden vanuit Enschede komen wij overal; daarbuiten in overleg.") + '</div><div class="k5">' + kaart_svg() + "</div></div>")
 
     hoe = sectie("Hoe wij op locatie werken", p(
-        "De inventarisatie doen wij bij u in het pand: elke deur bekijken, meten en vastleggen. De installatie gebeurt met eigen monteurs vanuit Enschede; "
+        "De Deurenscan doen wij bij u in het pand: elke deur bekijken, meten en vastleggen. De installatie gebeurt met eigen monteurs vanuit Enschede; "
         "houten deuren die ingefreesd moeten worden, halen wij op of frezen wij ter plekke, afhankelijk van de deur. "
         f"Storingen: {esc(REACTIE_STORING)}, in het hele werkgebied."), wit=True)
 

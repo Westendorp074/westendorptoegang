@@ -77,7 +77,7 @@ def _art_skg():
         "Binnendeuren zonder verzekeringseis: een lagere klasse volstaat vaak; het sluitplan bepaalt wie erdoor mag, niet de ster.",
         "Elektronisch beslag en elektronische cilinders hebben eigen certificeringen; de mechanische cilinder in de deur blijft daarnaast bepalend voor de inbraakwerendheid.",
         "Een voorbeeld van een cilinder met SKG*** en het hoogste EN 1303-niveau op alle categorieën is <a href=\"/duurzaamheid/#magtec\">ABUS Magtec</a>.",
-    ]) + p("Wij adviseren per deur welke klasse nodig is bij de inventarisatie; zie <a href=\"/sluitplan/\">sluitplan</a>.") + acties()))
+    ]) + p("Wij adviseren per deur welke klasse nodig is bij de Deurenscan; zie <a href=\"/sluitplan/\">sluitplan</a>.") + acties()))
 
 def _art_batterij():
     return (hero("Batterijen in elektronische sloten: hoe lang gaan ze mee?",
@@ -102,7 +102,7 @@ def _art_cilinder_monteren():
         "Er wordt niet geboord of gefreesd, en de deur is binnen een kwartier weer in gebruik. De video's van EVVA hieronder laten de montage stap voor stap zien.", kicker="Kennisbank")
     + sectie("De montage in het kort", stappen([
         ("Oude cilinder eruit", "De stelschroef in de voorplaat van het slot wordt losgedraaid; met de sleutel in het slot draait de oude cilinder eruit."),
-        ("Elektronische cilinder erin", "De cilinder wordt op dezelfde manier geplaatst en met de stelschroef vastgezet. De juiste lengte is vooraf bepaald bij de inventarisatie."),
+        ("Elektronische cilinder erin", "De cilinder wordt op dezelfde manier geplaatst en met de stelschroef vastgezet. De juiste lengte is vooraf bepaald bij de Deurenscan."),
         ("Knop monteren en koppelen", "De leesknop wordt op de cilinder gezet en vergrendeld met het montagegereedschap, zodat hij niet zonder gereedschap te verwijderen is."),
         ("Aanmelden in de software", "De cilinder wordt in de beheersoftware aan de deur gekoppeld; daarna bepalen de passen wie er doorheen mag en wanneer."),
     ]))
@@ -135,7 +135,7 @@ def _art_beslag_monteren():
         "Wisselen van de deurkruk op EVVA Xesar elektronisch beslag", kop="Deurkruk wisselen") + p(
         "Het beslag is omkeerbaar: dezelfde set past op links- en rechtsdraaiende deuren door de kruk om te zetten. Zo blijft één reserve-exemplaar op voorraad genoeg voor alle deuren."))
     + sectie("Waar wij op letten", lijst([
-        "Doornmaat en krukhoogte van het bestaande slot bepalen welk beslag past; dat meten wij bij de inventarisatie.",
+        "Doornmaat en krukhoogte van het bestaande slot bepalen welk beslag past; dat meten wij bij de Deurenscan.",
         "Brandwerende deuren vragen beslag dat daarvoor is gecertificeerd; het certificaat van de deur mag niet vervallen.",
         "Bij houten deuren zonder doorgaande gaten boren wij die eenmalig op de mal; dat is de enige bewerking aan de deur.",
         "Na de montage testen wij elke deur met een pas, de noodopening en de batterijmelding.",
@@ -190,7 +190,7 @@ ARTIKELEN = [
     ("elektronisch-slot-cilinder-motorcilinder", "Elektronisch slot, cilinder of motorcilinder?",
      "Drie soorten elektronische sloten, en welke bij een binnendeur, buitendeur of vluchtdeur past.",
      "Het verschil tussen een elektronische cilinder, elektronisch beslag en een motorcilinder, en welke past bij binnendeur, buitendeur of vluchtdeur.", _art_slot_cilinder_motor, [
-        ("Kan elektronisch beslag op elke deur?", "Op de meeste houten, stalen en aluminium deuren wel, mits het slot een gangbare doornmaat en krukhoogte heeft. Glazen deuren en smalle profielen vragen een specifieke uitvoering; dat beoordelen wij bij de inventarisatie."),
+        ("Kan elektronisch beslag op elke deur?", "Op de meeste houten, stalen en aluminium deuren wel, mits het slot een gangbare doornmaat en krukhoogte heeft. Glazen deuren en smalle profielen vragen een specifieke uitvoering; dat beoordelen wij bij de Deurenscan."),
         ("Blijft de mechanische sleutel werken?", "Bij elektronisch beslag blijft de mechanische cilinder als noodopening zitten. Bij een elektronische cilinder vervangt de elektronische knop de sleutel; een noodvoeding tegen de lezer opent de deur bij een lege batterij."),
         ("Is een motorcilinder ook geschikt voor een binnendeur?", "Technisch wel, maar het is zelden nodig. Een motorcilinder is bedoeld voor deuren die echt vergrendeld moeten zijn en op afstand of automatisch moeten openen, zoals buitendeuren en vluchtdeuren."),
     ]),
@@ -206,7 +206,7 @@ ARTIKELEN = [
      "Wat SKG-sterren en de Europese norm EN 1303 zeggen over cilinders en beslag, wat verzekeraars vragen, en welke klasse past bij welke deur.", _art_skg, [
         ("Is SKG*** altijd nodig?", "Nee. Verzekeraars vragen de hogere klassen voor buitendeuren en ruimtes met waardevolle inhoud. Voor binnendeuren zonder verzekeringseis bepaalt het sluitplan de veiligheid, niet het aantal sterren."),
         ("Geldt SKG ook voor elektronische sloten?", "Elektronisch beslag en elektronische cilinders hebben eigen certificeringen. De mechanische cilinder die in de deur zit, blijft daarnaast bepalend voor de inbraakwerendheid; kies die dus op de juiste klasse."),
-        ("Wie bepaalt welke klasse mijn pand nodig heeft?", "Uw verzekeraar en uw eigen risicoanalyse. Wij vertalen dat bij de inventarisatie naar een klasse per deur."),
+        ("Wie bepaalt welke klasse mijn pand nodig heeft?", "Uw verzekeraar en uw eigen risicoanalyse. Wij vertalen dat bij de Deurenscan naar een klasse per deur."),
     ]),
     ("batterijen-elektronische-sloten", "Batterijen in elektronische sloten",
      "Waarom sloten op batterijen werken, wat de levensduur bepaalt en wat er gebeurt als een batterij leeg raakt.",
@@ -258,7 +258,7 @@ def bouw():
                  "Uitleg over toegangscontrole, elektronische sloten, sluitplannen en certificering, geschreven om een vraag te beantwoorden. "
                  "Geen datums, geen nieuws: wat hier staat blijft geldig. Staat uw vraag er niet bij, stel hem via het formulier of bel ons.", kicker="Kennisbank")
             + sectie("Artikelen", f'<div class="kolommen kolommen--2">{kaarten}</div>')
-            + sectie("Liever direct advies", p("De artikelen leggen uit hoe het werkt; wat er in uw pand past, bepalen wij samen bij de inventarisatie op locatie. "
+            + sectie("Liever direct advies", p("De artikelen leggen uit hoe het werkt; wat er in uw pand past, bepalen wij samen bij de Deurenscan op locatie. "
                                                 "Zie <a href=\"/toegangscontrole/\">toegangscontrole</a> voor onze aanpak.") + acties(), wit=True))
     schrijf(PAD, "Kennisbank toegangscontrole", "Uitleg over toegangscontrole, elektronische sloten, sluitplannen, SKG en batterijen: artikelen die een vraag beantwoorden en geldig blijven.",
             body, kruimelpad=[("Home", "/"), ("Kennisbank", PAD)], paginatype="WebPage",

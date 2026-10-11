@@ -30,7 +30,7 @@ def bouw():
         ("Houten buitendeur", "Motorcilinder of elektronische cilinder", "Meerpuntssluiting: motorcilinder, zodat alle punten sluiten."),
         ("Stalen deur", "Elektronische cilinder of wandlezer met sluitplaat", "Beslag afhankelijk van het slot in de deur."),
         ("Aluminium of kunststof profieldeur", "Elektronische cilinder, motorcilinder of wandlezer", "Smal profiel: cilinder past vrijwel altijd."),
-        ("Glazen deur", "Wandlezer met elektrische sluitplaat of speciaal glasbeslag", "Bepalen wij per deur tijdens de inventarisatie."),
+        ("Glazen deur", "Wandlezer met elektrische sluitplaat of speciaal glasbeslag", "Bepalen wij per deur tijdens de Deurenscan."),
         ("Brandwerende deur", "Gecertificeerd beslag of cilinder", "Alleen onderdelen met een toelating voor die deur; de deurdranger blijft."),
     ], kop=["Deur", "Meestal", "Let op"], bijschrift="Welk elektronisch slot past op welke deur")
         + p("Twijfelt u over een deur? Stuur een foto mee in het formulier onderaan, dan zeggen wij vooraf wat erop past."), wit=True)

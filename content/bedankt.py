@@ -5,7 +5,7 @@ PAD = "/bedankt/"
 
 def bouw():
     titel = "Bedankt voor uw aanvraag"
-    omschrijving = ("Uw aanvraag is ontvangen. U krijgt een bevestiging per e-mail en de adviseur belt u om de inventarisatie op locatie in te plannen.")
+    omschrijving = ("Uw aanvraag is ontvangen. U krijgt een bevestiging per e-mail en de adviseur belt u om de Deurenscan op locatie in te plannen.")
     body = f'''<section class="hero"><div class="wrap"><div class="rooster"><div class="k8">
 <h1>Bedankt, uw aanvraag is ontvangen</h1>
 <div class="bevestigd"><p class="intro">{esc(BEDANKT_TEKST)}</p></div>
